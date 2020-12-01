@@ -37,9 +37,9 @@
 </template>
 
 <script>
-  import Items from "./Items.vue";
-  import Browse from "./Browse.vue";
-  import Search from "./Search.vue";
+  import Items from "./views/Items.vue";
+  import Browse from "./views/Browse.vue";
+  import Search from "./views/Search.vue";
 
   export default {
     components: {

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import ItemDetails from "./ItemDetails";
+  import ItemDetails from "../ItemDetails";
 
   export default {
     data() {
@@ -107,7 +107,7 @@
 
 <style scoped lang="scss">
     // Start custom common variables
-    @import "~@nativescript/theme/scss/variables/blue";
+    @import "../../../node_modules/@nativescript/theme/scss/variables/blue";
     // End custom common variables
 
     // Custom styles
