@@ -57,32 +57,31 @@ public class RequestHandler {
         return URL;
     }
 
-    private static HashMap<String, Object> getResponse(HttpURLConnection connection) {
-        StringBuilder response = new StringBuilder();
+    // Read JSON response from API into HashMap
+    private static HashMap<String, Object> getResponse(HttpURLConnection connection) throws IOException {
         try {
-            InputStream responseStream = connection.getInputStream();
-            InputStreamReader inReader = new InputStreamReader(responseStream);
-            BufferedReader reader = new BufferedReader(inReader);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-            return JSONtoMap(response.toString());
+            return readResponse(connection.getInputStream());
         } catch (IOException e) {
-            // TODO - Only for debugging
-            System.err.println(e.getMessage());
-            for (StackTraceElement message : e.getStackTrace()) {
-                System.err.println(message);
-            }
+            return readResponse(connection.getErrorStream());
         }
-        return null;
     }
 
+    // Read JSON response from API whether its from the input stream or error stream
+    private static HashMap<String, Object> readResponse(InputStream responseStream) throws IOException {
+        StringBuilder response = new StringBuilder();
+        InputStreamReader inReader = new InputStreamReader(responseStream);
+        BufferedReader reader = new BufferedReader(inReader);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+        return JSONtoMap(response.toString());
+    }
+
+    // Convert Map to JSON
     private static HashMap<String, Object> JSONtoMap(String source) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-
-        //Convert Map to JSON
         return mapper.readValue(source, new TypeReference<HashMap<String, Object>>() {
         });
     }

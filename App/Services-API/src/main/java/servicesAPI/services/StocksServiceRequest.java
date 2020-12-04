@@ -10,8 +10,18 @@ public class StocksServiceRequest extends ServiceRequest {
     }
 
     // TODO - Implement
-    public String parseOutput(HashMap<String, Object> response) {
+    protected String parseOutput(HashMap<String, Object> response) {
         return response.toString();
+    }
+
+    // TODO - Implement
+    protected String handleErrors(HashMap<String, Object> response) {
+        return null;
+    }
+
+    // TODO - Implement
+    protected String getErrorCode(HashMap<String, Object> response) {
+        return null;
     }
 
     protected HashMap<String, String> populatePayload() {

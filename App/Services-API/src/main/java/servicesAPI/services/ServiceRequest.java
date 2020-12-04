@@ -10,7 +10,7 @@ public abstract class ServiceRequest {
     private final String name;
     private final String category;
     protected final String APIKey;
-    private final HashMap<String, String> payload;
+    protected final HashMap<String, String> payload;
 
     public ServiceRequest(String URL, String name, String category, String APIKey,
                           HashMap<String, String> payload) {
@@ -42,11 +42,30 @@ public abstract class ServiceRequest {
     }
 
     // Defines how each service interprets its output from the API
-    public abstract String parseOutput(HashMap<String, Object> response);
+    protected abstract String parseOutput(HashMap<String, Object> response);
+
+    // Wrapper to generalise error handling for a service
+    public String parseResponse(HashMap<String, Object> response) {
+        /* If a NullPointerException occurs, it means the parser could find
+        the requested attribute in the JSON response - this occurs when
+        the response is malformed or a HTTP error response is returned
+         */
+        try {
+            return parseOutput(response);
+        } catch (NullPointerException e) {
+            return handleErrors(response);
+        }
+    }
 
     protected String replaceParameter(String output, String param, HashMap<String, Object> map) {
         return output.replace("{" + param + "}", map.get(param).toString());
     }
+
+    // Defines how each service interprets error messages from the API
+    protected abstract String handleErrors(HashMap<String, Object> response);
+
+    // Each service API will have a different way of representing HTTP error codes
+    protected abstract String getErrorCode(HashMap<String, Object> response);
 
     // Insert default data into the payload if not given to avoid malformed requests
     protected abstract HashMap<String, String> populatePayload();
