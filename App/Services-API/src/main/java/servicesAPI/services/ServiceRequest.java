@@ -46,10 +46,9 @@ public abstract class ServiceRequest {
 
     // Wrapper to generalise error handling for a service
     public String parseResponse(HashMap<String, Object> response) {
-        /* If a NullPointerException occurs, it means the parser could find
+        /* If a NullPointerException occurs, it means the parser could not find
         the requested attribute in the JSON response - this occurs when
-        the response is malformed or a HTTP error response is returned
-         */
+        the response is malformed or a HTTP error response is returned */
         try {
             return parseOutput(response);
         } catch (NullPointerException e) {

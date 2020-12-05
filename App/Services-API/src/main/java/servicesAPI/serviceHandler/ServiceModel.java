@@ -1,5 +1,6 @@
 package servicesAPI.serviceHandler;
 
+import servicesAPI.services.JokeServiceRequest;
 import servicesAPI.services.ServiceRequest;
 import servicesAPI.services.StocksServiceRequest;
 import servicesAPI.services.WeatherServiceRequest;
@@ -39,6 +40,8 @@ public class ServiceModel implements ServiceHandler {
                     return new WeatherServiceRequest(data);
                 case "stocks":
                     return new StocksServiceRequest(data);
+                case "joke":
+                    return new JokeServiceRequest(data);
                 default:
                     return null;
             }
