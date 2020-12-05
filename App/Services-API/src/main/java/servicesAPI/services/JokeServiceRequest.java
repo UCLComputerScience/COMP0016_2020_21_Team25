@@ -37,7 +37,7 @@ public class JokeServiceRequest extends ServiceRequest  {
                     return "The requested action could not be performed, the joke service experienced an unknown error. " +
                             "Please try again.";
                 case "523":
-                    return "The requested action could not be performed, the weather service may be down or experiencing issues. " +
+                    return "The requested action could not be performed, the joke service may be down or experiencing issues. " +
                             "Please try again in a little while.";
             }
         }

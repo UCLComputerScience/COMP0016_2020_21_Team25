@@ -64,7 +64,7 @@ The service interaction is highly extensible. A service must extend the abstract
 Note that the concrete service class must only take one parameter - the `payload`. The concrete constructor must be of the form:
 
 ```
-public NewServiceRequest(HashMap<String, String> requestData) {
+public NewServiceRequest(HashMap<String, String> payload) {
     super("URL_HERE", "NAME_HERE", "CATEGORY_HERE", "API_Key_HERE", payload);
 }
 ```
