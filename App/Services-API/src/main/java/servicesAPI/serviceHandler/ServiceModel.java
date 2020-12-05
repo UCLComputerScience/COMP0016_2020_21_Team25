@@ -1,5 +1,6 @@
 package servicesAPI.serviceHandler;
 
+import servicesAPI.services.JokeServiceRequest;
 import servicesAPI.services.ServiceRequest;
 import servicesAPI.services.StocksServiceRequest;
 import servicesAPI.services.WeatherServiceRequest;
@@ -13,12 +14,14 @@ public class ServiceModel implements ServiceHandler {
         ServiceRequest serviceRequest = ServiceMapper.getServiceRequestByName(serviceName, data);
         if (serviceRequest != null) {
             HashMap<String, Object> response = RequestHandler.makeRequest(serviceRequest.getURL(), serviceRequest.getPayload());
-            return serviceRequest.parseOutput(response);
+            if (response != null) {
+                return serviceRequest.parseResponse(response);
+            }
         }
         return null;
     }
 
-    // Perform request without formatting output
+    // Perform request without formatting output into a string
     public HashMap<String, Object> testRequest(String serviceName,
                                                HashMap<String, String> data) {
         ServiceRequest serviceRequest = ServiceMapper.getServiceRequestByName(serviceName, data);
@@ -37,6 +40,8 @@ public class ServiceModel implements ServiceHandler {
                     return new WeatherServiceRequest(data);
                 case "stocks":
                     return new StocksServiceRequest(data);
+                case "joke":
+                    return new JokeServiceRequest(data);
                 default:
                     return null;
             }
