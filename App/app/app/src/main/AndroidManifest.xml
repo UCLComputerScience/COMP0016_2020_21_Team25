@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fisev2concierge">
+    package="com.example.fisev2concierge" >
 
     <application
         android:allowBackup="true"
@@ -8,10 +8,34 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FISEV2Concierge">
+        android:theme="@style/Theme.FISEV2Concierge" >
+        <activity
+            android:name=".HistoryView"
+            android:label="@string/history" >
+        </activity>
+        <activity
+            android:name=".RemindersView"
+            android:label="@string/reminders" >
+        </activity>
+        <activity
+            android:name=".AlarmsView"
+            android:label="@string/alarms" >
+        </activity>
+        <activity
+            android:name=".TimersView"
+            android:label="@string/timers" >
+        </activity>
+        <activity
+            android:name=".HelpView"
+            android:label="@string/help" >
+        </activity>
+<!--        <activity-->
+<!--            android:name=".Activity"-->
+<!--            android:label="@string/title_activity_" >-->
+<!--        </activity>-->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
