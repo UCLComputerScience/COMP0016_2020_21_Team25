@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="assets/styles/navbar.css">
+</head>
+<body>
+<div class="navbar" role="navigation">
+    <ul class="nav-items centred">
+        <li class="nav-item">
+            <a href="index.html">Intro</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="requirements.html">Requirements</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="hci.html">HCI</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="research.html">Research</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="design.html">Design</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="implementation.html">Implementation</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="testing.html">Testing</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="evaluation.html">Evaluation</a>
+        </li>
+    </ul>
+
+    <script>
+        for (let button of document.querySelectorAll(".nav-item a")) {
+            if (window.location.href.includes(button.href)) {
+                button.classList.add("active-item");
+            } else {
+                button.classList.remove("active-item");
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

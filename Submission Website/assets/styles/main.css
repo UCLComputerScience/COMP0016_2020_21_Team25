@@ -1,0 +1,145 @@
+:root {
+    --header: #002e43;
+    --text-color: #222;
+    --page-background: #f9f9f9;
+    --light-page: #edf3fd;
+    --blue: #2848d1;
+    --green: #30ce91;
+    --light-blue: #5783ff;
+    --light-green: #00FA9A;
+    --dark-blue: #3742fa;
+    --darker-blue: #001b4d;
+    --border-radius: 6px;
+    --nav-height: 64px;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+    font-family: "Avenir LT Std", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+    color: var(--header);
+    font-weight: 700;
+    letter-spacing: -.08em;
+    line-height: 95%;
+    display: inline-block;
+}
+
+h1 {
+    font-size: calc(3rem + 3vw);
+}
+
+h2 {
+    font-size: calc(1.5rem + 1.5vw);
+}
+
+h3 {
+    font-size: 21px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.page {
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    background: var(--page-background);
+    margin-top: var(--nav-height);
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #fff;
+    text-align: left;
+}
+
+.page-header p {
+    color: #d2d2d2;
+    font-size: 24px;
+}
+
+.separator {
+    width: 75%;
+    height: 1px;
+    background: rgba(0, 0, 0, .2);
+    margin: 32px auto;
+    box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.37);
+}
+
+section {
+    width: 100%;
+    padding: 64px;
+}
+
+.light-page-section {
+    background: var(--light-page);
+    width: 100%;
+    height: 100%;
+}
+
+section h2 {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.card {
+    border-radius: var(--border-radius);
+}
+
+.header-card {
+    width: 100%;
+    padding: calc(2 * var(--nav-height));
+    background: var(--dark-blue);
+    display: flex;
+}
+
+.header-card .image-container {
+    margin-left: calc(2 * var(--nav-height));
+    flex: 1;
+}
+
+.flat-button {
+    border-radius: var(--border-radius);
+    background: var(--darker-blue);
+    color: #fff;
+    padding: 16px 12px;
+    font-weight: 700;
+    text-align: center;
+    transition: 0.15s background-color cubic-bezier(.25, .8, .25, 1);
+    cursor: pointer;
+    font-size: 21px;
+    box-shadow: 0 0 6px -1px rgba(0, 0, 0, .33);
+}
+
+.flat-button:active, .flat-button:hover {
+    background: var(--light-blue);
+}
+
+.header-card .centred .flat-button {
+    flex: 1;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.centred, section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
