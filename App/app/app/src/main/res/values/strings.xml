@@ -3,4 +3,16 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="history">History</string>
+    <string name="reminders">Reminders</string>
+    <string name="alarms">Alarms</string>
+    <string name="timers">Timers</string>
+    <string name="help">Help</string>
+    <string name="fise_v2_concierge_made_by_calin_hadarean_ernest_nkansah_badu_and_mohammad_ali_syed">FISE v2 Concierge: Made by Calin Hadarean, Ernest Nkansah-Badu and Mohammad Ali Syed</string>
+    <string name="tap_to_start_concierge">Tap to start concierge</string>
+    <string name="concierge_is_listening">Concierge is listening</string>
+    <string name="ucl_logo_description">UCL Logo</string>
+    <string name="header_description">Header</string>
+    <string name="ibm_logo_description">IBM Logo</string>
+    <string name="start_concierge_icon_description">Tap to start concierge icon</string>
 </resources>
