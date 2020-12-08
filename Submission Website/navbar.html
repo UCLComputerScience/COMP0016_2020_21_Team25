@@ -40,12 +40,18 @@
     </ul>
 
     <script>
-        for (let button of document.querySelectorAll(".nav-item a")) {
+        let navButtons = document.querySelectorAll(".nav-item a");
+        let activated = true;
+        for (let button of navButtons) {
             if (window.location.href.includes(button.href)) {
                 button.classList.add("active-item");
+                activated = true;
             } else {
                 button.classList.remove("active-item");
             }
+        }
+        if (!activated) {
+            navButtons[0].classList.add("active-item");
         }
     </script>
 </div>
