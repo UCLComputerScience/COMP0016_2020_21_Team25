@@ -33,10 +33,6 @@ footer p {
     height: 48px;
 }
 
-.logo:not(:last-child) {
-    margin-bottom: 8px;
-}
-
 .links {
     display: flex;
     flex-direction: row;
@@ -44,7 +40,7 @@ footer p {
 }
 
 .link {
-    color: white;
+    color: #fff;
     border-radius: var(--border-radius);
     padding: 4px;
 }
@@ -56,6 +52,10 @@ footer p {
 .link .icon {
     font-size: 2em;
     color: inherit;
+}
+
+.link svg {
+    transform: scale(calc(32 / 24));
 }
 
 .link:hover, .logo:hover {

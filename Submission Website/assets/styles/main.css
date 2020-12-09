@@ -19,6 +19,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 *, *:before, *:after {
@@ -81,7 +82,8 @@ p {
 
 section {
     width: 100%;
-    padding: 64px;
+    padding: calc(2 * var(--nav-height));
+    flex-direction: column;
 }
 
 .light-page-section {
@@ -155,7 +157,7 @@ img {
     flex: 1;
 }
 
-.noselect {
+.noselect, .flat-button {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;

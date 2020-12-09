@@ -8,10 +8,9 @@
     <title>Team 25 - Gathering Requirements</title>
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/styles/requirements.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
-          rel="stylesheet">
+
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
@@ -28,21 +27,384 @@
     <div class="header-card">
         <div class="page-header">
             <h1>Gathering<br>Requirements</h1>
-            <p></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
-        <div class="image-container"></div>
+        <div class="image-container noselect">
+            <div class="client centred">
+                <img src="assets/images/mountains.webp" alt="John McNamara">
+                <h4>John McNamara</h4>
+                <p>IBM Master Inventor, Honorary Professor and IBM UK University Programs Lead</p>
+            </div>
+            <div class="client centred">
+                <img src="assets/images/mountains.webp" alt="Dean Mohammedally">
+                <h4>Dr Dean Mohammedally</h4>
+                <p>Associate Professor in Software Engineering and Industry Projects at UCL</p>
+            </div>
+        </div>
         <script>
             let title = document.querySelector(".page-header h1");
+            document.querySelector(".client h4");
+            let client2Title = document.querySelectorAll(".client h4")[1];
             let subtitle = document.querySelector(".page-header p");
-            const resize = function (subtitle) {
+            let client1Subtitle = document.querySelector(".client p");
+            let client2Subtitle = document.querySelectorAll(".client p")[1];
+            const resize = function (subtitle, subtitle1, subtitle2) {
                 subtitle.style.maxWidth = title.clientWidth.toString() + "px";
+                subtitle1.style.maxWidth = client2Title.clientWidth.toString() + "px";
+                subtitle2.style.maxWidth = client2Title.clientWidth.toString() + "px";
             }
             window.onresize = window.onload = () => {
-                resize(subtitle);
+                resize(subtitle, client1Subtitle, client2Subtitle);
             }
         </script>
     </div>
-    
+
+    <section class="project-background centred">
+        <h2>Project Background</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+            in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+            in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </section>
+
+    <section class="client-interview light-page-section centred">
+        <h2>Gathering Requirements</h2>
+        <p>Lorem ipsum dolor sit amet, consetetur adispscing elit</p>
+        <div class="interview-container centred">
+            <div class="card">
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+            </div>
+        </div>
+    </section>
+
+    <section class="user-interview centred">
+        <h2>User Interviews</h2>
+        <p>Lorem ipsum dolor sit amet, consetetur adispscing elit</p>
+        <div class="interview-container centred">
+            <div class="card">
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+            </div>
+            <div class="card">
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+
+                <p class="question">Question Text</p>
+                <i class="answer">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Question Answer</i>
+            </div>
+        </div>
+    </section>
+
+    <section class="persona-scenarios light-page-section centred">
+        <h2>Personas & Scenarios</h2>
+        <p>Lorem ipsum dolor sit amet, consetetur adispscing elit</p>
+        <div class="persona-container centred">
+            <img class="card centred" src="assets/images/mountains.webp"
+                 alt="Elderly user persona and scenario diagram">
+            <img class="card centred" src="assets/images/mountains.webp"
+                 alt="Admin user persona and scenario diagram">
+        </div>
+    </section>
+
+    <section class="project-goals centred">
+        <h2>Project Goals</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+            in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div class="card centred"></div>
+    </section>
+
+    <section class="moscow-requirements light-page-section centred">
+        <h2>MoSCoW Requirements</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+            in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <div class="moscow-grid">
+            <h3>Must Have</h3>
+            <ul class="moscow-row">
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Should Have</h3>
+            <ul class="moscow-row">
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Could Have</h3>
+            <ul class="moscow-row">
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Won't Have</h3>
+            <ul class="moscow-row">
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h4>TITLE</h4>
+                        <p>Description of requirement</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 </div>
 <footer id="footer"></footer>
 </body>

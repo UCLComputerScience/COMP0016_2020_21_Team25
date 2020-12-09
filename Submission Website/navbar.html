@@ -41,7 +41,7 @@
     </ul>
 
     <script>
-        const checkScroll = function(navbar) {
+        const checkScroll = function (navbar) {
             if ($(window).scrollTop() > 64) {
                 navbar.classList.add("nav-scrolled");
             } else {
@@ -68,6 +68,47 @@
             navButtons[0].classList.add("active-item");
         }
     </script>
+
+    <div class="progress-wrap noselect">
+        <svg class="progress-circle svg-content" height="100%" viewBox="-1 -1 102 102" width="100%">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+        </svg>
+        <ion-icon class="icon" name="chevron-up-outline"></ion-icon>
+        <script>
+            progressPath = document.querySelector('.progress-wrap path');
+            const updateProgress = function () {
+                let pathLength = progressPath.getTotalLength();
+                const scroll = $('html').scrollTop();
+                if (scroll > 64) {
+                    $('.progress-wrap').addClass('active-progress');
+                } else {
+                    $('.progress-wrap').removeClass('active-progress');
+                }
+                const scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+                const drawLength = pathLength * scrollPercentage;
+                progressPath.style.strokeDashoffset = (pathLength - drawLength).toString();
+            }
+
+            const setStyle = function () {
+                let pathLength = progressPath.getTotalLength();
+                progressPath.style.transition = 'none';
+                progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+                progressPath.style.strokeDashoffset = pathLength;
+                progressPath.getBoundingClientRect();
+                progressPath.style.transition = 'stroke-dashoffset 10ms linear';
+            }
+
+            setStyle();
+            updateProgress();
+            $(document).scroll(updateProgress);
+
+            $('.progress-wrap').on('click', function (event) {
+                event.preventDefault();
+                $('html').animate({scrollTop: 0}, 500);
+                return false;
+            })
+        </script>
+    </div>
 </div>
 </body>
 </html>

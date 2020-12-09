@@ -1,7 +1,3 @@
-section {
-    flex-direction: column;
-}
-
 .subtitle, .feature-item p, .about p {
     font-size: 21px;
     color: #676b75;
@@ -29,8 +25,6 @@ section {
     flex: 1;
     flex-direction: column;
     transition: .2s transform ease-in;
-    border-radius: var(--border-radius);
-    padding: 24px;
     cursor: pointer;
 }
 
@@ -38,21 +32,11 @@ section {
     transform: translateY(-12px) scale(1.01);
     transition: .2s transform ease-in;
     background: var(--light-blue);
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.33);
 }
 
 .feature-item:hover * {
     color: #fff;
-}
-
-.feature-item:hover::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    height: 8px;
-    z-index: 3;
-    background: linear-gradient(180deg, rgba(9, 30, 66, 0.13) 0, rgba(9, 30, 66, 0.13) 1px, rgba(9, 30, 66, 0.08) 1px, rgba(9, 30, 66, 0) 4px);
 }
 
 .features .row .feature-item:not(:last-child) {
@@ -85,11 +69,11 @@ section {
     background: var(--dark-blue);
     width: 60%;
     padding-bottom: 33.75%;
-    box-shadow: 0 0 16px -1px rgba(0, 0, 0, .33);
+    box-shadow: 0 0 16px 1px rgba(0, 0, 0, .33);
 }
 
 .team-members {
-    width: 60%;
+    width: 65%;
     height: 450px;
 }
 
@@ -98,13 +82,13 @@ section {
     background: var(--green);
     height: inherit;
     transition: .2s transform ease-in;
-    box-shadow: 0 0 16px -1px rgba(0, 0, 0, .33);
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, .33);
     cursor: pointer;
 }
 
 .team-members .card:hover {
     transform: translateY(-16px) scale(1.025);
-    box-shadow: 0 16px 20px -4px rgba(0, 0, 0, .45);
+    box-shadow: 0 5px 10px 4px rgba(0, 0, 0, .33);
 }
 
 .team-members .card:not(:last-child) {
