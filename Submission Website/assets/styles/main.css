@@ -1,5 +1,6 @@
 :root {
     --header: #002e43;
+    --subheader: #2a2b30;
     --text-color: #222;
     --page-background: #f9f9f9;
     --light-page: #edf3fd;
@@ -22,15 +23,14 @@ html, body {
 
 *, *:before, *:after {
     box-sizing: border-box;
-    font-family: "Avenir LT Std", sans-serif;
+    font-family: "Muli", sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
     color: var(--header);
     font-weight: 700;
-    letter-spacing: -.08em;
-    line-height: 95%;
+    letter-spacing: -.05em;
     display: inline-block;
 }
 
@@ -44,10 +44,16 @@ h2 {
 
 h3 {
     font-size: 21px;
+    color: var(--subheader);
 }
 
 a {
     text-decoration: none;
+}
+
+p {
+    color: var(--text-color);
+    letter-spacing: -.02em;
 }
 
 .page {
@@ -70,11 +76,7 @@ a {
 }
 
 .separator {
-    width: 75%;
-    height: 1px;
-    background: rgba(0, 0, 0, .2);
-    margin: 32px auto;
-    box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.37);
+    border-top: 1px solid #e7eaf0;
 }
 
 section {
@@ -94,19 +96,40 @@ section h2 {
 }
 
 .card {
-    border-radius: var(--border-radius);
+    border-radius: 20px;
+    padding: 32px;
 }
 
 .header-card {
     width: 100%;
     padding: calc(2 * var(--nav-height));
-    background: var(--dark-blue);
     display: flex;
+    position: relative;
+    z-index: 1;
 }
+
+.header-card::after {
+    background: var(--dark-blue);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 5vw));
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    z-index: -1;
+}
+
 
 .header-card .image-container {
     margin-left: calc(2 * var(--nav-height));
     flex: 1;
+}
+
+img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
 }
 
 .flat-button {
@@ -116,7 +139,7 @@ section h2 {
     padding: 16px 12px;
     font-weight: 700;
     text-align: center;
-    transition: 0.15s background-color cubic-bezier(.25, .8, .25, 1);
+    transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
     cursor: pointer;
     font-size: 21px;
     box-shadow: 0 0 6px -1px rgba(0, 0, 0, .33);
@@ -124,6 +147,8 @@ section h2 {
 
 .flat-button:active, .flat-button:hover {
     background: var(--light-blue);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 6px 8px -2px rgba(0, 0, 0, .4);
 }
 
 .header-card .centred .flat-button {
@@ -138,7 +163,7 @@ section h2 {
     user-select: none;
 }
 
-.centred, section {
+.centred, section, .image-container {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://use.typekit.net/zti6lix.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/navbar.css">
 </head>
 <body>
 <div class="navbar" role="navigation">
     <ul class="nav-items centred">
         <li class="nav-item">
-            <a href="index.html">Intro</a>
+            <a href="index.html">Home</a>
         </li>
 
         <li class="nav-item">
@@ -40,7 +41,20 @@
     </ul>
 
     <script>
-        let navButtons = document.querySelectorAll(".nav-item a");
+        const checkScroll = function(navbar) {
+            if ($(window).scrollTop() > 64) {
+                navbar.classList.add("nav-scrolled");
+            } else {
+                navbar.classList.remove("nav-scrolled");
+            }
+        }
+        let navbar = document.querySelector(".navbar");
+        window.onscroll = () => {
+            checkScroll(navbar);
+        }
+        checkScroll(navbar);
+
+        let navButtons = navbar.querySelectorAll(".nav-item a");
         let activated = true;
         for (let button of navButtons) {
             if (window.location.href.includes(button.href)) {
