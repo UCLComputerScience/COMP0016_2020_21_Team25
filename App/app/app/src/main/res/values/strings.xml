@@ -15,4 +15,5 @@
     <string name="header_description">Header</string>
     <string name="ibm_logo_description">IBM Logo</string>
     <string name="start_concierge_icon_description">Tap to start concierge icon</string>
+    <string name="conciergeStatus">Concierge is not on</string>
 </resources>

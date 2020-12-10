@@ -5,7 +5,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".MainActivity">
 <!--    android:paddingTop="?attr/actionBarSize"-->
 
     <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
@@ -32,72 +33,94 @@
     <!--        app:layout_constraintTop_toTopOf="parent"-->
     <!--        app:navGraph="@navigation/mobile_navigation" />-->
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Input"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="100dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="106dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="224dp"
+        android:text="Click to Speak"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/help_view_button"
-        android:layout_width="113dp"
-        android:layout_height="48dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/help"
         app:backgroundTint="#1FCD66"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.776"
+        app:layout_constraintVertical_bias="0.824"
         tools:text="help" />
 
     <Button
         android:id="@+id/history_view_button"
-        android:layout_width="123dp"
-        android:layout_height="44dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/history"
         app:backgroundTint="#1FCD66"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376"
+        app:layout_constraintVertical_bias="0.332"
         tools:text="history" />
 
     <Button
         android:id="@+id/reminders_view_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/reminders"
         app:backgroundTint="#1FCD66"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/footerText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476"
-        tools:text="@string/reminders" />
+        app:layout_constraintTop_toTopOf="@+id/headerBox"
+        app:layout_constraintVertical_bias="0.457" />
 
     <Button
         android:id="@+id/timers_view_button"
-        android:layout_width="114dp"
-        android:layout_height="49dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/timers"
         app:backgroundTint="#1FCD66"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.673" />
+        app:layout_constraintVertical_bias="0.698" />
 
     <Button
         android:id="@+id/alarms_view_button"
-        android:layout_width="117dp"
-        android:layout_height="48dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/alarms"
         app:backgroundTint="#1FCD66"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintVertical_bias="0.576" />
 
     <ImageView
         android:id="@+id/headerBox"
@@ -109,6 +132,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/box" />
 
+    <EditText
+        android:id="@+id/conciergeStatusText"
+        android:layout_width="255dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/conciergeStatus"
+        android:inputType="textPersonName"
+        android:keepScreenOn="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.186" />
+
     <TextView
         android:id="@+id/tapToStartText"
         android:layout_width="159dp"
@@ -119,24 +158,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/conciergeListeningTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="124dp"
-        android:text="@string/concierge_is_listening"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/ibmLogo"
         android:layout_width="51dp"
         android:layout_height="29dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
         android:layout_marginBottom="48dp"
         android:contentDescription="@string/ibm_logo_description"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -145,10 +170,8 @@
 
     <ImageView
         android:id="@+id/uclLogo"
-        android:layout_width="52dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_width="51dp"
+        android:layout_height="29dp"
         android:layout_marginBottom="48dp"
         android:contentDescription="@string/ucl_logo_description"
         app:layout_constraintBottom_toBottomOf="parent"
