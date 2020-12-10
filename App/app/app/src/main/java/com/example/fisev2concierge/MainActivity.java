@@ -10,143 +10,48 @@ import androidx.annotation.NonNull;
 import android.content.pm.PackageManager;
 import android.speech.SpeechRecognizer;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
-
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    public static final Integer RecordAudioRequestCode = 1;
-    EditText editText;
-    SpeechRecognizer mSpeechRecognizer;
-    Intent mSpeechRecognizerIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkPermission();
+        EditText conciergeStatusText = findViewById(R.id.conciergeStatusText);
 
-        editText=findViewById(R.id.editText);
-        mSpeechRecognizer =SpeechRecognizer.createSpeechRecognizer(this);
+        SpeechRecognition speechRecognition = new SpeechRecognition();
+        speechRecognition.checkPermission(this);
+        speechRecognition.run(this, conciergeStatusText);
 
-        mSpeechRecognizerIntent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        SpeechRecognizer mSpeechRecognizer = speechRecognition.getmSpeechRecognizer();
+        Intent mSpeechRecognizerIntent = speechRecognition.getmSpeechRecognizerIntent();
 
-        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle params) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-
-            }
-
-            @Override
-            public void onRmsChanged(float rmsdB) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] buffer) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int error) {
-
-            }
-
-            @Override
-            public void onResults(Bundle results) {
-                ArrayList<String> matches= results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-                if(matches!=null){
-                    editText.setText(matches.get(0));
-                }
-            }
-
-            @Override
-            public void onPartialResults(Bundle partialResults) {
-
-            }
-
-            @Override
-            public void onEvent(int eventType, Bundle params) {
-
-            }
-        });
-
-        findViewById(R.id.button).setOnTouchListener(new View.OnTouchListener() {
+        //Change this to on tap rather than hold down to keep speaking
+        findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_UP:
                         mSpeechRecognizer.stopListening();
-                        editText.setHint("Input");
+                        conciergeStatusText.setHint("Concierge is off");
                         break;
                     case MotionEvent.ACTION_DOWN:
-                        editText.setText("");
-                        editText.setHint("Listening");
-
                         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+                        conciergeStatusText.setText("");
+                        conciergeStatusText.setHint("Concierge is listening");
                         break;
                 }
                 return false;
             }
         });
-
-        //Change this to on tap rather than hold down to keep speaking
-//        findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch(event.getAction()){
-//                    case MotionEvent.ACTION_UP:
-//                        conciergeStatusText.setHint("Concierge is off");
-//                        mSpeechRecognizer.stopListening();
-//                        break;
-//                    case MotionEvent.ACTION_DOWN:
-//                        conciergeStatusText.setText("");
-//                        conciergeStatusText.setHint("Concierge is listening");
-//                        mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
 
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
 //        // Passing each menu ID as a set of Ids because each
@@ -215,14 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void checkPermission(){
-        if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)== PackageManager.PERMISSION_GRANTED)){
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
-
-            }
-        }
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -19,8 +19,8 @@ public class SpeechRecognition {
 
     public static final Integer RecordAudioRequestCode = 1;
 
-    public SpeechRecognizer mSpeechRecognizer;
-    public Intent mSpeechRecognizerIntent;
+    private SpeechRecognizer mSpeechRecognizer;
+    private Intent mSpeechRecognizerIntent;
 
     public Integer getRecordAudioRequestCode(){
         return RecordAudioRequestCode;
@@ -110,13 +110,9 @@ public class SpeechRecognition {
     }
 
     public void run(AppCompatActivity appCompatActivity, EditText editText) {
-        System.out.println("Created Speech Recognizer");
         createSpeechRecognizer(appCompatActivity);
-        System.out.println("Created Speech Recognizer Intent");
         createSpeechRecognizerIntent();
-        System.out.println("Configured Speech Recognizer");
         configSpeechRecognizer(editText);
-        System.out.println("Configured Speech Recognizer Intent");
         configSpeechRecognizerIntent();
     }
 

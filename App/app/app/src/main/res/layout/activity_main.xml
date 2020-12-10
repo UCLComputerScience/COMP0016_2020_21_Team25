@@ -32,29 +32,6 @@
     <!--        app:layout_constraintRight_toRightOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent"-->
     <!--        app:navGraph="@navigation/mobile_navigation" />-->
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Input"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="100dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="106dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="224dp"
-        android:text="Click to Speak"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/help_view_button"
         android:layout_width="150dp"
