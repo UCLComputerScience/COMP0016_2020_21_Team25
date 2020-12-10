@@ -123,13 +123,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.164" />
 
     <TextView
         android:id="@+id/tapToStartText"
         android:layout_width="159dp"
         android:layout_height="70dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/tap_to_start_concierge"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,13 +157,13 @@
 
     <TextView
         android:id="@+id/footerText"
-        android:layout_width="303dp"
+        android:layout_width="414dp"
         android:layout_height="39dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/fise_v2_concierge_made_by_calin_hadarean_ernest_nkansah_badu_and_mohammad_ali_syed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/fise_v2_concierge_made_by_calin_hadarean_ernest_nkansah_badu_and_mohammad_ali_syed" />
 
@@ -176,8 +176,8 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:contentDescription="@string/start_concierge_icon_description"
+        android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_btn_speak_now"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_btn_speak_now" />
 </androidx.constraintlayout.widget.ConstraintLayout>

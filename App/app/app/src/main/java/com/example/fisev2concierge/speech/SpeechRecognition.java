@@ -109,7 +109,15 @@ public class SpeechRecognition {
         }
     }
 
-    public void run(AppCompatActivity appCompatActivity, EditText editText) {
+    public void startListening(){
+        mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+    }
+
+    public void stopListening(){
+        mSpeechRecognizer.stopListening();
+    }
+
+    public void config(AppCompatActivity appCompatActivity, EditText editText) {
         createSpeechRecognizer(appCompatActivity);
         createSpeechRecognizerIntent();
         configSpeechRecognizer(editText);
