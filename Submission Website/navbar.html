@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://use.typekit.net/zti6lix.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/navbar.css">
+</head>
+<body>
+<div class="navbar" role="navigation">
+    <ul class="nav-items centred">
+        <li class="nav-item">
+            <a href="index.html">Home</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="requirements.html">Requirements</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="hci.html">HCI</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="research.html">Research</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="design.html">Design</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="implementation.html">Implementation</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="testing.html">Testing</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="evaluation.html">Evaluation</a>
+        </li>
+    </ul>
+
+    <script>
+        const checkScroll = function (navbar) {
+            if ($(window).scrollTop() > 64) {
+                navbar.classList.add("nav-scrolled");
+            } else {
+                navbar.classList.remove("nav-scrolled");
+            }
+        }
+        let navbar = document.querySelector(".navbar");
+        window.onscroll = () => {
+            checkScroll(navbar);
+        }
+        checkScroll(navbar);
+
+        let navButtons = navbar.querySelectorAll(".nav-item a");
+        let activated = true;
+        for (let button of navButtons) {
+            if (window.location.href.includes(button.href)) {
+                button.classList.add("active-item");
+                activated = true;
+            } else {
+                button.classList.remove("active-item");
+            }
+        }
+        if (!activated) {
+            navButtons[0].classList.add("active-item");
+        }
+    </script>
+
+    <div class="progress-wrap noselect">
+        <svg class="progress-circle svg-content" height="100%" viewBox="-1 -1 102 102" width="100%">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+        </svg>
+        <ion-icon class="icon" name="chevron-up-outline"></ion-icon>
+        <script>
+            progressPath = document.querySelector('.progress-wrap path');
+            const updateProgress = function () {
+                let pathLength = progressPath.getTotalLength();
+                const scroll = $('html').scrollTop();
+                if (scroll > 64) {
+                    $('.progress-wrap').addClass('active-progress');
+                } else {
+                    $('.progress-wrap').removeClass('active-progress');
+                }
+                const scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+                const drawLength = pathLength * scrollPercentage;
+                progressPath.style.strokeDashoffset = (pathLength - drawLength).toString();
+            }
+
+            const setStyle = function () {
+                let pathLength = progressPath.getTotalLength();
+                progressPath.style.transition = 'none';
+                progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+                progressPath.style.strokeDashoffset = pathLength;
+                progressPath.getBoundingClientRect();
+                progressPath.style.transition = 'stroke-dashoffset 10ms linear';
+            }
+
+            setStyle();
+            updateProgress();
+            $(document).scroll(updateProgress);
+
+            $('.progress-wrap').on('click', function (event) {
+                event.preventDefault();
+                $('html').animate({scrollTop: 0}, 500);
+                return false;
+            })
+        </script>
+    </div>
+</div>
+</body>
+</html>

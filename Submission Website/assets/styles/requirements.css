@@ -1,0 +1,159 @@
+.image-container {
+    align-items: flex-start;
+}
+
+.header-card .image-container .client {
+    flex-direction: column;
+    flex: 1;
+}
+
+.client h4, .client p {
+    color: #fff;
+    text-align: center;
+}
+
+.client h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.client p {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.client img {
+    border-radius: 50%;
+    background-size: cover;
+    border: 3px solid var(--light-blue);
+    background: var(--light-blue);
+    width: 12vw;
+    height: 12vw;
+}
+
+section p {
+    color: #676b75;
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+section > p {
+    width: 50%;
+    margin-top: 32px;
+}
+
+.user-interview > p, .client-interview > p, .persona-scenarios > p {
+    text-align: center;
+    flex: 1;
+    margin-bottom: 64px;
+}
+
+.interview-container, .persona-container {
+    width: 75%;
+    align-items: flex-start;
+}
+
+.client-interview .interview-container {
+    width: 40%;
+}
+
+.interview-container .card, .persona-container .card {
+    background: var(--darker-blue);
+    flex: 1;
+    height: 640px;
+    padding: 48px;
+    overflow-y: auto;
+    scroll-margin-top: 48px;
+    scroll-margin-bottom: 48px;
+}
+
+.persona-container .card {
+    padding: 2px;
+}
+
+.project-goals .card {
+    margin-top: 64px;
+    width: 75%;
+    height: 640px;
+    background: var(--darker-blue);
+}
+
+.client-interview .interview-container .card {
+    height: 720px;
+}
+
+.interview-container .card .question {
+    font-weight: 800;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.interview-container .card .question:not(:first-child) {
+    margin-top: 24px;
+}
+
+.interview-container .card .answer {
+    font-weight: 200;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+}
+
+.interview-container .card .answer ion-icon {
+    margin-right: 8px;
+}
+
+.user-interview .card:not(:last-child),
+.persona-container .card:not(:last-child) {
+    margin-right: 64px;
+}
+
+.moscow-grid {
+    flex-direction: column;
+    width: 50%;
+}
+
+.moscow-row {
+    flex: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.moscow-row:not(:last-child) {
+    margin-bottom: 32px;
+}
+
+.moscow-grid h3 {
+    text-align: left;
+    font-size: 28px;
+    padding-bottom: 12px;
+}
+
+.moscow-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.moscow-item:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.moscow-item ion-icon {
+    color: var(--blue);
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.moscow-content h4 {
+    margin-top: 0;
+}

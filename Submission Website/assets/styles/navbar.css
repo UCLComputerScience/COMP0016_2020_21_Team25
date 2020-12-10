@@ -1,0 +1,104 @@
+.navbar {
+    height: var(--nav-height);
+    background: var(--blue);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-left: calc(2 * var(--nav-height));
+    padding-right: calc(2 * var(--nav-height));
+    z-index: 2;
+}
+
+.nav-scrolled {
+    box-shadow: 0 3px 6px -1px rgba(0, 0, 0, .27);
+    transition: .2s ease-in-out box-shadow;
+}
+
+.nav-items {
+    list-style: none;
+    float: right;
+    margin: 0;
+    height: inherit;
+}
+
+.nav-item {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item:not(:last-child) {
+    margin-right: 12px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    padding: 12px 8px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -.02em;
+    font-size: 16px;
+    line-height: 60%;
+    text-align: center;
+    border-radius: var(--border-radius);
+}
+
+.nav-item a:hover {
+    background: var(--light-blue);
+}
+
+.active-item {
+    pointer-events: none;
+    background: var(--green);
+}
+
+/* SCROLL TO TOP BUTTON */
+.progress-wrap {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 200ms linear;
+}
+
+.progress-wrap.active-progress {
+    opacity: 1;
+    visibility: visible;
+}
+
+.progress-wrap .icon {
+    position: absolute;
+    font-size: 32px;
+    color: var(--green);
+    left: 8px;
+    top: 8px;
+    transition: all 200ms linear;
+}
+
+.progress-wrap:hover {
+    background: var(--green);
+}
+
+.progress-wrap:hover .icon {
+    color: #fff;
+}
+
+.progress-wrap svg path {
+    fill: none;
+}
+
+.progress-wrap svg.progress-circle path {
+    stroke: var(--green);
+    stroke-width: 5;
+    box-sizing: border-box;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
