@@ -1,0 +1,43 @@
+.research-overview ul {
+    flex-direction: column;
+    align-items: flex-start;
+    list-style: none;
+    padding: 0;
+    width: 50%;
+}
+
+.research-overview ul li {
+    flex: 1;
+    margin-left: 24px;
+}
+
+.research-overview ul li a {
+    font-weight: 600;
+    color: var(--darker-blue);
+}
+
+.research-overview ul li a:hover {
+    color: var(--blue);
+}
+
+.research-overview ul li:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+#existing-solutions .centred .centred {
+    flex-direction: column;
+}
+
+#existing-solutions .centred .centred * {
+    flex: 1;
+}
+
+#existing-solutions .centred .centred:last-child {
+    margin-left: 64px;
+}
+
+#existing-solutions .centred {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    width: 75%;
+}

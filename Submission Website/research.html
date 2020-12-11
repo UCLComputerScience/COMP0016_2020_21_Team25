@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/styles/research.css">
 
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
@@ -41,7 +41,121 @@
             }
         </script>
     </div>
-    
+
+    <section class="research-overview centred">
+        <h2>Research Overview</h2>
+        <p>Our project was to develop a virtual assistant service for elderly users as
+            part of IBM FISE v2 Concierge. This service should be available in the form
+            of an app which utilises speech as its main mode of interaction and should
+            help users in their daily lives. The app should support a range of features
+            which should be implemented using RESTFUL APIs.</p>
+
+        <p> Alongside the app, we would also need an Admin website which is intended to
+            be used by the elderly users loved ones. This website would be used to setup
+            an elderly user’s app, enable access to specific features of the app and view
+            logs containing details about the elderly user’s interactions with the app.</p>
+
+        <p> Finally, we would also need a backend to support both the app and the website.
+            This backend would be responsible for data storage.</p>
+
+        <p style="text-align: left">To summarise, we spent time researching the following areas:</p>
+        <ul class="centred">
+            <li class="centred">
+                <a href="#existing-solutions">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Existing Solutions</a>
+            </li>
+
+            <li class="centred">
+                <a href="#app-research">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    Application Frontend</a>
+            </li>
+
+            <li class="centred">
+                <a href="#web-frontend"><ion-icon name="chevron-forward-outline"></ion-icon>
+                    Admin Website Frontend</a>
+            </li>
+
+            <li class="centred">
+                <a href="#backend-research"><ion-icon name="chevron-forward-outline"></ion-icon>
+                    Backend Research</a>
+            </li>
+
+            <li class="centred">
+                <a href="#nlp-research"><ion-icon name="chevron-forward-outline"></ion-icon>
+                    NLP Research</a>
+            </li>
+        </ul>
+    </section>
+
+    <section id="existing-solutions" class="light-page-section centred">
+        <h2>Existing Solutions</h2>
+        <p>Part of our research involved finding products similar to ours to see if we could
+            learn anything from them that may aid us in development. We found two similar
+            products Dalia and Alfred.</p>
+        <div class="centred">
+            <div class="centred">
+                <h3>Dalia</h3>
+                <p>Dalia is a virtual assistant specifically for the elderly which aims to
+                    serve a remarkably similar purpose as our intended solution. However,
+                    it seems development has ceased (no updates to their app or website
+                    since 2016) and it seems to be completely centred around the (tracking
+                    of) physical health of its users. We aim to provide a more general 
+                    solution.</p>
+            </div>
+            <div class="centred">
+                <h3>Alfred</h3>
+                <p>Like Dalia, Alfred is another virtual assistant for the elderly.
+                    However, it again seems to be focused on the physical health of
+                    the user, mainly trying to get them to be more active through games
+                    and exercises. Additionally, it also seems that development has 
+                    stopped, and the project is inactive at the time of writing.</p>
+            </div>
+        </div>
+        <p style="width: 100%;">Unfortunately, we weren’t able to learn much from these
+            products due to both of them currently being inactive and incomplete. </p>
+    </section>
+
+    <section id="app-research" class="centred">
+        <h2>App Frontend</h2>
+        <p>Before we could begin production on the app, we would have to evaluate
+            what platforms we would like to develop the app for and what framework and
+            language we would utilise. There are two main mobile operating systems we
+            had to consider, <b>iOS (Apple)</b> and <b>Android (Google)</b>.
+            As such we considered three possible frameworks.</p>
+        <div class="centred">
+        </div>
+    </section>
+
+    <section id="web-frontend" class="light-page-section centred">
+        <h2>Admin Website Frontend</h2>
+        <p>As mentioned above the Admin website will be used by elderly users loved
+            ones to register users, provide selective access to the apps features and
+            view activity logs.</p>
+
+        <p>To create this website, we considered two possible
+            frameworks: <b>Vue.js</b> and <b>React</b>. The reason we focused on
+            these two frameworks
+            was because they both utilise the concept of the <b>Virtual DOM</b> (Document
+            Object Model). The Virtual DOM is an abstraction of the HTML DOM which is
+            a tree structure of nodes which are HTML elements. When creating interactive
+            websites with HTML DOM this would result in having to re render the entire
+            page when an element changes. The advantage of utilising a Virtual DOM is
+            that only the objects that change would need to be re-rendered. This saves
+            time and resources and is especially useful on more interactive websites
+            (such as ours) which need to update frequently.</p>
+    </section>
+
+    <section id="backend-research" class="centred">
+        <h2>System Backend</h2>
+        <p>Lorem ipsum dolor sit amet, consetetur adispscing elit</p>
+    </section>
+
+    <section id="nlp-research" class="light-page-section centred">
+        <h2>NLP Algorithms</h2>
+        <p>Lorem ipsum dolor sit amet, consetetur adispscing elit</p>
+    </section>
 </div>
 <footer id="footer"></footer>
 </body>

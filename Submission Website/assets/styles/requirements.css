@@ -34,18 +34,6 @@
     height: 12vw;
 }
 
-section p {
-    color: #676b75;
-    margin-top: 0;
-    margin-bottom: 4px;
-    font-size: 18px;
-}
-
-section > p {
-    width: 50%;
-    margin-top: 32px;
-}
-
 .user-interview > p, .client-interview > p, .persona-scenarios > p {
     text-align: center;
     flex: 1;
@@ -71,8 +59,42 @@ section > p {
     scroll-margin-bottom: 48px;
 }
 
-.persona-container .card {
+.persona, .persona-container .card {
+    overflow-y: unset;
+    height: unset;
+}
+
+.persona {
     padding: 2px;
+    flex-direction: column;
+    overflow-y: unset;
+    height: unset;
+    position: relative;
+}
+
+.persona * {
+    flex: 1;
+    color: #fff;
+}
+
+.persona h3 {
+    background: var(--blue);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    margin-top: 0;
+    padding: 16px;
+    text-align: center;
+}
+
+.persona img {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    height: 400px;
+    transform: rotate(90deg);
 }
 
 .project-goals .card {
@@ -135,7 +157,6 @@ section > p {
 
 .moscow-grid h3 {
     text-align: left;
-    font-size: 28px;
     padding-bottom: 12px;
 }
 
