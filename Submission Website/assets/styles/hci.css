@@ -1,0 +1,15 @@
+.subtitle {
+    font-size: 21px;
+    color: #676b75;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.demo-video .card {
+    background: var(--dark-blue);
+    width: 60%;
+    padding-bottom: 33.75%;
+    box-shadow: 0 0 16px 1px rgba(0, 0, 0, .33);
+}

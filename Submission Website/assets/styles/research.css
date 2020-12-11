@@ -1,34 +1,10 @@
-.research-overview ul {
-    flex-direction: column;
-    align-items: flex-start;
-    list-style: none;
-    padding: 0;
-    width: 50%;
-}
-
-.research-overview ul li {
-    flex: 1;
-    margin-left: 24px;
-}
-
-.research-overview ul li a {
-    font-weight: 600;
-    color: var(--darker-blue);
-}
-
-.research-overview ul li a:hover {
-    color: var(--blue);
-}
-
-.research-overview ul li:not(:last-child) {
-    margin-bottom: 8px;
-}
-
-#existing-solutions .centred .centred {
+#existing-solutions .centred .centred, section:not(:first-child) > .centred,
+.research-container > .centred {
     flex-direction: column;
 }
 
-#existing-solutions .centred .centred * {
+#existing-solutions .centred .centred *, section:not(:first-child) > .centred,
+.research-container > .centred {
     flex: 1;
 }
 
@@ -36,8 +12,92 @@
     margin-left: 64px;
 }
 
-#existing-solutions .centred {
-    margin-top: 32px;
-    margin-bottom: 32px;
+#existing-solutions .centred, section:not(:first-child) > .centred {
+    padding-top: 32px;
+    padding-bottom: 32px;
     width: 75%;
+}
+
+#existing-solutions .centred {
+    border-bottom: 0 !important;
+}
+
+section ul {
+    flex-direction: column;
+    align-items: flex-start !important;
+    list-style: none;
+    padding: 0;
+    width: 50%;
+}
+
+section ul li {
+    flex: 1;
+    margin-left: 24px;
+    padding-left: 24px;
+    position: relative;
+    justify-content: flex-start !important;
+}
+
+section ul li ion-icon {
+    position: absolute;
+    left: 0;
+    color: inherit;
+}
+
+section ul li, section ul li * {
+    font-weight: 600;
+    color: var(--darker-blue);
+}
+
+section ul li *:hover {
+    color: var(--blue);
+}
+
+section ul li:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+section:not(:first-child) > .centred {
+    width: 50%;
+}
+
+section:not(:first-child) > .centred:not(:last-child) {
+    border-bottom: 1px solid #e7eaf0;
+    padding-bottom: 56px;
+}
+
+section:not(:first-child) > .centred > .centred {
+    width: 100%;
+}
+
+section:not(:first-child) .centred > p {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+section:not(:first-child) > .centred ul li {
+    color: #218c74 !important;
+}
+
+section:not(:first-child) > .centred h3 {
+    margin-top: 24px;
+}
+
+section:not(:first-child) > .centred ul:last-child li {
+    color: #ff5252 !important;
+}
+
+.research-container, #existing-solutions > .centred {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    width: 75% !important;
+}
+
+.research-container > .centred:last-child {
+    margin-left: 64px;
+}
+
+.research-container ul {
+    width: inherit !important;
 }

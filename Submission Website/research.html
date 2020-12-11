@@ -26,8 +26,10 @@
 <div class="page">
     <div class="header-card">
         <div class="page-header">
-            <h1>Research<br>Process</h1>
-            <p></p>
+            <h1>System<br>Research</h1>
+            <p>Outlining the necessary research processes taken to gain a better understanding
+                of how the system is to be implemented as well as beginning to gather basic
+                information on how the overall system will work together.</p>
         </div>
         <div class="image-container noselect"></div>
         <script>
@@ -50,12 +52,12 @@
             help users in their daily lives. The app should support a range of features
             which should be implemented using RESTFUL APIs.</p>
 
-        <p> Alongside the app, we would also need an Admin website which is intended to
+        <p>Alongside the app, we would also need an Admin website which is intended to
             be used by the elderly users loved ones. This website would be used to setup
             an elderly user’s app, enable access to specific features of the app and view
             logs containing details about the elderly user’s interactions with the app.</p>
 
-        <p> Finally, we would also need a backend to support both the app and the website.
+        <p>Finally, we would also need a backend to support both the app and the website.
             This backend would be responsible for data storage.</p>
 
         <p style="text-align: left">To summarise, we spent time researching the following areas:</p>
@@ -73,17 +75,20 @@
             </li>
 
             <li class="centred">
-                <a href="#web-frontend"><ion-icon name="chevron-forward-outline"></ion-icon>
+                <a href="#web-frontend">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
                     Admin Website Frontend</a>
             </li>
 
             <li class="centred">
-                <a href="#backend-research"><ion-icon name="chevron-forward-outline"></ion-icon>
+                <a href="#backend-research">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
                     Backend Research</a>
             </li>
 
             <li class="centred">
-                <a href="#nlp-research"><ion-icon name="chevron-forward-outline"></ion-icon>
+                <a href="#nlp-research">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
                     NLP Research</a>
             </li>
         </ul>
@@ -114,7 +119,7 @@
             </div>
         </div>
         <p style="width: 100%;">Unfortunately, we weren’t able to learn much from these
-            products due to both of them currently being inactive and incomplete. </p>
+            products due to both of them currently being inactive and incomplete.</p>
     </section>
 
     <section id="app-research" class="centred">
@@ -125,7 +130,147 @@
             had to consider, <b>iOS (Apple)</b> and <b>Android (Google)</b>.
             As such we considered three possible frameworks.</p>
         <div class="centred">
+            <h3>NativeScript</h3>
+            <p>NativeScript is a relatively new framework which was released in 2014
+                for the development of apps for iOS and Android. NativeScript apps are
+                built using JavaScript or any other programming language that
+                translate to JavaScript (e.g Vue and Angular).</p>
+            <p>NativeScript would provide the following advantages if we were to
+                develop with it:</p>
+            <ul class="centred">
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Can create apps for both mobile operating systems from
+                    the same code base - reduced development time
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Built in speech recognition and speech synthesis (which can
+                    support multiple languages)
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Familiarity as our team already has experience with Vue
+                </li>
+            </ul>
+
+            <p>However, there were also key disadvantages with NativeScript:</p>
+
+            <ul class="centred">
+                <li>
+                    <ion-icon name="close"></ion-icon>
+                    Development environment dependent on Xcode which is only
+                    available on MacBook (if you want to develop for iOS)
+                </li>
+                <li>
+                    <ion-icon name="close"></ion-icon>
+                    Overshadowed by React Native so less available
+                    resources should we run into difficulties
+                </li>
+            </ul>
         </div>
+
+        <div class="centred">
+            <h3>Java</h3>
+            <p>Java is an object-oriented programming language. It can be used to
+                write apps for Googles Android OS. Android Studio is the official IDE
+                created by Google for developing apps for Android it was released in
+                2014 as a replacement to the previous Android Development tool.
+                It is designed specifically for the creation of Android apps and
+                provides many useful tools to aid in development.</p>
+            <p>Android Studio would provide the following advantages if we
+                were to develop with it:</p>
+            <ul class="centred">
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Built in speech recognition and synthesis (which can support
+                    multiple languages)
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Specifically designed for Android so greater control over the
+                    device and its built-in features
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Familiarity as our team has extensive experience in Java
+                </li>
+
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Many built-in developments tools
+                </li>
+
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Large amount of extensive and detailed documentation
+                </li>
+            </ul>
+
+            <p>However, there were also disadvantages with Java & Android Studio:</p>
+
+            <ul class="centred">
+                <li>
+                    <ion-icon name="close"></ion-icon>
+                    We would develop only for Android as there would not be
+                    sufficient time to develop for iOS as well
+                </li>
+            </ul>
+        </div>
+
+        <div class="centred">
+            <h3>Swift</h3>
+            <p>Swift is a general purpose compiled programming language developed by
+                Apple and released in 2014. It was created to replace Objective C
+                which had previously been used by Apple for all its products.
+                It is included in Xcode which is Apple's official IDE for developing
+                apps for all their platforms but in this case, we are interested in
+                its uses for iOS development.</p>
+            <p>Swift would provide the following advantages if we
+                were to develop with it:</p>
+            <ul class="centred">
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Designed for development on Apple's operating system so greater
+                    control over the device and its built-in features
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Built in speech recognition and speech synthesis (which can
+                    support multiple languages)
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Large amount of extensive and detailed documentation
+                </li>
+                <li>
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    Supports most Java libraries
+                </li>
+            </ul>
+
+            <p>However, there were also key disadvantages with Swift:</p>
+
+            <ul class="centred">
+                <li>
+                    <ion-icon name="close"></ion-icon>
+                    iOS applications can only be developed on macOS
+                </li>
+                <li>
+                    <ion-icon name="close"></ion-icon>
+                    We would develop only for iOS as there would be
+                    insufficient time to develop for Android as well
+                </li>
+            </ul>
+        </div>
+
+        <p style="padding-top: 24px">
+            For this project we selected to utilise Java as our development language
+            and therefore develop only for Android. While we initially considered
+            NativeScript, its dependency on Xcode for its development environment
+            eliminated it as not all of us utilise MacBooks for development those
+            without would be unable to run their code. We also asked to client on
+            their opinions about this decision and they did not object to it.</p>
     </section>
 
     <section id="web-frontend" class="light-page-section centred">
@@ -145,11 +290,202 @@
             that only the objects that change would need to be re-rendered. This saves
             time and resources and is especially useful on more interactive websites
             (such as ours) which need to update frequently.</p>
+
+        <div class="research-container centred">
+            <div class="centred">
+                <h3>Vue.js</h3>
+                <p>Vue.js is a JavaScript framework designed for building user
+                    interfaces. It was created in 2014 and aimed to extract parts of
+                    AngularJS to make a more lightweight framework. It is available
+                    to use and develop with under an open-source license.</p>
+                <p>Were we to
+                    develop the admin website using Vue.js it would provide the
+                    following benefits:</p>
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Familiarity as some of us already have prior experience with it
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Easy to develop with due to its clear structure
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Good and concise documentation
+                    </li>
+                </ul>
+
+                <p>However, there were also disadvantages with Vue:</p>
+
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Less plugins and available packages than React
+                    </li>
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        The Vue.js community is much smaller than that of React
+                        so there are less resources and help available
+                    </li>
+                </ul>
+            </div>
+
+            <div class="centred">
+                <h3>React</h3>
+                <p>React is a JavaScript framework which is also designed for building
+                    user interfaces. It was created by Facebook to serve their specific
+                    needs, but it is available to everyone under and open-source license.
+               </p>
+                <p>Were we to develop the admin website using React it would provide
+                    the following benefits:</p>
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        React is backed by Facebook so it will have long term support
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Very popular so there is an abundance of resources for us to use
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Lots of available packages to use with it
+                    </li>
+                </ul>
+
+                <p>However, there were also disadvantages with React:</p>
+
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Harder to learn than Vue - increased overall development time
+                    </li>
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Subpar documentation - harder to find help when needed
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="padding-top: 24px">
+            For this component of the project, we elected to utilise Vue.js.
+            The main reasoning behind this was that it was easy to learn and
+            develop in while still being able to produce high quality results.
+            We valued this highly as our project has many components that need to
+            be built and given our strict time allowance a faster development period
+            would ensure our ability to complete all components.</p>
     </section>
 
     <section id="backend-research" class="centred">
         <h2>System Backend</h2>
-        <p>Lorem ipsum dolor sit amet, consetetur adispscing elit</p>
+        <p>To support our app and our website we also require a backend.
+            This backend will be responsible for storing and manipulating data
+            generated by the users and relaying back where appropriate.</p>
+        <p>The backend will also be responsible for placing appropriate API calls
+            from the application and then relaying the relevant information. For our
+            backend we considered two potential languages to code with: <b>Python</b> and
+            <b>Java</b>.</p>
+        <p>These are the languages we considered as they are the most popular
+            backend development languages and we all had prior experience with them.</p>
+
+        <div class="research-container centred">
+            <div class="centred">
+                <h3>Python</h3>
+                <p>Python is an interpreted general-purpose programming language. It
+                    was released in 1991 continuously developed since. It is supported
+                    by a wide range of devices. Python has a very straight forward and
+                    easy to understand syntax that can be very flexible and used for a
+                    variety of purposes.</p>
+                <p>If we were to use Python to develop our backend, it would offer
+                    the following advantages:</p>
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Simple syntax so it would be straightforward and quick to use
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Very popular so there are plenty of resources online for us to utilise
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Has access to a large collection of libraries
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Familiarity as our team already has experience with Python
+                    </li>
+                </ul>
+
+                <p>However, there were also key disadvantages with NativeScript:</p>
+
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Python is a lot slower when compared to a lot of languages
+                        such as C, even Java
+                    </li>
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Python can have high memory consumption depending on the task
+                    </li>
+                </ul>
+            </div>
+
+            <div class="centred">
+                <h3>Java</h3>
+                <p>Java is a compiled object-oriented programming language. It was
+                    released in 1995 and, like Python, has been continuously developed
+                    since. Java can be run on most machines due to its use of the JVM
+                    which gives it platform independence. Java syntax is not as simple
+                    as Pythons but that would not be an issue for us as we all have
+                    existing experience with Java.</p>
+                <p>If we were to use Java to develop our backend, it would provide
+                    the following advantages:</p>
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Large amount of code reusability due to OOP approach which would
+                        speed up development
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Faster than Python due to it being compiled
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Extensive collection of libraries
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Familiarity as our team already has experience with Java
+                    </li>
+                </ul>
+
+                <p>However, there were also disadvantages with Java & Android Studio:</p>
+
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        More syntactically verbose than Python - increased development time
+                    </li>
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Slow compared to other language such as C
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="padding-top: 24px">
+            For the backend of our project, we decided to utilise Python.
+            This is because of the two options we believe Python is the easier to
+            work with and will result in a faster production of code. This is mainly
+            due to Pythons much simpler syntax which allows us to do more with fewer
+            lines of code. As mentioned previously time is a key resource in our project
+            and we want to conserve as much of it as possible.</p>
     </section>
 
     <section id="nlp-research" class="light-page-section centred">
