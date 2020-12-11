@@ -76,10 +76,10 @@
 
 .progress-wrap .icon {
     position: absolute;
-    font-size: 32px;
+    font-size: 28px;
     color: var(--green);
-    left: 8px;
-    top: 8px;
+    left: 10px;
+    top: 10px;
     transition: all 200ms linear;
 }
 
