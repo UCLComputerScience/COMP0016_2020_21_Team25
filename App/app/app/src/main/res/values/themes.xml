@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FISEV2Concierge" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.FISEV2Concierge" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/custom_green</item>
-        <item name="colorPrimaryVariant">@color/custom_green</item>
+        <item name="colorPrimary">@color/custom_dark_green</item>
+        <item name="colorPrimaryVariant">@color/custom_dark_green</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
