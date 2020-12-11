@@ -1,9 +1,9 @@
-package com.example.fisev2concierge.servicehandler;
+package com.example.fisev2concierge.service.servicehandler;
 
-import com.example.fisev2concierge.serviceapis.WeatherServiceRequest;
-import com.example.fisev2concierge.serviceapis.JokeServiceRequest;
-import com.example.fisev2concierge.serviceapis.StocksServiceRequest;
-import com.example.fisev2concierge.serviceapis.ServiceRequest;
+import com.example.fisev2concierge.service.serviceapis.WeatherServiceRequest;
+import com.example.fisev2concierge.service.serviceapis.JokeServiceRequest;
+import com.example.fisev2concierge.service.serviceapis.StocksServiceRequest;
+import com.example.fisev2concierge.service.serviceapis.ServiceRequest;
 
 import java.util.HashMap;
 

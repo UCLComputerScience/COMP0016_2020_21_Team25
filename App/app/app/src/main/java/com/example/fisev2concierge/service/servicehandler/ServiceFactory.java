@@ -1,4 +1,4 @@
-package com.example.fisev2concierge.servicehandler;
+package com.example.fisev2concierge.service.servicehandler;
 
 // Employs factory design pattern for the servicesAPI.serviceHandler.ServiceModel
 public class ServiceFactory {

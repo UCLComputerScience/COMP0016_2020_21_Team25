@@ -1,4 +1,4 @@
-package com.example.fisev2concierge.servicehandler;
+package com.example.fisev2concierge.service.servicehandler;
 
 import java.util.HashMap;
 

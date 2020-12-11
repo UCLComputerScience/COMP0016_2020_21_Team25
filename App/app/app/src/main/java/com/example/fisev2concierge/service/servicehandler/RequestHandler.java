@@ -1,4 +1,4 @@
-package com.example.fisev2concierge.servicehandler;
+package com.example.fisev2concierge.service.servicehandler;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

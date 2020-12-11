@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import android.content.pm.PackageManager;
 import android.view.MotionEvent;
 import android.widget.Toast;
+
+import com.example.fisev2concierge.command.Command;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 
@@ -26,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.checkPermission(this);
         speechRecognition.config(this, conciergeStatusText);
 
-        //Change this to on tap rather than hold down to keep speaking
+        Command command = new Command();
+        command.config(this, findViewById(R.id.apiTest));
+
+        //make sure we don't need anything else from Ernest's Service API folder
+        //make sure we can pull results from speech recognition from conciergeStatusText
+
         findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         speechRecognition.stopListening();
                         conciergeStatusText.setHint("Concierge is off");
+                        command.run();
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();
