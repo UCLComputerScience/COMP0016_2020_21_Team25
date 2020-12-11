@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-
+import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import android.content.pm.PackageManager;
+import android.view.MotionEvent;
+import android.widget.Toast;
+import com.example.fisev2concierge.speech.SpeechRecognition;
+import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +19,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        EditText conciergeStatusText = findViewById(R.id.conciergeStatusText);
+
+        SpeechRecognition speechRecognition = new SpeechRecognition();
+        speechRecognition.checkPermission(this);
+        speechRecognition.config(this, conciergeStatusText);
+
+        //Change this to on tap rather than hold down to keep speaking
+        findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        speechRecognition.stopListening();
+                        conciergeStatusText.setHint("Concierge is off");
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        speechRecognition.startListening();
+                        conciergeStatusText.setText("");
+                        conciergeStatusText.setHint("Concierge is listening");
+                        break;
+                }
+                return false;
+            }
+        });
+
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
 //        // Passing each menu ID as a set of Ids because each
 //        // menu should be considered as top level destinations.
@@ -25,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(navView, navController);
 
-//         Adding functionality to History_View_Button
         Button history_view_button = findViewById(R.id.history_view_button);
         history_view_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +100,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView test = findViewById(R.id.tapToStartConciergeIcon);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("hello");
-            }
-        });
+//        ImageView test = findViewById(R.id.tapToStartConciergeIcon);
+//        test.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                System.out.println("hello");
+//            }
+//        });
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RecordAudioRequestCode && grantResults.length > 0 ){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                Toast.makeText(this,"Permission Granted", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
