@@ -24,8 +24,8 @@ public class SpeechSynthesis {
         });
     }
 
-    public void runTts(AppCompatActivity appCompatActivity, String s){
-        Toast.makeText(appCompatActivity.getApplicationContext(), s,Toast.LENGTH_SHORT).show();
+    public void runTts(String s){
+
         tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
     }
 }

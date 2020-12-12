@@ -92,8 +92,10 @@ public class SpeechRecognition {
             public void onEvent(int eventType, Bundle params) {
 
             }
+
         });
     }
+
 
     private void configSpeechRecognizerIntent(){
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -109,6 +111,7 @@ public class SpeechRecognition {
         }
     }
 
+
     public void startListening(){
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
     }
@@ -116,6 +119,12 @@ public class SpeechRecognition {
     public void stopListening(){
         mSpeechRecognizer.stopListening();
     }
+
+    public void destroySpeech(){
+        mSpeechRecognizer.destroy();
+    }
+
+
 
     public void config(AppCompatActivity appCompatActivity, EditText editText) {
         createSpeechRecognizer(appCompatActivity);

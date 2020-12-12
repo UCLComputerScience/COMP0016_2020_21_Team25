@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.fisev2concierge.command.Command;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
+import com.example.fisev2concierge.speech.SpeechSynthesis;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.config(this, conciergeStatusText);
 
         Command command = new Command();
-        command.config(this, findViewById(R.id.apiTest));
+        EditText apiText=findViewById(R.id.apiTest);
 
-        //make sure we don't need anything else from Ernest's Service API folder
-        //make sure we can pull results from speech recognition from conciergeStatusText
+        //Speech Synthesis defined on main thread
+        SpeechSynthesis speechSynthesis = new SpeechSynthesis();
+        speechSynthesis.configTts(this);
 
         findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -41,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         speechRecognition.stopListening();
                         conciergeStatusText.setHint("Concierge is off");
-                        command.run();
+                        //Command Thread starts here
+                        Thread thread=new Thread(command);
+                        thread.start();
+                        //Result from thread returned to APItext and speech Synthesis
+                        apiText.setText(command.getResult());
+                        speechSynthesis.runTts(command.getResult());
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();
@@ -115,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
 //                System.out.println("hello");
 //            }
 //        });
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 
