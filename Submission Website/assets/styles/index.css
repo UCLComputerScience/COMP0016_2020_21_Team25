@@ -74,23 +74,40 @@
 
 .team-members {
     width: 65%;
-    height: 450px;
+    background: var(--page-background);
+    box-shadow: 0 0 12px -2px rgba(0, 0, 0, .4);
 }
 
-.team-members .card {
+.team-members, #calin, #ernest, #ali {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.team-members .centred:not(:last-child) {
+    margin-bottom: 36px;
+}
+
+.team-members .centred h3, .team-members .centred p {
+    color: var(--text-color);
+    margin-top: 0;
+}
+
+.team-members .centred a {
+    margin-bottom: 5px;
+    color: var(--light-blue);
+}
+
+.team-members .centred a:hover {
+    color: var(--dark-blue);
+}
+
+.team-members .centred h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: var(--blue);
+}
+
+#calin *, #ernest *, #ali * {
     flex: 1;
-    background: var(--green);
-    height: inherit;
-    transition: .2s transform ease-in;
-    box-shadow: 0 0 4px 2px rgba(0, 0, 0, .33);
-    cursor: pointer;
-}
-
-.team-members .card:hover {
-    transform: translateY(-16px) scale(1.025);
-    box-shadow: 0 5px 10px 4px rgba(0, 0, 0, .33);
-}
-
-.team-members .card:not(:last-child) {
-    margin-right: 48px;
+    text-align: left;
 }
