@@ -61,7 +61,7 @@
 
 .persona, .persona-container .card {
     overflow-y: unset;
-    height: unset;
+    height: 1000px;
 }
 
 .persona {
@@ -93,8 +93,8 @@
 .persona img {
     margin-top: 24px;
     margin-bottom: 24px;
-    height: 400px;
-    transform: rotate(90deg);
+    height: 300px;
+    
 }
 
 .project-goals .card {
