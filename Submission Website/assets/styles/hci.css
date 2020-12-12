@@ -13,3 +13,43 @@
     padding-bottom: 33.75%;
     box-shadow: 0 0 16px 1px rgba(0, 0, 0, .33);
 }
+
+.sketches-div{
+	text-align: center;
+	/* width: 100%; */
+	width: 100%;
+	/* border: 5px solid red; */
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.sketches-img {
+	margin-left: 10px;
+    margin-right: 10px;
+	margin-bottom: 10px;
+	height: 300px;
+	width: 500px;
+}
+
+.wireframe-div {
+	text-align: center;
+	/* width: 100%; */
+	width: 100%;
+	/* border: 5px solid red; */
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.wireframe-img {
+	margin-left: 10px;
+    margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.wireframe-img-admin {
+	margin-left: 10px;
+    margin-right: 10px;
+	margin-bottom: 10px;
+	height: 70%;
+	width: 45%;
+}
