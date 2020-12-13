@@ -136,7 +136,6 @@ section h2 {
     z-index: -1;
 }
 
-
 .header-card .image-container {
     margin-left: calc(2 * var(--nav-height));
     flex: 1;
@@ -146,6 +145,58 @@ img {
     max-width: 100%;
     width: auto;
     height: auto;
+}
+
+.enlargeable {
+    position: relative;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.enlargeable span {
+    position: absolute;
+    background: var(--dark-blue);
+    border-bottom-left-radius: 10px;
+    font-size: 11px;
+    color: #fff;
+    top: 0;
+    right: 0;
+    padding: 6px 12px;
+    font-weight: 700;
+}
+
+.enlargeable img:last-child {
+    display: none;
+    position: fixed;
+    max-height: calc(90% - var(--nav-height));
+    min-height: calc(90% - var(--nav-height));;
+    top: var(--nav-height);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 4;
+    box-shadow: 0 0 18px rgba(255, 255, 255, .18);
+}
+
+.enlargeable.enlarged img:last-child {
+    display: block;
+}
+
+.enlargeable.enlarged img:last-child:focus {
+    outline: none;
+}
+
+.enlargeable.enlarged:after {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    content: "";
+    z-index: 3;
+    cursor: default;
 }
 
 .flat-button {

@@ -63,7 +63,7 @@
     width: 48px;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
     transition: all 200ms linear;

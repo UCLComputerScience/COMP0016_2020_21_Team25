@@ -70,10 +70,10 @@
     overflow-y: unset;
     height: unset;
     position: relative;
+    justify-content: flex-start;
 }
 
 .persona * {
-    flex: 1;
     color: #fff;
 }
 
@@ -86,15 +86,14 @@
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     margin-top: 0;
-    padding: 16px;
+    padding: 12px;
     text-align: center;
 }
 
-.persona img {
-    margin-top: 24px;
-    margin-bottom: 24px;
-    height: 300px;
-    
+.persona .enlargeable {
+    margin-top: 36px;
+    padding-bottom: 24px;
+    align-items: flex-start;
 }
 
 .project-goals .card {

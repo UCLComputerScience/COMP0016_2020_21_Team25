@@ -49,9 +49,9 @@
             }
         }
         let navbar = document.querySelector(".navbar");
-        window.onscroll = () => {
+        window.addEventListener('scroll', () => {
             checkScroll(navbar);
-        }
+        })
         checkScroll(navbar);
 
         let navButtons = navbar.querySelectorAll(".nav-item a");
@@ -107,6 +107,16 @@
                 $('html').animate({scrollTop: 0}, 500);
                 return false;
             })
+            
+            let enlargeable = $(".enlargeable");
+            enlargeable.click(function () {
+                $(this).toggleClass("enlarged");
+                $(this)[0].querySelector('img:last-child').focus();
+            });
+
+            enlargeable.focusout(function () {
+                $(this).removeClass("enlarged");
+            });
         </script>
     </div>
 </div>
