@@ -1,0 +1,63 @@
+{
+  "name": "concierge-portal",
+  "description": "The companion web app to the IBM FISE Concierge allowing friends of (elderly)\nusers to set up accounts and manage the details of all users in their circle.",
+  "author": "Ernest Badu",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://fise-concierge.web.app",
+  "scripts": {
+    "dev-build": "webpack --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "dev-start": "set -e; webpack --config webpack.dev.js; google-chrome http://localhost:8080 & serve -s dist -p 8080 --no-clipboard",
+    "start": "set -e; webpack --config webpack.prod.js; google-chrome http://localhost:8080 & serve -s dist -p 8080 --no-clipboard",
+    "unused-modules": "npx depcheck",
+    "profile": "webpack --profile --json > stats.json",
+    "deploy": "firebase deploy"
+  },
+  "dependencies": {
+    "serve": "^11.3.2",
+    "vue-router": "^4.0.0-rc.1",
+    "webpack-merge": "^5.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/reactivity": "^3.0.2",
+    "@vue/runtime-core": "^3.0.2",
+    "@webpack-cli/serve": "^1.1.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.3.2",
+    "css-loader": "^4.3.0",
+    "css-minimizer-webpack-plugin": "^1.1.5",
+    "file-loader": "^6.1.1",
+    "html-webpack-plugin": "^4.5.0",
+    "jquery": "^3.5.1",
+    "mini-css-extract-plugin": "^1.3.1",
+    "postcss": "^8.2.1",
+    "postcss-loader": "^4.1.0",
+    "robotstxt-webpack-plugin": "^7.0.0",
+    "terser-webpack-plugin": "^4.2.3",
+    "vue": "3.0.0",
+    "vue-loader": "^16.0.0-alpha.0",
+    "vuex": "^4.0.0-beta.1",
+    "vuex-persistedstate": "^4.0.0-beta.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "autoprefixer": "^10.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
