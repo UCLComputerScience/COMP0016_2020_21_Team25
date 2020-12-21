@@ -1,0 +1,2 @@
+class ServiceModel:
+    pass
