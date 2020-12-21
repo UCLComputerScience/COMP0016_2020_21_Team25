@@ -1,4 +1,0 @@
-#!/bin/sh
-webpack --mode production
-killall node
-google-chrome http://localhost:8080 & serve -s dist -p 8080  --no-clipboard

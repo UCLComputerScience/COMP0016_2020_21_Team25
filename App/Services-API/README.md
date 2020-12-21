@@ -48,7 +48,7 @@ A service retrieving a random joke in a given category.
 
 | Attribute | Type   | Default | Description                                                         |
 |:-----------:|--------|:---------:|------------------------------------------------------------|
-| `CATEGORY`  | String | `"ANY"`| The time series of your choice.|
+| `CATEGORY`  | String | `"ANY"`| The joke category of your choice.|
 
 ## Adding Services
 
