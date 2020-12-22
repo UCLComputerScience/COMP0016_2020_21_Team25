@@ -1,11 +1,11 @@
+import {store} from "../app/store/store";
+
 export const routes = [
-    // TODO - This route should redirect to /people if the user is logged in
     {
         path: "/",
-        redirect: "/welcome"
-        // redirect: (route) => {
-        //     return loggedIn() ? "/" + route.params.username : "/welcome"
-        // }
+        redirect: (route) => {
+            return (store.getters.loggedIn) ? `/${store.getters.username}/people` : "/welcome"
+        }
     },
     {
         path: "/sign-up",
@@ -22,6 +22,10 @@ export const routes = [
     {
         path: "/login",
         redirect: "/welcome"
+    },
+    {
+        path: "/forgot-password",
+        redirect: "/forgot"
     },
     {
         path: "/forgot",

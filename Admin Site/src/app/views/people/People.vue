@@ -4,6 +4,7 @@
             <div class="people">
                 <h1>Hello World</h1>
                 <p>.</p>
+                <logout-button></logout-button>
             </div>
         </page>
     </div>
@@ -11,10 +12,11 @@
 
 <script>
     import Page from "../../components/layout/Page.vue";
+    import LogoutButton from "../../components/widgets/buttons/logout-button.vue";
 
     export default {
         name: "People",
-        components: {Page},
+        components: {LogoutButton, Page},
     }
 </script>
 

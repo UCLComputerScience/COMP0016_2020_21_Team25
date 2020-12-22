@@ -4,7 +4,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const {VueLoaderPlugin} = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RobotsTxtPlugin = require("robotstxt-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     mode: process.env.NODE_ENV || 'development',
@@ -18,23 +17,17 @@ module.exports = {
         crossOriginLoading: 'anonymous'
     },
     plugins: [
+        new CleanWebpackPlugin(),
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({filename: '[name].min.css'}),
         new HtmlWebpackPlugin({
             inject: true,
             template: path.resolve(__dirname, 'public', 'index.html'),
             filename: "index.html",
-            favicon: path.resolve(__dirname, 'public', 'favicon.ico')
+            favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
+            title: "Concierge - Portal"
         }),
-        new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({filename: '[name].min.css'}),
-        new VueLoaderPlugin(),
         new RobotsTxtPlugin(),
-        // Uncomment once you have added images to the specified folder
-        // new CopyWebpackPlugin({
-        //     patterns: [
-        //         {from: path.resolve(__dirname, './src/assets/images'),
-        //             to: path.resolve(__dirname, './dist/assets/images')},
-        //     ],
-        // }),
     ],
     module: {
         rules: [

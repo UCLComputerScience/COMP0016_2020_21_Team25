@@ -3,6 +3,7 @@ import {nextTick} from "@vue/runtime-core";
 
 import $ from "jquery";
 import {routes} from "./routes";
+import {store} from "../app/store/store";
 
 const router = createRouter({
     mode: 'history',
@@ -19,25 +20,25 @@ const router = createRouter({
     routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//         if (!loggedIn()) {
-//             next({
-//                 path: '/welcome',
-//                 query: { redirect: to.fullPath }
-//             })
-//         } else {
-//             next()
-//         }
-//     } else {
-//         next()
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.getters.loggedIn) {
+            next({
+                path: '/welcome',
+            })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+})
 
 const DEFAULT_TITLE = 'Concierge Portal';
 const DEFAULT_DESCRIPTION = 'Concierge - providing a helping hand through speech.';
 router.afterEach((to, from) => {
     nextTick(() => {
+        store.dispatch('route', to.path);
         document.title = to.meta.title(to) + ' — Concierge Portal' || DEFAULT_TITLE;
         let desc = document.querySelector('head meta[name="description"]');
         let content = to.meta.description || DEFAULT_DESCRIPTION;

@@ -1,54 +1,56 @@
 <template>
-    <form class="signup-form centred">
-        <text-input :no-spaces="true" :on-enter="signup"
-                    :variable="signupData.username" id="signup-username"
-                    label="Username" placeholder="JohnDoe123" ref="username"
-                    type="text" autocomplete="username">
+    <form class="signup-form centred" v-on:submit.prevent="signup">
+        <text-input :no-spaces="true" :object="signupData" :required="true"
+                    autocomplete="username" icon="person" id="signup-username"
+                    key-name="username" label="Username" placeholder="JohnDoe123"
+                    ref="username" type="text">
         </text-input>
 
         <div class="row centred">
-            <text-input :on-enter="signup" :variable="signupData.firstName"
-                        id="signup-first-name" label="First Name" placeholder="John"
-                        ref="first-name" type="text" autocomplete="given-name">
+            <text-input :object="signupData" :required="true" autocomplete="given-name"
+                        icon="perm_identity" id="signup-first-name" key-name="firstName"
+                        label="First Name" placeholder="John" ref="first-name" type="text">
             </text-input>
 
-            <text-input :on-enter="signup" :variable="signupData.lastName"
-                        id="signup-last-name" label="Last Name" placeholder="Doe"
-                        ref="last-name" type="text" autocomplete="family-name">
+            <text-input :object="signupData" :required="true" autocomplete="family-name"
+                        icon="people" id="signup-last-name" key-name="lastName"
+                        label="Last Name" placeholder="Doe" ref="last-name" type="text">
             </text-input>
         </div>
 
         <div class="row centred">
-            <text-input :maxlength="255" :no-spaces="true" :on-enter="signup"
-                        :variable="signupData.email" id="signup-email"
-                        label="Email Address" placeholder="you@mail.co.uk" ref="email"
-                        type="text" autocomplete="email">
+            <text-input :maxlength="255" :no-spaces="true" :object="signupData"
+                        :required="true" autocomplete="email" icon="mail"
+                        id="signup-email" key-name="email" label="Email Address"
+                        placeholder="you@mail.co.uk" ref="email" type="text">
             </text-input>
 
-            <text-input :maxlength="11" :no-spaces="true" :on-enter="signup"
-                        :variable="signupData.phoneNumber" id="signup-phone-number"
-                        label="Phone Number" placeholder="07..." ref="phone-number"
-                        type="text" autocomplete="tel">
+            <text-input :maxlength="11" :no-spaces="true" :object="signupData"
+                        :required="true" autocomplete="tel" icon="phone"
+                        id="signup-phone-number" key-name="phoneNumber"
+                        label="Phone Number" placeholder="07..."
+                        ref="phone-number" type="text">
             </text-input>
         </div>
 
-        <text-input :no-spaces="true" :on-enter="signup"
-                    :variable="signupData.password" id="signup-password"
-                    label="Password" placeholder="Password" ref="password"
-                    type="password" autocomplete="new-password">
+        <text-input :no-spaces="true" :object="signupData" :required="true"
+                    autocomplete="new-password" icon="lock" id="signup-password"
+                    key-name="password" label="Password" placeholder="Password"
+                    ref="password" type="password">
         </text-input>
-        <text-input :no-spaces="true" :on-enter="signup" :variable="repeatPassword"
-                    id="signup-repeat" label="Repeat Password"
+        <text-input :no-spaces="true" :object="signupData" :required="true" icon="repeat"
+                    id="signup-repeat" key-name="repeatPassword" label="Repeat Password"
                     placeholder="Repeat Password" ref="repeat" type="password">
         </text-input>
 
-        <flat-button text="Log In" v-on:click="signup"></flat-button>
+        <flat-button text="Sign Up" v-on:click.prevent="signup"></flat-button>
     </form>
 </template>
 
 <script>
     import TextInput from "../../components/widgets/text-input/text-input.vue";
     import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+    import {toKebabCase} from "../../../assets/scripts/util";
 
     export default {
         name: "signup-form",
@@ -57,22 +59,26 @@
             return {
                 signupData: {
                     username: "",
-                    password: "",
-                    email: "",
                     firstName: "",
                     lastName: "",
-                    phoneNumber: ""
+                    email: "",
+                    phoneNumber: "",
+                    password: "",
+                    repeatPassword: ""
                 },
-                repeatPassword: "",
             }
         },
         methods: {
+            activate() {
+                this.clearInputs();
+                this.$refs.username.focus();
+            },
             clearInputs() {
                 this.$refs.username.clearInput();
-                this.$refs.firstName.clearInput();
-                this.$refs.lastName.clearInput();
+                this.$refs["first-name"].clearInput();
+                this.$refs["last-name"].clearInput();
                 this.$refs.email.clearInput();
-                this.$refs.phoneNumber.clearInput();
+                this.$refs["phone-number"].clearInput();
                 this.$refs.password.clearInput();
                 this.$refs.repeat.clearInput();
             },
@@ -81,28 +87,43 @@
                 this.$refs.repeat.clearInput();
             },
             validInputs() {
-                for (let field of this.signupData) {
+                for (let [key, field] of Object.entries(this.signupData)) {
                     if (field === "") {
-                        return "Please ensure no fields are left blank.";
+                        return {
+                            message: "Please ensure no fields are left blank.",
+                            ref: toKebabCase(key),
+                        };
                     }
                 }
                 if (this.signupData.username.length < 5) {
-                    return "Your username must be at least five characters long.";
+                    return {
+                        message: "Your username must be at least five characters long.",
+                        ref: "username"
+                    };
                 }
                 if (this.signupData.phoneNumber.length < 11) {
-                    return "Your phone number is invalid";
+                    return {
+                        message: "Your phone number is invalid",
+                        ref: "phone-number",
+                    };
                 }
                 if (this.signupData.password.length < 5) {
-                    return "Your password must be at least five characters long.";
+                    return {
+                        message: "Your password must be at least five characters long.",
+                        ref: "password"
+                    };
                 }
-                if (this.signupData.password !== this.repeatPassword) {
-                    return "The two entered passwords do not match";
+                if (this.signupData.password !== this.signupData.repeatPassword) {
+                    return {
+                        message: "The two entered passwords do not match",
+                        ref: "password"
+                    };
                 }
-                return "valid"
+                return {message: "valid", ref: null};
             },
             signup() {
-                const message = this.validInputs();
-                if (message === "valid") {
+                const messageAndField = this.validInputs();
+                if (messageAndField["message"] === "valid") {
                     this.$store.dispatch('signup', {
                         username: this.signupData.username,
                         password: this.signupData.password,
@@ -112,15 +133,16 @@
                         phoneNumber: this.signupData.phoneNumber
                     });
                 } else {
-                    alert("Sign up failed. " + message);
+                    alert("Sign up failed. " + messageAndField["message"]);
                     this.clearSensitiveInputs();
+                    this.$refs[messageAndField["ref"]].clearInput();
                 }
             },
         }
     }
 </script>
 
-<style scoped>
+<style>
     .signup-form, .row {
         flex-direction: column;
         width: 100%;
@@ -133,6 +155,12 @@
     .flat-button, .text-input {
         flex: 1;
         width: 100%;
+    }
+
+    @media (max-width: 640px) {
+        .text-input label {
+            color: #fff !important;
+        }
     }
 
     @media (min-width: 900px) {

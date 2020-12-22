@@ -1,13 +1,13 @@
 <template>
     <div class="text-input centred">
-        <label :for="id" v-if="label !== ''">{{ label }}</label>
+        <label :for="id" v-if="label !== ''">{{ label }} <b v-if="required">*</b></label>
         <div class="input-container centred">
             <span class="icon material-icons">{{ icon }}</span>
             <input :autocomplete="autocomplete" :id="id" :maxlength="maxlength"
                    :placeholder="placeholder" :type="type" ref="input"
-                   v-model="variable" v-on:keydown.space="onKeyPress"
-                   v-on:keyup.enter="onEnter">
-            <span class="close-icon material-icons noselect"
+                   v-model="object[keyName]" v-on:input="toggleDelete"
+                   v-on:keydown.space="onKeyPress" v-on:keyup.enter.prevent="onEnter">
+            <span class="delete-icon material-icons noselect" ref="delete"
                   v-on:click="clearInput">close</span>
         </div>
     </div>
@@ -31,20 +31,33 @@
                 default: 32
             },
             placeholder: String,
-            variable: String,
             label: {type: String, default: ""},
             noSpaces: {type: Boolean, default: false},
-            onEnter: {type: Function},
-            autocomplete: {type: String, default: "off"}
+            onEnter: {type: Function, default: () => {}},
+            autocomplete: {type: String, default: "off"},
+            object: {type: Object},
+            keyName: {type: String},
+            required: {type: Boolean, default: false}
         },
         methods: {
+            focus() {
+              this.$refs.input.focus();
+            },
+            toggleDelete() {
+                if (this.object[this.keyName] === "") {
+                    this.$refs.delete.classList.remove("delete-icon-visible");
+                } else {
+                    this.$refs.delete.classList.add("delete-icon-visible");
+                }
+            },
             clearInput() {
-                this.variable = ""
+                this.object[this.keyName] = "";
                 this.$refs.input.focus();
+                this.$refs.delete.classList.remove("delete-icon-visible");
             },
             onKeyPress(event) {
                 if (this.noSpaces) {
-                    event.preventDefault()
+                    event.preventDefault();
                 }
             }
         }
@@ -63,9 +76,14 @@
         margin-bottom: 8px;
     }
 
+    b {
+        font-weight: 700;
+        color: var(--red);
+    }
+
     .input-container {
         border-radius: var(--border-radius);
-        border: 2px solid transparent;
+        border: 2px solid rgba(0, 0, 0, .2);
         padding-top: 6px;
         padding-bottom: 6px;
         background: #fff;
@@ -75,10 +93,10 @@
     }
 
     .input-container, .input-container * {
-        transition: 0.2s ease-in-out all;
+        transition: 0.15s ease-in-out all;
     }
 
-    .icon, .close-icon, input {
+    .icon, .delete-icon, input {
         color: #000;
     }
 
@@ -86,13 +104,16 @@
         margin-left: 8px;
         margin-right: 4px;
         cursor: text;
+        color: rgba(0, 0, 0, .2);
     }
 
-    .close-icon {
+    .delete-icon {
         right: 0;
         cursor: pointer;
         margin-right: 8px;
         margin-left: 4px;
+        opacity: 0;
+        pointer-events: none;
     }
 
     input {
@@ -104,15 +125,15 @@
     }
 
     @media (pointer: fine) {
-        .input-container:hover {
-            border: 2px solid var(--light-blue);
+        .input-container:not(:focus-within):hover {
+            filter: brightness(80%);
         }
 
         .input-container:hover .icon {
             color: var(--light-blue);
         }
 
-        .close-icon:hover {
+        .delete-icon:hover {
             color: var(--red);
         }
     }
@@ -125,9 +146,9 @@
         color: var(--green);
     }
 
-    input:not(:valid) ~ .close-icon {
-        opacity: 0;
-        pointer-events: none;
+    .delete-icon.delete-icon-visible {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     ::-ms-clear, ::-ms-reveal {

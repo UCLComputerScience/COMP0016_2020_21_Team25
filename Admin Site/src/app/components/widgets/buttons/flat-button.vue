@@ -1,5 +1,5 @@
 <template>
-    <button class="flat-button centred">
+    <button class="flat-button noselect centred">
         <span>{{ text }}</span>
         <slot></slot>
     </button>
@@ -26,20 +26,21 @@
 
     .flat-button span {
         padding: 12px 24px;
-        font-size: 22px;
+        font-size: 18px;
         color: #fff;
         font-weight: 700;
         z-index: 2;
+        text-transform: uppercase;
     }
 
     .flat-button, .flat-button:after {
-        transition: .25s ease-in-out all;
+        transition: .2s ease-in-out all;
         border-radius: var(--border-radius);
         cursor: pointer;
     }
 
     .flat-button:after {
-        background: var(--blue);
+        background: var(--green);
         position: absolute;
         bottom: 0;
         left: 0;

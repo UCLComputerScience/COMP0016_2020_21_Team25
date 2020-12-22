@@ -8,7 +8,7 @@
     --light-green: #55efc4;
     --green: #30ce91;
     --red: #e74c3c;
-    --border-radius: 10px;
+    --border-radius: 3px;
     --nav-height: 56px;
 }
 
@@ -34,7 +34,7 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 800;
 }
 
@@ -55,6 +55,7 @@ p, b {
 a {
     text-decoration: none;
     background: transparent;
+    cursor: pointer;
 }
 
 .tagline {
@@ -94,4 +95,33 @@ a {
     min-width: 100%;
     width: 100%;
     min-height: 100vh;
+}
+
+.inline-link {
+    color: var(--blue);
+    font-weight: 700;
+    position: relative;
+    transition: .2s ease-in-out all;
+}
+
+@media (pointer: fine) {
+    .inline-link:hover:after {
+        width: 100%;
+        right: auto;
+        left: 0;
+        color: var(--blue);
+    }
+
+    .inline-link:after {
+        content: "";
+        width: 0;
+        height: 2px;
+        background-color: var(--blue);
+        position: absolute;
+        left: auto;
+        right: 0;
+        bottom: -3px;
+        z-index: -1;
+        transition: all cubic-bezier(0.2, 0, 0, 1) 0.3s;
+    }
 }
