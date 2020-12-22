@@ -43,4 +43,22 @@ public class Command implements Runnable{
         return result;
     }
 
+    //Method for API Calls
+    public String apiRequest(String apiName, HashMap param){
+        result = serviceModel.makeRequest(apiName, param);
+        return result;
+    }
+
+    //Method for Making reminders
+
+    //Method for Making alarams
+
+    //Method for setting timers
+
+    //Method for adding requests to history
+
+    //Method for calling NLP algorithm
+
+    //There should be a method for running speech recognition and synthesis here but this doesn't work so keep it on the main page
+
 }
