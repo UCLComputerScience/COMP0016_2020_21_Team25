@@ -1,12 +1,16 @@
 import {createStore} from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import router from "../../router/router";
+import backend from "../../assets/scripts/backend/backend";
+
 
 export const store = createStore({
     strict: process.env.NODE_ENV !== 'production',
     state: {
         user: {},
-        route: "/"
+        route: "/",
+        entered: false,
+        newlyRegistered: false,
     },
     mutations: {
         setUser(state, user) {
@@ -14,9 +18,18 @@ export const store = createStore({
         },
         setRoute(state, route) {
             state.route = route;
+        },
+        entered(state, entered) {
+            state.entered = entered;
+        },
+        newlyRegistered(state, newlyRegistered) {
+            state.newlyRegistered = newlyRegistered;
         }
     },
     getters: {
+        user: state => {
+            return state.user;
+        },
         loggedIn: state => {
             return state.user.username !== undefined;
         },
@@ -25,65 +38,59 @@ export const store = createStore({
         },
         route: state => {
             return state.route;
+        },
+        entered: state => {
+            return state.entered;
+        },
+        newlyRegistered: state => {
+            return state.newlyRegistered;
         }
     },
     actions: {
         route({commit}, route) {
             commit('setRoute', route)
         },
+        entered({commit}, entered) {
+            commit("entered", entered);
+        },
         async login({dispatch}, form) {
-            const user = {
-                username: form.usernameOrEmail,
-                password: form.password
-            };
-            // check login in backend
-            const response = "Login success";
-            if (response === "Login success") {
-                dispatch('fetchUser', user);
-                return null;
+            const backendResponse = backend.login(form.usernameOrEmail, form.password);
+            if (backendResponse === "Login success") {
+                dispatch('fetchUser', form.usernameOrEmail);
             } else {
-                return response
+                form.response = backendResponse;
             }
         },
         async signup({dispatch}, form) {
-            const user = {
-                username: form.username,
-                password: form.password,
-                email: form.email,
-                firstName: form.firstName,
-                lastName: form.lastName,
-                phoneNumber: form.phoneNumber
-            }
-            // Register new user in backend
-            const response = "Registration success";
-            if (response === "Registration success") {
-                dispatch('fetchUser', user);
-                return null;
+            const backendResponse = backend.register(form.username, form.firstName,
+                form.lastName, form.email, form.phoneNumber, form.password);
+            if (backendResponse === "Registration success") {
+                dispatch('completeSignup');
+                dispatch('fetchUser', form.username);
             } else {
-                return response;
+                form.response = backendResponse;
             }
         },
-        async fetchUser({commit}, user) {
-            // TODO Backend returns username in case usernameOrEmail is their email
-            // fetch user profile from backend
-            const userProfile = {
-                username: "ernest",
-                password: "12345",
-                email: "you@mail.co.uk",
-                firstName: "Ernest",
-                lastName: "Badu",
-                phoneNumber: "07111111111"
-            };
-
-            commit('setUser', userProfile);
+        async completeSignup({commit}) {
+            commit('newlyRegistered', true);
+        },
+        async welcomed({commit}) {
+            commit('newlyRegistered', false);
+        },
+        async fetchUser({dispatch}, usernameOrEmail) {
+            dispatch('updateUser', usernameOrEmail);
             if (this.getters.route === '/welcome') {
-                await router.push({name: "people", params: {username: userProfile.username}});
+                await router.push({name: "people", params: {username: this.getters.username}});
             }
+        },
+        async updateUser({commit}, usernameOrEmail) {
+            const user = backend.fetchAdmin(usernameOrEmail);
+            commit('setUser', user);
         },
         async logout({commit}) {
-            // log user out in backend if needed
-
+            backend.logout();
             commit('setUser', {});
+            commit('entered', false);
             await router.push('/welcome');
         },
     },

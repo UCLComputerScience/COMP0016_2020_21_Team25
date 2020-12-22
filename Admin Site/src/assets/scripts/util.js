@@ -5,3 +5,7 @@ export const toKebabCase = (str) => {
             : letter;
     }).join('');
 }
+
+export const getProfileImage = (filename) => {
+    return require(`./../../images/profile-pictures/${filename}.webp`).default
+}

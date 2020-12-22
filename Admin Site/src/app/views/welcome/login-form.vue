@@ -31,7 +31,8 @@
             return {
                 loginData: {
                     usernameOrEmail: "",
-                    password: ""
+                    password: "",
+                    response: null,
                 }
             }
         },
@@ -41,8 +42,14 @@
                 this.$refs.username.focus();
             },
             clearInputs() {
+                this.loginData.response = null;
                 this.$refs.username.clearInput();
                 this.$refs.password.clearInput();
+            },
+            clearSensitiveInputs() {
+                this.loginData.response = null;
+                this.$refs.password.clearInput();
+                this.$refs.username.focus();
             },
             validInputs() {
                 if (this.loginData.usernameOrEmail === "" ||
@@ -54,13 +61,14 @@
             login() {
                 const message = this.validInputs();
                 if (message === "valid") {
-                    this.$store.dispatch('login', {
-                        usernameOrEmail: this.loginData.usernameOrEmail,
-                        password: this.loginData.password
+                    this.$store.dispatch('login', this.loginData).then(r => {
+                        if (this.loginData.response !== null) {
+                            alert("Login failed. " + this.loginData.response );
+                            this.clearSensitiveInputs();
+                        }
                     });
                 } else {
-                    this.$refs.password.clearInput();
-                    this.$refs.username.focus();
+                    this.clearSensitiveInputs();
                 }
             },
         }

@@ -1,5 +1,5 @@
 <template>
-    <header class="navbar">
+    <header class="navbar" v-once>
         <nav class="nav-buttons" role="navigation">
 
         </nav>

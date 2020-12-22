@@ -85,7 +85,7 @@
         clip-path: polygon(0 0, 100% 0, 100% 60%, 0 90%);
         content: "";
         z-index: 0;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;

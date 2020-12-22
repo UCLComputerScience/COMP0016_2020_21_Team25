@@ -64,7 +64,8 @@
                     email: "",
                     phoneNumber: "",
                     password: "",
-                    repeatPassword: ""
+                    repeatPassword: "",
+                    response: null,
                 },
             }
         },
@@ -74,6 +75,7 @@
                 this.$refs.username.focus();
             },
             clearInputs() {
+                this.signupData.response = null;
                 this.$refs.username.clearInput();
                 this.$refs["first-name"].clearInput();
                 this.$refs["last-name"].clearInput();
@@ -83,6 +85,7 @@
                 this.$refs.repeat.clearInput();
             },
             clearSensitiveInputs() {
+                this.signupData.response = null;
                 this.$refs.password.clearInput();
                 this.$refs.repeat.clearInput();
             },
@@ -124,13 +127,11 @@
             signup() {
                 const messageAndField = this.validInputs();
                 if (messageAndField["message"] === "valid") {
-                    this.$store.dispatch('signup', {
-                        username: this.signupData.username,
-                        password: this.signupData.password,
-                        email: this.signupData.email,
-                        firstName: this.signupData.firstName,
-                        lastName: this.signupData.lastName,
-                        phoneNumber: this.signupData.phoneNumber
+                    this.$store.dispatch('signup', this.signupData).then(r => {
+                        if (this.signupData.response !== null) {
+                            alert("Sign up failed. " + this.signupData.response);
+                            this.clearSensitiveInputs();
+                        }
                     });
                 } else {
                     alert("Sign up failed. " + messageAndField["message"]);
@@ -160,6 +161,7 @@
     @media (max-width: 640px) {
         .text-input label {
             color: #fff !important;
+            text-shadow: -1px -1px 0 var(--blue), 1px -1px 0 var(--blue), -1px 1px 0 var(--blue), 1px 1px 0 var(--blue);
         }
     }
 
