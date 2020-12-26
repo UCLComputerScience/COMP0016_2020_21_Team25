@@ -1,5 +1,6 @@
 package com.example.fisev2concierge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -15,7 +16,7 @@ public class TimersView extends AppCompatActivity {
     private Button startTimerButton;
     private TextView countdownText;
     private EditText timeStartInput;
-    private Button timeStartButton;
+    private Button timeStartButton, backButton;
 
     private CountDownTimer countDownTimer;
     private long timeStartMS;
@@ -31,6 +32,15 @@ public class TimersView extends AppCompatActivity {
         startTimerButton = findViewById(R.id.startTimerButton);
         timeStartInput = findViewById(R.id.setTimerText);
         timeStartButton = findViewById(R.id.setTimerButton);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimersView.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         timeStartButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.fisev2concierge;
+package com.example.fisev2concierge.helperClasses;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

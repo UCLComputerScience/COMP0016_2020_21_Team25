@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         reminders_view_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RemindersView.class);
+                Intent intent = new Intent(MainActivity.this, ViewRemindersView.class);
                 startActivity(intent);
             }
         });

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -16,25 +17,44 @@ import com.example.fisev2concierge.model.DbHelper;
 
 import java.util.ArrayList;
 
-public class ReminderList extends AppCompatActivity {
+public class ViewRemindersView extends AppCompatActivity {
 
-    private static final String TAG = "ReminderList";
+    private static final String TAG = "ViewRemindersView";
     DbHelper dbHelper;
     private ListView listView;
+    private Button backButton, newReminderButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reminder_list);
+        setContentView(R.layout.view_reminders_view);
 
         listView = findViewById(R.id.remindersListView);
         dbHelper = new DbHelper(this);
+        backButton = findViewById(R.id.backButton);
+        newReminderButton = findViewById(R.id.addReminderButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewRemindersView.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        newReminderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewRemindersView.this, AddReminderView.class);
+                startActivity(intent);
+            }
+        });
 
         populateListView();
     }
 
     private void populateListView(){
-        Log.d("ReminderList", "populateListView: Displaying data in the ListView");
+        Log.d("ViewRemindersView", "populateListView: Displaying data in the ListView");
 
         Cursor data = dbHelper.getData();
         ArrayList<String> listData = new ArrayList<>();
@@ -87,7 +107,7 @@ public class ReminderList extends AppCompatActivity {
                 reminder = cleanedReminder;
                 if (itemID != -1){
                     Log.d(TAG, "onItemClick: The ID is " + itemID);
-                    Intent editReminderIntent = new Intent(ReminderList.this, EditReminder.class);
+                    Intent editReminderIntent = new Intent(ViewRemindersView.this, EditReminderView.class);
                     editReminderIntent.putExtra("ID", itemID);
                     editReminderIntent.putExtra("Reminder", reminder);
                     startActivity(editReminderIntent);

@@ -18,17 +18,20 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.fisev2concierge.helperClasses.AlertReceiver;
+import com.example.fisev2concierge.helperClasses.DatePickerFragment;
+import com.example.fisev2concierge.helperClasses.TimePickerFragment;
 import com.example.fisev2concierge.model.DbHelper;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class EditReminder extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class EditReminderView extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    private static final String TAG = "EditReminder";
+    private static final String TAG = "EditReminderView";
     private Button reminderTimeButton, reminderDateButton;
     private TextView timeSelectedText, dateSelectedText;
-    private Button deleteReminderButton, saveReminderButton;
+    private Button deleteReminderButton, saveReminderButton, backButton;
     private EditText reminderText;
     DbHelper dbHelper;
 
@@ -47,6 +50,7 @@ public class EditReminder extends AppCompatActivity implements TimePickerDialog.
         deleteReminderButton = findViewById(R.id.deleteReminderButton);
         saveReminderButton = findViewById(R.id.saveReminderButton);
         reminderText = findViewById(R.id.editReminderText);
+        backButton = findViewById(R.id.backButton);
         dbHelper = new DbHelper(this);
 
         Intent receivedIntent = getIntent();
@@ -55,6 +59,14 @@ public class EditReminder extends AppCompatActivity implements TimePickerDialog.
         selectedReminder = receivedIntent.getStringExtra("Reminder");
 
         reminderText.setText(selectedReminder);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditReminderView.this, ViewRemindersView.class);
+                startActivity(intent);
+            }
+        });
 
         reminderDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +95,7 @@ public class EditReminder extends AppCompatActivity implements TimePickerDialog.
                     dbHelper.updateReminder(selectedReminder, selectedID, item, date);
                     setNewAlarm(selectedID);
                     //add Toasts
-                    Intent intent = new Intent(EditReminder.this, ReminderList.class);
+                    Intent intent = new Intent(EditReminderView.this, ViewRemindersView.class);
                     startActivity(intent);
                 }
             }
@@ -96,7 +108,7 @@ public class EditReminder extends AppCompatActivity implements TimePickerDialog.
                 reminderText.setText("");
                 //may have to change this as we accommodate for more alarms
                 deleteAlarm(selectedID);
-                Intent intent = new Intent(EditReminder.this, ReminderList.class);
+                Intent intent = new Intent(EditReminderView.this, ViewRemindersView.class);
                 startActivity(intent);
             }
         });

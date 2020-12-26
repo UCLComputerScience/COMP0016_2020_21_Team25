@@ -1,4 +1,4 @@
-package com.example.fisev2concierge;
+package com.example.fisev2concierge.helperClasses;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -9,6 +9,8 @@ import android.content.ContextWrapper;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+
+import com.example.fisev2concierge.R;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channel1ID = "channel1ID";

@@ -21,32 +21,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.fisev2concierge.helperClasses.AlertReceiver;
+import com.example.fisev2concierge.helperClasses.DatePickerFragment;
+import com.example.fisev2concierge.helperClasses.NotificationHelper;
+import com.example.fisev2concierge.helperClasses.TimePickerFragment;
 import com.example.fisev2concierge.model.DbHelper;
-import com.example.fisev2concierge.model.Notification;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class RemindersView extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class AddReminderView extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    private static final String TAG = "RemindersView";
+    private static final String TAG = "AddReminderView";
     DbHelper dbHelper;
-    private Button addReminderButton, viewReminderButton, reminderTimeButton, reminderDateButton;
+    private Button addReminderButton, viewReminderButton, reminderTimeButton, reminderDateButton, backButton;
     private EditText reminderText;
     private TextView timeSelectedText, dateSelectedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reminders_view);
+        setContentView(R.layout.add_reminder_view);
 
         reminderText = findViewById(R.id.reminderText);
         reminderTimeButton = findViewById(R.id.reminderTimeButton);
         addReminderButton = findViewById(R.id.addReminderButton);
-        viewReminderButton = findViewById(R.id.viewReminderButton);
+//        viewReminderButton = findViewById(R.id.viewReminderButton);
         timeSelectedText = findViewById(R.id.timeSelectedText);
         reminderDateButton = findViewById(R.id.selectDateButton);
         dateSelectedText = findViewById(R.id.dateSelectedText);
+        backButton = findViewById(R.id.backButton);
         dbHelper = new DbHelper(this);
 
         Button testButton = findViewById(R.id.testButton);
@@ -55,6 +59,14 @@ public class RemindersView extends AppCompatActivity implements TimePickerDialog
             public void onClick(View v) {
                 System.out.println("brrrr");
                 test();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddReminderView.this, ViewRemindersView.class);
+                startActivity(intent);
             }
         });
 
@@ -88,6 +100,8 @@ public class RemindersView extends AppCompatActivity implements TimePickerDialog
                     AddData(newEntry, date);
                     reminderText.setText("");
                     startAlarm(c);
+                    Intent intent = new Intent(AddReminderView.this, ViewRemindersView.class);
+                    startActivity(intent);
                 } else {
                     toastMessage("Field cannot be empty");
                 }
@@ -95,13 +109,13 @@ public class RemindersView extends AppCompatActivity implements TimePickerDialog
             }
         });
 
-        viewReminderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RemindersView.this, ReminderList.class);
-                startActivity(intent);
-            }
-        });
+//        viewReminderButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(AddReminderView.this, ViewRemindersView.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
     String newID = "";

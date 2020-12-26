@@ -7,50 +7,77 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/editReminderView"
+        android:id="@+id/addReminderViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Reminder"
+        android:text="Add Reminder"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editReminderText"
+    <Button
+        android:id="@+id/testButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="228dp"
-        android:hint="New Reminder Message"
+        android:layout_marginTop="64dp"
+        android:text="test"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/addReminderButton"
+        android:layout_width="160dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Add Reminder"
+        app:backgroundTint="#1FCD66"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.543" />
+
+    <Button
         android:id="@+id/reminderTimeButton"
-        android:layout_width="158dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:text="Add time"
         app:backgroundTint="#1FCD66"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintVertical_bias="0.453" />
 
-    <Button
-        android:id="@+id/selectDateButton"
-        android:layout_width="158dp"
-        android:layout_height="49dp"
+    <TextView
+        android:id="@+id/timeSelectedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="400dp"
+        android:text="No time set"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/remindersViewTitle"
+        app:layout_constraintVertical_bias="0.435" />
+
+    <EditText
+        android:id="@+id/reminderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="396dp"
-        android:text="Select date"
-        app:backgroundTint="#1FCD66"
+        android:layout_marginBottom="488dp"
+        android:hint="Reminder Message"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/remindersViewTitle"
+        app:layout_constraintVertical_bias="0.371" />
 
     <TextView
         android:id="@+id/dateSelectedText"
@@ -58,47 +85,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="204dp"
         android:layout_marginLeft="204dp"
-        android:layout_marginBottom="424dp"
+        android:layout_marginBottom="456dp"
         android:text="Date: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/timeSelectedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="364dp"
-        android:text="No time set"
+    <Button
+        android:id="@+id/selectDateButton"
+        android:layout_width="158dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="428dp"
+        android:background="#1FCD66"
+        android:text="Select date"
+        app:backgroundTint="#1FCD66"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/remindersViewTitle"
-        app:layout_constraintVertical_bias="0.296" />
-
-    <Button
-        android:id="@+id/saveReminderButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="400dp"
-        android:text="Save"
-        app:backgroundTint="#1FCD66"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/deleteReminderButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="160dp"
-        android:text="Delete"
-        app:backgroundTint="#1FCD66"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/backButton"

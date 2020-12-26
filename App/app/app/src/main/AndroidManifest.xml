@@ -10,13 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FISEV2Concierge" >
-        <receiver android:name=".AlertReceiver"/>
+        <receiver android:name=".helperClasses.AlertReceiver"/>
         <activity
             android:name=".HistoryView"
             android:label="@string/history" >
         </activity>
         <activity
-            android:name=".RemindersView"
+            android:name=".AddReminderView"
             android:label="@string/reminders" >
         </activity>
         <activity
@@ -36,11 +36,11 @@
 <!--            android:label="@string/title_activity_" >-->
 <!--        </activity>-->
         <activity
-            android:name=".ReminderList"
+            android:name=".ViewRemindersView"
             android:label="ReminderList">
         </activity>
         <activity
-            android:name=".EditReminder"
+            android:name=".EditReminderView"
             android:label="EditReminder">
         </activity>
         <activity
