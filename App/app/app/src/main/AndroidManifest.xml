@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FISEV2Concierge" >
-
+        <receiver android:name=".AlertReceiver"/>
         <activity
             android:name=".HistoryView"
             android:label="@string/history" >
@@ -35,6 +35,14 @@
 <!--            android:name=".Activity"-->
 <!--            android:label="@string/title_activity_" >-->
 <!--        </activity>-->
+        <activity
+            android:name=".ReminderList"
+            android:label="ReminderList">
+        </activity>
+        <activity
+            android:name=".EditReminder"
+            android:label="EditReminder">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
