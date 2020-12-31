@@ -20,10 +20,6 @@
             android:label="@string/reminders" >
         </activity>
         <activity
-            android:name=".AlarmsView"
-            android:label="@string/alarms" >
-        </activity>
-        <activity
             android:name=".TimersView"
             android:label="@string/timers" >
         </activity>
@@ -42,6 +38,18 @@
         <activity
             android:name=".EditReminderView"
             android:label="EditReminder">
+        </activity>
+        <activity
+            android:name=".EditAlarmView"
+            android:label="EditAlarm">
+        </activity>
+        <activity
+            android:name=".ViewAlarmsView"
+            android:label="ViewAlarm">
+        </activity>
+        <activity
+            android:name=".AddAlarmView"
+            android:label="AddAlarm">
         </activity>
         <activity
             android:name=".MainActivity"

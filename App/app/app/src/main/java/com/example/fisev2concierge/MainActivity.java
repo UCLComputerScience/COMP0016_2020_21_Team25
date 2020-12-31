@@ -11,10 +11,12 @@ import android.content.pm.PackageManager;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-import com.example.fisev2concierge.command.Command;
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.checkPermission(this);
         speechRecognition.config(this, conciergeStatusText);
 
-        Command command = new Command();
+        MainController mainController = new MainController();
         EditText apiText=findViewById(R.id.apiTest);
 
         //Speech Synthesis defined on main thread
@@ -43,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         speechRecognition.stopListening();
                         conciergeStatusText.setHint("Concierge is off");
-                        //Command Thread starts here
-                        Thread thread=new Thread(command);
+                        //MainController Thread starts here
+                        Thread thread=new Thread(mainController);
                         thread.start();
                         //Result from thread returned to APItext and speech Synthesis
-                        apiText.setText(command.getResult());
-                        speechSynthesis.runTts(command.getResult());
+                        apiText.setText(mainController.apiRequest("Weather", new HashMap()));
+                        speechSynthesis.runTts(mainController.apiRequest("Weather", new HashMap()));
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();
@@ -59,16 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-//        BottomNavigationView navView = findViewById(R.id.nav_view);
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(navView, navController);
 
         Button history_view_button = findViewById(R.id.history_view_button);
         history_view_button.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         alarms_view_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AlarmsView.class);
+                Intent intent = new Intent(MainActivity.this, ViewAlarmsView.class);
                 startActivity(intent);
             }
         });
@@ -114,22 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        ImageView test = findViewById(R.id.tapToStartConciergeIcon);
-//        test.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("hello");
-//            }
-//        });
-
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     @Override
@@ -140,5 +121,4 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Permission Granted", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

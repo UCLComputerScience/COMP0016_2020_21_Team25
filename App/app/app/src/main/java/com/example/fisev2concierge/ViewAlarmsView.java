@@ -13,39 +13,39 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.model.RemindersDbHelper;
+import com.example.fisev2concierge.model.AlarmsDbHelper;
 
 import java.util.ArrayList;
 
-public class ViewRemindersView extends AppCompatActivity {
+public class ViewAlarmsView extends AppCompatActivity {
 
-    private static final String TAG = "ViewRemindersView";
-    RemindersDbHelper dbHelper;
+    private static final String TAG = "ViewAlarmsView";
+    AlarmsDbHelper dbHelper;
     private ListView listView;
-    private Button backButton, newReminderButton;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_reminders_view);
+        setContentView(R.layout.view_alarms_view);
 
-        listView = findViewById(R.id.remindersListView);
-        dbHelper = new RemindersDbHelper(this);
+        listView = findViewById(R.id.alarmsListView);
+        dbHelper = new AlarmsDbHelper(this);
         backButton = findViewById(R.id.backButton);
-        newReminderButton = findViewById(R.id.addNewReminder);
+        Button newAlarmButton = findViewById(R.id.addNewAlarm);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewRemindersView.this, MainActivity.class);
+                Intent intent = new Intent(ViewAlarmsView.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        newReminderButton.setOnClickListener(new View.OnClickListener() {
+        newAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewRemindersView.this, AddReminderView.class);
+                Intent intent = new Intent(ViewAlarmsView.this, AddAlarmView.class);
                 startActivity(intent);
             }
         });
@@ -54,12 +54,12 @@ public class ViewRemindersView extends AppCompatActivity {
     }
 
     private void populateListView(){
-        Log.d("ViewRemindersView", "populateListView: Displaying data in the ListView");
+        Log.d("ViewAlarmsView", "populateListView: Displaying data in the ListView");
 
         Cursor data = dbHelper.getData();
         ArrayList<String> listData = new ArrayList<>();
         while (data.moveToNext()){
-            listData.add(data.getString(0) + ": " + data.getString(1));
+            listData.add(data.getString(0) + ": " + data.getString(1)+ ": " + data.getString(2));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
@@ -68,16 +68,16 @@ public class ViewRemindersView extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String reminder = parent.getItemAtPosition(position).toString();
+                String alarm = parent.getItemAtPosition(position).toString();
                 String idGet = "";
-                for (char c: reminder.toCharArray()){
+                for (char c: alarm.toCharArray()){
                     if (c == ':'){
                         break;
                     } else {
                         idGet += c;
                     }
                 }
-                Log.d(TAG, "onItemClick: You clicked on " + reminder);
+                Log.d(TAG, "onItemClick: You clicked on " + alarm);
 
                 int itemID = -1;
                 try {
@@ -85,27 +85,27 @@ public class ViewRemindersView extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                String cleanedReminder = "";
+                String cleanedAlarm = "";
                 Boolean cleaned = false;
-                for (char c: reminder.toCharArray()){
+                for (char c: alarm.toCharArray()){
                     if (c == ':' && cleaned){
                         break;
                     }
                     else if (c == ':'){
-                        cleanedReminder = "";
+                        cleanedAlarm = "";
                         cleaned = true;
                     }
                     else {
-                        cleanedReminder += c;
+                        cleanedAlarm += c;
                     }
                 }
-                reminder = cleanedReminder;
+                alarm = cleanedAlarm;
                 if (itemID != -1){
                     Log.d(TAG, "onItemClick: The ID is " + itemID);
-                    Intent editReminderIntent = new Intent(ViewRemindersView.this, EditReminderView.class);
-                    editReminderIntent.putExtra("ID", itemID);
-                    editReminderIntent.putExtra("Reminder", reminder);
-                    startActivity(editReminderIntent);
+                    Intent editAlarmIntent = new Intent(ViewAlarmsView.this, EditAlarmView.class);
+                    editAlarmIntent.putExtra("ID", itemID);
+                    editAlarmIntent.putExtra("Alarm", alarm);
+                    startActivity(editAlarmIntent);
                 }
             }
         });
