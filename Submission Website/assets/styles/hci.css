@@ -47,9 +47,24 @@
 }
 
 .wireframe-img-admin {
-	margin-left: 10px;
+	margin-left: 10px;	
     margin-right: 10px;
 	margin-bottom: 10px;
 	height: 70%;
 	width: 45%;
+}
+
+.prototype-redesign-img{
+	text-align: left;
+	height: 65%;
+	width: 40%;
+}
+
+.prototype-redesign-div{
+	text-align: center;
+	/* width: 100%; */
+	width: 100%;
+	/* border: 5px solid red; */
+	margin-left: auto;
+    margin-right: auto;
 }
