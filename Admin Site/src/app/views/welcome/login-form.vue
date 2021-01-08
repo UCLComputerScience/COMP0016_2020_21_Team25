@@ -1,16 +1,16 @@
 <template>
     <form class="login-form centred" v-on:submit.prevent="login">
         <text-input :maxlength="255" :no-spaces="true" :object="loginData"
-                   autocomplete="username" id="login-username-or-email"
-                    key-name="usernameOrEmail" label="Username or Email"
-                    placeholder="Username or email address" ref="username"
-                    type="text" icon="person">
+                    autocomplete="username" icon="person"
+                    id="login-username-or-email" key-name="usernameOrEmail"
+                    label="Username or Email" placeholder="Username or email address"
+                    ref="username" type="text">
         </text-input>
 
         <text-input :no-spaces="true" :object="loginData"
-                    autocomplete="current-password" id="login-password"
-                    key-name="password" label="Password" placeholder="Password"
-                    ref="password" type="password" icon="lock">
+                    autocomplete="current-password" icon="lock"
+                    id="login-password" key-name="password" label="Password"
+                    placeholder="Password" ref="password" type="password">
         </text-input>
 
         <v-link class="inline-link" href="/forgot" text="Forgot Password?"></v-link>
@@ -61,9 +61,9 @@
             login() {
                 const message = this.validInputs();
                 if (message === "valid") {
-                    this.$store.dispatch('login', this.loginData).then(r => {
+                    this.$store.dispatch('account/login', this.loginData).then(r => {
                         if (this.loginData.response !== null) {
-                            alert("Login failed. " + this.loginData.response );
+                            alert("Login failed. " + this.loginData.response);
                             this.clearSensitiveInputs();
                         }
                     });
@@ -81,11 +81,11 @@
         width: 100%;
     }
 
-    .text-input {
+    .login-form .text-input {
         margin-bottom: 16px;
     }
 
-    .flat-button, .text-input {
+    .login-form .flat-button, .login-form .text-input {
         flex: 1;
         width: 100%;
     }
@@ -98,7 +98,7 @@
     }
 
     @media (max-width: 640px) {
-        .text-input label {
+        .login-form .text-input label {
             color: #fff !important;
         }
     }

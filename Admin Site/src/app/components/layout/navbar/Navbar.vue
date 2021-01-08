@@ -1,23 +1,164 @@
 <template>
-    <header class="navbar" v-once>
-        <nav class="nav-buttons" role="navigation">
-
+    <header class="navbar noselect centred" ref="navbar" role="banner">
+        <nav-logo></nav-logo>
+        <nav class="nav-buttons centred" role="navigation" v-show="!mobileNav">
+            <nav-item href="people" ref="people" text="People"></nav-item>
+            <nav-item href="marketplace" ref="marketplace" text="Marketplace"></nav-item>
         </nav>
+        <div class="profile-toggler" v-on:click.prevent="toProfile" v-show="!mobileNav">
+            <profile-picture></profile-picture>
+        </div>
+        <span class="mobile-nav-toggler material-icons" ref="toggler"
+              v-on:click.prevent="toggleMobileNav" v-show="mobileNav">menu</span>
     </header>
+    <mobile-navbar ref="mobile" v-show="mobileNav"></mobile-navbar>
 </template>
 
 <script>
+    import NavLogo from "./nav-logo.vue";
+    import NavItem from "./nav-item.vue";
+    import MobileNavbar from "./mobile-nav/mobile-navbar.vue";
+    import ProfilePicture from "../../widgets/misc/profile-picture.vue";
+
     export default {
-        name: "navbar"
+        name: "navbar",
+        components: {ProfilePicture, MobileNavbar, NavItem, NavLogo},
+        computed: {
+            mobileNav() {
+                return this.width <= 768;
+            },
+            showShadow() {
+                return this.scrollTop > 56;
+            }
+        },
+        data() {
+            return {
+                width: window.innerWidth || document.documentElement.clientWidth ||
+                    document.body.clientWidth,
+                scrollTop: document.body.scrollTop,
+            }
+        },
+        watch: {
+            scrollTop() {
+                this.toggleNavShadow();
+            }
+        },
+        methods: {
+            toProfile() {
+                this.$router.push({name: "profile"});
+            },
+            toggleNavShadow() {
+                if (this.showShadow)
+                    this.$refs.navbar.classList.add('nav-triggered');
+                else
+                    this.$refs.navbar.classList.remove('nav-triggered');
+            },
+            toggleMobileNav() {
+                this.$refs.toggler.classList.toggle('clicked');
+                this.$refs.mobile.toggle();
+            },
+            close() {
+                this.$nextTick(() => {
+                    this.$refs.toggler.classList.remove('clicked');
+                    this.$refs.navbar.focus();
+                });
+            },
+            updateScroll() {
+                this.scrollTop = document.scrollingElement.scrollTop;
+            },
+            updateSize() {
+                this.width = window.innerWidth || document.documentElement.clientWidth ||
+                    document.body.clientWidth;
+            }
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.$refs.people.deactivate();
+                this.$refs.marketplace.deactivate();
+                if (this.$route.name !== "profile") {
+                    if (this.$route.path.includes("/people"))
+                        this.$refs.people.activate();
+                    else
+                        this.$refs.marketplace.activate();
+                }
+                this.toggleNavShadow();
+                window.addEventListener('scroll', this.updateScroll);
+                window.addEventListener('resize', this.updateSize);
+            });
+        },
+        beforeUnmount() {
+            window.removeEventListener('scroll', this.updateScroll);
+            window.removeEventListener('resize', this.updateSize);
+        }
     }
 </script>
 
 <style scoped>
     .navbar {
-
+        height: var(--nav-height);
+        position: fixed;
+        background: var(--blue);
+        z-index: 21;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition: .2s ease-in-out box-shadow;
     }
 
-    .nav-buttons {
+    .nav-triggered {
+        box-shadow: 0 0 8px 1px rgba(0, 0, 0, .55);
+    }
 
+    .mobile-nav-toggler {
+        position: absolute;
+        right: 16px;
+        cursor: pointer;
+        font-size: 32px;
+        color: #fff;
+    }
+
+    .profile-toggler, .profile-toggler:before {
+        position: absolute;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .profile-toggler {
+        height: 37px;
+        width: 37px;
+        right: 24px;
+    }
+
+    .profile-toggler:before {
+        content: "";
+        background: var(--pale-blue);
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .profile-toggler:hover:before {
+        top: -4px;
+        bottom: -4px;
+        right: -4px;
+        left: -4px;
+    }
+
+    .profile-toggler .profile-picture-container {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    @media (pointer: fine) {
+        .mobile-nav-toggler:hover {
+            color: var(--light-green);
+        }
+    }
+
+    .mobile-nav-toggler:active, .clicked {
+        color: var(--green) !important;
     }
 </style>

@@ -19,7 +19,6 @@
         margin-top: auto;
         padding-bottom: 16px;
         padding-top: 28px;
-        border-top: 1px solid rgb(223, 225, 230);
         flex-direction: column;
     }
 

@@ -32,6 +32,9 @@
         mounted() {
             this.resize();
             window.addEventListener('resize', this.resize);
+        },
+        beforeUnmount() {
+            window.removeEventListener('resize', this.setColumns);
         }
     }
 </script>

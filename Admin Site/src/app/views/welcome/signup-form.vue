@@ -106,7 +106,7 @@
                 }
                 if (this.signupData.phoneNumber.length < 11) {
                     return {
-                        message: "Your phone number is invalid",
+                        message: "Your phone number is invalid.",
                         ref: "phone-number",
                     };
                 }
@@ -118,7 +118,7 @@
                 }
                 if (this.signupData.password !== this.signupData.repeatPassword) {
                     return {
-                        message: "The two entered passwords do not match",
+                        message: "The two entered passwords do not match.",
                         ref: "password"
                     };
                 }
@@ -127,7 +127,7 @@
             signup() {
                 const messageAndField = this.validInputs();
                 if (messageAndField["message"] === "valid") {
-                    this.$store.dispatch('signup', this.signupData).then(r => {
+                    this.$store.dispatch('account/signup', this.signupData).then(r => {
                         if (this.signupData.response !== null) {
                             alert("Sign up failed. " + this.signupData.response);
                             this.clearSensitiveInputs();
@@ -144,33 +144,33 @@
 </script>
 
 <style>
-    .signup-form, .row {
+    .signup-form, .signup-form .row {
         flex-direction: column;
         width: 100%;
     }
 
-    .text-input {
+    .signup-form .text-input {
         margin-bottom: 16px;
     }
 
-    .flat-button, .text-input {
+    .signup-form .flat-button, .signup-form .text-input {
         flex: 1;
         width: 100%;
     }
 
     @media (max-width: 640px) {
-        .text-input label {
+        .signup-form .text-input label {
             color: #fff !important;
             text-shadow: -1px -1px 0 var(--blue), 1px -1px 0 var(--blue), -1px 1px 0 var(--blue), 1px 1px 0 var(--blue);
         }
     }
 
     @media (min-width: 900px) {
-        .row {
+        .signup-form .row {
             flex-direction: row;
         }
 
-        .row .text-input:first-child {
+        .signup-form .row .text-input:first-child {
             margin-right: 16px;
         }
     }

@@ -1,7 +1,9 @@
 <template>
     <div class="page full-page centred">
         <navbar></navbar>
-        <slot></slot>
+        <div class="page-content">
+            <slot></slot>
+        </div>
         <page-footer></page-footer>
     </div>
 </template>
@@ -20,5 +22,9 @@
     .page {
         background: var(--page-bg-color);
         flex-direction: column;
+    }
+
+    .page-content {
+        padding-top: var(--nav-height);
     }
 </style>

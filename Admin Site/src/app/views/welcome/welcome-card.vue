@@ -19,38 +19,62 @@
         name: "welcome-card",
         components: {ProfilePicture, FlatButton},
         computed: {
+            newlyRegistered() {
+                return this.$store.getters["account/newlyRegistered"];
+            },
             title() {
-                if (this.$store.getters.newlyRegistered) {
+                if (this.newlyRegistered) {
                     return "Welcome to Concierge";
                 }
                 return "Welcome back";
             },
             subtitle() {
-                if (this.$store.getters.newlyRegistered) {
+                if (this.newlyRegistered) {
                     return "Welcome to your Concierge portal";
                 }
                 return "It's good to see you again";
             },
             name() {
-                return this.$store.getters.user.firstName;
+                return this.$store.getters["admin/admin"].firstName;
             },
             show() {
-                return !this.$store.getters.entered || this.$store.getters.newlyRegistered;
+                const show = !this.$store.getters["account/entered"] || this.newlyRegistered;
+                if (show) {
+                    this.disableScroll();
+                }
+                return show;
             }
         },
         methods: {
+            enableScroll() {
+                const body = document.body;
+                const scrollY = body.style.top;
+                body.style.position = '';
+                body.style.top = '';
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            },
+            disableScroll() {
+                const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+                const body = document.body;
+                body.style.position = 'fixed';
+                body.style.top = `-${scrollY}`;
+            },
             close() {
                 this.$refs.container.children[0].classList.add('exit');
                 const that = this;
                 setTimeout(() => {
+                    that.enableScroll();
                     const parent = that.$refs.container.parentNode;
                     parent.removeChild(that.$refs.container);
                 }, 750);
             }
         },
         mounted() {
-            this.$store.dispatch("entered", true);
-            this.$store.dispatch("welcomed");
+            this.$store.commit("account/entered", true);
+            this.$store.commit("account/newlyRegistered", false);
+        },
+        beforeUnmount() {
+            this.enableScroll();
         }
     }
 </script>
@@ -63,7 +87,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 0;
+        z-index: 29;
         padding: 24px;
     }
 
@@ -72,7 +96,7 @@
         border-radius: var(--border-radius);
         padding: 36px 24px;
         background: #fff;
-        z-index: 1;
+        z-index: 30;
         box-shadow: rgba(0, 0, 0, 0.33) 0 0 18px;
         animation-name: slideDown;
         animation-duration: .5s;

@@ -10,7 +10,7 @@
         name: "logout-button",
         methods: {
             logout() {
-                this.$store.dispatch("logout");
+                this.$store.dispatch("account/logout");
             }
         }
     }

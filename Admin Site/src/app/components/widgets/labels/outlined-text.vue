@@ -14,11 +14,11 @@
 </script>
 
 <style scoped>
-.outlined-text {
-    --outline-color: var(--text-color);
-    text-shadow: -1px -1px 0 var(--outline-color),
-    1px -1px 0 var(--outline-color),
-    -1px 1px 0 var(--outline-color),
-    1px 1px 0 var(--outline-color);
-}
+    .outlined-text {
+        --outline-color: var(--text-color);
+        text-shadow: -1px -1px 0 var(--outline-color),
+        1px -1px 0 var(--outline-color),
+        -1px 1px 0 var(--outline-color),
+        1px 1px 0 var(--outline-color);
+    }
 </style>

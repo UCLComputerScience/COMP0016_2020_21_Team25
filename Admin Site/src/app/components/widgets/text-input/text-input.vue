@@ -2,7 +2,7 @@
     <div class="text-input centred">
         <label :for="id" v-if="label !== ''">{{ label }} <b v-if="required">*</b></label>
         <div class="input-container centred">
-            <span class="icon material-icons">{{ icon }}</span>
+            <span class="icon material-icons noselect">{{ icon }}</span>
             <input :autocomplete="autocomplete" :id="id" :maxlength="maxlength"
                    :placeholder="placeholder" :type="type" ref="input"
                    v-model="object[keyName]" v-on:input="toggleDelete"
@@ -33,7 +33,10 @@
             placeholder: String,
             label: {type: String, default: ""},
             noSpaces: {type: Boolean, default: false},
-            onEnter: {type: Function, default: () => {}},
+            onEnter: {
+                type: Function, default: () => {
+                }
+            },
             autocomplete: {type: String, default: "off"},
             object: {type: Object},
             keyName: {type: String},
@@ -41,7 +44,7 @@
         },
         methods: {
             focus() {
-              this.$refs.input.focus();
+                this.$refs.input.focus();
             },
             toggleDelete() {
                 if (this.object[this.keyName] === "") {
@@ -74,6 +77,7 @@
         color: #555;
         margin-left: 4px;
         margin-bottom: 8px;
+        line-height: 90%;
     }
 
     b {

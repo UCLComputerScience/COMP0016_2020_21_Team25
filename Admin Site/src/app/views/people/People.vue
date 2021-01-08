@@ -1,29 +1,60 @@
 <template>
-    <div>
+    <div class="people-container">
         <welcome-card></welcome-card>
         <page>
-            <div class="people">
-                <h1>Hello World</h1>
-                <p>.</p>
-                <logout-button></logout-button>
+            <sidebar></sidebar>
+            <div class="people-content centred"
+                 v-if="this.$route.params.person !== undefined">
+                <navbar></navbar>
+                <div class="people centred">
+                    <router-view></router-view>
+                </div>
             </div>
+            <slot v-else></slot>
         </page>
     </div>
 </template>
 
 <script>
     import Page from "../../components/layout/Page.vue";
-    import LogoutButton from "../../components/widgets/buttons/logout-button.vue";
-    import WelcomeCard from "./welcome-card.vue";
+    import WelcomeCard from "../welcome/welcome-card.vue";
+    import Sidebar from "./sidebar/sidebar.vue";
+    import Navbar from "./navbar/navbar.vue";
 
     export default {
         name: "People",
-        components: {WelcomeCard, LogoutButton, Page},
+        components: {Navbar, Sidebar, WelcomeCard, Page},
     }
 </script>
 
-<style scoped>
-    .people {
+<style>
+    .people-container .page-content {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+    }
 
+    .people-content {
+        height: calc(100vh - var(--nav-height));
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+        flex: 1;
+    }
+
+    .people {
+        padding: 24px;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    @media (max-width: 1024px) {
+        .people-container .page {
+            justify-content: flex-start;
+        }
+
+        .people-container .page-content {
+            flex-direction: column;
+        }
     }
 </style>

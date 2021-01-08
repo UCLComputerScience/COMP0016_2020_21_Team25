@@ -1,5 +1,5 @@
 <template>
-    <v-link  :href="href">
+    <v-link :href="href">
         <flat-button :style="'--button-bg: ' + bg" :text="text"></flat-button>
     </v-link>
 </template>
@@ -7,6 +7,7 @@
 <script>
     import VLink from "./v-link.vue";
     import FlatButton from "./flat-button.vue";
+
     export default {
         name: "vlink-button",
         components: {VLink, FlatButton},

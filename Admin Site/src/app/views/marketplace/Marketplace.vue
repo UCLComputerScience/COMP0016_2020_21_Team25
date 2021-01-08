@@ -2,26 +2,22 @@
     <div>
         <welcome-card></welcome-card>
         <page>
-            <div class="marketplace">
-                <h1>Hello World</h1>
-                <p>.</p>
-            </div>
+            <router-view></router-view>
+            <footer-logo></footer-logo>
         </page>
     </div>
 </template>
 
 <script>
     import Page from "../../components/layout/Page.vue";
-    import WelcomeCard from "../people/welcome-card.vue";
+    import WelcomeCard from "../welcome/welcome-card.vue";
+    import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
 
     export default {
         name: "Marketplace",
-        components: {WelcomeCard, Page},
+        components: {FooterLogo, Page, WelcomeCard}
     }
 </script>
 
 <style scoped>
-    .marketplace {
-
-    }
 </style>

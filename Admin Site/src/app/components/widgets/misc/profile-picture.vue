@@ -3,6 +3,7 @@
     + '; --border-width: ' + borderWidth"
          class="profile-picture-container image">
         <img :alt="name" :src="profilePicture" class="profile-picture centred">
+        <slot></slot>
     </div>
 </template>
 
@@ -15,10 +16,13 @@
         },
         computed: {
             profilePicture() {
-                return this.$store.getters.user.profilePicture;
+                return this.admin.profilePicture;
             },
             name() {
-                return this.$store.getters.user.firstName;
+                return this.admin.firstName;
+            },
+            admin() {
+                return this.$store.getters["admin/admin"];
             }
         }
     }

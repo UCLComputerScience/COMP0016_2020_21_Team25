@@ -1,0 +1,53 @@
+<template>
+    <div class="nav-logo centred">
+        <span class="logo-icon noselect material-icons">face</span>
+        <h1 class="logo-header">Concierge</h1>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "nav-logo"
+    }
+</script>
+
+<style scoped>
+    .nav-logo {
+        border-radius: 5px;
+        padding: 8px;
+        cursor: pointer;
+        height: 55%;
+        position: absolute;
+        left: 16px;
+    }
+
+    .nav-logo:hover {
+        background: var(--light-blue);
+    }
+
+    .logo-icon, .logo-header {
+        font-weight: 800;
+        font-size: 24px;
+        color: #fff;
+    }
+
+    .logo-header {
+        display: none;
+        text-transform: uppercase;
+    }
+
+    @media (min-width: 720px) {
+        .logo-icon {
+            margin-top: -4px;
+            margin-right: 4px;
+        }
+
+        .logo-icon, .logo-header {
+            font-size: 21px;
+        }
+
+        .logo-header {
+            display: block;
+        }
+    }
+</style>

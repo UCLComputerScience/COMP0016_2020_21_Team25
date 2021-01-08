@@ -10,8 +10,12 @@ const router = createRouter({
     history: createWebHistory(),
     scrollBehavior(to, from, savedPosition) {
         if (to.hash) {
-            let section = document.querySelector(to.hash);
-            $('html').animate({scrollTop: section.offsetTop}, 500);
+            nextTick(() => {
+                let section = document.querySelector(to.hash);
+                if (section !== null) {
+                    $('html').animate({scrollTop: section.offsetTop - 50}, 500);
+                }
+            });
             return false;
         } else {
             return {x: 0, y: 0}
@@ -22,7 +26,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!store.getters.loggedIn) {
+        if (!store.getters["admin/loggedIn"]) {
             next({
                 path: '/welcome',
             })
@@ -38,7 +42,6 @@ const DEFAULT_TITLE = 'Concierge Portal';
 const DEFAULT_DESCRIPTION = 'Concierge - providing a helping hand through speech.';
 router.afterEach((to, from) => {
     nextTick(() => {
-        store.dispatch('route', to.path);
         document.title = to.meta.title(to) + ' — Concierge Portal' || DEFAULT_TITLE;
         let desc = document.querySelector('head meta[name="description"]');
         let content = to.meta.description || DEFAULT_DESCRIPTION;

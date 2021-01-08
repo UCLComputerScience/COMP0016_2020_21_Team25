@@ -1,5 +1,5 @@
 <template>
-    <button class="flat-button noselect centred">
+    <button class="flat-button noselect centred" ref="button">
         <span>{{ text }}</span>
         <slot></slot>
     </button>
@@ -12,6 +12,15 @@
             type: String,
             text: String,
         },
+        methods: {
+            enable() {
+                this.$refs.button.classList.remove("disabled");
+            },
+
+            disable() {
+                this.$refs.button.classList.add("disabled");
+            }
+        }
     }
 </script>
 
@@ -57,5 +66,10 @@
 
     .flat-button:hover:after {
         top: 0;
+    }
+
+    .disabled {
+        pointer-events: none;
+        filter: brightness(40%);
     }
 </style>
