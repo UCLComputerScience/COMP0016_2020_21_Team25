@@ -1,88 +1,94 @@
 package servicesAPI.serviceHandler;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import servicesAPI.services.JokeServiceRequest;
+import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.StocksServiceRequest;
+import servicesAPI.services.WeatherServiceRequest;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
-// Performs API requests over the internet
-public class RequestHandler {
-    public static HashMap<String, Object> makeRequest(String URL,
-                                                      HashMap<String, String> requestData) {
-        HttpURLConnection connection = null;
-        URL = formatURL(URL, requestData);
+import static java.lang.Thread.sleep;
+
+/**
+ * Wrapper class to abstract API calls from the main application.
+ */
+public class RequestHandler implements Runnable {
+    /**
+     * How often to check for updates in the API response queue.
+     */
+    private final int UPDATE_DELAY = 1000;
+    private final Queue<ApiResponse> apiResponseQueue = new LinkedList<>();
+    private Queue<String> appQueue;
+    private volatile boolean running = true;
+
+    /**
+     * Employs the factory pattern to map a service name to its
+     * corresponding service request object.
+     * @param serviceName The name of the service.
+     * @param data The payload - data required to complete the API call.
+     * @return The ServiceRequest object.
+     */
+    private ServiceRequest getServiceRequestByName(String serviceName,
+                                                          HashMap<String, String> data) {
+        switch (serviceName.toLowerCase()) {
+            case "weather":
+                return new WeatherServiceRequest(data);
+            case "stocks":
+                return new StocksServiceRequest(data);
+            case "joke":
+                return new JokeServiceRequest(data);
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Performs service API request concurrently in a child thread.
+     *
+     * @param serviceName The name of the service
+     * @param data        The data required to complete the restful API call.
+     */
+    public void makeRequest(String serviceName, HashMap<String, String> data) {
+        ServiceRequest serviceRequest = getServiceRequestByName(serviceName, data);
+        if (serviceRequest != null) {
+            ApiRequest apiRequest = new ApiRequest(serviceRequest, apiResponseQueue);
+            new Thread(apiRequest).start();
+        }
+    }
+
+    private void setAppQueue(Queue<String> appQueue) {
+        this.appQueue = appQueue;
+    }
+
+    /**
+     * Stops the infinite loop checking for API updates.
+     */
+    public synchronized void stop() {
+        this.running = false;
+    }
+
+    private synchronized boolean isRunning() {
+        return this.running;
+    }
+
+    /**
+     * Periodically update the app response queue with
+     * the data pushed onto the api response queue.
+     */
+    public synchronized void run() {
         try {
-            connection = setupConnection(URL);
-            return getResponse(connection);
-        } catch (IOException e) {
-            // TODO - Only for debugging
-            System.err.println(e.getMessage());
-            for (StackTraceElement message : e.getStackTrace()) {
-                System.err.println(message);
+            while (isRunning()) {
+                while (!apiResponseQueue.isEmpty()) {
+                    ApiResponse response = apiResponseQueue.poll();
+                    String speechResponse = response.getResponse();
+                    appQueue.add(speechResponse);
+                }
+                sleep(UPDATE_DELAY);
             }
-            return null;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
+        } catch (InterruptedException ignored) {
+
         }
-    }
-
-    // Set up connection to URL
-    private static HttpURLConnection setupConnection(String URL) throws IOException {
-        URL url = new URL(URL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        // Limit maximum response time to 5 seconds
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
-
-        // Do not follow the URL through any redirects
-        connection.setInstanceFollowRedirects(false);
-        return connection;
-    }
-
-    // Add named parameters to the URL
-    private static String formatURL(String URL, HashMap<String, String> parameters) {
-        for (HashMap.Entry<String, String> entry : parameters.entrySet()) {
-            URL = URL.replace("{" + entry.getKey() + "}", entry.getValue());
-        }
-        return URL;
-    }
-
-    // Read JSON response from API into HashMap
-    private static HashMap<String, Object> getResponse(HttpURLConnection connection) throws IOException {
-        try {
-            return readResponse(connection.getInputStream());
-        } catch (IOException e) {
-            return readResponse(connection.getErrorStream());
-        }
-    }
-
-    // Read JSON response from API whether its from the input stream or error stream
-    private static HashMap<String, Object> readResponse(InputStream responseStream) throws IOException {
-        StringBuilder response = new StringBuilder();
-        InputStreamReader inReader = new InputStreamReader(responseStream);
-        BufferedReader reader = new BufferedReader(inReader);
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-        }
-        reader.close();
-        return JSONtoMap(response.toString());
-    }
-
-    // Convert Map to JSON
-    private static HashMap<String, Object> JSONtoMap(String source) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(source, new TypeReference<HashMap<String, Object>>() {
-        });
     }
 }
