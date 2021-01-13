@@ -23,7 +23,7 @@ public class ApiRequest implements Runnable {
     private static final int MAX_RESPONSE_TIME = 5000;
     private final String URL;
     private final HashMap<String, String> parameters;
-    private final Queue responseQueue;
+    private final Queue<ApiResponse> responseQueue;
     private final ServiceRequest serviceRequest;
 
     /**
@@ -44,9 +44,10 @@ public class ApiRequest implements Runnable {
 
     /**
      * Set up a connection to the API's URL.
-     * @param URL
-     * @return
-     * @throws IOException
+     *
+     * @param URL Where the API is located.
+     * @return A URL connection object representing the URL.
+     * @throws IOException If the connection could not be established.
      */
     private static HttpURLConnection setupConnection(String URL) throws IOException {
         URL url = new URL(URL);
@@ -62,9 +63,11 @@ public class ApiRequest implements Runnable {
     }
 
     /**
-     * @param URL
-     * @param parameters
-     * @return
+     * Puts parameters into the URL for the API request
+     *
+     * @param URL        Base URL of the API call
+     * @param parameters Data to put into the URL
+     * @return URL with parameters inserted
      */
     private static String formatURL(String URL, HashMap<String, String> parameters) {
         for (HashMap.Entry<String, String> entry : parameters.entrySet()) {
@@ -77,11 +80,10 @@ public class ApiRequest implements Runnable {
     /**
      * Read JSON response from API into HashMap regardless of whether it is an error response.
      *
-     * @param connection
-     * @return
-     * @throws IOException
+     * @param connection Connection object to read response from
+     * @return API response as a HashMap
      */
-    private static HashMap<String, Object> getResponse(HttpURLConnection connection) throws IOException {
+    private static HashMap<String, Object> getResponse(HttpURLConnection connection) {
         try {
             return readResponse(connection.getInputStream());
         } catch (IOException e) {
@@ -90,30 +92,34 @@ public class ApiRequest implements Runnable {
     }
 
     /**
-     * Read JSON response from API whether its from the input stream or error stream.
+     * Returns the API JSON response as a HashMap
      *
-     * @param responseStream
-     * @return
-     * @throws IOException
+     * @param responseStream Stream to read the response from
+     * @return The JSON response from the API
      */
-    private static HashMap<String, Object> readResponse(InputStream responseStream) throws IOException {
+    private static HashMap<String, Object> readResponse(InputStream responseStream) {
         StringBuilder response = new StringBuilder();
         InputStreamReader inReader = new InputStreamReader(responseStream);
         BufferedReader reader = new BufferedReader(inReader);
         String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
+        try {
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            return JSONtoMap(response.toString());
+        } catch (IOException ignored) {
+
         }
-        reader.close();
-        return JSONtoMap(response.toString());
+        return null;
     }
 
 
     /**
      * Convert JSON response object to HashMap.
      *
-     * @param source String representing the JSON response object
-     * @return
+     * @param source String representing the JSON response object.
+     * @return The HashMap representation of the JSON response.
      * @throws IOException if no response was returned by the API.
      */
     private static HashMap<String, Object> JSONtoMap(String source) throws IOException {

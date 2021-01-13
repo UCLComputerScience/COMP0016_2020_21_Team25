@@ -2,16 +2,11 @@ package servicesAPI.services;
 
 import java.util.HashMap;
 
-/*
-  Defines a RESTful service request
- */
 
 /**
- * An object defining the outline for a RESTful API as well as a way of parsing
- * the API's response into an English sentence for the speech synthesiser.
+ * An object defining the outline for a RESTful API as well as a way of parsing the API's response into an English sentence for the speech synthesiser.
  */
 public abstract class ServiceRequest {
-    protected final String APIKey;
     protected final HashMap<String, String> payload;
     private final String URL;
     private final String name;
@@ -29,7 +24,6 @@ public abstract class ServiceRequest {
         this.URL = URL;
         this.name = name;
         this.category = category;
-        this.APIKey = APIKey;
         this.payload = populatePayload();
         for (HashMap.Entry<String, String> entry : payload.entrySet()) {
             this.payload.put(entry.getKey(), entry.getValue());
@@ -55,6 +49,7 @@ public abstract class ServiceRequest {
 
     /**
      * Defines how each service interprets its output from the API.
+     *
      * @param response The API call's response.
      * @return An English sentence representing the response.
      */
@@ -63,6 +58,7 @@ public abstract class ServiceRequest {
 
     /**
      * A helper method to generalise error handling for an API call.
+     *
      * @param response The data returned by the API.
      * @return An English sentence representing the response.
      */
@@ -78,10 +74,12 @@ public abstract class ServiceRequest {
     }
 
     /**
-     * @param output
-     * @param param
-     * @param map
-     * @return
+     * Returns a string with a named parameter replaced with the content.
+     *
+     * @param output The string to replace on.
+     * @param param  The name of the parameter to be replaced.
+     * @param map    Contains the value to replace into the string.
+     * @return The string with the named parameter replaced.
      */
     protected String replaceParameter(String output, String param, HashMap<String, Object> map) {
         return output.replace("{" + param + "}", map.get(param).toString());
@@ -89,6 +87,7 @@ public abstract class ServiceRequest {
 
     /**
      * Defines how each service interprets error response from the API.
+     *
      * @param response The data returned by the API.
      * @return The error response message from the API in the form of a sentence.
      */
@@ -97,8 +96,8 @@ public abstract class ServiceRequest {
     // Each service API will have a different way of representing HTTP error codes
 
     /**
-     * Each service API will have a different way of representing
-     * HTTP error codes and this method generalises this.
+     * Each service API will have a different way of representing HTTP error codes and this method generalises this.
+     *
      * @param response The data returned by the API.
      * @return The error code in the API response object.
      */
@@ -106,6 +105,7 @@ public abstract class ServiceRequest {
 
     /**
      * Inserts default data into the payload if not given to avoid malformed requests.
+     *
      * @return The payload with default parameters added.
      */
     protected abstract HashMap<String, String> populatePayload();

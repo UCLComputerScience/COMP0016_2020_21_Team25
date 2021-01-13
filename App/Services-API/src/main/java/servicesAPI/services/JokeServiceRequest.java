@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 // TODO - API returns jokes in English - translate to preferred language in the MainController
 // No API Key needed for JokeAPI
-public class JokeServiceRequest extends ServiceRequest  {
+public class JokeServiceRequest extends ServiceRequest {
     private final ArrayList<String> categories = new ArrayList<>(Arrays.asList("any", "miscellaneous", "programming",
             "dark", "pun", "spooky", "christmas"));
 

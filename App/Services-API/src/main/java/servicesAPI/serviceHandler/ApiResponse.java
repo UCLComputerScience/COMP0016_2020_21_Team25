@@ -8,7 +8,6 @@ import java.util.HashMap;
  * Represents the result of an API call
  */
 public class ApiResponse {
-    private final HashMap<String, Object> response;
     /**
      * SpeechResponse is a string represented what the response from API call was
      * It is a plain English sentence for the speech synthesisr to output
@@ -16,13 +15,11 @@ public class ApiResponse {
     private final String speechResponse;
 
     /**
-     *
      * @param serviceRequest is the object used to parse the response into an
      *                       English sentence for the speech synthesiser
-     * @param response represents the JSON object returned by the API
+     * @param response       represents the JSON object returned by the API
      */
     public ApiResponse(ServiceRequest serviceRequest, HashMap<String, Object> response) {
-        this.response = response;
         this.speechResponse = serviceRequest.parseResponse(response);
     }
 

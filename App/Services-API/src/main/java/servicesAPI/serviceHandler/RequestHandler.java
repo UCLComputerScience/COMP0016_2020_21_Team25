@@ -24,14 +24,14 @@ public class RequestHandler implements Runnable {
     private volatile boolean running = true;
 
     /**
-     * Employs the factory pattern to map a service name to its
-     * corresponding service request object.
+     * Employs the factory pattern to map a service name to its corresponding service request object.
+     *
      * @param serviceName The name of the service.
-     * @param data The payload - data required to complete the API call.
+     * @param data        The payload - data required to complete the API call.
      * @return The ServiceRequest object.
      */
     private ServiceRequest getServiceRequestByName(String serviceName,
-                                                          HashMap<String, String> data) {
+                                                   HashMap<String, String> data) {
         switch (serviceName.toLowerCase()) {
             case "weather":
                 return new WeatherServiceRequest(data);
@@ -74,8 +74,7 @@ public class RequestHandler implements Runnable {
     }
 
     /**
-     * Periodically update the app response queue with
-     * the data pushed onto the api response queue.
+     * Periodically update the app response queue with the data pushed onto the API response queue.
      */
     public synchronized void run() {
         try {
