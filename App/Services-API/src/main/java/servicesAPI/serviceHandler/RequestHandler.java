@@ -1,15 +1,11 @@
 package servicesAPI.serviceHandler;
 
-import servicesAPI.services.JokeServiceRequest;
-import servicesAPI.services.ServiceRequest;
-import servicesAPI.services.StocksServiceRequest;
-import servicesAPI.services.WeatherServiceRequest;
+import servicesAPI.services.*;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Queue;
-
-import static java.lang.Thread.sleep;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Wrapper class to abstract API calls from the main application.
@@ -19,7 +15,7 @@ public class RequestHandler implements Runnable {
      * How often to check for updates in the API response queue.
      */
     private final int UPDATE_DELAY = 1000;
-    private final Queue<ApiResponse> apiResponseQueue = new LinkedList<>();
+    private final BlockingQueue<ApiResponse> apiResponseQueue = new LinkedBlockingQueue<>();
     private Queue<String> appQueue;
     private volatile boolean running = true;
 
@@ -33,12 +29,14 @@ public class RequestHandler implements Runnable {
     private ServiceRequest getServiceRequestByName(String serviceName,
                                                    HashMap<String, String> data) {
         switch (serviceName.toLowerCase()) {
-            case "weather":
-                return new WeatherServiceRequest(data);
-            case "stocks":
-                return new StocksServiceRequest(data);
+            case "dictionary":
+                return new DictionaryServiceRequest(data);
             case "joke":
                 return new JokeServiceRequest(data);
+            case "stocks":
+                return new StocksServiceRequest(data);
+            case "weather":
+                return new WeatherServiceRequest(data);
             default:
                 return null;
         }
@@ -58,7 +56,7 @@ public class RequestHandler implements Runnable {
         }
     }
 
-    private void setAppQueue(Queue<String> appQueue) {
+    public void setAppQueue(Queue<String> appQueue) {
         this.appQueue = appQueue;
     }
 
@@ -76,18 +74,13 @@ public class RequestHandler implements Runnable {
     /**
      * Periodically update the app response queue with the data pushed onto the API response queue.
      */
-    public synchronized void run() {
-        try {
-            while (isRunning()) {
-                while (!apiResponseQueue.isEmpty()) {
-                    ApiResponse response = apiResponseQueue.poll();
-                    String speechResponse = response.getResponse();
-                    appQueue.add(speechResponse);
-                }
-                sleep(UPDATE_DELAY);
+    public void run() {
+        while (isRunning()) {
+            while (!apiResponseQueue.isEmpty()) {
+                ApiResponse response = apiResponseQueue.poll();
+                String speechResponse = response.getResponse();
+                appQueue.add(speechResponse);
             }
-        } catch (InterruptedException ignored) {
-
         }
     }
 }

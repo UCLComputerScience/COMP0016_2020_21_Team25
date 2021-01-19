@@ -28,7 +28,8 @@ public abstract class ServiceRequest {
         for (HashMap.Entry<String, String> entry : payload.entrySet()) {
             this.payload.put(entry.getKey(), entry.getValue());
         }
-        this.payload.put("API-Key", APIKey);
+        if (!APIKey.equals(""))
+            this.payload.put("API-Key", APIKey);
     }
 
     public String getURL() {

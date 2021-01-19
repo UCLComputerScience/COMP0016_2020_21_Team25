@@ -123,6 +123,9 @@ public class ApiRequest implements Runnable {
      * @throws IOException if no response was returned by the API.
      */
     private static HashMap<String, Object> JSONtoMap(String source) throws IOException {
+        if (source.startsWith("[") && source.endsWith("]")) {
+            source = source.substring(1, source.length() - 1);
+        }
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(source, new TypeReference<>() {
         });
@@ -131,7 +134,7 @@ public class ApiRequest implements Runnable {
     /**
      * Performs the API request and pushes the response onto the response queue.
      */
-    public synchronized void run() {
+    public void run() {
         HttpURLConnection connection = null;
         String formattedURL = formatURL(URL, parameters);
         try {

@@ -30,7 +30,7 @@ A service allowing the user to retrieve information about the current weather in
 |:-----------:|--------|:---------:|------------------------------------------------------------|
 | `CITY_NAME`  | String | `"London"`| The name of the city the user's device is located in.               |
 | `COUNTRY_CODE`  | String |  `"uk"` |The two-character ISO country code of the city. The full list of possible country codes can be found [here](https://countrycode.org/).           |
-| `LANGUAGE`  | String | `"en"` | The preferred language the user wants the output to be returned in. Uses the same two-character ISO country code format as `COUNTRY_CODE`.  |
+| `LANGUAGE`  | String |  `"en"` |The two-character (or three) ISO code of the language to return the weather in. The full list of possible language codes can be found [here](https://www.loc.gov/standards/iso639-2/php/code_list.php).           |
 
 ### Stocks API
 
@@ -49,6 +49,17 @@ A service retrieving a random joke in a given category.
 | Attribute | Type   | Default | Description                                                         |
 |:-----------:|--------|:---------:|------------------------------------------------------------|
 | `CATEGORY`  | String | `"ANY"`| The joke category of your choice.|
+
+### Dictionary API
+
+A service retrieving the definition, examples and synonyms for a given word.
+
+| Attribute | Type   | Default | Description                                                         |
+|:-----------:|--------|:---------:|------------------------------------------------------------|
+| `WORD`  | String | `"hello"`| The word to retrieve the definition of.|
+| `LANGUAGE`  | String |  `"en"` |The two-character (or three) ISO code of the language to return the definition in. The full list of possible language codes can be found [here](https://www.loc.gov/standards/iso639-2/php/code_list.php).           |
+| `INCLUDE_SYNONYMS`  | Boolean |  `"false"` |Indicates whether to retrieve the synonyms of the word as well.           |
+| `SYNONYMS_ONLY`  | Boolean |  `"false"` |Allows for thesaurus usage, retrieving only the synonyms of the word and not its definition and example sentence usage.           |
 
 ## Adding Services
 
