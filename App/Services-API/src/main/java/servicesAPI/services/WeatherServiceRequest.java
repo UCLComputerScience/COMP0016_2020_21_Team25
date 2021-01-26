@@ -57,7 +57,7 @@ public class WeatherServiceRequest extends ServiceRequest {
                             "Please try again in a little while.";
             }
         }
-        return "The requested action could not be performed. Please try again";
+        return "The requested action could not be performed. Please try again.";
     }
 
     protected String getErrorCode(HashMap<String, Object> response) {

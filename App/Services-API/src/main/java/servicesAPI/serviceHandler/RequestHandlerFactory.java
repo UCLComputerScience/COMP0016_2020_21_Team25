@@ -12,8 +12,10 @@ public class RequestHandlerFactory {
      * @return the instance of the request handler object.
      */
     public static RequestHandler instance() {
-        if (requestHandler == null)
+        if (requestHandler == null) {
             requestHandler = new RequestHandler();
+            new Thread(requestHandler).start();
+        }
         return requestHandler;
     }
 }
