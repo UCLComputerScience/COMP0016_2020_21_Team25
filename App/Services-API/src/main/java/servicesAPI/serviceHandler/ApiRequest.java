@@ -53,6 +53,7 @@ public class ApiRequest implements Runnable {
         URL url = new URL(URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
 
         connection.setConnectTimeout(MAX_RESPONSE_TIME);
         connection.setReadTimeout(MAX_RESPONSE_TIME);
@@ -73,9 +74,8 @@ public class ApiRequest implements Runnable {
         for (HashMap.Entry<String, String> entry : parameters.entrySet()) {
             URL = URL.replace("{" + entry.getKey() + "}", entry.getValue());
         }
-        return URL;
+        return URL.replace(" ", "%20");
     }
-
 
     /**
      * Read JSON response from API into HashMap regardless of whether it is an error response.
@@ -108,12 +108,11 @@ public class ApiRequest implements Runnable {
             }
             reader.close();
             return JSONtoMap(response.toString());
-        } catch (IOException ignored) {
+        } catch (IOException | NullPointerException ignored) {
 
         }
         return null;
     }
-
 
     /**
      * Convert JSON response object to HashMap.
@@ -124,7 +123,7 @@ public class ApiRequest implements Runnable {
      */
     private static HashMap<String, Object> JSONtoMap(String source) throws IOException {
         if (source.startsWith("[") && source.endsWith("]")) {
-            source = source.substring(1, source.length() - 1);
+            source = "{ \"results\": " + source + "}";
         }
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(source, new TypeReference<>() {
@@ -144,10 +143,10 @@ public class ApiRequest implements Runnable {
             this.responseQueue.add(apiResponse);
         } catch (IOException e) {
             // TODO - Only for debugging
-            System.err.println(e.getMessage());
-            for (StackTraceElement message : e.getStackTrace()) {
-                System.err.println(message);
-            }
+//            System.err.println(e.getMessage());
+//            for (StackTraceElement message : e.getStackTrace()) {
+//                System.err.println(message);
+//            }
         } finally {
             if (connection != null) {
                 connection.disconnect();

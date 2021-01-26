@@ -44,11 +44,11 @@ A service allowing the user to retrieve stock information on an equity of their 
 
 ### Joke API
 
-A service retrieving a random joke in a given category.
+A service retrieving a random or specific joke.
 
 | Attribute | Type   | Default | Description                                                         |
 |:-----------:|--------|:---------:|------------------------------------------------------------|
-| `CATEGORY`  | String | `"ANY"`| The joke category of your choice.|
+| `TERM`  | String | `""`| The search term to search for a joke.|
 
 ### Dictionary API
 

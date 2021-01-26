@@ -1,6 +1,6 @@
 package servicesAPI.serviceHandler;
 
-import servicesAPI.services.*;
+import servicesAPI.services.ServiceRequest;
 
 import java.util.HashMap;
 import java.util.Queue;
@@ -20,39 +20,18 @@ public class RequestHandler implements Runnable {
     private volatile boolean running = true;
 
     /**
-     * Employs the factory pattern to map a service name to its corresponding service request object.
-     *
-     * @param serviceName The name of the service.
-     * @param data        The payload - data required to complete the API call.
-     * @return The ServiceRequest object.
-     */
-    private ServiceRequest getServiceRequestByName(String serviceName,
-                                                   HashMap<String, String> data) {
-        switch (serviceName.toLowerCase()) {
-            case "dictionary":
-                return new DictionaryServiceRequest(data);
-            case "joke":
-                return new JokeServiceRequest(data);
-            case "stocks":
-                return new StocksServiceRequest(data);
-            case "weather":
-                return new WeatherServiceRequest(data);
-            default:
-                return null;
-        }
-    }
-
-    /**
      * Performs service API request concurrently in a child thread.
      *
      * @param serviceName The name of the service
      * @param data        The data required to complete the restful API call.
      */
     public void makeRequest(String serviceName, HashMap<String, String> data) {
-        ServiceRequest serviceRequest = getServiceRequestByName(serviceName, data);
+        ServiceRequest serviceRequest = ServiceFactory.getServiceRequestByName(serviceName, data);
         if (serviceRequest != null) {
             ApiRequest apiRequest = new ApiRequest(serviceRequest, apiResponseQueue);
             new Thread(apiRequest).start();
+        } else {
+            appQueue.add("Unknown service: " + serviceName);
         }
     }
 
