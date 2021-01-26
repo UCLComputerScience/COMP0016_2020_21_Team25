@@ -1,7 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {nextTick} from "@vue/runtime-core";
 
-import $ from "jquery";
 import {routes} from "./routes";
 import {store} from "../app/store/store";
 
@@ -13,7 +12,7 @@ const router = createRouter({
             nextTick(() => {
                 let section = document.querySelector(to.hash);
                 if (section !== null) {
-                    $('html').animate({scrollTop: section.offsetTop - 50}, 500);
+                    window.scrollTo({top: section.offsetTop - 50, behaviour: "smooth"});
                 }
             });
             return false;

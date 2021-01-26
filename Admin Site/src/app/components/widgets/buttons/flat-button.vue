@@ -61,7 +61,6 @@
 
     .flat-button:hover {
         box-shadow: 0 6px 12px -1px rgba(0, 0, 0, .33);
-        transform: translateY(-10px);
     }
 
     .flat-button:hover:after {

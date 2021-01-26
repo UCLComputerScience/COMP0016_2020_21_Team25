@@ -43,6 +43,7 @@
                 for (let el of elements) {
                     if (this.$route.params.person !== undefined
                         && this.$route.name !== "people" &&
+                        this.activeMember !== undefined &&
                         el.user().id === this.activeMember.id) {
                         el.activate();
                     } else {
@@ -89,6 +90,7 @@
         margin: 0;
         line-height: 2em;
         max-height: 2em;
+        text-align: left;
     }
 
     @media (pointer: fine) {

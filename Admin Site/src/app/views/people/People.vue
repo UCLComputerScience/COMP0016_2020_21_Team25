@@ -46,6 +46,7 @@
         padding: 24px;
         width: 100%;
         align-items: flex-start;
+        overflow-y: auto;
     }
 
     @media (max-width: 1024px) {

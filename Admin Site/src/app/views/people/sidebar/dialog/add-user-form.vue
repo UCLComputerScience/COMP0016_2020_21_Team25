@@ -1,36 +1,64 @@
 <template>
     <form class="add-user-form centred" v-on:submit.prevent="submit">
+        <text-input
+            :object="form"
+            autocomplete="given-name"
+            icon="perm_identity"
+            id="profile-first-name"
+            key-name="firstName"
+            label="First Name"
+            placeholder="John"
+            ref="first-name"
+            type="text"
+        >
+        </text-input>
+
+        <text-input
+            :object="form"
+            autocomplete="family-name"
+            icon="people"
+            id="profile-last-name"
+            key-name="lastName"
+            label="Last Name"
+            placeholder="Doe"
+            ref="last-name"
+            type="text"
+        >
+        </text-input>
+
+        <text-input
+            :maxlength="11"
+            :no-spaces="true"
+            :object="form"
+            autocomplete="tel"
+            icon="phone"
+            id="profile-phone-number"
+            key-name="phoneNumber"
+            label="Phone Number"
+            placeholder="07..."
+            ref="phone-number"
+            type="text"
+        >
+        </text-input>
+
+        <dropdown
+            :items="prefixes"
+            label="Prefix"
+            ref="dropdown"
+            title="Select a prefix"
+        ></dropdown>
         <slot></slot>
-        <text-input :object="form" autocomplete="given-name"
-                    icon="perm_identity" id="profile-first-name" key-name="firstName"
-                    label="First Name" placeholder="John" ref="first-name" type="text">
-        </text-input>
-
-        <text-input :object="form" autocomplete="family-name"
-                    icon="people" id="profile-last-name" key-name="lastName"
-                    label="Last Name" placeholder="Doe" ref="last-name" type="text">
-        </text-input>
-
-        <text-input :maxlength="11" :no-spaces="true" :object="form"
-                    autocomplete="tel" icon="phone"
-                    id="profile-phone-number" key-name="phoneNumber"
-                    label="Phone Number" placeholder="07..."
-                    ref="phone-number" type="text">
-        </text-input>
-
-        <dropdown :items="prefixes" label="Prefix"
-                  title="Select a prefix"></dropdown>
     </form>
 </template>
 
 <script>
-    import Dropdown from '../../../../components/widgets/misc/dropdown/dropdown.vue';
+    import Dropdown from "../../../../components/widgets/misc/dropdown/dropdown.vue";
     import TextInput from "../../../../components/widgets/text-input/text-input.vue";
 
     export default {
         name: "add-user-form",
-        components: {TextInput, Dropdown},
-        props: {form: Object},
+        components: { TextInput, Dropdown },
+        props: { form: Object },
         computed: {
             prefixes() {
                 const prefixes = ["Mr", "Ms", "Mrs", "Dr", "Prof"];
@@ -40,11 +68,11 @@
                         text: prefix,
                         fn: () => {
                             this.form.prefix = prefix;
-                        }
-                    })
+                        },
+                    });
                 }
                 return items;
-            }
+            },
         },
         methods: {
             checkForm() {
@@ -52,25 +80,25 @@
                     return {
                         message: "Please select a profile picture.",
                         ref: null,
-                    }
+                    };
                 }
                 if (this.form.firstName === "") {
                     return {
                         message: "Please enter a first name.",
                         ref: "first-name",
-                    }
+                    };
                 }
                 if (this.form.lastName === "") {
                     return {
                         message: "Please enter a last name.",
                         ref: "last-name",
-                    }
+                    };
                 }
                 if (this.form.phoneNumber === "") {
                     return {
                         message: "Please enter a phone number.",
                         ref: "phone-number",
-                    }
+                    };
                 }
 
                 if (this.form.phoneNumber.length < 11) {
@@ -84,9 +112,12 @@
                     return {
                         message: "Please select a prefix.",
                         ref: null,
-                    }
+                    };
                 }
-                return "";
+                return {
+                    message: "valid",
+                    ref: null,
+                };
             },
             clear() {
                 for (let element of this.$refs) {
@@ -99,7 +130,12 @@
             },
             failed(ref) {
                 this.$refs[ref].clearInput();
-            }
+            },
+            select(text) {
+                this.$nextTick(() => {
+                    this.$refs.dropdown.selectByText(text);
+                });
+            },
         },
     };
 </script>
