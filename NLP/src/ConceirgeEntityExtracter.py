@@ -76,6 +76,8 @@ class CommandPackage:
            
 
 Conceirge= EntityExtraction("./src/NER_Model")
-command=Conceirge.entityExtraction("Tell me the stock of AMD")
 
-print(command.commandDict)
+def runNER(sentence):
+    command=Conceirge.entityExtraction(sentence)
+    return command.commandDict
+
