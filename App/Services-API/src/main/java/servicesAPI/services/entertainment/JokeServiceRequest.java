@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class JokeServiceRequest extends ServiceRequest {
-    private final int MAX_JOKES = 10;
     private static final Random randomiser = new Random();
+    private final int MAX_JOKES = 10;
 
     public JokeServiceRequest(HashMap<String, String> payload) {
         super("https://icanhazdadjoke.com/", "Joke", "Entertainment", "", payload);

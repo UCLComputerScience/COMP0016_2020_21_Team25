@@ -8,6 +8,10 @@ import java.util.HashMap;
  */
 public abstract class ServiceRequest {
     protected final HashMap<String, String> payload;
+    /**
+     * metadata stores any extra information returned by an API request which is not to be spoken out - useful for storing information for further API calls.
+     */
+    protected final HashMap<String, Object> metadata;
     private final String URL;
     private final String name;
     private final String category;
@@ -30,6 +34,7 @@ public abstract class ServiceRequest {
         }
         if (!APIKey.equals(""))
             this.payload.put("API-Key", APIKey);
+        this.metadata = new HashMap<>();
     }
 
     public String getURL() {
@@ -42,6 +47,10 @@ public abstract class ServiceRequest {
 
     public String getCategory() {
         return category;
+    }
+
+    public HashMap<String, Object> getMetadata() {
+        return metadata;
     }
 
     public HashMap<String, String> getPayload() {
@@ -69,7 +78,7 @@ public abstract class ServiceRequest {
         the response is malformed or a HTTP error response is returned */
         try {
             return parseOutput(response);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ClassCastException e) {
             return handleErrors(response);
         }
     }
@@ -93,8 +102,6 @@ public abstract class ServiceRequest {
      * @return The error response message from the API in the form of a sentence.
      */
     protected abstract String handleErrors(HashMap<String, Object> response);
-
-    // Each service API will have a different way of representing HTTP error codes
 
     /**
      * Each service API will have a different way of representing HTTP error codes and this method generalises this.

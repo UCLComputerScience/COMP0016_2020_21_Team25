@@ -1,10 +1,14 @@
 package servicesAPI.services.utility;
 
-import java.time.*;
-import java.util.*;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WeatherForecastServiceRequest extends AbstractWeatherServiceRequest {
     private final String[] temperatureParams = new String[]{"day", "min", "max"};
+
     public WeatherForecastServiceRequest(HashMap<String, String> payload) {
         super("Weather Forecast",
                 "https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LON}&exclude=current,minutely,hourly&lang={LANGUAGE}", payload);
@@ -32,7 +36,7 @@ public class WeatherForecastServiceRequest extends AbstractWeatherServiceRequest
             sentence = replaceParameter(sentence, "description", main);
             HashMap<String, Object> feelsLikeData = (HashMap<String, Object>) weather.get("feels_like");
             double feelsLike = (double) feelsLikeData.get("day");
-            sentence = sentence.replace("{feels_like}", kelvinToDegrees((Double) feelsLike));
+            sentence = sentence.replace("{feels_like}", kelvinToDegrees(feelsLike));
             for (String param : temperatureParams) {
                 sentence = convertTemp(sentence, param, temperatureData);
             }

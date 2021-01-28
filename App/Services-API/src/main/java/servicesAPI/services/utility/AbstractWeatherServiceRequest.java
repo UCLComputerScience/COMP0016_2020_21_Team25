@@ -9,8 +9,8 @@ public abstract class AbstractWeatherServiceRequest extends ServiceRequest {
     private final String[] temperatureParams = new String[]{"temp", "feels_like", "temp_min", "temp_max"};
 
     /**
-     * @param URL      The base URL to make the API call.
-     * @param payload  Data needed to fill out the API call parameters.
+     * @param URL     The base URL to make the API call.
+     * @param payload Data needed to fill out the API call parameters.
      */
     public AbstractWeatherServiceRequest(String name, String URL, HashMap<String, String> payload) {
         super(URL + "&appid={API-Key}",

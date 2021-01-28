@@ -14,7 +14,6 @@ public class RequestHandlerFactory {
     public static RequestHandler instance() {
         if (requestHandler == null) {
             requestHandler = new RequestHandler();
-            new Thread(requestHandler).start();
         }
         return requestHandler;
     }

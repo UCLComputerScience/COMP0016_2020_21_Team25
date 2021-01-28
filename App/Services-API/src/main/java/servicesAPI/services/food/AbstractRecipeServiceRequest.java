@@ -11,8 +11,8 @@ public abstract class AbstractRecipeServiceRequest extends ServiceRequest {
     private static final int MAX_RECIPES = 3;
 
     /**
-     * @param URL      The base URL to make the API call.
-     * @param payload  Data needed to fill out the API call parameters.
+     * @param URL     The base URL to make the API call.
+     * @param payload Data needed to fill out the API call parameters.
      */
     public AbstractRecipeServiceRequest(String URL, HashMap<String, String> payload) {
         super(URL + "&number=" + MAX_RECIPES + "&apiKey={API-Key}&addRecipeInformation=true",
@@ -25,12 +25,17 @@ public abstract class AbstractRecipeServiceRequest extends ServiceRequest {
             return (ArrayList<HashMap<String, Object>>) response.get("results");
         return recipes;
     }
+
     @Override
     protected String parseOutput(HashMap<String, Object> response) {
         ArrayList<HashMap<String, Object>> recipes = getRecipes(response);
         if (recipes.size() > 0) {
             int randomIndex = randomiser.nextInt(recipes.size());
             HashMap<String, Object> randomRecipe = recipes.get(randomIndex);
+            int id = (int) randomRecipe.get("id");
+            metadata.put("recipe-id", id);
+            String image = (String) randomRecipe.get("image");
+            metadata.put("image", image);
             String output = "I've found a recipe called ";
             String title = (String) randomRecipe.get("title");
             String servings = getServings(randomRecipe);
@@ -57,7 +62,7 @@ public abstract class AbstractRecipeServiceRequest extends ServiceRequest {
             output += vegetarian;
             output += (isVegan == isVegetarian) ? "and " : "but ";
             output += vegan;
-            return output;
+            return output + " Would you like to me to retrieve the instructions?";
         }
         return "I'm sorry, I could not find a recipe.";
     }
@@ -90,7 +95,7 @@ public abstract class AbstractRecipeServiceRequest extends ServiceRequest {
     private String getServings(HashMap<String, Object> recipeData) {
         int servings = (int) recipeData.get("servings");
         String base = "serving " + servings + " ";
-        return base + (servings == 1 ?  "person" : "people") + ". ";
+        return base + (servings == 1 ? "person" : "people") + ". ";
     }
 
     private String getDairyFree(HashMap<String, Object> recipeData) {

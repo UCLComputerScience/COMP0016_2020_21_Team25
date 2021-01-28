@@ -29,8 +29,7 @@ public class ApiRequest implements Runnable {
     /**
      * Instantiates a new API request.
      *
-     * @param serviceRequest   The service request object storing request parameters
-     *                         and the URL, including a method to parse the API response.
+     * @param serviceRequest   The service request object storing request parameters and the URL, including a method to parse the API response.
      * @param apiResponseQueue The api response queue used to push the API's response
      *                         onto a queue to be fed back to the main application.
      */
@@ -64,11 +63,11 @@ public class ApiRequest implements Runnable {
     }
 
     /**
-     * Puts parameters into the URL for the API request
+     * Puts parameters into the URL for the API request.
      *
-     * @param URL        Base URL of the API call
-     * @param parameters Data to put into the URL
-     * @return URL with parameters inserted
+     * @param URL        Base URL of the API call.
+     * @param parameters Data to put into the URL.
+     * @return URL with parameters inserted.
      */
     private static String formatURL(String URL, HashMap<String, String> parameters) {
         for (HashMap.Entry<String, String> entry : parameters.entrySet()) {
@@ -80,8 +79,8 @@ public class ApiRequest implements Runnable {
     /**
      * Read JSON response from API into HashMap regardless of whether it is an error response.
      *
-     * @param connection Connection object to read response from
-     * @return API response as a HashMap
+     * @param connection Connection object to read response from.
+     * @return API response as a HashMap.
      */
     private static HashMap<String, Object> getResponse(HttpURLConnection connection) {
         try {
@@ -92,10 +91,10 @@ public class ApiRequest implements Runnable {
     }
 
     /**
-     * Returns the API JSON response as a HashMap
+     * Returns the API JSON response as a HashMap.
      *
-     * @param responseStream Stream to read the response from
-     * @return The JSON response from the API
+     * @param responseStream Stream to read the response from.
+     * @return The JSON response from the API.
      */
     private static HashMap<String, Object> readResponse(InputStream responseStream) {
         StringBuilder response = new StringBuilder();
@@ -141,12 +140,7 @@ public class ApiRequest implements Runnable {
             HashMap<String, Object> responseData = getResponse(connection);
             ApiResponse apiResponse = new ApiResponse(serviceRequest, responseData);
             this.responseQueue.add(apiResponse);
-        } catch (IOException e) {
-            // TODO - Only for debugging
-//            System.err.println(e.getMessage());
-//            for (StackTraceElement message : e.getStackTrace()) {
-//                System.err.println(message);
-//            }
+        } catch (IOException ignored) {
         } finally {
             if (connection != null) {
                 connection.disconnect();

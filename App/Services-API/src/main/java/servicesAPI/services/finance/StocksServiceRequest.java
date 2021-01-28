@@ -19,7 +19,7 @@ public class StocksServiceRequest extends ServiceRequest {
         HashMap<String, Object> latestInfo = (HashMap<String, Object>) stockInfo.get(time);
 
         String output = "";
-        output += "Here's some stock information on " +  payload.get("SYMBOL");
+        output += "Here's some stock information on " + payload.get("SYMBOL");
         output += ". ";
 
         String high = (String) latestInfo.get("2. high");

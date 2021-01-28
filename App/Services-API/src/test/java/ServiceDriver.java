@@ -1,3 +1,4 @@
+import servicesAPI.serviceHandler.ApiResponse;
 import servicesAPI.serviceHandler.RequestHandler;
 import servicesAPI.serviceHandler.RequestHandlerFactory;
 
@@ -8,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ServiceDriver {
     final RequestHandler handler = RequestHandlerFactory.instance();
     private final HashMap<String, String> params = new HashMap<>();
-    private final BlockingQueue<String> appQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<ApiResponse> appQueue = new LinkedBlockingQueue<>();
 
     public ServiceDriver() {
         new Thread(new ResponseListener(appQueue)).start();
@@ -16,12 +17,12 @@ public class ServiceDriver {
 
     public void start() {
         handler.setAppQueue(appQueue);
-       testTransportService();
-       testStocksService();
-       testRecipeService();
-       testJokeService();
+        testTransportService();
+        testStocksService();
+        testRecipeService();
+        testJokeService();
         testWeatherService();
-       testDictionaryService();
+        testDictionaryService();
     }
 
     private void testTransportService() {
@@ -49,18 +50,30 @@ public class ServiceDriver {
     }
 
     private void testWeatherService() {
+        String[] cities = new String[]{"london", "beijing", "Shouguang",
+                "Yanbu", "Barisal", "Nagpur", "Karachi", "Ulaanbaatar",
+                "Kampala", "Bamenda"};
+        for (String city : cities) {
+            airQualityServiceRequest(city);
+        }
         weatherForecastRequest();
-//        currentWeatherRequest();
+        currentWeatherRequest();
     }
 
     private void testDictionaryService() {
         String[] languages = new String[]{"en"};
-        for (String language: languages) {
+        for (String language : languages) {
             dictionaryRequest(false, true, "dictionary", language);
             dictionaryRequest(false, false, "example", language);
             dictionaryRequest(true, false, "accuracy", language);
             dictionaryRequest(true, true, "verisimilitude", language);
         }
+    }
+
+    private void airQualityServiceRequest(String city) {
+        params.clear();
+        params.put("CITY_NAME", city);
+        handler.makeRequest("air quality", params);
     }
 
     private void nearestTransportServiceRequest() {
