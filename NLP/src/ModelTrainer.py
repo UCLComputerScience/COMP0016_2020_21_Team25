@@ -8,12 +8,15 @@ from spacy.util import minibatch, compounding
 # new entity label
 COMMAND_LABEL = "COMMAND"
 WEATHER_LABELS=["CITY"]
-STOCK_LABELS=[]
+FORECAST_LABELS=["CITY","DAYS"]
+AIRQUALITY_LABELS=["CITY"]
 JOKE_LABELS=["CATEGORY"]
 STOCK_LABELS=["FUNCTION","SYMBOL","INTERVAL"]
-
+DICTIONARY_LABELS=["WORD","OPTION"]
+THEASAURUS_LABELS=["WORD"]
 
 TRAIN_DATA = [
+#---------------------------------------CURRENTWEATHER-------------------------------
     (
         "What is the weather like outside?",
         {"entities": [(12, 19, COMMAND_LABEL)]},
@@ -38,7 +41,47 @@ TRAIN_DATA = [
         "Give me the weather for today",
         {"entities": [(12, 19, COMMAND_LABEL)]},
     ),
+#---------------------------------------AIRQUALITY-------------------------------
+    (
+        "What is the air quality like today?",
+        {"entities": [(12, 15, COMMAND_LABEL)]},
+    ),
 
+    (
+        "What will the air quality be like in London?",
+        {"entities": [(14, 17, COMMAND_LABEL),(37, 43, AIRQUALITY_LABELS[0])]}
+    ),
+
+    (
+        "Tell me what the air quality will be like in Chicago",
+        {"entities": [(17, 20, COMMAND_LABEL),(45, 52, AIRQUALITY_LABELS[0])]}
+    ),
+
+    (
+        "Give me the air quality for today",
+        {"entities": [(12, 15, COMMAND_LABEL)]},
+    ),
+#---------------------------------------FORECAST-----------------------------
+    (
+        "What is the forecast for tomorrow?",
+        {"entities": [(12, 20, COMMAND_LABEL),(25, 33, FORECAST_LABELS[1])]},
+    ),
+
+    (
+        "What will the forecast be for London in three days?",
+        {"entities": [(14, 22, COMMAND_LABEL),(40, 45, FORECAST_LABELS[1]),(30, 36, FORECAST_LABELS[0])]}
+    ),
+
+    (
+        "What will the forecast be for Chicago in seven days?",
+        {"entities": [(14, 22, COMMAND_LABEL),(41, 46, FORECAST_LABELS[1]),(30, 37, FORECAST_LABELS[0])]}
+    ),
+
+    (
+        "Give me the forecast in five days?",
+        {"entities": [(12,20 , COMMAND_LABEL),(24, 28, FORECAST_LABELS[1])]},
+    ),
+#---------------------------------------JOKE-------------------------------
     (
         "Tell me a joke",
         {"entities": [(10, 14, COMMAND_LABEL)]},
@@ -63,7 +106,7 @@ TRAIN_DATA = [
         "Tell me a programming joke",
         {"entities": [(22, 26, COMMAND_LABEL),(10, 21, JOKE_LABELS[0])]},
     ),
-
+#---------------------------------------STOCKS-------------------------------
     (
         "Tell me the stock value of IBM",
         {"entities": [(12, 17, COMMAND_LABEL),(27, 30, STOCK_LABELS[1])]},
@@ -78,7 +121,36 @@ TRAIN_DATA = [
         "What is the stock value of Google",
         {"entities": [(12, 17, COMMAND_LABEL),(27,33, STOCK_LABELS[1])]},
     ),
+#---------------------------------------DICTIONARY-------------------------------
+    (
+        "Give me the definition of object",
+        {"entities": [(12, 22, COMMAND_LABEL),(26, 32, DICTIONARY_LABELS[0])]},
+    ),
+
+    (
+        "Tell me the definition of the word string",
+        {"entities": [(12, 22, COMMAND_LABEL),(35, 41, DICTIONARY_LABELS[0])]},
+    ),
     
+    (
+        "What is the definition of the word soup with an example",
+        {"entities": [(12, 22, COMMAND_LABEL),(35,39, DICTIONARY_LABELS[0]), (48, 55, DICTIONARY_LABELS[1])]},
+    ),
+#---------------------------------------THESAURUS-------------------------------
+    (
+        "Give me synonims for the word good",
+        {"entities": [(8, 16, COMMAND_LABEL),(30, 34, THEASAURUS_LABELS[0])]},
+    ),
+
+    (
+        "Tell me some synonyms for the word clear",
+        {"entities": [(13, 21, COMMAND_LABEL),(35, 40, THEASAURUS_LABELS[0])]},
+    ),
+    
+    (
+        "What are some synonyms of the word greeting",
+        {"entities": [(14, 22, COMMAND_LABEL),(35,43, THEASAURUS_LABELS[0])]},
+    ),
 ]
 
 
@@ -106,7 +178,12 @@ def main(model, new_model_name, output_dir,num_iterations):
     ner.add_label(STOCK_LABELS[0])
     ner.add_label(STOCK_LABELS[1])
     ner.add_label(STOCK_LABELS[2])
-   
+    ner.add_label(AIRQUALITY_LABELS[0])
+    ner.add_label(FORECAST_LABELS[0])
+    ner.add_label(FORECAST_LABELS[1])
+    ner.add_label(DICTIONARY_LABELS[0])
+    ner.add_label(DICTIONARY_LABELS[1])
+    ner.add_label(THEASAURUS_LABELS[0])
     if model is None:
         optimizer = nlp.begin_training()
     else:

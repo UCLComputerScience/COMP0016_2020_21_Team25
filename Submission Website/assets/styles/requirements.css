@@ -177,3 +177,14 @@
 .moscow-content h4 {
     margin-top: 0;
 }
+
+.usecase-diagram-div{
+	text-align: center;
+}
+.usecase-diagram-img{
+	margin-left: 10px;
+    margin-right: 10px;
+	margin-bottom: 10px;
+	height: 300px;
+	width: 500px;
+}

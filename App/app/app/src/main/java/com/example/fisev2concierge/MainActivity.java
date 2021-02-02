@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.config(this, conciergeStatusText);
 
         MainController mainController = new MainController();
-        EditText apiText=findViewById(R.id.apiTest);
+//        EditText apiText=findViewById(R.id.apiTest);
 
         //Speech Synthesis defined on main thread
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         Thread thread=new Thread(mainController);
                         thread.start();
                         //Result from thread returned to APItext and speech Synthesis
-                        apiText.setText(mainController.apiRequest("Weather", new HashMap()));
+//                        apiText.setText(mainController.apiRequest("Weather", new HashMap()));
                         speechSynthesis.runTts(mainController.apiRequest("Weather", new HashMap()));
                         break;
                     case MotionEvent.ACTION_DOWN:

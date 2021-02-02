@@ -134,24 +134,6 @@
         app:layout_constraintTop_toTopOf="@+id/horizontalGuide2"
         app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/apiTest"
-        android:layout_width="239dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/Test"
-        android:inputType="textPersonName"
-        android:keepScreenOn="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/tapToStartText"
         android:layout_width="0dp"
