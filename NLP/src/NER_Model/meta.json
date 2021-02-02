@@ -26,9 +26,12 @@
       "CATEGORY",
       "CITY",
       "COMMAND",
+      "DAYS",
       "FUNCTION",
       "INTERVAL",
-      "SYMBOL"
+      "OPTION",
+      "SYMBOL",
+      "WORD"
     ]
   }
 }
