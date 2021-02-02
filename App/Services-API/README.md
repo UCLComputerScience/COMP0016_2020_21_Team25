@@ -6,7 +6,7 @@ The service API package defines and handles the interaction between the app and 
 
 The `makeRequest` method takes the service name and required data as parameters and performs the API request, the output is a sentence for the speech synthesiser to speak aloud to the user (with the relevant data included).
 
--   This output is put onto an API response queue, which is then transferred to a queue maintained by the main controller of the app.
+-   This output is put onto an API response queue, maintained by the main controller of the app.
 
 `void makeRequest(String serviceName, HashMap payload)`
 
@@ -24,6 +24,30 @@ The recognised service names are:
 -   [*"stocks"*](#stocks-api)
 -   [*"transport search"*](#transport-by-search-api)
 -   [*"weather forecast"*](#weather-forecast-api)
+
+
+## Getting Responses
+The API response queue should have the type:
+
+         BlockingQueue<ApiResponse> appQueue;
+
+Periodically polling this queue returns an `ApiResponse` object returning the service's response.
+
+The string response, used in speech synthesis can be retrieved using the `getResponse()` method of the object.
+
+The name of the service that was called can be retrieved using the `getName()` method of the object.
+
+A service may return (required) data that is not suitable for speech synthesis e.g. an image to display. 
+This type of data is referred to as _'metadata'_, stored in a `HashMap<String, Object` named `metadata`. 
+It is retrieved by calling the `metadata()` method of an `ApiResponse` object.
+
+-    Note that there is no standard for the representation of data inside the hashmap - this is entirely dependent on the service, and its corresponding `parseOutput` method.
+-    Checking the `parseOutput` method of a `ServiceRequest` object will instruct you on how to properly access the metadata **for that specific service only**. 
+     
+     -    This is specific, and potentially unique, for each service.
+    
+The `getName()` method should be used to check what service was returned to determine how to read its metadata, if required.
+
 
 The following section defines the required parameters needed by each service. See the [*"Adding Services"*](#adding-services) section for more information on how to integrate new services.
 
@@ -137,10 +161,11 @@ This service returns a set of recipes with certain ingredients, specified by the
 ### News API
 
 This service returns a news article based on the user's search.
-|   Attribute   | Type    | Default | Description                                            |
-\| :-----------: \| ------- \| :-----: \| ------------------------------------------------------ \|
-\| `QUERY` | String |   `""`  | The search term, in natural language. |
-\| `LANGUAGE` | String |   `"en"`  | The language to return the result in. Uses the two-character IS0-639-1 code scheme. The full list of possible language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) \|
+
+|   Attribute   | Type   | Default | Description                                            |
+| :-----------: | ------ | :-----: | ------------------------------------------------------ |
+| `QUERY`       | String |  `""`   | The search term, in natural language.                          |
+| `LANGUAGE`    | String |  `"en"` | The language to return the result in. Uses the two-character IS0-639-1 code scheme. The full list of possible language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes). |
 
 ## Adding Services
 
@@ -174,4 +199,4 @@ It must also implement the following methods:
 
 The service can then be called by adding its name to the switch statement in the `ServiceFactory` by adding a new case for its `name` attribute in lowercase and returning a new object of the service (which takes the `payload` as its only parameter). No other code interaction needs to take place.
 
-The service should be placed in the `services` package and its API format should be listed in the ["API Format"](#api-formats) section with its description.
+The service should be placed in the `services` package, in the relevant category package, and its API format should be listed in the ["API Format"](#api-formats) section with its description.
