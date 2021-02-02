@@ -1,14 +1,17 @@
 <template>
     <div class="user-details centred">
         <div class="header-container" ref="header">
-            <p class="tagline">{{ user.prefix }}</p>
+            <p class="tagline">{{ prefix }}</p>
             <h1 class="user-title">{{ title }} Details</h1>
         </div>
-        <div class="user-content centred">
+        <div class="user-content noselect centred">
             <h2>Profile Picture</h2>
             <div class="user-picture-container image" v-on:click="edit">
-                <img :alt="user.firstName" :src="currentPicture"
-                     class="user-picture centred">
+                <img
+                    :alt="firstName"
+                    :src="currentPicture"
+                    class="user-picture centred"
+                />
                 <span class="edit-icon centred material-icons">edit</span>
             </div>
             <details-form></details-form>
@@ -22,21 +25,37 @@
 <script>
     import ProfilePicChooser from "../../../profile/profile-pic-chooser.vue";
     import DetailsForm from "./details-form.vue";
-    import {getName} from "../../../../../assets/scripts/util";
+    import { getName } from "../../../../../assets/scripts/util";
 
     export default {
         name: "UserDetails",
-        components: {DetailsForm, ProfilePicChooser},
+        components: { DetailsForm, ProfilePicChooser },
         computed: {
             currentPicture() {
                 return this.$store.getters["member/profilePicture"];
             },
             title() {
-                return getName();
+                if (this.user !== undefined) {
+                    return getName();
+                }
             },
             user() {
                 return this.$store.getters["member/activeMember"];
             },
+            prefix() {
+                const user = this.user;
+                if (user === undefined) {
+                    return "";
+                }
+                return user.prefix;
+            },
+            firstName() {
+                const user = this.user;
+                if (user === undefined) {
+                    return "";
+                }
+                return user.firstName;
+            }
         },
         data() {
             return {
@@ -44,17 +63,20 @@
                     selected: this.currentPicture,
                     original: this.currentPicture,
                 },
-            }
+            };
         },
         methods: {
             edit() {
                 this.$refs.chooser.show();
             },
             updateProfilePic() {
-                this.$store.dispatch("member/updateMemberPic", this.picData.selected);
-            }
-        }
-    }
+                this.$store.dispatch(
+                    "member/updateMemberPic",
+                    this.picData.selected
+                );
+            },
+        },
+    };
 </script>
 
 <style scoped>
@@ -71,13 +93,19 @@
         margin-bottom: 16px;
     }
 
-    .user-details, .user-content {
+    .user-details,
+    .user-content {
         flex-direction: column;
+    }
+
+    .user-content {
+        width: 100%;
     }
 
     .user-title {
         margin-top: 0;
         width: 100%;
+        font-size: 36px;
     }
 
     .user-picture-container {
@@ -100,8 +128,8 @@
         border-radius: 50%;
         padding: calc(var(--border-width) * 1px);
         background: var(--border-color);
-        width: 256px;
-        height: 256px;
+        width: 225px;
+        height: 225px;
     }
 
     .user-picture {
@@ -125,7 +153,8 @@
     }
 
     @media (min-width: 900px) {
-        .user-content, .header-container {
+        .user-content,
+        .header-container {
             max-width: 50%;
         }
     }

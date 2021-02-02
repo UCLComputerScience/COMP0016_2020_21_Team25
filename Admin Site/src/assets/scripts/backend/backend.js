@@ -132,6 +132,37 @@ const backend = {
     updateMemberPicture: function (username, userID, newPic) {
         this.users[userID].profilePicture = getProfileImage(newPic);
         return this.users[userID];
+    },
+    addMember: function(firstName, lastName, prefix, phoneNumber, profilePicture) {
+        const userId = this.generateUserID();
+        const member = {
+            id: userId,
+            firstName: firstName,
+            lastName: lastName,
+            prefix: prefix,
+            phoneNumber: phoneNumber,
+            profilePicture: getProfileImage(profilePicture)
+        };
+        this.users[userId] = member;
+        return userId;
+    },
+    generateUserID: function() {
+        return 5;
+    },
+    removeMember: function(userId) {
+        const copy = this.users;
+        delete copy[userId];
+        this.users = copy;
+    },
+    updateMember: function(userId, firstName, lastName, prefix, phoneNumber, profilePicture) {
+        this.users[userId] = {
+            id: userId,
+            firstName: firstName,
+            lastName: lastName,
+            prefix: prefix,
+            phoneNumber: phoneNumber,
+            profilePicture: profilePicture,
+        }
     }
 }
 

@@ -1,4 +1,6 @@
-package servicesAPI.services;
+package servicesAPI.services.utility;
+
+import servicesAPI.services.ServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +23,8 @@ public class DictionaryServiceRequest extends ServiceRequest {
 
     @Override
     protected String parseOutput(HashMap<String, Object> response) {
-        ArrayList<HashMap<String, Object>> definitionsArray = (ArrayList<HashMap<String, Object>>) response.get("meanings");
+        ArrayList<HashMap<String, Object>> results = (ArrayList<HashMap<String, Object>>) response.get("results");
+        ArrayList<HashMap<String, Object>> definitionsArray = (ArrayList<HashMap<String, Object>>) results.get(0).get("meanings");
         int size = definitionsArray.size();
         String word = payload.get("WORD");
         StringBuilder output = new StringBuilder();

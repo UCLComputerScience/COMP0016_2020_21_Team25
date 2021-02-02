@@ -114,7 +114,7 @@ export const routes = [
         children: [
             {
                 path: ":person/manage", name: "user-details",
-                component: () => import(/* webpackChunkName: "people", webpackPrefetch: true */ "../app/views/people/user-views/user-details/UserDetails.vue"),
+                component: () => import(/* webpackChunkName: "people-details", webpackPrefetch: true */ "../app/views/people/user-views/user-details/UserDetails.vue"),
                 meta: {
                     title: (route) => {
                         return getName() + " Details";
@@ -124,7 +124,7 @@ export const routes = [
             },
             {
                 path: ":person/services", name: "user-services",
-                component: () => import(/* webpackChunkName: "people", webpackPrefetch: true */ "../app/views/people/user-views/UserServices.vue"),
+                component: () => import(/* webpackChunkName: "people-services", webpackPrefetch: true */ "../app/views/people/user-views/UserServices.vue"),
                 meta: {
                     title: (route) => {
                         return getName() + " Services";
@@ -134,7 +134,7 @@ export const routes = [
             },
             {
                 path: ":person/history", name: "user-history",
-                component: () => import(/* webpackChunkName: "people", webpackPrefetch: true */ "../app/views/people/user-views/UserHistory.vue"),
+                component: () => import(/* webpackChunkName: "history", webpackPrefetch: true */ "../app/views/people/user-views/UserHistory.vue"),
                 meta: {
                     title: (route) => {
                         return getName() + " History";

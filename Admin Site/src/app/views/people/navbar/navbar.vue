@@ -3,8 +3,16 @@
         <h2 class="people-navbar-header">Viewing {{ person }}</h2>
         <ul class="people-nav-buttons centred">
             <nav-item href="user-details" ref="manage" text="Manage"></nav-item>
-            <nav-item href="user-services" ref="services" text="Services"></nav-item>
-            <nav-item href="user-history" ref="history" text="History"></nav-item>
+            <nav-item
+                href="user-services"
+                ref="services"
+                text="Services"
+            ></nav-item>
+            <nav-item
+                href="user-history"
+                ref="history"
+                text="History"
+            ></nav-item>
         </ul>
     </div>
 </template>
@@ -14,20 +22,24 @@
 
     export default {
         name: "navbar",
-        components: {NavItem},
+        components: { NavItem },
         computed: {
             person() {
                 const member = this.$store.getters["member/activeMember"];
-                return member.firstName + " " + member.lastName;
+                if (member !== null && member !== undefined) {
+                    return member.firstName + " " + member.lastName;
+                }
+                return "";
             },
-        }
-    }
+        },
+    };
 </script>
 
 <style scoped>
     .people-navbar {
         width: 100%;
         height: var(--people-nav-height);
+        min-height: var(--people-nav-height);
         background: #f4f5f7;
         position: relative;
         max-width: 100vw;
@@ -40,7 +52,13 @@
         right: 0;
         top: 100%;
         height: 4px;
-        background: linear-gradient(180deg, rgba(9, 30, 66, 0.13) 0, rgba(9, 30, 66, 0.13) 1px, rgba(9, 30, 66, 0.08) 1px, rgba(9, 30, 66, 0) 4px);
+        background: linear-gradient(
+            180deg,
+            rgba(9, 30, 66, 0.13) 0,
+            rgba(9, 30, 66, 0.13) 1px,
+            rgba(9, 30, 66, 0.08) 1px,
+            rgba(9, 30, 66, 0) 4px
+        );
     }
 
     .people-navbar-header {

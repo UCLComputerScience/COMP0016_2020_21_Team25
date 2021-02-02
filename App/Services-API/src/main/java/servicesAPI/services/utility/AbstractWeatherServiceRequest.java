@@ -1,15 +1,20 @@
-package servicesAPI.services;
+package servicesAPI.services.utility;
+
+import servicesAPI.services.ServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@SuppressWarnings("unchecked")
-public class WeatherServiceRequest extends ServiceRequest {
+public abstract class AbstractWeatherServiceRequest extends ServiceRequest {
     private final String[] temperatureParams = new String[]{"temp", "feels_like", "temp_min", "temp_max"};
 
-    public WeatherServiceRequest(HashMap<String, String> requestData) {
-        super("https://api.openweathermap.org/data/2.5/weather?q={CITY_NAME},{COUNTRY_CODE}&lang={LANGUAGE}&appid={API-Key}",
-                "Weather", "Utility", "a19ed1a7f194054f0458cb07ba18c0c3", requestData);
+    /**
+     * @param URL     The base URL to make the API call.
+     * @param payload Data needed to fill out the API call parameters.
+     */
+    public AbstractWeatherServiceRequest(String name, String URL, HashMap<String, String> payload) {
+        super(URL + "&appid={API-Key}",
+                name, "Utility", "a19ed1a7f194054f0458cb07ba18c0c3", payload);
     }
 
     protected String parseOutput(HashMap<String, Object> response) {
@@ -23,11 +28,12 @@ public class WeatherServiceRequest extends ServiceRequest {
         for (String param : temperatureParams) {
             output = convertTemp(output, param, main);
         }
-        Double temperature = (Double) main.get("temp");
+        String temperatureStr = kelvinToDegrees((Double) main.get("temp"));
+        int temperature = Integer.parseInt(temperatureStr);
         if (temperature < 11.0) {
-            output += "Don't forget to dress warm today!";
+            output += " Don't forget to dress warm today!";
         } else if (temperature > 20.0) {
-            output += "It's going to be quite warm today, remember to stay hydrated!";
+            output += " It's going to be quite warm today, remember to stay hydrated!";
         }
         return output;
     }
@@ -67,11 +73,11 @@ public class WeatherServiceRequest extends ServiceRequest {
         return null;
     }
 
-    private String convertTemp(String output, String param, HashMap<String, Object> map) {
+    protected String convertTemp(String output, String param, HashMap<String, Object> map) {
         return output.replace("{" + param + "}", kelvinToDegrees((Double) map.get(param)));
     }
 
-    private String kelvinToDegrees(Double temp) {
+    protected String kelvinToDegrees(Double temp) {
         return Integer.toString((int) (temp - 273.15));
     }
 

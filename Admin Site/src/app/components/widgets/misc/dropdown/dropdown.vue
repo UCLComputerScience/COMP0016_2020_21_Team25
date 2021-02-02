@@ -43,6 +43,14 @@
             items: Array,
         },
         methods: {
+            selectByText(text) {
+                for (let item of this.items) {
+                    if (item.text == text) {
+                        this.activeItem = item;
+                        break;
+                    }
+                }
+            },
             select(item) {
                 this.activeItem = item;
                 this.toggle();

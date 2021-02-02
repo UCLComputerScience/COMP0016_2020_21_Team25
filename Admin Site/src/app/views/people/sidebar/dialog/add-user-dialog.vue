@@ -3,9 +3,9 @@
         <h2 class="header">Add new user</h2>
         <p class="description">Fill out the details below to add a
             new user to your circle. You can edit these details at any time.</p>
-        <add-user-form :form="form" ref="form">
-            <flat-button class="profile-pic-button"
+              <flat-button class="profile-pic-button"
                          text="Select Profile Picture" v-on:click="openProfilePicture"></flat-button>
+        <add-user-form :form="form" ref="form">
         </add-user-form>
         <div class="button-group centred">
             <flat-button class="confirm" text="Confirm" v-on:click="confirm">
@@ -60,7 +60,7 @@
             confirm() {
                 const messageAndField = this.checkForm();
                 if (messageAndField["message"] === "valid") {
-                    this.$store.dispatch("", this.form).then(() => {
+                    this.$store.dispatch("member/addMember", this.form).then(() => {
                         if (this.form.response !== null) {
                             alert("Creation failed. " + this.form.response);
                             this.$refs.form.clear();
