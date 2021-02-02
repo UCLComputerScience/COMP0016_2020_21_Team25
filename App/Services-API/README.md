@@ -8,7 +8,7 @@ The `makeRequest` method takes the service name and required data as parameters 
 
 -   This output is put onto an API response queue, which is then transferred to a queue maintained by the main controller of the app.
 
-`String makeRequest(String serviceName, HashMap payload)`
+`void makeRequest(String serviceName, HashMap payload)`
 
 The recognised service names are:
 
