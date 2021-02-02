@@ -5,9 +5,10 @@ The service API package defines and handles the interaction between the app and 
 ## Interface
 
 The `makeRequest` method takes the service name and required data as parameters and performs the API request, the output is a sentence for the speech synthesiser to speak aloud to the user (with the relevant data included).
-- This output is put onto an API response queue, which is then transferred to a queue maintained by the main controller of the app.
 
-`String makeRequest(String serviceName, HashMap<String, String> payload)`
+-   This output is put onto an API response queue, which is then transferred to a queue maintained by the main controller of the app.
+
+`String makeRequest(String serviceName, HashMap payload)`
 
 The recognised service names are:
 
@@ -17,6 +18,7 @@ The recognised service names are:
 -   [*"ingredient"*](#recipe-by-ingredient-api)
 -   [*"joke"*](#joke-api)
 -   [*"nearest transport"*](#nearest-transport-api)
+-   [*"news"*](#news-api)
 -   [*"random recipe"*](#random-recipe-api)
 -   [*"recipe"*](#recipe-by-search-api)
 -   [*"stocks"*](#stocks-api)
@@ -126,11 +128,19 @@ This service returns a set of recipes by searching via natural language.
 
 ### Recipe By Ingredient API
 
-This service returns a set of recipe with certain ingredients.
+This service returns a set of recipes with certain ingredients, specified by the user.
 
+|   Attribute   | Type   | Default | Description                                            |
+| :-----------: | ------ | :-----: | ------------------------------------------------------ |
+| `INGREDIENTS` | String |   `""`  | A comma separated string of ingredients to search for. |
+
+### News API
+
+This service returns a news article based on the user's search.
 |   Attribute   | Type    | Default | Description                                            |
-| :-----------: | ------- | :-----: | ------------------------------------------------------ |
-| `INGREDIENTS` | Boolean |   `""`  | A comma separated string of ingredients to search for. |
+\| :-----------: \| ------- \| :-----: \| ------------------------------------------------------ \|
+\| `QUERY` | String |   `""`  | The search term, in natural language. |
+\| `LANGUAGE` | String |   `"en"`  | The language to return the result in. Uses the two-character IS0-639-1 code scheme. The full list of possible language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) \|
 
 ## Adding Services
 
@@ -138,7 +148,7 @@ The service interaction is highly extensible. A service must extend the abstract
 
 -   `URL` - The URL where the resource provided by the API is located.
 -   If the URL requires any named parameters, they are to be added in the following format:
-  -   *e.g. the [Weather API](#current-weather-api) requires a `lang` attribute: `...lang={LANGUAGE}` as per the **Attribute** `LANGUAGE` in its API format.*
+-   *e.g. the [Weather API](#current-weather-api) requires a `lang` attribute: `...lang={LANGUAGE}` as per the **Attribute** `LANGUAGE` in its API format.*
 -   `name` - The name of the service - **must be unique**.
 -   `category` - The category the service falls under.
 -   `APIKey` - A unique string used to access the service's API - this is obtained by registering for one on the API's website. Pass an empty string if it is not required by the service.
@@ -146,7 +156,7 @@ The service interaction is highly extensible. A service must extend the abstract
 
 Note that the concrete service class must only take one parameter - the `payload`. The concrete constructor must be of the form:
 
-    public NewServiceRequest(HashMap<String, String> payload) {
+    public NewServiceRequest(HashMap payload) {
         super("URL_HERE", "NAME_HERE", "CATEGORY_HERE", "API_Key_HERE", payload);
     }
 
@@ -154,11 +164,11 @@ It will then be called by the `ServiceFactory` as `new NewServiceRequest(payload
 
 It must also implement the following methods:
 
--   `parseOutput(HashMap<String, Object> response);` - Defines how each service interprets its output from the API.
-    
--   `String handleErrors(HashMap<String, Object> response);` - Defines how each service interprets error messages from the API.
+-   `parseOutput(HashMap response);` - Defines how each service interprets its output from the API.
 
--   `String getErrorCode(HashMap<String, Object> response);` - Defines how the HTTP error code is represented and retrieved for each service. Each service API will have a different way of representing HTTP error codes.
+-   `String handleErrors(HashMap response);` - Defines how each service interprets error messages from the API.
+
+-   `String getErrorCode(HashMap response);` - Defines how the HTTP error code is represented and retrieved for each service. Each service API will have a different way of representing HTTP error codes.
 
 -   `HashMap populatePayload();` - Inserts default data into the payload if not given to avoid malformed requests. This method is what applies the attributes from the API format to a service.
 

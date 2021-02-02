@@ -2,6 +2,7 @@ package servicesAPI.serviceHandler;
 
 import servicesAPI.services.ServiceRequest;
 import servicesAPI.services.entertainment.JokeServiceRequest;
+import servicesAPI.services.entertainment.NewsServiceRequest;
 import servicesAPI.services.finance.StocksServiceRequest;
 import servicesAPI.services.food.RandomRecipeServiceRequest;
 import servicesAPI.services.food.RecipeByIngredientServiceRequest;
@@ -39,6 +40,8 @@ public class ServiceFactory {
                 return new JokeServiceRequest(payload);
             case "nearest transport":
                 return new NearestBusOrTrainServiceRequest(payload);
+            case "news":
+                return new NewsServiceRequest(payload);
             case "random recipe":
                 return new RandomRecipeServiceRequest(payload);
             case "recipe":

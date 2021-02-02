@@ -17,12 +17,17 @@ public class ServiceDriver {
 
     public void start() {
         handler.setAppQueue(appQueue);
+        testNewsService();
         testTransportService();
         testStocksService();
         testRecipeService();
         testJokeService();
         testWeatherService();
         testDictionaryService();
+    }
+
+    private void testNewsService() {
+        newsServiceRequest("trump", "en");
     }
 
     private void testTransportService() {
@@ -68,6 +73,13 @@ public class ServiceDriver {
             dictionaryRequest(true, false, "accuracy", language);
             dictionaryRequest(true, true, "verisimilitude", language);
         }
+    }
+
+    private void newsServiceRequest(String query, String lang) {
+        params.clear();
+        params.put("QUERY", query);
+        params.put("LANGUAGE", lang);
+        handler.makeRequest("news", params);
     }
 
     private void airQualityServiceRequest(String city) {

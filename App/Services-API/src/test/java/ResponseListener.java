@@ -74,6 +74,13 @@ public class ResponseListener implements Runnable {
                             System.out.println(step);
                         }
                         break;
+                    case "News":
+                        System.out.println("[APP]: Show image and a button which when clicked, takes the user to the news article:");
+                        String url = (String) metadata.get("url");
+                        String image = (String) metadata.get("image");
+                        System.out.println("[APP]: News article url is: " + url);
+                        System.out.println("[APP]: Image URL is: " + image);
+                        break;
                     default:
                         System.out.println("[APP]: Speech Synthesiser speaks the above output - no further action required: ");
                 }

@@ -22,7 +22,21 @@ public class ApiResponse {
      */
     public ApiResponse(ServiceRequest serviceRequest, HashMap<String, Object> response) {
         this.serviceRequest = serviceRequest;
-        this.speechResponse = serviceRequest.parseResponse(response);
+        if (serviceRequest != null) {
+            this.speechResponse = serviceRequest.parseResponse(response);
+        } else {
+            this.speechResponse = "";
+        }
+    }
+
+    /**
+     * Constructor for trying to call a service which does not exist.
+     *
+     * @param response The error message.
+     */
+    public ApiResponse(String response) {
+        this.speechResponse = response;
+        serviceRequest = null;
     }
 
     public String getResponse() {

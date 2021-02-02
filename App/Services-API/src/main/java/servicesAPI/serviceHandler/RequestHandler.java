@@ -23,7 +23,8 @@ public class RequestHandler {
             ApiRequest apiRequest = new ApiRequest(serviceRequest, appQueue);
             new Thread(apiRequest).start();
         } else {
-//            appQueue.add("Unknown service: " + serviceName);
+            ApiResponse nullResponse = new UnknownApiResponse(serviceName);
+            appQueue.add(nullResponse);
         }
     }
 
