@@ -1,6 +1,6 @@
 package servicesAPI.serviceHandler;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
@@ -18,7 +18,7 @@ public class RequestHandler {
      * @param payload     The data required to complete the restful API call.
      */
     public void makeRequest(String serviceName, HashMap<String, String> payload) {
-        ServiceRequest serviceRequest = ServiceFactory.getServiceRequestByName(serviceName, payload);
+        AbstractServiceRequest serviceRequest = ServiceFactory.getServiceRequestByName(serviceName, payload);
         if (serviceRequest != null) {
             ApiRequest apiRequest = new ApiRequest(serviceRequest, appQueue);
             new Thread(apiRequest).start();

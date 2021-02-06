@@ -27,7 +27,13 @@ public class ServiceDriver {
     }
 
     private void testNewsService() {
-        newsServiceRequest("trump", "en");
+        String[] languages = new String[]{"en", "it", "es"};
+        String[] queries = new String[]{"trump", "football", "apple", "artificial intelligence"};
+        for (String language : languages) {
+            for (String query: queries) {
+                newsServiceRequest(query, language);
+            }
+        }
     }
 
     private void testTransportService() {
@@ -43,6 +49,7 @@ public class ServiceDriver {
     private void testRecipeService() {
         randomRecipeRequest();
         ingredientRecipeRequest("apple,strawberry");
+        ingredientRecipeRequest("rosemary,thyme");
         specificRecipeRequest("vegetarian");
         specificRecipeRequest("pasta");
     }

@@ -1,11 +1,11 @@
 package servicesAPI.services.transport;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BusOrTrainBySearchServiceRequest extends ServiceRequest {
+public class BusOrTrainBySearchServiceRequest extends AbstractServiceRequest {
     public BusOrTrainBySearchServiceRequest(HashMap<String, String> payload) {
         super("http://transportapi.com/v3/uk/places.json?query={QUERY}&type={TRANSPORT}&app_id=74da2f0e&app_key={API-Key}",
                 "Transport Search", "Transport", "3ae3d6f10c454b1b3ee260e082435eab", payload);

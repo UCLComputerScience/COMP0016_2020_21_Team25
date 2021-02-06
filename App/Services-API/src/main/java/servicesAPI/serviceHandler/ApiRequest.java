@@ -2,7 +2,7 @@ package servicesAPI.serviceHandler;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class ApiRequest implements Runnable {
     private final String URL;
     private final HashMap<String, String> parameters;
     private final Queue<ApiResponse> responseQueue;
-    private final ServiceRequest serviceRequest;
+    private final AbstractServiceRequest serviceRequest;
 
     /**
      * Instantiates a new API request.
@@ -33,7 +33,7 @@ public class ApiRequest implements Runnable {
      * @param apiResponseQueue The api response queue used to push the API's response
      *                         onto a queue to be fed back to the main application.
      */
-    public ApiRequest(ServiceRequest serviceRequest,
+    public ApiRequest(AbstractServiceRequest serviceRequest,
                       Queue<ApiResponse> apiResponseQueue) {
         this.URL = serviceRequest.getURL();
         this.parameters = serviceRequest.getPayload();
@@ -48,7 +48,7 @@ public class ApiRequest implements Runnable {
      * @return A URL connection object representing the URL.
      * @throws IOException If the connection could not be established.
      */
-    private static HttpURLConnection setupConnection(String URL) throws IOException {
+    protected static HttpURLConnection setupConnection(String URL) throws IOException {
         URL url = new URL(URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -69,7 +69,7 @@ public class ApiRequest implements Runnable {
      * @param parameters Data to put into the URL.
      * @return URL with parameters inserted.
      */
-    private static String formatURL(String URL, HashMap<String, String> parameters) {
+    protected static String formatURL(String URL, HashMap<String, String> parameters) {
         for (HashMap.Entry<String, String> entry : parameters.entrySet()) {
             URL = URL.replace("{" + entry.getKey() + "}", entry.getValue());
         }
@@ -82,7 +82,7 @@ public class ApiRequest implements Runnable {
      * @param connection Connection object to read response from.
      * @return API response as a HashMap.
      */
-    private static HashMap<String, Object> getResponse(HttpURLConnection connection) {
+    protected static HashMap<String, Object> getResponse(HttpURLConnection connection) {
         try {
             return readResponse(connection.getInputStream());
         } catch (IOException e) {

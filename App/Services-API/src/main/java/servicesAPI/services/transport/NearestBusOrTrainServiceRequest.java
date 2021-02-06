@@ -1,11 +1,11 @@
 package servicesAPI.services.transport;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NearestBusOrTrainServiceRequest extends ServiceRequest {
+public class NearestBusOrTrainServiceRequest extends AbstractServiceRequest {
     public NearestBusOrTrainServiceRequest(HashMap<String, String> payload) {
         super("http://transportapi.com/v3/uk/places.json?min_lat={MIN-LAT}&min_lon={MIN-LON}&max_lat={MAX-LAT}&max_lon={MAX-LON}&type={TRANSPORT}&app_id=74da2f0e&app_key={API-Key}",
                 "Nearest Transport", "Transport", "3ae3d6f10c454b1b3ee260e082435eab", payload);

@@ -68,10 +68,12 @@ public class ResponseListener implements Runnable {
                         handler.makeRequest("recipe instructions", params);
                         break;
                     case "Recipe Instructions":
-                        System.out.println("[APP]: Further API call completed, recipe instructions are as follows (stored in metadata): ");
                         ArrayList<String> steps = (ArrayList<String>) metadata.get("steps");
-                        for (String step: steps) {
-                            System.out.println(step);
+                        if (steps != null) {
+                            System.out.println("[APP]: Further API call completed, recipe instructions are as follows (stored in metadata):");
+                            for (String step : steps) {
+                                System.out.println(step);
+                            }
                         }
                         break;
                     case "News":
@@ -82,7 +84,7 @@ public class ResponseListener implements Runnable {
                         System.out.println("[APP]: Image URL is: " + image);
                         break;
                     default:
-                        System.out.println("[APP]: Speech Synthesiser speaks the above output - no further action required: ");
+                        System.out.println("[APP]: Speech Synthesiser speaks the above output - no further action required");
                 }
                 System.out.println();
                 System.out.println();

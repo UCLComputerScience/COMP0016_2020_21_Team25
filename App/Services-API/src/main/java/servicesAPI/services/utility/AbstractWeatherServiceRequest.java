@@ -1,11 +1,11 @@
 package servicesAPI.services.utility;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class AbstractWeatherServiceRequest extends ServiceRequest {
+public abstract class AbstractWeatherServiceRequest extends AbstractServiceRequest {
     private final String[] temperatureParams = new String[]{"temp", "feels_like", "temp_min", "temp_max"};
 
     /**

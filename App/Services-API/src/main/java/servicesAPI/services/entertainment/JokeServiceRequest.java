@@ -1,12 +1,12 @@
 package servicesAPI.services.entertainment;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class JokeServiceRequest extends ServiceRequest {
+public class JokeServiceRequest extends AbstractServiceRequest {
     private static final Random randomiser = new Random();
     private final int MAX_JOKES = 10;
 

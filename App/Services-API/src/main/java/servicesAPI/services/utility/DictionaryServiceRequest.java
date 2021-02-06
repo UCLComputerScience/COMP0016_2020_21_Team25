@@ -1,11 +1,11 @@
 package servicesAPI.services.utility;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DictionaryServiceRequest extends ServiceRequest {
+public class DictionaryServiceRequest extends AbstractServiceRequest {
     private final boolean synonymsOnly;
     private final boolean includeSynonyms;
     private final int MAX_DEFINITIONS = 3;

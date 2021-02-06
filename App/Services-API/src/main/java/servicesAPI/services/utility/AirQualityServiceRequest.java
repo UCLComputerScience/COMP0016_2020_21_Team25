@@ -1,10 +1,10 @@
 package servicesAPI.services.utility;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.HashMap;
 
-public class AirQualityServiceRequest extends ServiceRequest {
+public class AirQualityServiceRequest extends AbstractServiceRequest {
     public AirQualityServiceRequest(HashMap<String, String> payload) {
         super("http://api.waqi.info/feed/{CITY_NAME}/?token={API-Key}",
                 "Air Quality", "Utility", "9c5ed50306e746d981333e8a4bc86e9185d39602", payload);

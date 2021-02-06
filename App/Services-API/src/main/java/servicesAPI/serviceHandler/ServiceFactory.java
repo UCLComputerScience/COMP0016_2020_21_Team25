@@ -1,6 +1,6 @@
 package servicesAPI.serviceHandler;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 import servicesAPI.services.entertainment.JokeServiceRequest;
 import servicesAPI.services.entertainment.NewsServiceRequest;
 import servicesAPI.services.finance.StocksServiceRequest;
@@ -25,8 +25,8 @@ public class ServiceFactory {
      * @param payload     The payload - data required to complete the API call.
      * @return The ServiceRequest object.
      */
-    public static ServiceRequest getServiceRequestByName(String serviceName,
-                                                         HashMap<String, String> payload) {
+    public static AbstractServiceRequest getServiceRequestByName(String serviceName,
+                                                                 HashMap<String, String> payload) {
         switch (serviceName.toLowerCase()) {
             case "air quality":
                 return new AirQualityServiceRequest(payload);

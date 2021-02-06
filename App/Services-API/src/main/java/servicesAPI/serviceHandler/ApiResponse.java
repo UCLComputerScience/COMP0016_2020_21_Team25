@@ -1,6 +1,6 @@
 package servicesAPI.serviceHandler;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.HashMap;
 
@@ -13,14 +13,14 @@ public class ApiResponse {
      * It is a plain English sentence for the speech synthesiser to output.
      */
     private final String speechResponse;
-    private final ServiceRequest serviceRequest;
+    private final AbstractServiceRequest serviceRequest;
 
     /**
      * @param serviceRequest is the object used to parse the response into an
      *                       English sentence for the speech synthesiser.
      * @param response       represents the JSON object returned by the API.
      */
-    public ApiResponse(ServiceRequest serviceRequest, HashMap<String, Object> response) {
+    public ApiResponse(AbstractServiceRequest serviceRequest, HashMap<String, Object> response) {
         this.serviceRequest = serviceRequest;
         if (serviceRequest != null) {
             this.speechResponse = serviceRequest.parseResponse(response);

@@ -1,10 +1,10 @@
 package servicesAPI.services.finance;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.HashMap;
 
-public class StocksServiceRequest extends ServiceRequest {
+public class StocksServiceRequest extends AbstractServiceRequest {
 
     public StocksServiceRequest(HashMap<String, String> requestData) {
         super("https://www.alphavantage.co/query?function={FUNCTION}&symbol={SYMBOL}&interval={INTERVAL}min&apikey={API-Key}",

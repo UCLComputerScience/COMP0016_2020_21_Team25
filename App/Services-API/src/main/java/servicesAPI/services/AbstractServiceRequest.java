@@ -1,12 +1,14 @@
 package servicesAPI.services;
 
+import servicesAPI.api.HttpCodes;
+
 import java.util.HashMap;
 
 
 /**
  * An object defining the outline for a RESTful API as well as a way of parsing the API's response into an English sentence for the speech synthesiser.
  */
-public abstract class ServiceRequest {
+public abstract class AbstractServiceRequest {
     protected final HashMap<String, String> payload;
     /**
      * metadata stores any extra information returned by an API request which is not to be spoken out - useful for storing information for further API calls.
@@ -15,6 +17,7 @@ public abstract class ServiceRequest {
     private final String URL;
     private final String name;
     private final String category;
+    private int code = HttpCodes.VALID;
 
     /**
      * @param URL      The base URL to make the API call.
@@ -23,8 +26,8 @@ public abstract class ServiceRequest {
      * @param APIKey   API Key needed to access the service's API.
      * @param payload  Data needed to fill out the API call parameters.
      */
-    public ServiceRequest(String URL, String name, String category, String APIKey,
-                          HashMap<String, String> payload) {
+    public AbstractServiceRequest(String URL, String name, String category, String APIKey,
+                                  HashMap<String, String> payload) {
         this.URL = URL;
         this.name = name;
         this.category = category;
@@ -79,8 +82,22 @@ public abstract class ServiceRequest {
         try {
             return parseOutput(response);
         } catch (NullPointerException | ClassCastException e) {
+            setCode(HttpCodes.INTERNAL_ERROR);
             return handleErrors(response);
         }
+    }
+
+    /**
+     * Get the currently set HTTP response code
+     *
+     * @return the response code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    private void setCode(int code) {
+        this.code = code;
     }
 
     /**

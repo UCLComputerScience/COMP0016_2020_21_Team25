@@ -8,7 +8,7 @@ The `makeRequest` method takes the service name and required data as parameters 
 
 -   This output is put onto an API response queue, maintained by the main controller of the app.
 
-`void makeRequest(String serviceName, HashMap payload)`
+`void makeRequest(String serviceName, HashMap<String, String> payload)`
 
 The recognised service names are:
 
@@ -33,7 +33,7 @@ The API response queue should have the type:
 
 Periodically polling this queue returns an `ApiResponse` object returning the service's response.
 
-The string response, used in speech synthesis can be retrieved using the `getResponse()` method of the object.
+The string response, used in speech synthesis, can be retrieved using the `getResponse()` method of the object.
 
 The name of the service that was called can be retrieved using the `getName()` method of the object.
 
@@ -48,6 +48,7 @@ It is retrieved by calling the `metadata()` method of an `ApiResponse` object.
     
 The `getName()` method should be used to check what service was returned to determine how to read its metadata, if required.
 
+An example implementation showing how to retrieve responses can be found in test package.
 
 The following section defines the required parameters needed by each service. See the [*"Adding Services"*](#adding-services) section for more information on how to integrate new services.
 
@@ -181,7 +182,7 @@ The service interaction is highly extensible. A service must extend the abstract
 
 Note that the concrete service class must only take one parameter - the `payload`. The concrete constructor must be of the form:
 
-    public NewServiceRequest(HashMap payload) {
+    public NewServiceRequest(HashMap<String, String> payload) {
         super("URL_HERE", "NAME_HERE", "CATEGORY_HERE", "API_Key_HERE", payload);
     }
 
@@ -189,13 +190,13 @@ It will then be called by the `ServiceFactory` as `new NewServiceRequest(payload
 
 It must also implement the following methods:
 
--   `parseOutput(HashMap response);` - Defines how each service interprets its output from the API.
+-   `parseOutput(HashMap<String, Object> response);` - Defines how each service interprets its output from the API.
 
--   `String handleErrors(HashMap response);` - Defines how each service interprets error messages from the API.
+-   `String handleErrors(HashMap<String, Object> response);` - Defines how each service interprets error messages from the API.
 
--   `String getErrorCode(HashMap response);` - Defines how the HTTP error code is represented and retrieved for each service. Each service API will have a different way of representing HTTP error codes.
+-   `String getErrorCode(HashMap<String, Object> response);` - Defines how the HTTP error code is represented and retrieved for each service. Each service API will have a different way of representing HTTP error codes.
 
--   `HashMap populatePayload();` - Inserts default data into the payload if not given to avoid malformed requests. This method is what applies the attributes from the API format to a service.
+-   `HashMap<String, String> populatePayload();` - Inserts default data into the payload if not given to avoid malformed requests. This method is what applies the attributes from the API format to a service.
 
 The service can then be called by adding its name to the switch statement in the `ServiceFactory` by adding a new case for its `name` attribute in lowercase and returning a new object of the service (which takes the `payload` as its only parameter). No other code interaction needs to take place.
 

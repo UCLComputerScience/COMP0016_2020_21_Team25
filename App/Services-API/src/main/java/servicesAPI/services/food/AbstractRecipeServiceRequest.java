@@ -1,12 +1,12 @@
 package servicesAPI.services.food;
 
-import servicesAPI.services.ServiceRequest;
+import servicesAPI.services.AbstractServiceRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public abstract class AbstractRecipeServiceRequest extends ServiceRequest {
+public abstract class AbstractRecipeServiceRequest extends AbstractServiceRequest {
     protected static final Random randomiser = new Random();
     private static final int MAX_RECIPES = 3;
 
