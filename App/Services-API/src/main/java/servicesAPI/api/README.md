@@ -13,7 +13,7 @@ The following endpoints are available:
 -   *"news"*
 -   *"random-recipe"*
 -   *"recipe"*
--   *"stocks"*
+-   *"stocks"* 
 -   *"transport-search"*
 -   *"weather-forecast"*
 
@@ -52,10 +52,23 @@ Where
 
 ## Deployment
 
-To start the application:
+To start the application, ensuring no service is currently using port `8080`, run the following command in a terminal in the "Services-API" directory (where the `pom.xml` is located):
 
-    ./mvnw spring-boot:run
+    mvn clean; mvn org.springframework.boot:spring-boot-maven-plugin:run
 
 Logging information can be enabled by passing the command line argument `-l`.
 
-And then perform your HTTP requests.
+And then perform your HTTP requests. For example, after the application is running, open a terminal and enter:
+
+    curl "localhost:8080/current-weather?city=london"
+
+This will return something similar to:
+
+    {
+        "service":"current weather",
+        "message":"The weather in London today is broken clouds with the temperature being 7 degrees celsius but will probably feel like 4 degrees celsius. The high will be 7 degrees celsius and the low, 6 degrees celsius. Don't forget to dress warm today!",
+        "metadata":{},
+        "code":200
+    }
+
+Note that the URL must be quoted to escape the question marks and ampersands if performing HTTP requests from the command line.

@@ -35,6 +35,7 @@
     <properties>
         <maven.compiler.source>13</maven.compiler.source>
         <maven.compiler.target>13</maven.compiler.target>
+        <start-class>servicesAPI.api.ServiceApplication</start-class>
     </properties>
 
 </project>
