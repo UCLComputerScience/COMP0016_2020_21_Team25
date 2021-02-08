@@ -63,6 +63,7 @@ jobs:
     - if: matrix.language == 'java' 
       name: Build Java
       run: |
+         cd App/Services-API
          mvn clean package
 
     - name: Perform CodeQL Analysis
