@@ -11,22 +11,30 @@ public class JokeServiceRequest extends AbstractServiceRequest {
     private final int MAX_JOKES = 10;
 
     public JokeServiceRequest(HashMap<String, String> payload) {
-        super("https://icanhazdadjoke.com/", "Joke", "Entertainment", "", payload);
+        super("https://icanhazdadjoke.com/", "Joke", "Entertainment", "9728c23d120f4d1985ff2a7cc019bd96", payload);
     }
 
     @Override
     public String getURL() {
+        String term = payload.get("TERM");
+        if (term.equals("food")) {
+            return "https://api.spoonacular.com/food/jokes/random?&apiKey={API-Key}";
+        }
         String url = super.getURL();
-        if (!payload.get("TERM").equals("")) {
+        if (!term.equals("")) {
             url += "search?term={TERM}&limit=" + MAX_JOKES;
         }
         return url;
     }
 
     protected String parseOutput(HashMap<String, Object> response) {
+        String term = payload.get("TERM");
+        if (term.equals("food")) {
+            return (String) response.get("text");
+        }
         int code = (int) response.get("status");
         if (code == 200) {
-            if (payload.get("TERM").equals("")) {
+            if (term.equals("")) {
                 return (String) response.get("joke");
             }
             ArrayList<HashMap<String, Object>> jokes = (ArrayList<HashMap<String, Object>>) response.get("results");

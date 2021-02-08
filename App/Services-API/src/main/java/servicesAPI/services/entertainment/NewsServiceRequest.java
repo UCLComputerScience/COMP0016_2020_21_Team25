@@ -20,12 +20,15 @@ public class NewsServiceRequest extends AbstractServiceRequest {
         HashMap<String, String> publisherInfo = (HashMap<String, String>) article.get("source");
         String publisher = publisherInfo.get("name");
         String title = (String) article.get("title");
-        output += "The article, published by " + publisher + ", is titled \"" + title + "\" and written by ";
+        output += "The article, published by " + publisher + ", is titled \"" + title;
         String author = (String) article.get("author");
-        output += author + ". ";
+        if (author != null) {
+            output += " and written by " + author;
+        }
+        output += ". ";
         String description = (String) article.get("description");
         output += description;
-        if (!output.endsWith(".")) {
+        if (!output.trim().endsWith(".")) {
             output += ".";
         }
         output += " The full article can be found on the " + publisher + " website. Would you like to go there now?";

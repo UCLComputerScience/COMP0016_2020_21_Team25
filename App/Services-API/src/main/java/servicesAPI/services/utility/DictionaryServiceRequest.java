@@ -17,8 +17,8 @@ public class DictionaryServiceRequest extends AbstractServiceRequest {
     public DictionaryServiceRequest(HashMap<String, String> payload) {
         super("https://api.dictionaryapi.dev/api/v2/entries/{LANGUAGE}/{WORD}",
                 "Dictionary", "Utility", "", payload);
-        synonymsOnly = Boolean.parseBoolean(payload.get("SYNONYMS-ONLY"));
-        includeSynonyms = Boolean.parseBoolean(payload.get("INCLUDE-SYNONYMS"));
+        synonymsOnly = Boolean.parseBoolean(payload.get("SYNONYMS_ONLY"));
+        includeSynonyms = synonymsOnly || Boolean.parseBoolean(payload.get("INCLUDE_SYNONYMS"));
     }
 
     @Override
@@ -116,6 +116,8 @@ public class DictionaryServiceRequest extends AbstractServiceRequest {
         HashMap<String, String> servicePayload = new HashMap<>();
         servicePayload.put("WORD", "hello");
         servicePayload.put("LANGUAGE", "en");
+        servicePayload.put("SYNONYMS_ONLY", "false");
+        servicePayload.put("INCLUDE_SYNONYMS", "false");
         return servicePayload;
     }
 }

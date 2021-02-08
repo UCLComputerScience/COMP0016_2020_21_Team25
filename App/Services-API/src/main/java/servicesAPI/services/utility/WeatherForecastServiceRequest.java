@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class WeatherForecastServiceRequest extends AbstractWeatherServiceRequest {
     private final String[] temperatureParams = new String[]{"day", "min", "max"};
+    private final int MIN_DAYS = 1;
     private final int MAX_DAYS = 7;
 
     public WeatherForecastServiceRequest(HashMap<String, String> payload) {
@@ -18,11 +19,14 @@ public class WeatherForecastServiceRequest extends AbstractWeatherServiceRequest
     @Override
     protected String parseOutput(HashMap<String, Object> response) {
         ArrayList<HashMap<String, Object>> weatherData = (ArrayList<HashMap<String, Object>>) response.get("daily");
-        int numOfDays = Integer.parseInt(payload.get("DAYS"));
-        int days = Math.min(numOfDays, MAX_DAYS);
-
         if (weatherData.size() == 0) {
             return "I'm sorry, I couldn't find any weather forecast information for you.";
+        }
+
+        int numOfDays = Integer.parseInt(payload.get("DAYS"));
+        int days = Math.min(numOfDays, MAX_DAYS);
+        if (days == 0) {
+            days = MIN_DAYS;
         }
 
         StringBuilder output = new StringBuilder();
@@ -67,7 +71,7 @@ public class WeatherForecastServiceRequest extends AbstractWeatherServiceRequest
         servicePayload.put("LAT", "51.534121");
         servicePayload.put("LON", "-0.006");
         servicePayload.put("LANGUAGE", "en");
-        servicePayload.put("DAYS", "1");
+        servicePayload.put("DAYS", Integer.toString(MIN_DAYS));
         return servicePayload;
     }
 }

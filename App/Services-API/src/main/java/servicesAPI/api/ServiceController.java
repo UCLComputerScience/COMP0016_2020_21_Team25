@@ -33,6 +33,7 @@ public class ServiceController {
             @RequestParam Map<String, String> payload) {
         service = service.replace("-", " ");
         HashMap<String, String> requestParams = toUpperCase(payload);
+        ApiLogger.logApiRequest(service, headers, requestParams);
         AbstractServiceRequest serviceRequest = ServiceFactory.getServiceRequestByName(service, requestParams);
         if (serviceRequest != null) {
             ServiceApiRequest apiRequest = new ServiceApiRequest(service, serviceRequest);
@@ -43,14 +44,7 @@ public class ServiceController {
 
     private ServiceResponse makeRequest(ServiceApiRequest apiRequest) {
         ServiceResponse response = apiRequest.perform();
-        if (ServiceApplication.LOG_API_CALLS) {
-            System.out.println("[SYSTEM]: Performing API Request");
-            System.out.println("    - Service: " + response.getService());
-            System.out.println("    - URL: " + apiRequest.getFormattedURL());
-            System.out.println("    - Message: " + response.getMessage());
-            System.out.println("    - Metadata: " + response.getMetadata());
-            System.out.println("    - Code: " + response.getCode());
-        }
+        ApiLogger.logApiCall(apiRequest, response);
         return response;
     }
 }

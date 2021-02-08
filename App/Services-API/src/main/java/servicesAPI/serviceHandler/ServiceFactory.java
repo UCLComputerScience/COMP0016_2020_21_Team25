@@ -3,6 +3,8 @@ package servicesAPI.serviceHandler;
 import servicesAPI.services.AbstractServiceRequest;
 import servicesAPI.services.entertainment.JokeServiceRequest;
 import servicesAPI.services.entertainment.NewsServiceRequest;
+import servicesAPI.services.finance.CharityByCityServiceRequest;
+import servicesAPI.services.finance.CharityBySearchServiceRequest;
 import servicesAPI.services.finance.StocksServiceRequest;
 import servicesAPI.services.food.RandomRecipeServiceRequest;
 import servicesAPI.services.food.RecipeByIngredientServiceRequest;
@@ -19,17 +21,21 @@ import java.util.HashMap;
 
 public class ServiceFactory {
     /**
-     * Employs the factory pattern to map a service name to its corresponding service request object.
+     * Employs the factory pattern to map a service name to its corresponding
+     * service request object.
      *
      * @param serviceName The name of the service.
      * @param payload     The payload - data required to complete the API call.
      * @return The ServiceRequest object.
      */
-    public static AbstractServiceRequest getServiceRequestByName(String serviceName,
-                                                                 HashMap<String, String> payload) {
+    public static AbstractServiceRequest getServiceRequestByName(String serviceName, HashMap<String, String> payload) {
         switch (serviceName.toLowerCase()) {
             case "air quality":
                 return new AirQualityServiceRequest(payload);
+            case "charity search":
+                return new CharityBySearchServiceRequest(payload);
+            case "charity by city":
+                return new CharityByCityServiceRequest(payload);
             case "current weather":
                 return new CurrentWeatherServiceRequest(payload);
             case "dictionary":

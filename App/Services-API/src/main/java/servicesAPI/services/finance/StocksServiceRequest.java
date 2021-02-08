@@ -32,12 +32,10 @@ public class StocksServiceRequest extends AbstractServiceRequest {
         return output;
     }
 
-    // TODO - Implement
     protected String handleErrors(HashMap<String, Object> response) {
         return "Sorry, I could not find any stock information on " + payload.get("SYMBOL") + ". ";
     }
 
-    // TODO - Implement
     protected String getErrorCode(HashMap<String, Object> response) {
         return null;
     }

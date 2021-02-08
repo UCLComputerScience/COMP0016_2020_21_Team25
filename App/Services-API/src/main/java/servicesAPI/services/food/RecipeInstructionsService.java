@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class RecipeInstructionsService extends AbstractServiceRequest {
     public RecipeInstructionsService(HashMap<String, String> payload) {
-        super("https://api.spoonacular.com/recipes/{ID}/analyzedInstructions?apiKey={API-Key}",
+        super("https://api.spoonacular.com/recipes/{ID}/analyzedInstructions?stepBreakdown={DETAILED}&apiKey={API-Key}",
                 "Recipe Instructions", "Food", "9728c23d120f4d1985ff2a7cc019bd96", payload);
     }
 
@@ -45,6 +45,9 @@ public class RecipeInstructionsService extends AbstractServiceRequest {
 
     @Override
     protected HashMap<String, String> populatePayload() {
-        return new HashMap<>();
+        HashMap<String, String> payload = new HashMap<>();
+        payload.put("ID", "");
+        payload.put("DETAILED", "true");
+        return payload;
     }
 }

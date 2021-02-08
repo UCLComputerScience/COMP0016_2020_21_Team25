@@ -23,10 +23,17 @@ public abstract class AbstractWeatherServiceRequest extends AbstractServiceReque
 
         HashMap<String, Object> main = (HashMap<String, Object>) response.get("main");
         String output = "The weather in {name} today is {description} with the temperature being {temp} degrees celsius but will probably feel like {feels_like} degrees celsius. The high will be {temp_max} degrees celsius and the low, {temp_min} degrees celsius.";
-        output = replaceParameter(output, "name", response);
-        output = replaceParameter(output, "description", weather);
+
+        String name = (String) response.get("name");
+        output = output.replace("{name}", name);
+
+        String description = (String) weather.get("description");
+        output = output.replace("{description}", description);
+
         for (String param : temperatureParams) {
-            output = convertTemp(output, param, main);
+            Double kelvinTemp = (Double) main.get(param);
+            String temp = kelvinToDegrees(kelvinTemp);
+            output = output.replace("{" + param + "}", temp);
         }
         String temperatureStr = kelvinToDegrees((Double) main.get("temp"));
         int temperature = Integer.parseInt(temperatureStr);
@@ -68,7 +75,11 @@ public abstract class AbstractWeatherServiceRequest extends AbstractServiceReque
 
     protected String getErrorCode(HashMap<String, Object> response) {
         if (response.containsKey("cod")) {
-            return (String) response.get("cod");
+            try {
+                return (String) response.get("cod");
+            } catch (ClassCastException e) {
+                return response.get("cod").toString();
+            }
         }
         return null;
     }
