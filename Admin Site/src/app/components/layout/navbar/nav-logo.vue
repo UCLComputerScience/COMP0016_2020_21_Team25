@@ -38,7 +38,7 @@
 
     @media (min-width: 720px) {
         .logo-icon {
-            margin-top: -4px;
+            margin-top: 2px;
             margin-right: 4px;
         }
 

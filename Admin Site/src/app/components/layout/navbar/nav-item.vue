@@ -25,12 +25,12 @@
 
 <style scoped>
     .nav-item {
-        color: #fff;
-        text-align: center;
-        border-radius: 5px;
-        font-weight: 700;
-        padding: 8px;
-        cursor: pointer;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      font-weight: 700;
+      padding: 4px 8px;
+      cursor: pointer;
     }
 
     .nav-item:hover {

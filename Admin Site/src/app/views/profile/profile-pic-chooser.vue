@@ -186,8 +186,8 @@
     }
 
     .profile-pic-chooser .image {
-        border: 4px solid transparent;
-        cursor: pointer;
+      border: 4px solid transparent;
+      cursor: pointer;
     }
 
     .profile-pic-chooser .image:hover {

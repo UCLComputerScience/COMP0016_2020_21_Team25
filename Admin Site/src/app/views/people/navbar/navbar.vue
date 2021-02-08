@@ -62,11 +62,12 @@
     }
 
     .people-navbar-header {
-        position: absolute;
-        left: 16px;
-        font-weight: 400;
-        font-size: 20px;
-        text-transform: capitalize;
+      position: absolute;
+      left: 16px;
+      margin: 0;
+      font-weight: 400;
+      font-size: 20px;
+      text-transform: capitalize;
     }
 
     .people-nav-buttons {
@@ -76,8 +77,9 @@
 
     @media (max-width: 1024px) {
         .people-navbar {
-            flex-direction: column-reverse;
-            height: unset;
+          flex-direction: column-reverse;
+          height: unset;
+          padding-bottom: 32px;
         }
 
         .people-nav-buttons {
