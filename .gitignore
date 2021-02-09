@@ -1,2 +1,19 @@
+*.idea/
+*.vscode/
+*.gradle/
+*.DS_Store
+
 /Admin Site/dist/
-/Admin Site/node_modules
+/Admin Site/node_modules/
+/Admin Site/.firebase/
+
+/App/Services-API/target/
+/App/Services-API/.settings/
+/App/Services-API/.classpath
+/App/Services-API/.project
+/App/Services-API/.Services-API.iml
+
+/Backend/venv/
+
+/NLP/env/
+/NLP/venv/
