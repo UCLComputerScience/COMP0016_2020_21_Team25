@@ -2,7 +2,7 @@
 DEFAULT_PORT = "8080" 
 
 if __name__ == "__main__":
-    import argparse, sys
+    import argparse
     from os import system
 
     parser = argparse.ArgumentParser(prog="Concierge", description='Run the service API interaction as a RESTful API service on localhost.')
