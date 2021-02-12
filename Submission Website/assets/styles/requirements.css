@@ -41,12 +41,10 @@
 }
 
 .interview-container, .persona-container {
-    width: 75%;
     align-items: flex-start;
 }
 
 .client-interview .interview-container {
-    width: 40%;
 }
 
 .interview-container .card, .persona-container .card {

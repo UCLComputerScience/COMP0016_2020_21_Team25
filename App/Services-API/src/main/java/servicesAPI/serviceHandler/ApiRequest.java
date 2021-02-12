@@ -58,7 +58,7 @@ public class ApiRequest implements Runnable {
         connection.setReadTimeout(MAX_RESPONSE_TIME);
 
         // Do not follow the URL through any redirects
-        connection.setInstanceFollowRedirects(false);
+        // connection.setInstanceFollowRedirects(false);
         return connection;
     }
 

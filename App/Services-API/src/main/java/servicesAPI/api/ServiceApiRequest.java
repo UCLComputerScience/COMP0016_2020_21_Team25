@@ -51,6 +51,6 @@ public class ServiceApiRequest extends ApiRequest {
                 connection.disconnect();
             }
         }
-        return null;
+        return new GenericErrorResponse("Could not complete request.", 500);
     }
 }

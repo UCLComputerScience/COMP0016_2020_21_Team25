@@ -1,5 +1,5 @@
 # Backend API
-The backend allows is to be accessed via a restful API on `localhost`.
+Source code for the backend of the IBM FISE Concierge, providing support for both the app and the companion web app, accessed via a restful API on `localhost`.
 
 ## Endpoints
 

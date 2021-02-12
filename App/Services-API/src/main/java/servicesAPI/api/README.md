@@ -1,45 +1,44 @@
 # RESTful Service API Interaction
+
 This Java package allows the service API interaction to be accessed via a restful API on `localhost`.
 
 ## Endpoints
 
 The following endpoints are available:
 
--   *"air-quality"*
--   *"current-weather"*
--   *"charity-search"*
--   *"charity-by-city"*
--   *"dictionary"*
--   *"ingredient"*
--   *"joke"*
--   *"nearest-transport"*
--   *"news"*
--   *"random-recipe"*
--   *"recipe"*
--   *"recipe-instructions"*
--   *"stocks"* 
--   *"transport-search"*
--   *"weather-forecast"*
+-   _"air-quality"_
+-   _"book"_
+-   _"current-weather"_
+-   _"charity-search"_
+-   _"charity-by-city"_
+-   _"dictionary"_
+-   _"ingredient"_
+-   _"joke"_
+-   _"nearest-transport"_
+-   _"news"_
+-   _"random-recipe"_
+-   _"recipe"_
+-   _"recipe-instructions"_
+-   _"stocks"_
+-   _"transport-search"_
+-   _"weather-forecast"_
 
 As per the service APIs included except any spaces in the service names are replaced with hyphens.
 
 Parameters are to be supplied in the URL in lowercase form.
 
-- e.g., the dictionary service endpoint requires a `WORD` parameter (as per the outer README) and is supplied (in lowercase) as:
-
+-   e.g., the dictionary service endpoint requires a `WORD` parameter (as per the outer README) and is supplied (in lowercase) as:
 
     /dictionary?word=word_here
 
+-   Services that require multiple parameters are supplied by an ampersand (&) separated list.
 
-- Services that require multiple parameters are supplied by an ampersand (&) separated list.
-
-Note that there are no `POST` requests available (only `GET`), setting the request method to `POST` in the request header 
+Note that there are no `POST` requests available (only `GET`), setting the request method to `POST` in the request header
 will result in an error.
 
-
 ## Responses
-All responses are of the form:
 
+All responses are of the form:
 
     {
        "service": "",
@@ -50,10 +49,10 @@ All responses are of the form:
 
 Where
 
-- **service** - the name of the service; this is either the endpoint, for a recognised service or `error` if a client HTTP error occurs.
-- **message** - a natural language string representing the service response - useful for voice assistants.
-- **metadata** - extra data that may be useful, but unsuitable for natural language e.g., image/web links.
-- **code** - the HTTP status code using [this](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) standard.
+-   **service** - the name of the service; this is either the endpoint, for a recognised service or `error` if a client HTTP error occurs.
+-   **message** - a natural language string representing the service response - useful for voice assistants.
+-   **metadata** - extra data that may be useful, but unsuitable for natural language e.g., image/web links.
+-   **code** - the HTTP status code using [this](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) standard.
 
 ## Deployment
 
@@ -92,16 +91,16 @@ Note that these can only be enabled by passing them as command line arguments to
 
 The following arguments are all optional.
 
-- A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8080` by default.
-- Logging information to the console can be enabled with the `-l` (or `--l`) flag - logging is disabled by default.
-- The application can be built into a single jar and executing using the `-jar` (or `--jar`) flag.
-   - This option is only available using the Python run script.
+-   A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8080` by default.
+-   Logging information to the console can be enabled with the `-l` (or `--l`) flag - logging is disabled by default.
+-   The application can be built into a single jar and executing using the `-jar` (or `--jar`) flag.
+    -   This option is only available using the Python run script.
 
 When using the `jar` file:
 
-- The `-l` flag is supplied **without** the leading `-` character(s) - i.e. as `l`.
-- The `-port` flag is **always** supplied with a single `-` and the same goes for `-p`.
+-   The `-l` flag is supplied **without** the leading `-` character(s) - i.e. as `l`.
+-   The `-port` flag is **always** supplied with a single `-` and the same goes for `-p`.
 
 Running `python3 tools/run.py -h` gives you a similar breakdown of possible command line arguments and their aliases.
 
-- The `-h` flag is not available outside of the Python script.
+-   The `-h` flag is not available outside of the Python script.

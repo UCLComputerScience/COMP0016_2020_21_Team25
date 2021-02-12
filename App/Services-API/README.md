@@ -6,27 +6,28 @@ The service API package defines and handles the interaction between the app and 
 
 The `makeRequest` method takes the service name and required data as parameters and performs the API request, the output is a sentence for the speech synthesiser to speak aloud to the user (with the relevant data included).
 
-- This output is put onto an API response queue, maintained by the main controller of the app.
+-   This output is put onto an API response queue, maintained by the main controller of the app.
 
 `void makeRequest(String serviceName, HashMap<String, String> payload)`
 
 The recognised service names are:
 
-- [_"air quality"_](#air-quality-api)
-- [_"charity search"_](#charity-search-api)
-- [_"charity by city"_](#charity-by-city-api)
-- [_"current weather"_](#current-weather-api)
-- [_"dictionary"_](#dictionary-api)
-- [_"ingredient"_](#recipe-by-ingredient-api)
-- [_"joke"_](#joke-api)
-- [_"nearest transport"_](#nearest-transport-api)
-- [_"news"_](#news-api)
-- [_"random recipe"_](#random-recipe-api)
-- [_"recipe"_](#recipe-by-search-api)
-- [_"recipe instructions"_](#recipe-instructions-api)
-- [_"stocks"_](#stocks-api)
-- [_"transport search"_](#transport-by-search-api)
-- [_"weather forecast"_](#weather-forecast-api)
+-   [_"air quality"_](#air-quality-api)
+-   [_"book"_](#book-by-search-api)
+-   [_"charity search"_](#charity-search-api)
+-   [_"charity by city"_](#charity-by-city-api)
+-   [_"current weather"_](#current-weather-api)
+-   [_"dictionary"_](#dictionary-api)
+-   [_"ingredient"_](#recipe-by-ingredient-api)
+-   [_"joke"_](#joke-api)
+-   [_"nearest transport"_](#nearest-transport-api)
+-   [_"news"_](#news-api)
+-   [_"random recipe"_](#random-recipe-api)
+-   [_"recipe"_](#recipe-by-search-api)
+-   [_"recipe instructions"_](#recipe-instructions-api)
+-   [_"stocks"_](#stocks-api)
+-   [_"transport search"_](#transport-by-search-api)
+-   [_"weather forecast"_](#weather-forecast-api)
 
 ## Getting Responses
 
@@ -44,10 +45,10 @@ A service may return (required) data that is not suitable for speech synthesis e
 This type of data is referred to as _'metadata'_, stored in a `HashMap<String, Object` named `metadata`.
 It is retrieved by calling the `metadata()` method of an `ApiResponse` object.
 
-- Note that there is no standard for the representation of data inside the hashmap - this is entirely dependent on the service, and its corresponding `parseOutput` method.
-- Checking the `parseOutput` method of a `ServiceRequest` object will instruct you on how to properly access the metadata **for that specific service only**.
+-   Note that there is no standard for the representation of data inside the hashmap - this is entirely dependent on the service, and its corresponding `parseOutput` method.
+-   Checking the `parseOutput` method of a `ServiceRequest` object will instruct you on how to properly access the metadata **for that specific service only**.
 
-  - This is specific, and potentially unique, for each service.
+    -   This is specific, and potentially unique, for each service.
 
 The `getName()` method should be used to check what service was returned to determine how to read its metadata, if required.
 
@@ -166,10 +167,10 @@ This service returns a set of recipes with certain ingredients, specified by the
 
 This service returns the instructions for the recipes returned by the services above.
 
-| Attribute | Type   | Default | Description           |
-| :-------: | ------ | :-----: | --------------------- |
-|   `ID`    | String |  `""`   | The ID of the recipe. |
-|   `DETAILED`    | Boolean |  `true`   | Whether to split instructions into steps (`true`) or return a plain description (`false`). |
+| Attribute  | Type    | Default | Description                                                                                |
+| :--------: | ------- | :-----: | ------------------------------------------------------------------------------------------ |
+|    `ID`    | String  |  `""`   | The ID of the recipe.                                                                      |
+| `DETAILED` | Boolean | `true`  | Whether to split instructions into steps (`true`) or return a plain description (`false`). |
 
 Note that this service is intended to be used _internally_ - each recipe service above returns the `ID` of the recipe in the `metadata` of the response object; the recipe instructions service should then be used to retrieve the instructions of that recipe.
 
@@ -200,17 +201,29 @@ This service returns information on a specified number of charities in a given c
 |  `CITY`   | String  | `"london"` | The search term, in natural language.                       |
 | `VALUES`  | Integer |    `1`     | The (maximum) number of charities to return information on. |
 
+### Book By Search API
+
+This service returns information on a book based on the user's search.
+
+|  Attribute  | Type   | Default | Description                                                                                                                                                                                                                                 |
+| :---------: | ------ | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   `QUERY`   | String |  `""`   | The search term, in natural language. Entirely optional.                                                                                                                                                                                    |
+|   `TOPIC`   | String |  `""`   | A certain topic to look for. Entirely optional.                                                                                                                                                                                             |
+| `LANGUAGES` | String | `"en"`  | A comma separated string containing the list of languages to search for. Uses the two-character IS0-639-1 code scheme. The full list of possible language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes). |
+
+Note that both the `QUERY` and `TOPIC` attributes are optional, but at least one must be supplied.
+
 ## Adding Services
 
 The service interaction is highly extensible. A service must extend the abstract `ServiceRequest` class, providing the following attributes:
 
-- `URL` - The URL where the resource provided by the API is located.
-- If the URL requires any named parameters, they are to be added in the following format:
-- _e.g. the [Weather API](#current-weather-api) requires a `lang` attribute: `...lang={LANGUAGE}` as per the **Attribute** `LANGUAGE` in its API format._
-- `name` - The name of the service - **must be unique**.
-- `category` - The category the service falls under.
-- `APIKey` - A unique string used to access the service's API - this is obtained by registering for one on the API's website. Pass an empty string if it is not required by the service.
-- `payload` - A `HashMap` containing the parameters required to perform the API request. The necessary keys (and values) for each service are defined in the section [above](#api-formats).
+-   `URL` - The URL where the resource provided by the API is located.
+-   If the URL requires any named parameters, they are to be added in the following format:
+-   _e.g. the [Weather API](#current-weather-api) requires a `lang` attribute: `...lang={LANGUAGE}` as per the **Attribute** `LANGUAGE` in its API format._
+-   `name` - The name of the service - **must be unique**.
+-   `category` - The category the service falls under.
+-   `APIKey` - A unique string used to access the service's API - this is obtained by registering for one on the API's website. Pass an empty string if it is not required by the service.
+-   `payload` - A `HashMap` containing the parameters required to perform the API request. The necessary keys (and values) for each service are defined in the section [above](#api-formats).
 
 Note that the concrete service class must only take one parameter - the `payload`. The concrete constructor must be of the form:
 
@@ -222,13 +235,13 @@ It will then be called by the `ServiceFactory` as `new NewServiceRequest(payload
 
 It must also implement the following methods:
 
-- `parseOutput(HashMap<String, Object> response);` - Defines how each service interprets its output from the API.
+-   `parseOutput(HashMap<String, Object> response);` - Defines how each service interprets its output from the API.
 
-- `String handleErrors(HashMap<String, Object> response);` - Defines how each service interprets error messages from the API.
+-   `String handleErrors(HashMap<String, Object> response);` - Defines how each service interprets error messages from the API.
 
-- `String getErrorCode(HashMap<String, Object> response);` - Defines how the HTTP error code is represented and retrieved for each service. Each service API will have a different way of representing HTTP error codes.
+-   `String getErrorCode(HashMap<String, Object> response);` - Defines how the HTTP error code is represented and retrieved for each service. Each service API will have a different way of representing HTTP error codes.
 
-- `HashMap<String, String> populatePayload();` - Inserts default data into the payload if not given to avoid malformed requests. This method is what applies the attributes from the API format to a service.
+-   `HashMap<String, String> populatePayload();` - Inserts default data into the payload if not given to avoid malformed requests. This method is what applies the attributes from the API format to a service.
 
 The service can then be called by adding its name to the switch statement in the `ServiceFactory` by adding a new case for its `name` attribute in lowercase and returning a new object of the service (which takes the `payload` as its only parameter). No other code interaction needs to take place.
 

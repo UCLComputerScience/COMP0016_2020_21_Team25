@@ -1,6 +1,7 @@
 package servicesAPI.serviceHandler;
 
 import servicesAPI.services.AbstractServiceRequest;
+import servicesAPI.services.entertainment.BookSearchServiceRequest;
 import servicesAPI.services.entertainment.JokeServiceRequest;
 import servicesAPI.services.entertainment.NewsServiceRequest;
 import servicesAPI.services.finance.CharityByCityServiceRequest;
@@ -32,6 +33,8 @@ public class ServiceFactory {
         switch (serviceName.toLowerCase()) {
             case "air quality":
                 return new AirQualityServiceRequest(payload);
+            case "book":
+                return new BookSearchServiceRequest(payload);
             case "charity search":
                 return new CharityBySearchServiceRequest(payload);
             case "charity by city":

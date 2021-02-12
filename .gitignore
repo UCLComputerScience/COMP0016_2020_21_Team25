@@ -2,18 +2,20 @@
 *.vscode/
 *.gradle/
 *.DS_Store
+*.settings/
+*.classpath
+*.project
+*target/
+*.node_modules/
+*.factorypath
 
 /Admin Site/dist/
-/Admin Site/node_modules/
 /Admin Site/.firebase/
 
-/App/Services-API/target/
-/App/Services-API/.settings/
-/App/Services-API/.classpath
-/App/Services-API/.project
 /App/Services-API/.Services-API.iml
 
 /Backend/venv/
+/Backend/api/backend-api.iml
 
 /NLP/env/
 /NLP/venv/
