@@ -1,34 +1,45 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const {VueLoaderPlugin} = require('vue-loader');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const PreloadWebpackPlugin = require("preload-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RobotsTxtPlugin = require("robotstxt-webpack-plugin");
 
 module.exports = {
-    mode: process.env.NODE_ENV || 'development',
+    mode: process.env.NODE_ENV || "development",
     entry: {
-        app: './src/index.js'
+        app: "./src/index.js",
     },
     output: {
-        filename: '[name].bundle.min.js',
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '/',
-        crossOriginLoading: 'anonymous'
+        filename: "[name].bundle.min.js",
+        path: path.resolve(__dirname, "./dist"),
+        publicPath: "/",
+        crossOriginLoading: "anonymous",
     },
     plugins: [
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].min.css',
-            ignoreOrder: true
+            filename: "[name].min.css",
+            ignoreOrder: true,
         }),
         new HtmlWebpackPlugin({
             inject: true,
-            template: path.resolve(__dirname, 'public', 'index.html'),
+            title: "Concierge Portal",
+            template: path.resolve(__dirname, "public", "index.html"),
             filename: "index.html",
-            favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
-            title: "Concierge - Portal"
+            favicon: path.resolve(__dirname, "public", "favicon.ico"),
+        }),
+        new PreloadWebpackPlugin({
+            rel: "preload",
+            as(entry) {
+                if (/\.css$/.test(entry)) return "style";
+                if (/\.(woff|woff2|eot|ttf|otf)$/.test(entry)) return "font";
+                if (/\.(png|jpe?g|gif|svg|webp)$/i.test(entry)) return "image";
+                return "script";
+            },
+            include: "asyncChunks",
         }),
         new RobotsTxtPlugin(),
     ],
@@ -36,35 +47,33 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
+                loader: "vue-loader",
                 options: {
-                    img: 'src',
-                }
+                    img: "src",
+                },
             },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
-                }
+                    loader: "babel-loader",
+                },
             },
             {
                 test: /\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'postcss-loader'
+                    "css-loader",
+                    "postcss-loader",
                 ],
             },
             {
                 test: /\.(png|jpe?g|gif|svg|webp)$/i,
-                use: ['file-loader'],
+                use: ["file-loader"],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader',
-                ],
+                use: ["file-loader"],
             },
         ],
     },

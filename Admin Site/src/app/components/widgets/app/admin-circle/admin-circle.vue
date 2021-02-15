@@ -43,9 +43,9 @@
 
 <style scoped>
     .admin-circle {
-        overflow-x: auto;
         padding: 32px;
         width: 100%;
+        justify-content: flex-start;
         list-style: none;
         align-items: stretch;
     }

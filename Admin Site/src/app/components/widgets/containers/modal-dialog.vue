@@ -85,6 +85,9 @@
         flex-direction: column;
         padding: 36px 24px;
         z-index: 30;
+        justify-content: flex-start;
+        max-height: 90%;
+        overflow-y: auto;
     }
 
     .modal-dialog .content .close-icon {

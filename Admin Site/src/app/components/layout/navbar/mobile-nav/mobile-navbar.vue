@@ -34,9 +34,6 @@
     export default {
         name: "mobile-navbar",
         components: {Separator, MobileNavItem, Authors, Collaborators, ProfilePicture},
-        props: {
-            toggler: Element
-        },
         computed: {
             fullName() {
                 const user = this.$store.getters["admin/admin"]

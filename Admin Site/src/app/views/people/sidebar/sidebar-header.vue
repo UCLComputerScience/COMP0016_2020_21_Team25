@@ -37,6 +37,7 @@
         font-weight: 400;
         display: none;
         position: absolute;
+        color: var(--text-color);
         top: 0;
     }
 

@@ -6,11 +6,12 @@
 *.classpath
 *.project
 *target/
-*.node_modules/
+*node_modules/
 *.factorypath
 
 /Admin Site/dist/
 /Admin Site/.firebase/
+/Admin Site/node_modules/
 
 /App/Services-API/.Services-API.iml
 

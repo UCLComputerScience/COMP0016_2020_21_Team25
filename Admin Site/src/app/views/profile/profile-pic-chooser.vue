@@ -131,10 +131,12 @@
         border-radius: var(--border-radius);
         background: #fff;
         flex-direction: column;
-        padding: 36px 24px;
+        padding: 24px;
         z-index: 30;
-        max-height: 90%;
+        max-height: 95%;
         overflow-y: auto;
+        justify-content: flex-start;
+        width: max-content;
     }
 
     .profile-pic-chooser .close-icon {
@@ -163,6 +165,7 @@
     .profile-pic-chooser .pic-grid {
         flex-direction: column;
         margin-bottom: 24px;
+        width: 80%;
     }
 
     .profile-pic-chooser .confirm {

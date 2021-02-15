@@ -16,6 +16,7 @@
     "deploy": "set -e npm run-script build; firebase deploy"
   },
   "dependencies": {
+    "preload-webpack-plugin": "^3.0.0-beta.4",
     "serve": "^11.3.2",
     "vue-router": "^4.0.0-rc.1",
     "webpack-merge": "^5.4.0"
@@ -44,7 +45,7 @@
     "vuex": "^4.0.0-beta.1",
     "vuex-persistedstate": "^4.0.0-beta.1",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.4.0"
   },
   "browserslist": {
     "production": [

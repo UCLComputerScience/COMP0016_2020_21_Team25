@@ -40,6 +40,7 @@
         justify-content: flex-start;
         position: relative;
         flex: 1;
+        background: var(--page-bg-color);
     }
 
     .people {

@@ -8,7 +8,4 @@ import {store} from "./app/store/store";
 const app = createApp(App);
 app.use(router);
 app.use(store);
-
-router.isReady().then(() => {
-    app.mount('#app');
-});
+app.mount("#app");
