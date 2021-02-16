@@ -19,8 +19,32 @@ public class AppController {
     private final Database database = DatabaseFactory.instance();
 
     /**
+     * Return relevant information about the user's history
+     *
+     * @param id the user ID.
+     * @return HistoryResponse a JSON object representing the data defined above.
+     */
+    @GetMapping("history")
+    public HistoryResponse history(@RequestParam String id) {
+        int code = 200;
+        ArrayList<String> history = new ArrayList<>();
+        String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID} ";
+        query = query.replace("{ID}", id);
+		ResultSet results = database.query(query);
+        try {
+            while (results.next()) {
+                history.add(results.getString("SERVICE_ID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            code = 500;
+        }
+        return new HistoryResponse(history, code);
+    }
+
+    /**
      * Return all the service names added to the user's account.
-     * 
+     *
      * @param id the user ID.
      * @return ServiceResponse a JSON object representing the data defined above.
      */
@@ -45,7 +69,7 @@ public class AppController {
     /**
      * Return relevant information about the user (name(s), prefix and phone
      * number).
-     * 
+     *
      * @param id the user ID.
      * @return UserResponse a JSON object representing the data defined above.
      */
@@ -72,6 +96,27 @@ public class AppController {
         }
 
         return new UserResponse(firstName, lastName, prefix, phoneNumber, code);
+    }
+
+    /*
+     * { "history": [], "code": 200 }
+     */
+    private static class HistoryResponse {
+        private final ArrayList<String> history;
+        private final int code;
+
+        public HistoryResponse(ArrayList<String> history, int code) {
+            this.history = history;
+            this.code = code;
+        }
+
+        public ArrayList<String> getHistory() {
+            return history;
+        }
+
+        public int getCode() {
+            return code;
+        }
     }
 
     /*

@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.model.AlarmsDbHelper;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 public class ViewAlarmsView extends AppCompatActivity {
 
     private static final String TAG = "ViewAlarmsView";
-    AlarmsDbHelper dbHelper;
     private ListView listView;
     private Button backButton;
+    private MainController mainController = new MainController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,6 @@ public class ViewAlarmsView extends AppCompatActivity {
         setContentView(R.layout.view_alarms_view);
 
         listView = findViewById(R.id.alarmsListView);
-        dbHelper = new AlarmsDbHelper(this);
         backButton = findViewById(R.id.backButton);
         Button newAlarmButton = findViewById(R.id.addNewAlarm);
 
@@ -56,7 +56,7 @@ public class ViewAlarmsView extends AppCompatActivity {
     private void populateListView(){
         Log.d("ViewAlarmsView", "populateListView: Displaying data in the ListView");
 
-        Cursor data = dbHelper.getData();
+        Cursor data = mainController.getAlarm(ViewAlarmsView.this);
         ArrayList<String> listData = new ArrayList<>();
         while (data.moveToNext()){
             listData.add(data.getString(0) + ": " + data.getString(1)+ ": " + data.getString(2));

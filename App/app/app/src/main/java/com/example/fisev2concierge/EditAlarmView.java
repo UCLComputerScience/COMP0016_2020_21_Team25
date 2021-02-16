@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.helperClasses.AlertReceiver;
 import com.example.fisev2concierge.helperClasses.DatePickerFragment;
 import com.example.fisev2concierge.helperClasses.TimePickerFragment;
@@ -32,7 +33,7 @@ public class EditAlarmView extends AppCompatActivity implements TimePickerDialog
     private TextView timeSelectedText, dateSelectedText;
     private Button deleteAlarmButton, saveAlarmButton, backButton;
     private EditText alarmText;
-    private AlarmsDbHelper dbHelper;
+    private MainController mainController = new MainController();
     private String selectedAlarm = "";
     private int selectedID;
     private Calendar c = Calendar.getInstance();
@@ -49,7 +50,6 @@ public class EditAlarmView extends AppCompatActivity implements TimePickerDialog
         saveAlarmButton = findViewById(R.id.saveAlarmButton);
         alarmText = findViewById(R.id.editAlarmText);
         backButton = findViewById(R.id.backButton);
-        dbHelper = new AlarmsDbHelper(this);
 
         Intent receivedIntent = getIntent();
 
@@ -90,7 +90,7 @@ public class EditAlarmView extends AppCompatActivity implements TimePickerDialog
                 String newTime = timeSelectedText.getText().toString();
                 String date = newDate + " " + newTime;
                 if (!item.equals("")){
-                    dbHelper.updateAlarm(selectedAlarm, selectedID, item, date);
+                    mainController.updateAlarm(EditAlarmView.this, selectedAlarm, selectedID, item, date);
                     setNewAlarm(selectedID);
                     Intent intent = new Intent(EditAlarmView.this, ViewAlarmsView.class);
                     startActivity(intent);
@@ -101,7 +101,7 @@ public class EditAlarmView extends AppCompatActivity implements TimePickerDialog
         deleteAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHelper.deleteAlarm(selectedID, selectedAlarm);
+                mainController.deleteAlarm(EditAlarmView.this, selectedID, selectedAlarm);
                 alarmText.setText("");
                 deleteAlarm(selectedID);
                 Intent intent = new Intent(EditAlarmView.this, ViewAlarmsView.class);
@@ -135,20 +135,10 @@ public class EditAlarmView extends AppCompatActivity implements TimePickerDialog
 
     private void setNewAlarm(int id){
         deleteAlarm(id);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        }
+        mainController.startAlarm(EditAlarmView.this, EditAlarmView.this, id + "", c);
     }
 
     private void deleteAlarm(int id){
-        Intent intent = new Intent(this.getApplicationContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
+        mainController.stopAlarm(EditAlarmView.this, EditAlarmView.this, id);
     }
 }

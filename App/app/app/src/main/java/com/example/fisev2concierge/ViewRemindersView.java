@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.model.RemindersDbHelper;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 public class ViewRemindersView extends AppCompatActivity {
 
     private static final String TAG = "ViewRemindersView";
-    RemindersDbHelper dbHelper;
     private ListView listView;
     private Button backButton, newReminderButton;
+    private MainController mainController = new MainController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,6 @@ public class ViewRemindersView extends AppCompatActivity {
         setContentView(R.layout.view_reminders_view);
 
         listView = findViewById(R.id.remindersListView);
-        dbHelper = new RemindersDbHelper(this);
         backButton = findViewById(R.id.backButton);
         newReminderButton = findViewById(R.id.addNewReminder);
 
@@ -56,7 +56,7 @@ public class ViewRemindersView extends AppCompatActivity {
     private void populateListView(){
         Log.d("ViewRemindersView", "populateListView: Displaying data in the ListView");
 
-        Cursor data = dbHelper.getData();
+        Cursor data = mainController.getReminders(ViewRemindersView.this);
         ArrayList<String> listData = new ArrayList<>();
         while (data.moveToNext()){
             listData.add(data.getString(0) + ": " + data.getString(1));

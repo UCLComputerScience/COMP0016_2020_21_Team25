@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.helperClasses.AlertReceiver;
 import com.example.fisev2concierge.helperClasses.DatePickerFragment;
 import com.example.fisev2concierge.helperClasses.NotificationHelper;
@@ -32,11 +33,11 @@ import java.util.Calendar;
 
 public class AddAlarmView extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    AlarmsDbHelper dbHelper;
     private Button addAlarmButton, alarmTimeButton, alarmDateButton, backButton;
     private EditText alarmText;
     private TextView timeSelectedText, dateSelectedText;
     private Calendar c = Calendar.getInstance();
+    private MainController mainController = new MainController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,6 @@ public class AddAlarmView extends AppCompatActivity implements TimePickerDialog.
         alarmDateButton = findViewById(R.id.selectDateButton);
         dateSelectedText = findViewById(R.id.dateSelectedText);
         backButton = findViewById(R.id.backButton);
-        dbHelper = new AlarmsDbHelper(this);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,10 +98,10 @@ public class AddAlarmView extends AppCompatActivity implements TimePickerDialog.
 
     String newID = "";
     public void AddData(String newEntry, String date){
-        boolean insertData = dbHelper.addData(newEntry, date);
+        boolean insertData = mainController.addAlarm(AddAlarmView.this, newEntry, date);
         if (insertData){
             toastMessage("Data entered successfully");
-            Cursor data = dbHelper.getRecent();
+            Cursor data = mainController.getRecentAlarm(AddAlarmView.this);
             while (data.moveToNext()){
                 newID = data.getString(0);
             }
@@ -134,15 +134,16 @@ public class AddAlarmView extends AppCompatActivity implements TimePickerDialog.
     }
 
     private void startAlarm(Calendar c){
+        mainController.startAlarm(AddAlarmView.this, AddAlarmView.this, newID, c);
         System.out.println(newID);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, Integer.parseInt(newID), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        }
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(this, AlertReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, Integer.parseInt(newID), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+//        } else {
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+//        }
     }
 
     public void test(){

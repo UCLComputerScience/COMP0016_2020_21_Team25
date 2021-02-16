@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.model.RemindersDbHelper;
 
 public class EditReminderView extends AppCompatActivity {
@@ -14,9 +16,9 @@ public class EditReminderView extends AppCompatActivity {
     private static final String TAG = "EditReminderView";
     private Button deleteReminderButton, saveReminderButton, backButton;
     private EditText reminderText;
-    private RemindersDbHelper dbHelper;
     private String selectedReminder = "";
     private int selectedID;
+    private MainController mainController = new MainController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,6 @@ public class EditReminderView extends AppCompatActivity {
         saveReminderButton = findViewById(R.id.saveReminderButton);
         reminderText = findViewById(R.id.editReminderText);
         backButton = findViewById(R.id.backButton);
-        dbHelper = new RemindersDbHelper(this);
 
         Intent receivedIntent = getIntent();
 
@@ -48,16 +49,17 @@ public class EditReminderView extends AppCompatActivity {
             public void onClick(View v) {
                 String item = reminderText.getText().toString();
                 if (!item.equals("")){
-                    dbHelper.updateReminder(selectedReminder, selectedID, item);
+                    mainController.updateReminder(EditReminderView.this, selectedReminder, selectedID, item);
                     Intent intent = new Intent(EditReminderView.this, ViewRemindersView.class);
                     startActivity(intent);
                 }
             }
         });
+
         deleteReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHelper.deleteReminder(selectedID, selectedReminder);
+                mainController.deleteReminder(EditReminderView.this, selectedID, selectedReminder);
                 reminderText.setText("");
                 Intent intent = new Intent(EditReminderView.this, ViewRemindersView.class);
                 startActivity(intent);

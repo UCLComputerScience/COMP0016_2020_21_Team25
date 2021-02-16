@@ -9,14 +9,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
+import com.example.fisev2concierge.controller.MainController;
 import com.example.fisev2concierge.helperClasses.NotificationHelper;
 import com.example.fisev2concierge.model.RemindersDbHelper;
 
 public class AddReminderView extends AppCompatActivity {
 
-    RemindersDbHelper dbHelper;
     private Button addReminderButton, backButton;
     private EditText reminderText;
+    MainController mainController = new MainController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,6 @@ public class AddReminderView extends AppCompatActivity {
         reminderText = findViewById(R.id.reminderText);
         addReminderButton = findViewById(R.id.addReminderButton);
         backButton = findViewById(R.id.backButton);
-        dbHelper = new RemindersDbHelper(this);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,15 +54,11 @@ public class AddReminderView extends AppCompatActivity {
         });
     }
 
-    String newID = "";
+
     public void AddData(String newEntry){
-        boolean insertData = dbHelper.addData(newEntry);
+        boolean insertData = mainController.addReminder(AddReminderView.this, newEntry);
         if (insertData){
             toastMessage("Data entered successfully");
-            Cursor data = dbHelper.getRecent();
-            while (data.moveToNext()){
-                newID = data.getString(0);
-            }
         } else {
             toastMessage("Data not entered successfully");
         }
@@ -75,9 +72,4 @@ public class AddReminderView extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void test(){
-        NotificationHelper notificationHelper = new NotificationHelper(this);
-        NotificationCompat.Builder nb = notificationHelper.getChannel1Notification("Test", "Message");
-        notificationHelper.getManager().notify(1, nb.build());
-    }
 }

@@ -184,6 +184,7 @@ def main(model, new_model_name, output_dir,num_iterations):
     ner.add_label(DICTIONARY_LABELS[0])
     ner.add_label(DICTIONARY_LABELS[1])
     ner.add_label(THEASAURUS_LABELS[0])
+    
     if model is None:
         optimizer = nlp.begin_training()
     else:
