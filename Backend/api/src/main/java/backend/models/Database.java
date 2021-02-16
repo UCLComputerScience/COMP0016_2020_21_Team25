@@ -33,7 +33,7 @@ public class Database {
      */
     private void connect() throws ClassNotFoundException, SQLException {
         String URL = urlPrefix
-                + "//dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50001/BLUDB:user=USERNAME;password=PASSWORD;sslConnection=true;";
+                + "//dashdb-txn-sbox-yp-dal09-11.services.dal.bluemix.net:50001/BLUDB:user=USERNAME;password=PASSWORD;sslConnection=true;";
         String username = "tzx29081";
         String password = "k0fnvr9nws+s6dcj";
         URL = URL.replace("USERNAME", username).replace("PASSWORD", password);
