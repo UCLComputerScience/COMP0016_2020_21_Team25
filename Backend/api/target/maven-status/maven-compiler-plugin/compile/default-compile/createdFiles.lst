@@ -1,8 +1,9 @@
-backend\controllers\app\AppController.class
-backend\controllers\app\AppController$ServiceResponse.class
-backend\models\DatabaseFactory.class
-backend\ApiLogger.class
-backend\models\Database.class
-backend\controllers\app\AppController$HistoryResponse.class
-backend\controllers\app\AppController$UserResponse.class
-backend\App.class
+backend/controllers/app/AppController$HistoryResponse.class
+backend/models/DatabaseFactory.class
+backend/App.class
+backend/controllers/app/AppController$serviceDataResponse.class
+backend/controllers/app/AppController$ServiceResponse.class
+backend/models/Database.class
+backend/controllers/app/AppController$UserResponse.class
+backend/ApiLogger.class
+backend/controllers/app/AppController.class

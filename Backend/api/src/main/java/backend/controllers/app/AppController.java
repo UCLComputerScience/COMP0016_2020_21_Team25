@@ -65,6 +65,38 @@ public class AppController {
         }
         return new ServiceResponse(services, code);
     }
+    /**
+     * Return information about a given service
+     * 
+     * @param id the service id
+     * @return ServiceData response a JSON object containing the data about the given service
+     */
+    @GetMapping("servicedata") 
+    public serviceDataResponse serviceData(@RequestParam String id){
+        int code=200;
+        String name="";
+        String category="";
+        String description="";
+        String query="SELECT NAME, CATEGORY, DESCRIPTION FROM SERVICE WHERE SERVICE_ID={ID}";
+        query = query.replace("{ID}", id);
+        ResultSet results = database.query(query);
+
+        try {
+            if (results.next()){ 
+                name = results.getString("NAME");
+                category = results.getString("CATEGORY");
+                description = results.getString("DESCRIPTION");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            code = 500;
+        }
+
+        return new serviceDataResponse(name, category, description, code);
+    }
+
+
 
     /**
      * Return relevant information about the user (name(s), prefix and phone
@@ -139,6 +171,38 @@ public class AppController {
             return code;
         }
     }
+
+    /*
+     * { "name": "", "category": "", "description": "" }
+    */
+    private static class serviceDataResponse{
+        private final String name;
+        private final String category;
+        private final String description;
+        private final int code;
+
+        public serviceDataResponse(String name, String category, String description, int code){
+            this.name=name;
+            this.category=category;
+            this.description=description;
+            this.code=code;
+        }
+
+        public String getName(){
+            return name;
+        }
+        public String getCategory(){
+            return category;
+        }
+        public String getDescription(){
+            return description;
+        }
+        public int getCode(){
+            return code;
+        }
+
+    }
+
 
     /*
      * { "firstName": "", "lastName": "", "prefix": "", "phoneNumber": "", code: "" }
