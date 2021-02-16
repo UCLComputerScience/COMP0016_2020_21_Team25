@@ -2,6 +2,8 @@
 
 The service API package defines and handles the interaction between the app and external RESTful APIs over HTTP(S). It also performs its own error handling and output parsing.
 
+For use as a RESTful API (instead of native Java code, detailed below), more information can be found in `api` package [here](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/App/Services-API/src/main/java/servicesAPI/api).
+
 ## Interface
 
 The `makeRequest` method takes the service name and required data as parameters and performs the API request, the output is a sentence for the speech synthesiser to speak aloud to the user (with the relevant data included).
@@ -35,7 +37,7 @@ The API response queue should have the type:
 
          BlockingQueue<ApiResponse> appQueue;
 
-Periodically polling this queue returns an `ApiResponse` object returning the service's response.
+Periodically polling this queue returns an `ApiResponse` object returning the service's response after a call is made.
 
 The string response, used in speech synthesis, can be retrieved using the `getResponse()` method of the object.
 
@@ -46,9 +48,7 @@ This type of data is referred to as _'metadata'_, stored in a `HashMap<String, O
 It is retrieved by calling the `metadata()` method of an `ApiResponse` object.
 
 -   Note that there is no standard for the representation of data inside the hashmap - this is entirely dependent on the service, and its corresponding `parseOutput` method.
--   Checking the `parseOutput` method of a `ServiceRequest` object will instruct you on how to properly access the metadata **for that specific service only**.
-
-    -   This is specific, and potentially unique, for each service.
+-   Expected metadata (for successful API calls) for relevant services is detailed below, **for that specific service only**.
 
 The `getName()` method should be used to check what service was returned to determine how to read its metadata, if required.
 
@@ -132,6 +132,19 @@ This service returns either the nearest train stations or bus stops for a given 
 |  `MAX-LON`  | Double |     `-0.001`      | The maximum longitude, representing one corner of the bounding box - must be more than `MIN-LON`. |
 | `TRANSPORT` | String | `"train_station"` | Indicates whether to search for a train station (`train_station`) or a bus stop (`bus_stop`).     |
 
+Note that this service does not return any spoken ouput, just the coordinates of the nearest transport points defined below.
+
+#### Metadata
+
+The metadata returned by this service contains just one top-level field - `locations` which is an array of latitude, longitude pairs for each returned transport point. Each element in the `locations` array is a `Double[]` array, with the following elements:
+
+|  Attribute  |   Type   | Description                           |
+| :---------: | :------: | ------------------------------------- |
+| `latitude`  | `Double` | The latitude of the transport point.  |
+| `longitude` | `Double` | The longitude of the transport point. |
+
+Note that the ordering here is important - **the first element in the array is the `latitude`, the second the `longitude`**.
+
 ### Transport By Search API
 
 This service returns information on a bus stop or train station by its name.
@@ -141,11 +154,29 @@ This service returns information on a bus stop or train station by its name.
 |   `QUERY`   | String |    `"euston"`     | The name of the train station or bus stop to search for.                                      |
 | `TRANSPORT` | String | `"train_station"` | Indicates whether to search for a train station (`train_station`) or a bus stop (`bus_stop`). |
 
+#### Metadata
+
+The metadata returned by this service is:
+
+|  Attribute  |   Type   | Description                           |
+| :---------: | :------: | ------------------------------------- |
+| `latitude`  | `Double` | The latitude of the transport point.  |
+| `longitude` | `Double` | The longitude of the transport point. |
+
 ### Random Recipe API
 
 This service returns a random recipe.
 
 This service requires no parameters - supplying them has no effect.
+
+#### Metadata
+
+The metadata returned by this service is:
+
+|  Attribute  |   Type   | Description                                                                                                                                             |
+| :---------: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `recipe-id` | `String` | The ID of the recipe, useful for further API calls, e.g., fetching the full instructions using the [recipe instructions API](#recipe-instructions-api). |
+|   `image`   | `String` | A URL to the cover image of the recipe.                                                                                                                 |
 
 ### Recipe By Search API
 
@@ -155,6 +186,15 @@ This service returns a set of recipes by searching via natural language.
 | :-------: | ------ | :-----: | ---------------- |
 |  `QUERY`  | String |  `""`   | The search term. |
 
+#### Metadata
+
+The metadata returned by this service is:
+
+|  Attribute  |   Type   | Description                                                                                                                                             |
+| :---------: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `recipe-id` | `String` | The ID of the recipe, useful for further API calls, e.g., fetching the full instructions using the [recipe instructions API](#recipe-instructions-api). |
+|   `image`   | `String` | A URL to the cover image of the recipe.                                                                                                                 |
+
 ### Recipe By Ingredient API
 
 This service returns a set of recipes with certain ingredients, specified by the user.
@@ -162,6 +202,15 @@ This service returns a set of recipes with certain ingredients, specified by the
 |   Attribute   | Type   | Default | Description                                            |
 | :-----------: | ------ | :-----: | ------------------------------------------------------ |
 | `INGREDIENTS` | String |  `""`   | A comma separated string of ingredients to search for. |
+
+#### Metadata
+
+The metadata returned by this service is:
+
+|  Attribute  |   Type   | Description                                                                                                                                             |
+| :---------: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `recipe-id` | `String` | The ID of the recipe, useful for further API calls, e.g., fetching the full instructions using the [recipe instructions API](#recipe-instructions-api). |
+|   `image`   | `String` | A URL to the cover image of the recipe.                                                                                                                 |
 
 ### Recipe Instructions API
 
@@ -174,6 +223,16 @@ This service returns the instructions for the recipes returned by the services a
 
 Note that this service is intended to be used _internally_ - each recipe service above returns the `ID` of the recipe in the `metadata` of the response object; the recipe instructions service should then be used to retrieve the instructions of that recipe.
 
+This service also returns no spoken output. The `metadata`, defined below, can be used to programmatically decide what steps to read (instead of reading it all at once).
+
+#### Metadata
+
+The metadata returned by this service is:
+
+| Attribute |        Type         | Description                                                                     |
+| :-------: | :-----------------: | ------------------------------------------------------------------------------- |
+|  `steps`  | `ArrayList<String>` | An array of instructions for the recipe - each element is one instruction step. |
+
 ### News API
 
 This service returns a news article based on the user's search.
@@ -182,6 +241,15 @@ This service returns a news article based on the user's search.
 | :--------: | ------ | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |  `QUERY`   | String |  `""`   | The search term, in natural language.                                                                                                                                                                    |
 | `LANGUAGE` | String | `"en"`  | The language to return the result in. Uses the two-character IS0-639-1 code scheme. The full list of possible language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes). |
+
+#### Metadata
+
+The metadata returned by this service is:
+
+| Attribute |   Type   | Description                              |
+| :-------: | :------: | ---------------------------------------- |
+|   `url`   | `String` | A URL to the full news article.          |
+|  `image`  | `String` | A URL to the cover image of the article. |
 
 ### Charity Search API
 
@@ -192,6 +260,18 @@ This service returns information on a specified number of charities, based on th
 |  `QUERY`  | String |  `""`   | The search term, in natural language.                       |
 | `VALUES`  | String |   `1`   | The (maximum) number of charities to return information on. |
 
+#### Metadata
+
+The metadata returned by this service contains just one top-level field: `charities` which is an array of maps (each one representing a charity) where each map contains the following information:
+
+|   Attribute   |   Type   | Description                             |
+| :-----------: | :------: | --------------------------------------- |
+|    `name`     | `String` | The name of the charity.                |
+|     `URL`     | `String` | A URL to the charity's registered page. |
+| `donationURL` | `String` | A URL to donate to the charity.         |
+|  `latitude`   | `Double` | The latitude of the charity.            |
+|  `longitude`  | `Double` | The longitude of the charity.           |
+
 ### Charity By City API
 
 This service returns information on a specified number of charities in a given city.
@@ -200,6 +280,18 @@ This service returns information on a specified number of charities in a given c
 | :-------: | ------- | :--------: | ----------------------------------------------------------- |
 |  `CITY`   | String  | `"london"` | The search term, in natural language.                       |
 | `VALUES`  | Integer |    `1`     | The (maximum) number of charities to return information on. |
+
+#### Metadata
+
+The metadata returned by this service contains just one top-level field: `charities` which is an array of maps (each one representing a charity) where each map contains the following information:
+
+|   Attribute   |   Type   | Description                             |
+| :-----------: | :------: | --------------------------------------- |
+|    `name`     | `String` | The name of the charity.                |
+|     `URL`     | `String` | A URL to the charity's registered page. |
+| `donationURL` | `String` | A URL to donate to the charity.         |
+|  `latitude`   | `Double` | The latitude of the charity.            |
+|  `longitude`  | `Double` | The longitude of the charity.           |
 
 ### Book By Search API
 
@@ -212,6 +304,19 @@ This service returns information on a book based on the user's search.
 | `LANGUAGES` | String | `"en"`  | A comma separated string containing the list of languages to search for. Uses the two-character IS0-639-1 code scheme. The full list of possible language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes). |
 
 Note that both the `QUERY` and `TOPIC` attributes are optional, but at least one must be supplied.
+
+#### Metadata
+
+The metadata returned by this service is:
+
+|            Attribute             |   Type    | Description                                                               |
+| :------------------------------: | :-------: | ------------------------------------------------------------------------- |
+|               `id`               | `Integer` | The ID of the book, useful for making further API calls.                  |
+|           `image/jpeg`           | `String`  | A URL to the image of the book cover.                                     |
+|           `text/html`            | `String`  | A URL to an online version of the book, formatted with HTML.              |
+|         `text/plaintext`         | `String`  | A URL to an online verison of the book, in plain text with no formatting. |
+| `application/x-mobipocket-ebook` | `String`  | A URL to an ebook download of the book.                                   |
+|      `application/epub+zip`      | `String`  | A URL to an ebook download of the book in a different format than above.  |
 
 ## Adding Services
 
@@ -235,7 +340,7 @@ It will then be called by the `ServiceFactory` as `new NewServiceRequest(payload
 
 It must also implement the following methods:
 
--   `parseOutput(HashMap<String, Object> response);` - Defines how each service interprets its output from the API.
+-   `parseOutput(HashMap<String, Object> response);` - Defines how each service interprets its output from the API. This is also where any metadata should be set.
 
 -   `String handleErrors(HashMap<String, Object> response);` - Defines how each service interprets error messages from the API.
 
@@ -245,4 +350,6 @@ It must also implement the following methods:
 
 The service can then be called by adding its name to the switch statement in the `ServiceFactory` by adding a new case for its `name` attribute in lowercase and returning a new object of the service (which takes the `payload` as its only parameter). No other code interaction needs to take place.
 
-The service should be placed in the `services` package, in the relevant category package, and its API format should be listed in the ["API Format"](#api-formats) section with its description.
+The service should be placed in the `services` package, in the relevant category package, and its API format should be listed in the ["API Format"](#api-formats) section with its description and any metadata it returns.
+
+The new service's name should also be added to the bullet list of [endpoints](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/blob/main/App/Services-API/README.md#endpoints) defined in the RESTful API package's README.

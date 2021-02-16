@@ -17,8 +17,8 @@ public class BusOrTrainBySearchServiceRequest extends AbstractServiceRequest {
         HashMap<String, Object> stationData = transportData.get(0);
         Double latitude = (Double) stationData.get("latitude");
         Double longitude = (Double) stationData.get("longitude");
-        Double[] location = new Double[]{latitude, longitude};
-        metadata.put("location", location);
+        metadata.put("latitude", latitude);
+        metadata.put("longitude", longitude);
         return "Here's what I've found about " + payload.get("QUERY") + ".";
     }
 

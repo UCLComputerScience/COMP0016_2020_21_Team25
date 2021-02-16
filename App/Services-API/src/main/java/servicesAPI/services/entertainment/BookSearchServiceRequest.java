@@ -1,7 +1,6 @@
 package servicesAPI.services.entertainment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import servicesAPI.services.AbstractServiceRequest;

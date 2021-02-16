@@ -34,8 +34,8 @@ public class Database {
     private void connect() throws ClassNotFoundException, SQLException {
         String URL = urlPrefix
                 + "//dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50001/BLUDB:user=USERNAME;password=PASSWORD;sslConnection=true;";
-        String username = "fpd17536";
-        String password = "9rd88vq8k75^ktmc";
+        String username = "tzx29081";
+        String password = "k0fnvr9nws+s6dcj";
         URL = URL.replace("USERNAME", username).replace("PASSWORD", password);
         Class.forName("com.ibm.db2.jcc.DB2Driver");
         connection = DriverManager.getConnection(URL);
