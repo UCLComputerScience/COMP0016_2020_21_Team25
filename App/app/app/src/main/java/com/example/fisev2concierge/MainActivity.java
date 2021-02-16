@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.config(this, conciergeStatusText);
 
         MainController mainController = new MainController();
-//        EditText apiText=findViewById(R.id.apiTest);
 
         //Speech Synthesis defined on main thread
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
@@ -47,9 +46,8 @@ public class MainActivity extends AppCompatActivity {
                         conciergeStatusText.setHint("Concierge is off");
                         //MainController Thread starts here
                         Thread thread=new Thread(mainController);
-                        thread.start();
+                        thread.run();
                         //Result from thread returned to APItext and speech Synthesis
-//                        apiText.setText(mainController.apiRequest("Weather", new HashMap()));
                         speechSynthesis.runTts(mainController.apiRequest("Weather", new HashMap()));
                         break;
                     case MotionEvent.ACTION_DOWN:
