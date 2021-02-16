@@ -20,3 +20,6 @@
 
 /NLP/env/
 /NLP/venv/
+Backend/api/target/classes/backend/controllers/app/AppController.class
+Backend/api/target/classes/backend/controllers/app/AppController$ServiceResponse.class
+Backend/api/target/classes/backend/controllers/app/AppController$UserResponse.class

@@ -30,7 +30,7 @@ public class AppController {
         ArrayList<String> history = new ArrayList<>();
         String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID} ";
         query = query.replace("{ID}", id);
-		ResultSet results = database.query(query);
+        ResultSet results = database.query(query);
         try {
             while (results.next()) {
                 history.add(results.getString("SERVICE_ID"));
@@ -65,29 +65,31 @@ public class AppController {
         }
         return new ServiceResponse(services, code);
     }
+
     /**
      * Return information about a given service
      * 
      * @param id the service id
-     * @return ServiceData response a JSON object containing the data about the given service
+     * @return ServiceData response a JSON object containing the data about the
+     *         given service
      */
-    @GetMapping("servicedata") 
-    public serviceDataResponse serviceData(@RequestParam String id){
-        int code=200;
-        String name="";
-        String category="";
-        String description="";
-        String query="SELECT NAME, CATEGORY, DESCRIPTION FROM SERVICE WHERE SERVICE_ID={ID}";
+    @GetMapping("servicedata")
+    public serviceDataResponse serviceData(@RequestParam String id) {
+        int code = 200;
+        String name = "";
+        String category = "";
+        String description = "";
+        String query = "SELECT NAME, CATEGORY, DESCRIPTION FROM SERVICE WHERE SERVICE_ID={ID}";
         query = query.replace("{ID}", id);
         ResultSet results = database.query(query);
 
         try {
-            if (results.next()){ 
+            if (results.next()) {
                 name = results.getString("NAME");
                 category = results.getString("CATEGORY");
                 description = results.getString("DESCRIPTION");
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             code = 500;
@@ -95,8 +97,6 @@ public class AppController {
 
         return new serviceDataResponse(name, category, description, code);
     }
-
-
 
     /**
      * Return relevant information about the user (name(s), prefix and phone
@@ -111,7 +111,7 @@ public class AppController {
         String firstName = "";
         String lastName = "";
         String prefix = "";
-        int phoneNumber = 0;
+        String phoneNumber = "";
 
         String query = "SELECT FIRST_NAME, LAST_NAME, PHONE_NUMBER, PREFIX FROM USER WHERE USER_ID={ID}";
         query = query.replace("{ID}", id);
@@ -121,7 +121,7 @@ public class AppController {
             firstName = results.getString("FIRST_NAME");
             lastName = results.getString("LAST_NAME");
             prefix = results.getString("PREFIX");
-            phoneNumber = results.getInt("PHONE_NUMBER");
+            phoneNumber = results.getString("PHONE_NUMBER");
         } catch (SQLException e) {
             e.printStackTrace();
             code = 500;
@@ -174,47 +174,50 @@ public class AppController {
 
     /*
      * { "name": "", "category": "", "description": "" }
-    */
-    private static class serviceDataResponse{
+     */
+    private static class serviceDataResponse {
         private final String name;
         private final String category;
         private final String description;
         private final int code;
 
-        public serviceDataResponse(String name, String category, String description, int code){
-            this.name=name;
-            this.category=category;
-            this.description=description;
-            this.code=code;
+        public serviceDataResponse(String name, String category, String description, int code) {
+            this.name = name;
+            this.category = category;
+            this.description = description;
+            this.code = code;
         }
 
-        public String getName(){
+        public String getName() {
             return name;
         }
-        public String getCategory(){
+
+        public String getCategory() {
             return category;
         }
-        public String getDescription(){
+
+        public String getDescription() {
             return description;
         }
-        public int getCode(){
+
+        public int getCode() {
             return code;
         }
 
     }
 
-
     /*
-     * { "firstName": "", "lastName": "", "prefix": "", "phoneNumber": "", code: "" }
-    */
+     * { "firstName": "", "lastName": "", "prefix": "", "phoneNumber": "", code: ""
+     * }
+     */
     private static class UserResponse {
         private final String firstName;
         private final String lastName;
         private final String prefix;
-        private final int phoneNumber;
+        private final String phoneNumber;
         private final int code;
 
-        public UserResponse(String firstName, String lastName, String prefix, int phoneNumber, int code) {
+        public UserResponse(String firstName, String lastName, String prefix, String phoneNumber, int code) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.prefix = prefix;
@@ -234,7 +237,7 @@ public class AppController {
             return prefix;
         }
 
-        public int getPhoneNumber() {
+        public String getPhoneNumber() {
             return phoneNumber;
         }
 
