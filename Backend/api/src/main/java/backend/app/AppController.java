@@ -1,18 +1,18 @@
-package backend.controllers.app;
-
-import java.util.ArrayList;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.springframework.web.bind.annotation.*;
+package backend.app;
 
 import backend.models.Database;
 import backend.models.DatabaseFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /*
  * Endpoint logic for retrieving basic (app) user information.
-*/
+ */
 
 @RestController
 public class AppController {
@@ -28,7 +28,7 @@ public class AppController {
     public HistoryResponse history(@RequestParam String id) {
         int code = 200;
         ArrayList<String> history = new ArrayList<>();
-        String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID} ";
+        String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID}";
         query = query.replace("{ID}", id);
         ResultSet results = database.query(query);
         try {
@@ -68,10 +68,10 @@ public class AppController {
 
     /**
      * Return information about a given service
-     * 
+     *
      * @param id the service id
      * @return ServiceData response a JSON object containing the data about the
-     *         given service
+     * given service
      */
     @GetMapping("servicedata")
     public serviceDataResponse serviceData(@RequestParam String id) {
@@ -118,10 +118,12 @@ public class AppController {
         ResultSet results = database.query(query);
 
         try {
-            firstName = results.getString("FIRST_NAME");
-            lastName = results.getString("LAST_NAME");
-            prefix = results.getString("PREFIX");
-            phoneNumber = results.getString("PHONE_NUMBER");
+            if (results.next()) {
+                firstName = results.getString("FIRST_NAME");
+                lastName = results.getString("LAST_NAME");
+                prefix = results.getString("PREFIX");
+                phoneNumber = results.getString("PHONE_NUMBER");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             code = 500;

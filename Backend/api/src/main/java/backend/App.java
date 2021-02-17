@@ -1,15 +1,14 @@
 package backend;
 
-import java.util.Arrays;
-import java.util.Collections;
+import backend.models.DatabaseFactory;
 import org.apache.commons.cli.*;
-
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import backend.models.DatabaseFactory;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Driver code to start RESTful API.

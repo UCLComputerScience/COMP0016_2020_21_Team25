@@ -1,12 +1,12 @@
 package backend.models;
 
-import java.sql.*;
-
 import backend.ApiLogger;
+
+import java.sql.*;
 
 /*
  * Wrapper class to abstract database operation from the rest of the backend.
-*/
+ */
 public class Database {
     private final String urlPrefix = "jdbc:db2:";
     private Connection connection;
