@@ -16,6 +16,7 @@
     "deploy": "set -e npm run-script build; firebase deploy"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "preload-webpack-plugin": "^3.0.0-beta.4",
     "serve": "^11.3.2",
     "vue-router": "^4.0.0-rc.1",

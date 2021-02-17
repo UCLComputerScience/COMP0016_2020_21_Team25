@@ -43,9 +43,9 @@
 
         <dropdown
             :items="prefixes"
-            label="Prefix"
+            label="Title"
             ref="dropdown"
-            title="Select a prefix"
+            title="Select a title"
         ></dropdown>
         <slot></slot>
     </form>
@@ -61,7 +61,7 @@
         props: { form: Object },
         computed: {
             prefixes() {
-                const prefixes = ["Mr", "Ms", "Mrs", "Dr", "Prof"];
+                const prefixes = ["Mr", "Ms", "Mrs", "Mx", "Miss", "Dr", "Prof", "Sir"];
                 const items = [];
                 for (let prefix of prefixes) {
                     items.push({
