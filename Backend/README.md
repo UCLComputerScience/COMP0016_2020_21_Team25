@@ -3,9 +3,6 @@ Source code for the backend of the IBM FISE Concierge, providing support for bot
 
 ## Endpoints
 
-The following endpoints are available:
-
-
 Parameters are to be supplied in the URL in lowercase form.
 
 - e.g., the `services` endpoint requires an `ID` parameter  and is supplied (in lowercase) as:
@@ -16,10 +13,310 @@ Parameters are to be supplied in the URL in lowercase form.
 
 - Endpoints that require multiple parameters are supplied by an ampersand (&) separated list.
 
+### Web App Endpoints
 
+Required endpoints for the Concierge web app with required parameters and expected responses.
 
-## Responses
+<table>
+<tr>
+<th>Endpoint</th>
+<th>Params</th>
+<th>Method</th>
+<th>Response</th>
+<th>Description</th>
+</tr>
 
+<tr>
+<td align="center">login</td>
+<td align="center"><pre>username<br>password</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "errors": {
+     "field": String,
+     "message": String,
+ }
+ "code": int
+}
+</pre>
+</td>
+<td>Checks the database to see if the login details are correct.</td>
+</tr>
+
+<tr>
+<td align="center">register</td>
+<td align="center">
+<pre>username<br>first-name<br>last-name<br>email<br>phone-number<br>password</pre>
+</td>
+<td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "errors": {
+     "field": String,
+     "message": String,
+ }
+ "code": int
+}
+</pre>
+</td>
+<td>Register a new admin account and store the details in the database.</td>
+</tr>
+
+<tr>
+<td align="center">admin</td>
+<td align="center"><pre>username</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "first-name": String,
+ "last-name": String,
+ "email": String,
+ "phone-number": String,
+ "password": String,
+ "profile-picture": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Return the data stored for an admin's account.</td>
+</tr>
+
+<tr>
+<td align="center">members</td>
+<td align="center"><pre>username</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "members": {
+     user-id: {
+         "first-name": String,
+         "last-name": String,
+         "phone-number": String,
+         "prefix": String,
+         "profile-picture": String
+     } ...
+ },
+ "code": int
+}
+</pre>
+</td>
+<td>Return all users registered under the given admin username.</td>
+</tr>
+
+<tr>
+<td align="center">member-services</td>
+<td align="center"><pre>user-id</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "services": {
+     service-id: {
+         "service-name": String,
+         "description": String,
+         "icon": String,
+     } ...
+ },
+ "code": int
+}
+</pre>
+</td>
+<td>Return all services added to the given user's account.</td>
+</tr>
+
+<tr>
+<td align="center">service-categories</td>
+<td align="center"></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "categories": Array
+ "code": int
+}
+</pre>
+</td>
+<td>Return all possible service categories currently stored in database. <b>Sorted alphabetically by category name.</b></td>
+</tr>
+
+<tr>
+<td align="center">profile-pictures</td>
+<td align="center"></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "profile-pictures": {
+    profile_picture_id: String,
+    ...
+ }
+ "code": int
+}
+</pre>
+</td>
+<td>Return all profile pictures.</td>
+</tr>
+
+<tr>
+<td align="center">services-in-category</td>
+<td align="center"><pre>category</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "services": [{
+         "name": String,
+         "category": String,
+         "icon": String,
+         "description": String,
+     }, ... ],
+ "code": int
+}
+</pre>
+</td>
+<td>Return all services in the given category. <b>Sorted alphabetically by service name.</b></td>
+</tr>
+
+<tr>
+<td align="center">add-service-to-user</td>
+<td align="center"><pre>user-id<br>service-id</pre></td>
+<td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Add the given service to the user with the given user ID.</td>
+</tr>
+
+<tr>
+<td align="center">remove-service-from-user</td>
+<td align="center"><pre>user-id<br>service-id</pre></td>
+<td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Remove the given service from the user's account with the given user ID.</td>
+</tr>
+
+<tr>
+<td align="center">update-admin</td>
+<td align="center"><pre>username<br>first-name<br>last-name<br>email<br>phone-number<br>password</pre></td>
+<td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Update the admin's profile data.</td>
+</tr>
+
+<tr>
+<td align="center">add-member</td>
+<td align="center"><pre>username<br>first-name<br>last-name<br>phone-number<br>prefix<br>profile-picture</pre></td>
+<td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "user-id": int,
+ "registration-code": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Add a new user registered under the given admin. Note this should also generate the registration code for that user.</td>
+</tr>
+
+<tr>
+<td align="center">remove-member</td>
+<td align="center"><pre>user-id</pre></td>
+<td align="center"><pre>DELETE</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Delete a user's account from an admin.</td>
+</tr>
+
+<tr>
+<td align="center">update-member</td>
+<td align="center" align="center"><pre>user-id<br>first-name<br>last-name<br>phone-number<br>prefix<br>profile-picture</pre></td>
+<td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Update the details for a given user.</td>
+</tr>
+
+<tr>
+<td align="center">member-history</td>
+<td align="center"><pre>user-id</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "history": [{
+         "service-id": int,
+         "service-name": String,
+         "timestamp": String
+     }],
+ "code": int
+}
+</pre>
+</td>
+<td>Return (full) service usage history for the given user. <b>Sorted by the timestamp, with most recent entries first.</b></td>
+</tr>
+
+</table>
 
 ## Deployment
 
