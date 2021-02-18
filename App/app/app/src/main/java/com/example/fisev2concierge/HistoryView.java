@@ -1,25 +1,16 @@
 package com.example.fisev2concierge;
 
-import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import com.example.fisev2concierge.backendConnectivity.Backend;
 import com.example.fisev2concierge.controller.MainController;
-import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
-import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
-import com.example.fisev2concierge.functionalityClasses.OpenWebsiteFunctionality;
-import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 
 public class HistoryView extends AppCompatActivity {
     public Button button;
@@ -60,7 +51,15 @@ public class HistoryView extends AppCompatActivity {
         webButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainController.openWebsite(HistoryView.this, "https://www.amazon.co.uk/");
+                mainController.openWebsite(HistoryView.this, "http://10.0.2.2:8080/servicedata?id=28");
+            }
+        });
+        
+        Button localhostButton = findViewById(R.id.localhostButton);
+        localhostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("MainControllerResult : " + mainController.backendServices("servicedata", "28").toString());
             }
         });
     }
