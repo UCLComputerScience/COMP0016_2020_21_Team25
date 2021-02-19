@@ -42,9 +42,6 @@
         name: "MarketplaceView",
         components: {Dropdown, SearchResults, TextInput, MarketplaceSection, WelcomeCard, Page},
         computed: {
-            categories() {
-                return backend.fetchCategories();
-            },
             dropdownItems() {
                 const items = [];
                 for (let category of this.categories) {
@@ -69,8 +66,9 @@
         data() {
             return {
                 gridData: {
-                    columns: 4,
+                    columns: 3,
                 },
+                categories: [],
                 searchData: {
                     searchTerm: "",
                 },
@@ -81,7 +79,15 @@
         beforeUpdate() {
             this.sections = [];
         },
+        created() {
+            this.fetchCategories();
+        },
         methods: {
+            fetchCategories() {
+                backend.fetchCategories().then(result => {
+                    this.categories = result;
+                })
+            },
             setRef(el) {
                 if (!this.sections.includes(el))
                     this.sections.push(el);
@@ -89,11 +95,11 @@
             setColumns() {
                 const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
                 if (width >= 768 && width < 1200) {
-                    this.gridData.columns = 3;
+                    this.gridData.columns = 2;
                 } else if (width >= 1200 && width < 1600) {
-                    this.gridData.columns = 4;
+                    this.gridData.columns = 3;
                 } else if (width >= 1600) {
-                    this.gridData.columns = 5;
+                    this.gridData.columns = 4;
                 } else {
                     this.gridData.columns = 2;
                 }

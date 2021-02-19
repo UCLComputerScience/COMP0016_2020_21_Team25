@@ -98,7 +98,6 @@
 
     .dropdown-button {
         border-radius: var(--border-radius);
-        transition: .2s ease-in-out all;
         color: #fff;
         padding: 10px 24px;
         background: var(--blue);

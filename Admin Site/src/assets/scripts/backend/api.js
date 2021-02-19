@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "localhost:8080";
+const BASE_URL = "http://localhost:8080/";
 
 async function makeHttpRequest(URL, method, params = {}) {
     let options = {
@@ -14,7 +14,7 @@ async function makeHttpRequest(URL, method, params = {}) {
         data: params,
     };
     const response = await axios(options);
-    if (response && response.status === 200 && response.statusText === "OK") {
+    if (response && response.status === 200) {
         return await response.data;
     }
     return {
@@ -24,8 +24,12 @@ async function makeHttpRequest(URL, method, params = {}) {
 }
 
 const api = {
-    async login(username: String, password: String) {
-        const response = await makeHttpRequest("/login", "GET", {
+    /**
+     * TODO - ping server to see if it is running and return true/false
+     */
+    async ping() {},
+    async login(username, password) {
+        const response = await makeHttpRequest("login", "GET", {
             username,
             password,
         });
@@ -38,7 +42,7 @@ const api = {
         phoneNumber,
         password,
     }) {
-        const response = await makeHttpRequest("/register", "POST", {
+        const response = await makeHttpRequest("register", "POST", {
             username: username,
             "first-name": firstName,
             "last-name": lastName,
@@ -47,38 +51,36 @@ const api = {
             password: password,
         });
     },
-    async admin(username: String) {
-        const response = await makeHttpRequest("/admin", "GET", {
+    async admin(username) {
+        const response = await makeHttpRequest("admin", "GET", {
             username,
         });
     },
-    async members(username: String) {
-        const response = await makeHttpRequest("/members", "GET", {
+    async members(username) {
+        const response = await makeHttpRequest("members", "GET", {
             username: username,
         });
     },
-    async memberServices(userID: Number) {
-        const response = await makeHttpRequest("/member-services", "GET", {
+    async memberServices(userID) {
+        const response = await makeHttpRequest("member-services", "GET", {
             "user-id": userID,
         });
     },
     async serviceCategories() {
-        const resposne = await makeHttpRequest(
-            "/service-categories",
-            "GET",
-            {}
-        );
+        const response = await makeHttpRequest("service-categories", "GET", {});
+        return response.categories;
     },
     async profilePictures() {
-        const response = await makeHttpRequest("/profile-pictures", "GET", {});
+        const response = await makeHttpRequest("profile-pictures", "GET", {});
     },
-    async servicesInCategory(category: String) {
-        const response = await makeHttpRequest("/services-in-category", "GET", {
+    async servicesInCategory(category) {
+        const response = await makeHttpRequest("services-in-category", "GET", {
             category,
         });
+        return response.services;
     },
-    async addServiceToUser(userID: Number, serviceID: Number) {
-        const response = makeHttpRequest("/add-service-to-user", "POST", {
+    async addServiceToUser(userID, serviceID) {
+        const response = makeHttpRequest("add-service-to-user", "POST", {
             "user-id": userID,
             "service-id": serviceID,
         });
@@ -91,7 +93,7 @@ const api = {
         phoneNumber,
         password,
     }) {
-        const response = await makeHttpRequest("/update-admin", "POST", {
+        const response = await makeHttpRequest("update-admin", "POST", {
             username: username,
             "first-name": firstName,
             "last-name": lastName,
@@ -108,7 +110,7 @@ const api = {
         prefix,
         profilePicture,
     }) {
-        const response = await makeHttpRequest("/add-member", "POST", {
+        const response = await makeHttpRequest("add-member", "POST", {
             username: username,
             "first-name": firstName,
             "last-name": lastName,
@@ -117,8 +119,8 @@ const api = {
             "profile-picture": profilePicture,
         });
     },
-    async removeMember(userID: Number) {
-        const response = makeHttpRequest("/remove-member", "DELETE", {
+    async removeMember(userID) {
+        const response = makeHttpRequest("remove-member", "DELETE", {
             "user-id": userID,
         });
     },
@@ -130,7 +132,7 @@ const api = {
         prefix,
         profilePicture,
     }) {
-        const response = await makeHttpRequest("/update-member", "POST", {
+        const response = await makeHttpRequest("update-member", "POST", {
             "user-id": userID,
             "first-name": firstName,
             "last-name": lastName,
@@ -139,8 +141,8 @@ const api = {
             "profile-picture": profilePicture,
         });
     },
-    async memberHistory(userID: Number) {
-        const response = await makeHttpRequest("/member-history", "GET", {
+    async memberHistory(userID) {
+        const response = await makeHttpRequest("member-history", "GET", {
             "user-id": userID,
         });
     },

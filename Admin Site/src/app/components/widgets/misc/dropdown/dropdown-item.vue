@@ -25,6 +25,7 @@
         flex: 1;
         width: 100%;
         cursor: pointer;
+        text-transform: capitalize;
     }
 
     .dropdown-item:hover {

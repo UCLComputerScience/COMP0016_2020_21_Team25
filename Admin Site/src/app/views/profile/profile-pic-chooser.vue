@@ -7,7 +7,7 @@
                 <div class="row centred" v-for="row in chunks">
                     <div :ref="setRef" class="image centred" v-for="image in row">
                         <img :alt="image.name" :src="image.image"
-                             v-on:click="select(image.name)">
+                             v-on:click="select">
                     </div>
                 </div>
             </div>
@@ -91,11 +91,11 @@
                 this.display = false;
                 this.enableScroll();
             },
-            select(newPic) {
-                this.data.selected = newPic;
+            select(e) {
+                const element = e.target;
+                this.data.selected = element.alt;
                 this.disablePrevious();
-                const el = document.querySelector(`.profile-pic-chooser [alt='${newPic}']`)
-                el.parentElement.classList.add("selected");
+                element.parentElement.classList.add("selected");
             },
             disablePrevious() {
                 const prev = document.querySelector(".profile-pic-chooser .selected");

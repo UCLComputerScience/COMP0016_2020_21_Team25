@@ -1,4 +1,5 @@
 import {getProfileImage, getServiceIcon, profileImages} from "../util";
+import api from "./api";
 
 const backend = {
     admin: {
@@ -82,11 +83,10 @@ const backend = {
     fetchMembers: function (username) {
         return this.users;
     },
-    fetchCategories: () => {
-        return ["Utility", "Finance", "Retail", "Health", "Transport",
-            "Miscellaneous"];
+    async fetchCategories () {
+        return api.serviceCategories();
     },
-    fetchServicesInCategory: (category) => {
+    async fetchServicesInCategory (category) {
         let result = [];
         for (let n of [...Array(9).keys()]) {
             const service = {
@@ -163,6 +163,10 @@ const backend = {
             phoneNumber: phoneNumber,
             profilePicture: profilePicture,
         }
+    },
+    async ping() {
+        const isRunning = await api.ping();
+        return isRunning;
     }
 }
 

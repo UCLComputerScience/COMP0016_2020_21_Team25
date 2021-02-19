@@ -9,7 +9,7 @@ To get started with development, you will need a browser that runs JavaScript an
  some extra prerequisites:
 
 - [Node.js](https://nodejs.org) - Package manager
-- [npm](https://www.npmjs.com/get-npm) - This should come with your install of Node
+- [npm](https://www.npmjs.com/get-npm) - This should come with your Node installation.
 
 ## Installation
 To install the necessary packages, run the following command:
@@ -17,6 +17,10 @@ To install the necessary packages, run the following command:
 `npm install`
 
 ## Deployment
+Before running the application, ensure the [server](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Backend) is running on `localhost` on port `8080`.
+
+* Should you want to run the server on a different port, you must change the `BASE_URL` in the [`src/assets/scripts/backend/api.js`](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/blob/main/Admin%20Site/src/assets/scripts/backend/api.js) script to match before running.
+
 To view the website in a development server run the following command:
 
 `npm run-script dev-start`

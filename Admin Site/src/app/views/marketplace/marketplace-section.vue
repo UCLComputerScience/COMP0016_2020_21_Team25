@@ -21,14 +21,11 @@
         props: {
             category: String, gridData: {
                 type: Object, default: {
-                    columns: 4
+                    columns: 3
                 }
             }
         },
         computed: {
-            services() {
-                return backend.fetchServicesInCategory(this.category);
-            },
             chunks() {
                 const chunks = []
                 for (let i = 0, j = this.services.length; i < j; i += this.gridData.columns)
@@ -39,12 +36,21 @@
         data() {
             return {
                 serviceRefs: [],
+                services: [],
             }
         },
         beforeUpdate() {
             this.serviceRefs = [];
         },
+        created() {
+            this.fetchServicesInCategory();
+        },
         methods: {
+            fetchServicesInCategory() {
+                backend.fetchServicesInCategory(this.category).then(result => {
+                    this.services = result;
+                })
+            },
             setRef(el) {
                 this.serviceRefs.push(el);
             },
@@ -71,7 +77,7 @@
 
 <style scoped>
     .marketplace-section {
-        --columns: 4;
+        --columns: 3;
         width: 100%;
     }
 
@@ -84,6 +90,7 @@
         padding-bottom: 32px;
         margin-bottom: 32px;
         width: 100%;
+        text-transform: capitalize;
     }
 
     .section-content {

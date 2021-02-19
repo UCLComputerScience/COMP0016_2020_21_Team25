@@ -20,7 +20,7 @@
         props: {
             searchData: Object,
             searchResults: Array,
-            columns: {type: Number, default: 4},
+            columns: {type: Number, default: 3},
         },
         computed: {
             chunkedServices() {
@@ -41,7 +41,7 @@
 
 <style scoped>
     .marketplace-section {
-        --columns: 4;
+        --columns: 3;
         width: 100%;
     }
 

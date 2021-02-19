@@ -9,8 +9,8 @@
   "scripts": {
     "dev-build": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "dev-start": "set -e; webpack --config webpack.dev.js; open http://localhost:8080 & serve -s dist -p 8080 --no-clipboard",
-    "start": "set -e; webpack --config webpack.prod.js; open http://localhost:8080 & serve -s dist -p 8080 --no-clipboard",
+    "dev-start": "set -e; webpack --config webpack.dev.js; open http://localhost:8081 & serve -s dist -p 8081 --no-clipboard",
+    "start": "set -e; webpack --config webpack.prod.js; open http://localhost:8081 & serve -s dist -p 8081 --no-clipboard",
     "unused-modules": "npx depcheck",
     "profile": "webpack --profile --json > stats.json",
     "deploy": "set -e npm run-script build; firebase deploy"

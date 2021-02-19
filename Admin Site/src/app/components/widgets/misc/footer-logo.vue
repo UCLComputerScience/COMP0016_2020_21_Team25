@@ -24,14 +24,12 @@
 
     .logo-container .icon {
         margin-right: 4px;
-        margin-top: -6px;
+        margin-top: 4px;
     }
 
     .logo-title {
         letter-spacing: .06em;
         transform: scale(.95, .925);
-        /* TODO - need to use web font */
-        font-family: 'Avenir LT Std', 'sans-serif';
     }
 
     .logo-title, .logo-container .icon {
