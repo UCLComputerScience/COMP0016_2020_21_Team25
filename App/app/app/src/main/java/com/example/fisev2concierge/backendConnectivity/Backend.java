@@ -36,8 +36,6 @@ public class Backend implements Runnable{
         switch (this.method){
             case("servicedata"):
                 result = servicedata(this.parameter);
-            default:
-                result.add("500");
         }
         ready = true;
         return result;

@@ -24,6 +24,7 @@ public class ViewRemindersView extends AppCompatActivity {
     private ListView listView;
     private Button backButton, newReminderButton;
     private MainController mainController = new MainController();
+    private ArrayList<String> remindersDbIds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,8 @@ public class ViewRemindersView extends AppCompatActivity {
         Cursor data = mainController.getReminders(ViewRemindersView.this);
         ArrayList<String> listData = new ArrayList<>();
         while (data.moveToNext()){
-            listData.add(data.getString(0) + ": " + data.getString(1));
+            remindersDbIds.add(data.getString(0));
+            listData.add(data.getString(1));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
@@ -81,25 +83,25 @@ public class ViewRemindersView extends AppCompatActivity {
 
                 int itemID = -1;
                 try {
-                    itemID = Integer.parseInt(idGet);
+                    itemID = Integer.parseInt(remindersDbIds.get(position));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                String cleanedReminder = "";
-                Boolean cleaned = false;
-                for (char c: reminder.toCharArray()){
-                    if (c == ':' && cleaned){
-                        break;
-                    }
-                    else if (c == ':'){
-                        cleanedReminder = "";
-                        cleaned = true;
-                    }
-                    else {
-                        cleanedReminder += c;
-                    }
-                }
-                reminder = cleanedReminder;
+//                String cleanedReminder = "";
+//                Boolean cleaned = false;
+//                for (char c: reminder.toCharArray()){
+//                    if (c == ':' && cleaned){
+//                        break;
+//                    }
+//                    else if (c == ':'){
+//                        cleanedReminder = "";
+//                        cleaned = true;
+//                    }
+//                    else {
+//                        cleanedReminder += c;
+//                    }
+//                }
+//                reminder = cleanedReminder;
                 if (itemID != -1){
                     Log.d(TAG, "onItemClick: The ID is " + itemID);
                     Intent editReminderIntent = new Intent(ViewRemindersView.this, EditReminderView.class);

@@ -28,12 +28,16 @@ public class AppController {
     public HistoryResponse history(@RequestParam String id) {
         int code = 200;
         ArrayList<String> history = new ArrayList<>();
+<<<<<<< Updated upstream:Backend/src/main/java/backend/app/AppController.java
         String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID}";
+=======
+        String query = "SELECT NAME FROM SERVICE INNER JOIN SERVICE_LOG ON SERVICE.SERVICE_ID = SERVICE_LOG.SERVICE_ID WHERE SERVICE_LOG.USER_ID={ID}";
+>>>>>>> Stashed changes:Backend/api/src/main/java/backend/controllers/app/AppController.java
         query = query.replace("{ID}", id);
         ResultSet results = database.query(query);
         try {
             while (results.next()) {
-                history.add(results.getString("SERVICE_ID"));
+                history.add(results.getString("NAME"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

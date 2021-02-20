@@ -7,8 +7,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class BackendFramework {
-    private String baseUrl = "http://10.0.2.2:8080/";
-
+//    private String baseUrl = "http://10.0.2.2:8080/";
+    private String baseUrl = "http://localhost:8080/";
     public ArrayList<String> request(String path){
         ArrayList<String> result = new ArrayList<>();
         try {

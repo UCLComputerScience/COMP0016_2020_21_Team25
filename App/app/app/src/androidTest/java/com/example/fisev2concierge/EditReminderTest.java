@@ -96,17 +96,17 @@ public class EditReminderTest {
         materialTextView.perform(click());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.editReminderText), withText(" Reminder 1"),
+                allOf(withId(R.id.editReminderText), withText("Reminder 1"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText(" Reminder 2"));
+        appCompatEditText2.perform(replaceText("Reminder 2"));
 
         ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.editReminderText), withText(" Reminder 2"),
+                allOf(withId(R.id.editReminderText), withText("Reminder 2"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

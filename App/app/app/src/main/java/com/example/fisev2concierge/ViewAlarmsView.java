@@ -14,7 +14,6 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fisev2concierge.controller.MainController;
-import com.example.fisev2concierge.model.AlarmsDbHelper;
 
 import java.util.ArrayList;
 
@@ -24,6 +23,8 @@ public class ViewAlarmsView extends AppCompatActivity {
     private ListView listView;
     private Button backButton;
     private MainController mainController = new MainController();
+    private ArrayList<String> alarmsDbIds = new ArrayList<>();
+    private ArrayList<String> alarmsDbMessages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,9 @@ public class ViewAlarmsView extends AppCompatActivity {
         Cursor data = mainController.getAlarm(ViewAlarmsView.this);
         ArrayList<String> listData = new ArrayList<>();
         while (data.moveToNext()){
-            listData.add(data.getString(0) + ": " + data.getString(1)+ ": " + data.getString(2));
+            alarmsDbIds.add(data.getString(0));
+            alarmsDbMessages.add(data.getString(1));
+            listData.add(data.getString(1)+ ": " + data.getString(2));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
@@ -68,38 +71,39 @@ public class ViewAlarmsView extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String alarm = parent.getItemAtPosition(position).toString();
+//                String alarm = parent.getItemAtPosition(position).toString();
+                String alarm = alarmsDbMessages.get(position);
                 String idGet = "";
-                for (char c: alarm.toCharArray()){
-                    if (c == ':'){
-                        break;
-                    } else {
-                        idGet += c;
-                    }
-                }
+//                for (char c: alarm.toCharArray()){
+//                    if (c == ':'){
+//                        break;
+//                    } else {
+//                        idGet += c;
+//                    }
+//                }
                 Log.d(TAG, "onItemClick: You clicked on " + alarm);
 
                 int itemID = -1;
                 try {
-                    itemID = Integer.parseInt(idGet);
+                    itemID = Integer.parseInt(alarmsDbIds.get(position));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                String cleanedAlarm = "";
-                Boolean cleaned = false;
-                for (char c: alarm.toCharArray()){
-                    if (c == ':' && cleaned){
-                        break;
-                    }
-                    else if (c == ':'){
-                        cleanedAlarm = "";
-                        cleaned = true;
-                    }
-                    else {
-                        cleanedAlarm += c;
-                    }
-                }
-                alarm = cleanedAlarm;
+//                String cleanedAlarm = "";
+//                Boolean cleaned = false;
+//                for (char c: alarm.toCharArray()){
+//                    if (c == ':' && cleaned){
+//                        break;
+//                    }
+//                    else if (c == ':'){
+//                        cleanedAlarm = "";
+//                        cleaned = true;
+//                    }
+//                    else {
+//                        cleanedAlarm += c;
+//                    }
+//                }
+//                alarm = cleanedAlarm;
                 if (itemID != -1){
                     Log.d(TAG, "onItemClick: The ID is " + itemID);
                     Intent editAlarmIntent = new Intent(ViewAlarmsView.this, EditAlarmView.class);

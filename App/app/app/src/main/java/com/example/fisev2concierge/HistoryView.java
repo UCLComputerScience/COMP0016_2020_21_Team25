@@ -9,8 +9,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fisev2concierge.askBobConnectivity.AskBob;
+import com.example.fisev2concierge.askBobConnectivity.AskBobFramework;
 import com.example.fisev2concierge.backendConnectivity.Backend;
 import com.example.fisev2concierge.controller.MainController;
+
+import java.util.ArrayList;
 
 public class HistoryView extends AppCompatActivity {
     public Button button;
@@ -43,7 +47,7 @@ public class HistoryView extends AppCompatActivity {
         appButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainController.openApp(HistoryView.this, HistoryView.this, "com.android.settings");
+                mainController.openApp(HistoryView.this, HistoryView.this, "settings");
             }
         });
 
@@ -60,6 +64,15 @@ public class HistoryView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("MainControllerResult : " + mainController.backendServices("servicedata", "28").toString());
+            }
+        });
+
+        Button askBobButton = findViewById(R.id.askBobButton);
+        askBobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> result = mainController.askBobServices("query", "message=\"tell me a pun\"&sender=\"user\"");
+                System.out.println("AskBobResult: " + result.toString());
             }
         });
     }
