@@ -8,29 +8,35 @@ import android.database.Cursor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fisev2concierge.HistoryView;
+import com.example.fisev2concierge.askBobConnectivity.AskBob;
+import com.example.fisev2concierge.backendConnectivity.Backend;
 import com.example.fisev2concierge.functionalityClasses.AlarmsFunctionality;
 import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenWebsiteFunctionality;
 import com.example.fisev2concierge.functionalityClasses.RemindersFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
-import com.example.fisev2concierge.service.servicehandler.ServiceModel;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class MainController implements Runnable{
 
 //    private volatile String result;
+    public String result;
 
     public void run(){
-        ServiceModel serviceModel = new ServiceModel();
-        HashMap hashMap = new HashMap();
-        hashMap.put("CITY_NAME", "London");
-        hashMap.put("COUNTRY_CODE", "uk");
-        hashMap.put("LANGUAGE", "en");
-        String result = serviceModel.makeRequest("Weather", hashMap);
-        System.out.println(result);
+//        ServiceModel serviceModel = new ServiceModel();
+//        HashMap hashMap = new HashMap();
+//        hashMap.put("CITY_NAME", "London");
+//        hashMap.put("COUNTRY_CODE", "uk");
+//        hashMap.put("LANGUAGE", "en");
+//        this.result = serviceModel.makeRequest("Weather", hashMap);
     }
 //    public String getResult(){
 //        return result;
@@ -38,18 +44,34 @@ public class MainController implements Runnable{
 
     //Method for API Calls
     public String apiRequest(String apiName, HashMap param){
-        String result;
-        ServiceModel serviceModel = new ServiceModel();
-        HashMap hashMap = new HashMap();
-        hashMap.put("CITY_NAME", "London");
-        hashMap.put("COUNTRY_CODE", "uk");
-        hashMap.put("LANGUAGE", "en");
-        result = serviceModel.makeRequest("Weather", hashMap);
+        String result = "";
+//        ServiceModel serviceModel = new ServiceModel();
+//        HashMap hashMap = new HashMap();
+//        hashMap.put("CITY_NAME", "London");
+//        hashMap.put("COUNTRY_CODE", "uk");
+//        hashMap.put("LANGUAGE", "en");
+//        result = serviceModel.makeRequest("Weather", hashMap);
 //        result = serviceModel.makeRequest(apiName, param);
         return result;
     }
 
-    //Method for Making reminders
+    //BackendServices
+    public ArrayList<String> backendServices(String method, String parameter){
+        Backend backend = new Backend(method, parameter);
+        Thread thread = new Thread(backend);
+        thread.start();
+        return backend.getResult();
+    }
+
+    //AskBob Services
+    public ArrayList<String> askBobServices(String method, String parameters){
+        AskBob askBob = new AskBob(method, parameters);
+        Thread thread = new Thread(askBob);
+        thread.start();
+        return askBob.getResult();
+    }
+
+    //Reminders
     public Cursor getReminders(Context context){
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(context);
         Cursor cursor = remindersFunctionality.getReminders();
@@ -71,7 +93,7 @@ public class MainController implements Runnable{
         remindersFunctionality.deleteReminder(selectedID, selectedReminder);
     }
 
-    //Method for Making alarams
+    //Alarams
     public Cursor getAlarm(Context context){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
         Cursor cursor = alarmsFunctionality.getAlarms();
