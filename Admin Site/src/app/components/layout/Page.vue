@@ -9,22 +9,22 @@
 </template>
 
 <script>
-    import Navbar from "./navbar/Navbar.vue";
-    import PageFooter from "./PageFooter.vue";
+import Navbar from "./navbar/Navbar.vue";
+import PageFooter from "./PageFooter.vue";
 
-    export default {
-        name: 'Page',
-        components: {PageFooter, Navbar},
-    }
+export default {
+    name: 'Page',
+    components: {PageFooter, Navbar},
+}
 </script>
 
 <style scoped>
-    .page {
-        background: var(--page-bg-color);
-        flex-direction: column;
-    }
+.page {
+    background: var(--page-bg-color);
+    flex-direction: column;
+}
 
-    .page-content {
-        padding-top: var(--nav-height);
-    }
+.page-content {
+    padding-top: var(--nav-height);
+}
 </style>

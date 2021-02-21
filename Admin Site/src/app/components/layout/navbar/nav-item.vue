@@ -1,48 +1,48 @@
 <template>
-    <div class="nav-item centred" ref="button" v-on:click="go">{{ text }}</div>
+    <div ref="button" class="nav-item centred" v-on:click="go">{{ text }}</div>
 </template>
 
 <script>
-    export default {
-        name: "nav-item",
-        props: {
-            text: String,
-            href: String
+export default {
+    name: "nav-item",
+    props: {
+        text: String,
+        href: String
+    },
+    methods: {
+        activate() {
+            this.$refs.button.classList.add("active-nav-item");
         },
-        methods: {
-            activate() {
-                this.$refs.button.classList.add("active-nav-item");
-            },
-            deactivate() {
-                this.$refs.button.classList.remove("active-nav-item");
-            },
-            go() {
-                this.$router.push({name: this.href})
-            }
+        deactivate() {
+            this.$refs.button.classList.remove("active-nav-item");
+        },
+        go() {
+            this.$router.push({name: this.href})
         }
     }
+}
 </script>
 
 <style scoped>
-    .nav-item {
-      color: #fff;
-      text-align: center;
-      border-radius: 5px;
-      font-weight: 700;
-      padding: 4px 8px;
-      cursor: pointer;
-    }
+.nav-item {
+    color: #FFF;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 700;
+    padding: 4px 8px;
+    cursor: pointer;
+}
 
-    .nav-item:hover {
-        background: var(--light-blue);
-    }
+.nav-item:hover {
+    background: var(--light-blue);
+}
 
-    .nav-item:not(:last-child) {
-        margin-right: 16px;
-    }
+.nav-item:not(:last-child) {
+    margin-right: 16px;
+}
 
-    .active-nav-item {
-        pointer-events: none;
-        background: var(--green);
-    }
+.active-nav-item {
+    pointer-events: none;
+    background: var(--green);
+}
 </style>

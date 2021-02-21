@@ -5,11 +5,14 @@
 </template>
 
 <script>
-    export default {
-        name: 'App',
-    }
+export default {
+    name: "App",
+    created() {
+        this.$store.dispatch("service/setServices");
+        this.$store.dispatch("media/setImages");
+    },
+};
 </script>
 
 <style scoped>
-
 </style>

@@ -8,41 +8,43 @@
 </template>
 
 <script>
-    export default {
-        name: "profile-picture",
-        props: {
-            borderColor: {type: String, default: "var(--light-blue)"},
-            borderWidth: {type: Number, default: 2},
+import {getProfileImage} from '../../../../assets/scripts/util';
+
+export default {
+    name: "profile-picture",
+    props: {
+        borderColor: {type: String, default: "var(--light-blue)"},
+        borderWidth: {type: Number, default: 2},
+    },
+    computed: {
+        profilePicture() {
+            return getProfileImage(this.admin.profilePicture);
         },
-        computed: {
-            profilePicture() {
-                return this.admin.profilePicture;
-            },
-            name() {
-                return this.admin.firstName;
-            },
-            admin() {
-                return this.$store.getters["admin/admin"];
-            }
+        name() {
+            return this.admin.firstName;
+        },
+        admin() {
+            return this.$store.getters["admin/admin"];
         }
     }
+}
 </script>
 
 <style scoped>
-    .profile-picture-container {
-        --border-color: var(--light-blue);
-        --border-width: 2;
-        border-radius: 50%;
-        padding: calc(var(--border-width) * 1px);
-        background: var(--border-color);
-        width: 256px;
-        height: 256px;
-    }
+.profile-picture-container {
+    --border-color: var(--light-blue);
+    --border-width: 2;
+    border-radius: 50%;
+    padding: calc(var(--border-width) * 1px);
+    background: var(--border-color);
+    width: 256px;
+    height: 256px;
+}
 
-    .profile-picture {
-        border-radius: 50%;
-        background: var(--green);
-        width: 100%;
-        height: 100%;
-    }
+.profile-picture {
+    border-radius: 50%;
+    background: var(--green);
+    width: 100%;
+    height: 100%;
+}
 </style>

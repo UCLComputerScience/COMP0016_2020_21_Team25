@@ -21,45 +21,45 @@
 </template>
 
 <script>
-    export default {
-        name: "collaborators",
-        methods: {
-            image(name) {
-                return require(`./../../../../../../assets/images/collaborators/${name}.webp`).default;
-            }
+export default {
+    name: "collaborators",
+    methods: {
+        image(name) {
+            return require(`./../../../../../../assets/images/collaborators/${name}.webp`).default;
         }
     }
+}
 </script>
 
 <style scoped>
-    .collaborators {
-        margin-top: 4px;
-        margin-bottom: 16px;
-        flex-direction: column;
-    }
+.collaborators {
+    margin-top: 4px;
+    margin-bottom: 16px;
+    flex-direction: column;
+}
 
-    .collaborators .tagline {
-        width: 100%;
-        text-align: center;
-    }
+.collaborators .tagline {
+    width: 100%;
+    text-align: center;
+}
 
-    .collab-logo {
-        flex: 1;
-        cursor: pointer;
-        border-radius: var(--border-radius);
-        padding: 8px;
-    }
+.collab-logo {
+    flex: 1;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    padding: 8px;
+}
 
-    .collab-logo .image {
-        width: 96px;
-    }
+.collab-logo .image {
+    width: 96px;
+}
 
-    .collab-logo:not(:last-child) {
-        margin-bottom: 8px;
-    }
+.collab-logo:not(:last-child) {
+    margin-bottom: 8px;
+}
 
-    .collab-logo:hover {
-        background: var(--pale-blue);
-        color: var(--blue);
-    }
+.collab-logo:hover {
+    background: var(--pale-blue);
+    color: var(--blue);
+}
 </style>

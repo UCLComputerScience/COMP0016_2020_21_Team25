@@ -14,8 +14,8 @@
                 <github-icon colour="#2848d1" height="2em" width="2em"></github-icon>
             </a>
 
-            <a aria-label="View repo for IBM FISE v1" class="link image"
-               href="https://github.com/IBMIXN/FISE-Social-Isolation-UCL" id="FISEv1"
+            <a id="FISEv1" aria-label="View repo for IBM FISE v1"
+               class="link image" href="https://github.com/IBMIXN/FISE-Social-Isolation-UCL"
                rel="noopener" target="_blank">
                 <img :src="image('IBM-FISE-v1')"
                      alt="Source code repository for IBM FISE v1">
@@ -25,53 +25,53 @@
 </template>
 
 <script>
-    import GithubIcon from "../../../widgets/misc/github-icon.vue";
+import GithubIcon from "../../../widgets/misc/github-icon.vue";
 
-    export default {
-        name: "authors",
-        components: {GithubIcon},
-        methods: {
-            image(name) {
-                return require(`./../../../../../assets/images/collaborators/${name}.webp`).default;
-            }
+export default {
+    name: "authors",
+    components: {GithubIcon},
+    methods: {
+        image(name) {
+            return require(`./../../../../../assets/images/collaborators/${name}.webp`).default;
         }
     }
+}
 </script>
 
 <style scoped>
-    .authors {
-        flex-direction: column;
-    }
+.authors {
+    flex-direction: column;
+}
 
-    .authors > p {
-        text-align: center;
-        margin-top: 0;
-        margin-bottom: 0;
-        font-size: 10px;
-    }
+.authors > p {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 10px;
+}
 
-    .links {
-        margin-top: 16px;
-    }
+.links {
+    margin-top: 16px;
+}
 
-    .link {
-        color: var(--blue);
-        width: 2em;
-        height: 2em;
-        border-radius: var(--border-radius);
-    }
+.link {
+    color: var(--blue);
+    width: 2em;
+    height: 2em;
+    border-radius: var(--border-radius);
+}
 
-    .link:not(:last-child) {
-        margin-right: 8px;
-    }
+.link:not(:last-child) {
+    margin-right: 8px;
+}
 
-    .link .icon {
-        font-size: 2em;
-        color: inherit;
-    }
+.link .icon {
+    font-size: 2em;
+    color: inherit;
+}
 
-    .link:hover {
-        background: var(--pale-blue);
-        color: var(--blue);
-    }
+.link:hover {
+    background: var(--pale-blue);
+    color: var(--blue);
+}
 </style>

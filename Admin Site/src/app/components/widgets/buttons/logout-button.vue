@@ -6,20 +6,20 @@
 </template>
 
 <script>
-    export default {
-        name: "logout-button",
-        methods: {
-            logout() {
-                this.$store.dispatch("account/logout");
-            }
+export default {
+    name: "logout-button",
+    methods: {
+        logout() {
+            this.$store.dispatch("account/logout");
         }
     }
+}
 </script>
 
 <style scoped>
-    .sign-out {
-        background: var(--blue);
-        color: #fff;
-        padding: 12px 24px;
-    }
+.sign-out {
+    background: var(--blue);
+    color: #FFF;
+    padding: 12px 24px;
+}
 </style>

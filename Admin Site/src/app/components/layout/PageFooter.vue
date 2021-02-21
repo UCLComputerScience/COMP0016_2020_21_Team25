@@ -5,13 +5,13 @@
 </template>
 
 <script>
-    export default {
-        name: "page-footer",
-    }
+export default {
+    name: "page-footer",
+}
 </script>
 
 <style scoped>
-    footer {
-        width: 100%;
-    }
+footer {
+    width: 100%;
+}
 </style>

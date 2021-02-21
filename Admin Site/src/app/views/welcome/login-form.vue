@@ -1,16 +1,16 @@
 <template>
     <form class="login-form centred" v-on:submit.prevent="login">
-        <text-input :maxlength="255" :no-spaces="true" :object="loginData"
+        <text-input id="login-username-or-email" ref="username" :maxlength="255"
+                    :no-spaces="true" :object="loginData"
                     autocomplete="username" icon="person"
-                    id="login-username-or-email" key-name="usernameOrEmail"
-                    label="Username or Email" placeholder="Username or email address"
-                    ref="username" type="text">
+                    key-name="usernameOrEmail" label="Username or Email"
+                    placeholder="Username or email address" type="text">
         </text-input>
 
-        <text-input :no-spaces="true" :object="loginData"
-                    autocomplete="current-password" icon="lock"
-                    id="login-password" key-name="password" label="Password"
-                    placeholder="Password" ref="password" type="password">
+        <text-input id="login-password" ref="password"
+                    :no-spaces="true" :object="loginData"
+                    autocomplete="current-password" icon="lock" key-name="password"
+                    label="Password" placeholder="Password" type="password">
         </text-input>
 
         <v-link class="inline-link" href="/forgot" text="Forgot Password?"></v-link>
@@ -20,86 +20,86 @@
 </template>
 
 <script>
-    import TextInput from "../../components/widgets/text-input/text-input.vue";
-    import FlatButton from "../../components/widgets/buttons/flat-button.vue";
-    import VLink from "../../components/widgets/buttons/v-link.vue";
+import TextInput from "../../components/widgets/text-input/text-input.vue";
+import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+import VLink from "../../components/widgets/buttons/v-link.vue";
 
-    export default {
-        name: "login-form",
-        components: {VLink, FlatButton, TextInput},
-        data() {
-            return {
-                loginData: {
-                    usernameOrEmail: "",
-                    password: "",
-                    response: null,
-                }
+export default {
+    name: "login-form",
+    components: {VLink, FlatButton, TextInput},
+    data() {
+        return {
+            loginData: {
+                usernameOrEmail: "",
+                password: "",
+                response: null,
+            }
+        }
+    },
+    methods: {
+        activate() {
+            this.clearInputs();
+            this.$refs.username.focus();
+        },
+        clearInputs() {
+            this.loginData.response = null;
+            this.$refs.username.clearInput();
+            this.$refs.password.clearInput();
+        },
+        clearSensitiveInputs() {
+            this.loginData.response = null;
+            this.$refs.password.clearInput();
+            this.$refs.username.focus();
+        },
+        validInputs() {
+            if (this.loginData.usernameOrEmail === "" ||
+                this.loginData.password === "") {
+                return "invalid";
+            }
+            return "valid";
+        },
+        login() {
+            const message = this.validInputs();
+            if (message === "valid") {
+                this.$store.dispatch('account/login', this.loginData).then(r => {
+                    if (this.loginData.response !== null) {
+                        alert("Login failed. " + this.loginData.response);
+                        this.clearSensitiveInputs();
+                    }
+                });
+            } else {
+                this.clearSensitiveInputs();
             }
         },
-        methods: {
-            activate() {
-                this.clearInputs();
-                this.$refs.username.focus();
-            },
-            clearInputs() {
-                this.loginData.response = null;
-                this.$refs.username.clearInput();
-                this.$refs.password.clearInput();
-            },
-            clearSensitiveInputs() {
-                this.loginData.response = null;
-                this.$refs.password.clearInput();
-                this.$refs.username.focus();
-            },
-            validInputs() {
-                if (this.loginData.usernameOrEmail === "" ||
-                    this.loginData.password === "") {
-                    return "invalid";
-                }
-                return "valid";
-            },
-            login() {
-                const message = this.validInputs();
-                if (message === "valid") {
-                    this.$store.dispatch('account/login', this.loginData).then(r => {
-                        if (this.loginData.response !== null) {
-                            alert("Login failed. " + this.loginData.response);
-                            this.clearSensitiveInputs();
-                        }
-                    });
-                } else {
-                    this.clearSensitiveInputs();
-                }
-            },
-        }
     }
+}
 </script>
 
 <style>
-    .login-form {
-        flex-direction: column;
-        width: 100%;
-    }
+.login-form {
+    flex-direction: column;
+    width: 100%;
+}
 
-    .login-form .text-input {
-        margin-bottom: 16px;
-    }
+.login-form .text-input {
+    margin-bottom: 16px;
+}
 
-    .login-form .flat-button, .login-form .text-input {
-        flex: 1;
-        width: 100%;
-    }
+.login-form .flat-button, .login-form .text-input {
+    flex: 1;
+    width: 100%;
+}
 
-    .login-form a {
-        margin-left: auto;
-        color: var(--text-color);
-        margin-top: 2px;
-        margin-bottom: 16px;
-    }
+.login-form a {
+    margin-left: auto;
+    color: var(--text-color);
+    margin-top: 2px;
+    margin-bottom: 16px;
+}
 
-    @media (max-width: 640px) {
-        .login-form .text-input label {
-            color: #fff !important;
-        }
+@media (max-width: 640px) {
+    .login-form .text-input label {
+        color: #FFF !important;
     }
+}
 </style>

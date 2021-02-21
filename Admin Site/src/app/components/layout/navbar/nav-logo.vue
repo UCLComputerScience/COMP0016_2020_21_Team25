@@ -6,48 +6,48 @@
 </template>
 
 <script>
-    export default {
-        name: "nav-logo"
-    }
+export default {
+    name: "nav-logo"
+}
 </script>
 
 <style scoped>
-    .nav-logo {
-        border-radius: 5px;
-        padding: 8px;
-        cursor: pointer;
-        height: 55%;
-        position: absolute;
-        left: 16px;
-    }
+.nav-logo {
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    height: 55%;
+    position: absolute;
+    left: 16px;
+}
 
-    .nav-logo:hover {
-        background: var(--light-blue);
+.nav-logo:hover {
+    background: var(--light-blue);
+}
+
+.logo-icon, .logo-header {
+    font-weight: 800;
+    font-size: 24px;
+    color: #FFF;
+}
+
+.logo-header {
+    display: none;
+    text-transform: uppercase;
+}
+
+@media (min-width: 720px) {
+    .logo-icon {
+        margin-top: 2px;
+        margin-right: 4px;
     }
 
     .logo-icon, .logo-header {
-        font-weight: 800;
-        font-size: 24px;
-        color: #fff;
+        font-size: 21px;
     }
 
     .logo-header {
-        display: none;
-        text-transform: uppercase;
+        display: block;
     }
-
-    @media (min-width: 720px) {
-        .logo-icon {
-            margin-top: 2px;
-            margin-right: 4px;
-        }
-
-        .logo-icon, .logo-header {
-            font-size: 21px;
-        }
-
-        .logo-header {
-            display: block;
-        }
-    }
+}
 </style>

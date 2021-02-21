@@ -1,5 +1,5 @@
-import { store } from "../app/store/store";
-import { getName } from "../assets/scripts/util";
+import {store} from "../store/store";
+import {getName} from "../assets/scripts/util";
 
 export const routes = [
     {
@@ -49,7 +49,7 @@ export const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "forgot-password", webpackPrefetch: true */ "../app/views/ForgotPassword.vue"
-            ),
+                ),
         name: "forgot-password",
         meta: {
             title: (route) => {
@@ -64,14 +64,14 @@ export const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "marketplace", webpackPrefetch: true */ "../app/views/marketplace/Marketplace.vue"
-            ),
+                ),
         children: [
             {
                 path: "",
                 component: () =>
                     import(
                         /* webpackChunkName: "marketplace-view", webpackPrefetch: true */ "../app/views/marketplace/MarketplaceView.vue"
-                    ),
+                        ),
                 name: "marketplace",
                 meta: {
                     title: (route) => {
@@ -87,7 +87,7 @@ export const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: "service", webpackPrefetch: true */ "../app/views/marketplace/ServiceView.vue"
-                    ),
+                        ),
                 name: "service",
                 meta: {
                     title: (route) => {
@@ -112,7 +112,7 @@ export const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "not-found", webpackPrefetch: true */ "../app/views/NotFound.vue"
-            ),
+                ),
         name: "not-found",
         meta: {
             title: (route) => {
@@ -126,7 +126,7 @@ export const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "people", webpackPrefetch: true */ "../app/views/people/PeopleDefault.vue"
-            ),
+                ),
         name: "people",
         meta: {
             title: (route) => {
@@ -142,7 +142,7 @@ export const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: "people-details", webpackPrefetch: true */ "../app/views/people/user-views/user-details/UserDetails.vue"
-                    ),
+                        ),
                 meta: {
                     title: (route) => {
                         return getName() + " Details";
@@ -156,7 +156,7 @@ export const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: "people-services", webpackPrefetch: true */ "../app/views/people/user-views/UserServices.vue"
-                    ),
+                        ),
                 meta: {
                     title: (route) => {
                         return getName() + " Services";
@@ -171,7 +171,7 @@ export const routes = [
                 component: () =>
                     import(
                         /* webpackChunkName: "history", webpackPrefetch: true */ "../app/views/people/user-views/UserHistory.vue"
-                    ),
+                        ),
                 meta: {
                     title: (route) => {
                         return getName() + " History";
@@ -187,7 +187,7 @@ export const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "profile", webpackPrefetch: true */ "../app/views/profile/Profile.vue"
-            ),
+                ),
         name: "profile",
         meta: {
             title: (route) => {
@@ -202,7 +202,7 @@ export const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "welcome", webpackPrefetch: true */ "../app/views/welcome/Welcome.vue"
-            ),
+                ),
         name: "welcome",
         meta: {
             title: (route) => {

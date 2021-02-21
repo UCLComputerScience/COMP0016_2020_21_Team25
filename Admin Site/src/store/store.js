@@ -4,6 +4,7 @@ import member from "./modules/member";
 import admin from "./modules/admin";
 import account from "./modules/account";
 import service from "./modules/service";
+import media from "./modules/media";
 
 export const store = createStore({
     strict: process.env.NODE_ENV !== 'production',
@@ -11,9 +12,10 @@ export const store = createStore({
         storage: window.localStorage,
     })],
     modules: {
-        member: member,
-        admin: admin,
-        account: account,
-        service: service,
+        member,
+        admin,
+        account,
+        service,
+        media,
     },
 });

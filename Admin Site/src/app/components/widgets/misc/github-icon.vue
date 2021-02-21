@@ -9,18 +9,18 @@
 </template>
 
 <script>
-    export default {
-        name: "github-icon",
-        props: {
-            width: String,
-            height: String,
-            colour: String,
-        }
+export default {
+    name: "github-icon",
+    props: {
+        width: String,
+        height: String,
+        colour: String,
     }
+}
 </script>
 
 <style scoped>
-    svg:hover path, svg:active {
-        fill: var(--blue);
-    }
+svg:hover path, svg:active {
+    fill: var(--blue);
+}
 </style>

@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
-import { nextTick } from "@vue/runtime-core";
+import {createRouter, createWebHistory} from "vue-router";
+import {nextTick} from "@vue/runtime-core";
 
-import { routes } from "./routes";
-import { store } from "../app/store/store";
+import {routes} from "./routes";
+import {store} from "../store/store";
 
 const router = createRouter({
     mode: "history",
@@ -18,7 +18,7 @@ const router = createRouter({
             }
             return false;
         } else {
-            return { x: 0, y: 0 };
+            return {x: 0, y: 0};
         }
     },
     routes,

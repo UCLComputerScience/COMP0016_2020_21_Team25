@@ -1,14 +1,14 @@
 :root {
-    --header-color: #002e43;
+    --header-color: #002E43;
     --page-bg-color: rgb(246, 246, 246);
     --text-color: #212121;
-    --pale-blue: #e1edff;
-    --light-blue: #5777ef;
-    --blue: #2848d1;
-    --light-gray: #e1edff;
-    --light-green: #55efc4;
-    --green: #30ce91;
-    --red: #e74c3c;
+    --pale-blue: #E1EDFF;
+    --light-blue: #5777EF;
+    --blue: #2848D1;
+    --light-gray: #E1EDFF;
+    --light-green: #55EFC4;
+    --green: #30CE91;
+    --red: #E74C3C;
     --border-radius: 3px;
     --nav-height: 56px;
     --max-sidebar-width: 256px;
@@ -86,7 +86,7 @@ input, button, textarea, select {
 }
 
 .tagline {
-    color: #676b75;
+    color: #676B75;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
@@ -100,11 +100,9 @@ input, button, textarea, select {
 }
 
 .image img {
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .noselect, a {

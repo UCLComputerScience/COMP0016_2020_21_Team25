@@ -3,33 +3,33 @@
 </template>
 
 <script>
-    export default {
-        name: "dropdown-item",
-        props: {
-            item: Object,
-        },
-        methods: {
-            select() {
-                this.$parent.select(this.item);
-                this.item.fn(this.item);
-            }
+export default {
+    name: "dropdown-item",
+    props: {
+        item: Object,
+    },
+    methods: {
+        select() {
+            this.$parent.select(this.item);
+            this.item.fn(this.item);
         }
     }
+}
 </script>
 
 <style scoped>
-    .dropdown-item {
-        color: var(--text-color);
-        padding: 12px 24px;
-        background: var(--page-bg-color);
-        flex: 1;
-        width: 100%;
-        cursor: pointer;
-        text-transform: capitalize;
-    }
+.dropdown-item {
+    color: var(--text-color);
+    padding: 12px 24px;
+    background: var(--page-bg-color);
+    flex: 1;
+    width: 100%;
+    cursor: pointer;
+    text-transform: capitalize;
+}
 
-    .dropdown-item:hover {
-        color: #fff;
-        background: var(--light-blue);
-    }
+.dropdown-item:hover {
+    color: #FFF;
+    background: var(--light-blue);
+}
 </style>

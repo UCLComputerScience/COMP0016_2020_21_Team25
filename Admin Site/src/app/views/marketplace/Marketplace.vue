@@ -9,14 +9,14 @@
 </template>
 
 <script>
-    import Page from "../../components/layout/Page.vue";
-    import WelcomeCard from "../welcome/welcome-card.vue";
-    import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
+import Page from "../../components/layout/Page.vue";
+import WelcomeCard from "../welcome/welcome-card.vue";
+import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
 
-    export default {
-        name: "Marketplace",
-        components: {FooterLogo, Page, WelcomeCard}
-    }
+export default {
+    name: "Marketplace",
+    components: {FooterLogo, Page, WelcomeCard}
+}
 </script>
 
 <style scoped>

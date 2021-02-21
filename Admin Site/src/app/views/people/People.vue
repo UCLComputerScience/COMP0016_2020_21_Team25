@@ -3,8 +3,8 @@
         <welcome-card></welcome-card>
         <page>
             <sidebar></sidebar>
-            <div class="people-content centred"
-                 v-if="this.$route.params.person !== undefined">
+            <div v-if="this.$route.params.person !== undefined"
+                 class="people-content centred">
                 <navbar></navbar>
                 <div class="people centred">
                     <router-view></router-view>
@@ -16,47 +16,47 @@
 </template>
 
 <script>
-    import Page from "../../components/layout/Page.vue";
-    import WelcomeCard from "../welcome/welcome-card.vue";
-    import Sidebar from "./sidebar/sidebar.vue";
-    import Navbar from "./navbar/navbar.vue";
+import Page from "../../components/layout/Page.vue";
+import WelcomeCard from "../welcome/welcome-card.vue";
+import Sidebar from "./sidebar/sidebar.vue";
+import Navbar from "./navbar/navbar.vue";
 
-    export default {
-        name: "People",
-        components: {Navbar, Sidebar, WelcomeCard, Page},
-    }
+export default {
+    name: "People",
+    components: {Navbar, Sidebar, WelcomeCard, Page},
+}
 </script>
 
 <style>
-    .people-container .page-content {
-        display: flex;
-        width: 100%;
-        height: 100vh;
-    }
+.people-container .page-content {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
 
-    .people-content {
-        height: calc(100vh - var(--nav-height));
-        flex-direction: column;
+.people-content {
+    height: calc(100vh - var(--nav-height));
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    flex: 1;
+    background: var(--page-bg-color);
+}
+
+.people {
+    padding: 24px;
+    width: 100%;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+    .people-container .page {
         justify-content: flex-start;
-        position: relative;
-        flex: 1;
-        background: var(--page-bg-color);
     }
 
-    .people {
-        padding: 24px;
-        width: 100%;
-        align-items: flex-start;
-        overflow-y: auto;
+    .people-container .page-content {
+        flex-direction: column;
     }
-
-    @media (max-width: 1024px) {
-        .people-container .page {
-            justify-content: flex-start;
-        }
-
-        .people-container .page-content {
-            flex-direction: column;
-        }
-    }
+}
 </style>

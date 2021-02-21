@@ -6,32 +6,32 @@
 </template>
 
 <script>
-    import FlatButton from "./flat-button.vue";
-    import VLink from "./v-link.vue";
+import FlatButton from "./flat-button.vue";
+import VLink from "./v-link.vue";
 
-    export default {
-        name: "link-button",
-        components: {VLink, FlatButton},
-        props: {
-            href: {
-                type: String,
-                default: ""
-            },
-            text: {
-                type: String,
-                default: ""
-            },
+export default {
+    name: "link-button",
+    components: {VLink, FlatButton},
+    props: {
+        href: {
             type: String,
-            bg: {
-                type: String,
-                default: "var(--text-color)"
-            },
-            label: {
-                type: String,
-                default: ""
-            }
+            default: ""
         },
-    }
+        text: {
+            type: String,
+            default: ""
+        },
+        type: String,
+        bg: {
+            type: String,
+            default: "var(--text-color)"
+        },
+        label: {
+            type: String,
+            default: ""
+        }
+    },
+}
 </script>
 
 <style scoped>

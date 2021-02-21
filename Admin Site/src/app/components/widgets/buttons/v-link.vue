@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="href" v-if="href !== ''">{{ text }}
+    <router-link v-if="href !== ''" :to="href">{{ text }}
         <slot></slot>
     </router-link>
 
@@ -7,19 +7,19 @@
 </template>
 
 <script>
-    export default {
-        name: "v-link",
-        props: {
-            href: {
-                type: String,
-                default: ""
-            },
-            text: {
-                type: String,
-                default: ""
-            }
+export default {
+    name: "v-link",
+    props: {
+        href: {
+            type: String,
+            default: ""
         },
-    }
+        text: {
+            type: String,
+            default: ""
+        }
+    },
+}
 </script>
 
 <style scoped>

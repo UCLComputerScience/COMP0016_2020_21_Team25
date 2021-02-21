@@ -1,56 +1,63 @@
 <template>
     <ul class="admin-circle centred noselect">
-        <user :data="user" :fn="fn" :ref="setRef" v-for="user in users"></user>
+        <user
+            v-for="member in members"
+            :key="member"
+            :ref="setRef"
+            :fn="fn"
+            :userId="member"
+        ></user>
         <slot></slot>
     </ul>
 </template>
 
 <script>
-    import User from "./user.vue";
+import User from "./user.vue";
 
-    export default {
-        name: "admin-circle",
-        components: {User},
-        props: {
-            fn: {
-                type: Function, default: (user, el) => {
-                }
-            }
-        },
-        computed: {
-            users() {
-                return this.$store.getters["member/members"];
-            }
-        },
-        data() {
-            return {
-                userRefs: []
-            }
-        },
-        beforeUpdate() {
-            this.userRefs = [];
-        },
-        methods: {
-            setRef(el) {
-                this.userRefs.push(el);
+export default {
+    name: "admin-circle",
+    components: {User},
+    props: {
+        fn: {
+            type: Function,
+            default: (user, el) => {
             },
-            elements() {
-                return this.userRefs;
-            }
-        }
-    }
+        },
+    },
+    computed: {
+        members() {
+            return this.$store.getters["member/memberIds"];
+        },
+    },
+    data() {
+        return {
+            userRefs: [],
+        };
+    },
+    beforeUpdate() {
+        this.userRefs = [];
+    },
+    methods: {
+        setRef(el) {
+            this.userRefs.push(el);
+        },
+        elements() {
+            return this.userRefs;
+        },
+    },
+};
 </script>
 
 <style scoped>
-    .admin-circle {
-        padding: 32px;
-        width: 100%;
-        justify-content: flex-start;
-        list-style: none;
-        align-items: stretch;
-    }
+.admin-circle {
+    padding: 32px;
+    width: 100%;
+    justify-content: flex-start;
+    list-style: none;
+    align-items: stretch;
+}
 
-    .admin-circle > *:not(:last-child) {
-        margin-right: 16px;
-    }
+.admin-circle > *:not(:last-child) {
+    margin-right: 16px;
+}
 </style>
