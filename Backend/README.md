@@ -77,12 +77,14 @@ Required endpoints for the Concierge web app with required parameters and expect
 {
  "success": boolean,
  "message": String,
- "first-name": String,
- "last-name": String,
- "email": String,
- "phone-number": String,
- "password": String,
- "profile-picture": String,
+ "data": {
+     "first-name": String,
+     "last-name": String,
+     "email": String,
+     "phone-number": String,
+     "password": String,
+     "profile-picture": String,
+ }
  "code": int
 }
 </pre>

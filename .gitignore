@@ -12,6 +12,7 @@
 /Admin Site/dist/
 /Admin Site/.firebase/
 /Admin Site/node_modules/
+/Admin Site/coverage
 
 /App/Services-API/.Services-API.iml
 
