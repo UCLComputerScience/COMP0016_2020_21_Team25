@@ -1,0 +1,106 @@
+{
+    "plugin": "concierge_utility",
+    "entities": [
+        "GPE",
+        "search_word"
+       
+
+    ],
+    "regexes": [
+        {
+            "regex_id": "search_word",
+            "examples":[
+                "[a-z]+"
+            ]
+        }
+       
+    ],
+    "intents": [
+        {
+            "intent_id": "ask_weather",
+            "examples": [
+                "What is the weather in Manchester?",
+                "Tell me what the weather is like in Leeds?",
+                "Give me the weather in London",
+                "Give me the weather in Liverpool please",
+                "What's the temperature in Chicago right now?",
+                "What is the temperature like in Paris"
+            ]
+        },
+       
+        {
+            "intent_id": "ask_air_quality",
+            "examples":[
+                "What is the air quality in London like?",
+                "What is the current air quality in Glasgow",
+                "Give me the air quality in Chicago",
+                "Give me the air quality",
+                "Tell me what the air quality is like in Beijing",
+                "Could you tell me what the air quality is like"
+            ]
+        },
+        {
+            "intent_id": "ask_definition",
+            "examples":[
+                "What is the definition of [simultaneous](search_word)?",
+                "What does the word [brilliant](search_word) mean?",
+                "Give me the definition if the word [striking](search_word)",
+                "Tell me the meaning fo the word [discord](search_word)",
+                "What does [interesting](search_word) mean?",
+                "What is the search definition of the word [trash](search_word)?",
+                "Please tell me the meaning of the word [academy](search_word)"
+            ]
+
+        },
+        {
+            "intent_id": "ask_synonym",
+            "examples":[
+                "What are the synonyms of the word of [illustrate](search_word)?",
+                "What are some synonyms of the word [sentiment](search_word)?",
+                "Give me synonyms of [sunshine](search_word)",
+                "Tell me some synonyms of the word [software](search_word)",
+                "Please give me synonyms of [housing](search_word)",
+                "Tell me synonyms of [convention](search_word)",
+                "Please tell me some synonyms of [moving](search_word)"
+            ]
+
+        }
+    ],
+    "actions": [
+        "fetch_weather",
+        "fetch_air_quality",
+        "fetch_definition",
+        "fetch_synonym"
+    ],
+    "skills": [
+        {
+            "description": "Ask Concierge for the weather",
+            "intent": "ask_weather",
+            "actions": [
+                "fetch_weather"
+            ]
+        },
+        {
+            "description":"Ask Concierge for the air quality",
+            "intent": "ask_air_quality",
+            "actions":[
+                "fetch_air_quality"
+            ]
+        },
+        {
+            "description":"Ask Concierge for the definition of a word",
+            "intent": "ask_definition",
+            "actions":[
+                "fetch_definition"
+            ]
+        },
+        {
+            "description":"Ask Concierge for the synonyms of a word",
+            "intent": "ask_synonym",
+            "actions":[
+                "fetch_synonym"
+            ]
+        }
+        
+    ]
+}

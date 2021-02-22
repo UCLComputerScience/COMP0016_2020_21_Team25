@@ -1,0 +1,135 @@
+{
+    "plugin": "concierge_entertainment",
+    "entities": [
+        "joke_category",
+        "news_search_term",
+        "book_search_term",
+        "book_category"
+    ],
+    "regexes": [
+        {
+            "regex_id": "news_search_term",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,2}[A-Za-z]+"
+            ]
+        },
+        {
+            "regex_id": "book_search_term",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        } 
+    ],
+    "lookups": [
+        {
+            "lookup_id": "joke_category",
+            "examples": [
+                "computer",
+                "animal",
+                "doctor",
+                "food",
+                "science",
+                "knock knock",
+                "airplane"
+            ]
+        },
+        {
+            "lookup_id": "book_category",
+            "examples": [
+                "horror",
+                "fantasy",
+                "love",
+                "mystery",
+                "science fiction",
+                "classic",
+                "romance"
+            ]
+        }
+    ],
+    
+    "intents": [
+        {
+            "intent_id": "ask_joke",
+            "examples":[
+                "Tell me a funny joke",
+                "Tell me a [knock knock](joke_category) joke please",
+                "Give me a [science](joke_category) joke",
+                "Give me a joke",
+                "Could you tell me an [airplane](joke_category) joke",
+                "Could you tell me a joke"
+            ]
+        },
+        {
+            "intent_id": "ask_news",
+            "examples":[
+                "Give me recent news about [america](news_search_term)",
+                "Tell me news about [COVID](news_search_term)",
+                "What is the most recent news regarding [technology](news_search_term)",
+                "Please tell me some news about [pandas](news_search_term)",
+                "Is there any news about [Boris Johnson](news_search_term)",
+                "Could you give me some news about [vaccines](news_search_term)"
+            ]
+
+        },
+        {
+            "intent_id": "ask_book_category",
+            "examples":[
+                "Tell me about a [horror](book_category) story",
+                "Give me information about a [fantasy](book_category) book",
+                "Read me a [romance](book_category) novel",
+                "Could you read me a [science fiction](book_category) book",
+                "Please read a [mystery](book_category) book",
+                "What is a good [classic](book_category) novel"
+            ]
+        },
+        {
+            "intent_id": "ask_book",
+            "examples":[
+                "Tell me about the book [Frankenstein](book_search_term)",
+                "Give me information about the book [Dracula](book_search_term)",
+                "Read me the book [Great Expectations](book_search_term)",
+                "Could you read me [A Christmas Carol](book_search_term)",
+                "Please read [Macbeth](book_search_term]",
+                "Who wrote [Romeo and Juliet](book_search_term)"
+            ]
+
+        }
+
+    ],
+    "actions": [
+        "fetch_joke",
+        "fetch_news",
+        "fetch_book",
+        "fetch_book_category"
+    ],
+    "skills": [
+        {
+            "description": "Ask Concierge for a joke",
+            "intent": "ask_joke",
+            "actions": [
+                "fetch_joke"
+            ]
+        },
+        {
+            "description":"Ask Concierge for the news about a topic of choice",
+            "intent": "ask_news",
+            "actions":[
+                "fetch_news"
+            ]
+        },
+        {
+            "description":"Ask Concierge to read or provide information about a book matching a given search term",
+            "intent": "ask_book",
+            "actions":[
+                "fetch_book"
+            ]
+        },
+        {
+            "description":"Ask Concierge to read or provide a book within a given topic",
+            "intent": "ask_book_category",
+            "actions":[
+                "fetch_book_category"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,81 @@
+{
+    "plugin": "concierge_finance",
+    "entities": [
+        "ORG",
+        "GPE",
+        "charity_search_term"
+       
+    ],
+    "regexes": [
+        {
+            "regex_id": "charity_search_term",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        } 
+    ],
+    "intents": [
+        {
+            "intent_id": "ask_stocks",
+            "examples":[
+                "What is the stock value for ibm?",
+                "Tell me the current stock value for appl",
+                "Give me the current stock value of amd please",
+                "What is the value of nke stock right now?",
+                "Tell me the stock value of gme"
+            ]
+        },
+        {
+            "intent_id": "ask_charity",
+            "examples":[
+                "Give me some information about the charity [Oxfam](charity_search_term)",
+                "What does the charity [Samaritans](charity_search_term) do?",
+                "Tell me about the charity [British Heart Foundation](charity_search_term)",
+                "Please tell me about the charity [Cancer Research UK](charity_search_term)",
+                "Please give me information about the chrity [WaterAid](charity_search_term)",
+                "Give me a summary about the charity [Make A Wish Foundation](charity_search_term)"
+            ]
+        },
+        {
+            "intent_id": "ask_charity_city",
+            "examples":[
+                "Give me the name of a charity in London",
+                "Tell me the name of a charity in the city of Manchester",
+                "Please tell me the name of a charity based in Chicago",
+                "Are there any charities in Paris?",
+                "What is the name of a chairty which is based in New York",
+                "Please give me the name of a chairtiy which is based in the city of Liverpool"
+            ]
+
+        }
+    ],
+    "actions": [
+        "fetch_stocks",
+        "fetch_charity",
+        "fetch_charity_city"
+    ],
+    "skills": [
+        {
+            "description":"Ask Concierge for the current stock value of a company",
+            "intent": "ask_stocks",
+            "actions":[
+                "fetch_stocks"
+            ]
+        },
+        {
+            "description":"Ask Concierge about charities given a search field",
+            "intent": "ask_charity",
+            "actions":[
+                "fetch_charity"
+            ]
+        },
+        {
+            "description":"Ask Concierge for charities in a given city",
+            "intent": "ask_charity_city",
+            "actions":[
+                "fetch_charity_city"
+            ]
+        }
+        
+    ]
+}
