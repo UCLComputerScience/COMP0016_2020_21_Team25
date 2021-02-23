@@ -1,0 +1,57 @@
+{
+    "plugin": "concierge_communications",
+    "entities": [
+        "PERSON"
+    ],
+    "intents": [
+        {
+            "intent_id": "request_call",
+            "examples":[
+                "Can you call Mike",
+                "Call Steven",
+                "Please Call Dean",
+                "Call John",
+                "Please call Tim",
+                "I would like to speak to David",
+                "Can you please call Alex"
+            ]
+
+        },
+        {
+            "intent_id": "request_message",
+            "examples":[
+                "Can you message Mike",
+                "SMS Steven",
+                "Can you send Dean an SMS",
+                "Send John a message",
+                "Please send Tim a message",
+                "I would like to message Alex"
+                
+            ]
+
+        }
+
+    ],
+    "actions": [
+        "place_call",
+        "place_message"
+    ],
+    "skills": [
+        {
+            "description":"Ask Concierge to call someone",
+            "intent": "request_call",
+            "actions":[
+                "place_call"
+            ]
+        },
+        {
+            "description":"Ask Concierge to message someone",
+            "intent": "request_message",
+            "actions":[
+                "place_message"
+            ]
+        }
+
+
+    ]
+}

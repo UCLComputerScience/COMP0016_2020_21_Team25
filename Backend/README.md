@@ -78,12 +78,12 @@ Required endpoints for the Concierge web app with required parameters and expect
  "success": boolean,
  "message": String,
  "data": {
-     "first-name": String,
-     "last-name": String,
+     "first_name": String,
+     "last_name": String,
      "email": String,
-     "phone-number": String,
+     "phone_number": String,
      "password": String,
-     "profile-picture": String,
+     "profile_picture": String,
  }
  "code": int
 }
@@ -103,11 +103,11 @@ Required endpoints for the Concierge web app with required parameters and expect
  "message": String,
  "members": {
      user-id: {
-         "first-name": String,
-         "last-name": String,
-         "phone-number": String,
+         "first_name": String,
+         "last_name": String,
+         "phone_number": String,
          "prefix": String,
-         "profile-picture": String
+         "profile_picture": String
      } ...
  },
  "code": int
@@ -126,12 +126,12 @@ Required endpoints for the Concierge web app with required parameters and expect
 {
  "success": boolean,
  "message": String,
- "services": {
-     service-id: {
-         "service-name": String,
-         "description": String,
-         "icon": String,
-     } ...
+ "services": [{
+    "service_id": int,
+    "service_name": String,
+    "description": String,
+    "icon": String,
+    }, ... ]
  },
  "code": int
 }
@@ -187,6 +187,7 @@ Required endpoints for the Concierge web app with required parameters and expect
  "success": boolean,
  "message": String,
  "services": [{
+         "service_id": int,
          "name": String,
          "category": String,
          "icon": String,
@@ -233,7 +234,7 @@ Required endpoints for the Concierge web app with required parameters and expect
 
 <tr>
 <td align="center">update-admin</td>
-<td align="center"><pre>username<br>first-name<br>last-name<br>email<br>phone-number<br>password</pre></td>
+<td align="center"><pre>username<br>first-name<br>last-name<br>email<br>phone-number<br>password<br>profile-picture</pre></td>
 <td align="center"><pre>POST</pre></td>
 <td>
 <pre>
@@ -256,8 +257,8 @@ Required endpoints for the Concierge web app with required parameters and expect
 {
  "success": boolean,
  "message": String,
- "user-id": int,
- "registration-code": String,
+ "user_id": int,
+ "registration_code": String,
  "code": int
 }
 </pre>
@@ -307,15 +308,51 @@ Required endpoints for the Concierge web app with required parameters and expect
  "success": boolean,
  "message": String,
  "history": [{
-         "service-id": int,
-         "service-name": String,
-         "timestamp": String
+         "service_id": int,
+         "service_name": String,
+         "timestamp": Integer,
      }],
  "code": int
 }
 </pre>
 </td>
 <td>Return (full) service usage history for the given user. <b>Sorted by the timestamp, with most recent entries first.</b></td>
+</tr>
+
+<tr>
+<td align="center">member-service-data</td>
+<td align="center"><pre>user-id<br>service-name</pre></td>
+<td align="center"><pre>GET</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "fields": {
+    "field_name": Any, 
+    ...
+    },
+ "code": int
+}
+</pre>
+</td>
+<td>Return the fields required by the given service, for the given user, and the values they currently hold.</b></td>
+</tr>
+
+<tr>
+<td align="center">update-member-service-data</td>
+<td align="center"><pre>user-id<br>service-name<br>fields (Map)</pre></td>
+    <td align="center"><pre>POST</pre></td>
+<td>
+<pre>
+{
+ "success": boolean,
+ "message": String,
+ "code": int
+}
+</pre>
+</td>
+<td>Update the required data for the given service, assigned to the given user.</b></td>
 </tr>
 
 </table>
@@ -334,7 +371,7 @@ You can also start the application using a Python script with the following comm
 
     python3 tools/run.py
 
-And then perform your HTTP requests. For example, after the application is running, open a terminal and enter:
+And then perform your HTTP requests. For example, after the application is running (on port 8080), open a terminal and enter:
 
     curl "localhost:8080/services?id=1"
 
@@ -351,7 +388,7 @@ Note that the URL must be quoted to escape the question marks and ampersands if 
 
 There are different execution options for the API, summarised below.
 
-Note that these can only be enabled by passing them as command line arguments to the Python `run` script or running the application as a `jar`. Command line arguments are unavailable with Java if not executing using a `jar` file.
+Note that these can only be enabled by passing them as command line arguments to the Python `run` script or running the application as a `jar`. Command line arguments are unavailable with Java if not executing a `jar` file using the `java -jar ...` command.
 
 The following arguments are all optional.
 
