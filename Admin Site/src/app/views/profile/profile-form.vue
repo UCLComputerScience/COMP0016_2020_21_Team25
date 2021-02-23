@@ -156,8 +156,6 @@ export default {
                     if (this.profileData.response !== null) {
                         alert("Update failed. " + profileData.response);
                         this.clearSensitiveInputs();
-                    } else {
-                        // this.$router.go();
                     }
                 });
             } else {

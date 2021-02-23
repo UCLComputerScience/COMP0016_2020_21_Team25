@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/";
+const PORT = 8080;
+const BASE_URL = `http://localhost:${PORT}/`;
 
 async function makeHttpRequest(URL, method, params = {}) {
     const options = {
@@ -88,6 +89,7 @@ const api = {
     async logout() {
         admin = {};
         members = {};
+        ids = [];
     },
     async register({
                        username,
@@ -133,9 +135,26 @@ const api = {
         return response;
     },
     async memberServices(userID) {
-        const response = await makeHttpRequest("member-services", "GET", {
-            "user-id": userID,
-        });
+        // const response = await makeHttpRequest("member-services", "GET", {
+        //     "user-id": userID,
+        // });
+        const categoriesResponse = await this.serviceCategories();
+        const categories = categoriesResponse.categories;
+        const response = {...MOCK_RESPONSE};
+        response.services = [];
+        for (const id of ids) {
+            response.services.push({
+                "service_id": id,
+                "service_name": "Service Name " + id,
+                description:
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
+                    " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" +
+                    " nisi ut aliquip ex ea commodo consequat.",
+                icon: categories[Math.floor(Math.random() * categories.length)],
+            });
+        }
+        return response;
     },
     async serviceCategories() {
         // const response = await makeHttpRequest("service-categories", "GET", {});
@@ -156,9 +175,11 @@ const api = {
         const response = {...MOCK_RESPONSE};
         response.services = [];
         for (const n of [...Array(6).keys()]) {
+            const id = new Date().valueOf() + Math.floor(Math.random() * 20 + 1);
+            ids.push(id);
             const service = {
-                id: n,
-                title: "Service Name",
+                "service_id": id,
+                "service_name": "Service Name " + id,
                 description:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
@@ -172,6 +193,13 @@ const api = {
     },
     async addServiceToUser(userID, serviceID) {
         // const response = makeHttpRequest("add-service-to-user", "POST", {
+        //     "user-id": userID,
+        //     "service-id": serviceID,
+        // });
+        return MOCK_RESPONSE;
+    },
+    async removeServiceFromUser(userID, serviceID) {
+        // const response = makeHttpRequest("remove-service-from-user", "POST", {
         //     "user-id": userID,
         //     "service-id": serviceID,
         // });
@@ -215,11 +243,11 @@ const api = {
                         profilePicture,
                     }) {
         // const response = await makeHttpRequest("add-member", "POST", {
-        //     username: username,
+        //     username,
         //     "first-name": firstName,
         //     "last-name": lastName,
         //     "phone-number": phoneNumber,
-        //     prefix: prefix,
+        //     prefix,
         //     "profile-picture": profilePicture,
         // });
         const userID = 5;
@@ -269,11 +297,43 @@ const api = {
         return MOCK_RESPONSE;
     },
     async memberHistory(userID) {
-        const response = await makeHttpRequest("member-history", "GET", {
-            "user-id": userID,
-        });
+        // const response = await makeHttpRequest("member-history", "GET", {
+        //     "user-id": userID,
+        // });
+        const response = {...MOCK_RESPONSE};
+        response.history = [];
+        for (const id of ids) {
+            response.history.push({
+                "service_id": id,
+                "service_name": "Service Name",
+                "timestamp": 1613996038,
+            })
+        }
+        return response;
     },
+    async memberServiceData(userID, serviceName) {
+        const response = {...MOCK_RESPONSE};
+        const random = Math.random();
+        if (random < 0.33) {
+            response.fields = {
+                "ACCOUNT_NUMBER": 123456789101112,
+                "SORT_CODE": 123456
+            };
+        } else if (random >= 0.33 && random < 0.67) {
+            response.fields = {
+                "GP_PHONE_NUMBER": "07111111111",
+            };
+        } else {
+            response.fields = {};
+        }
+        return response;
+    },
+    async updateMemberServiceData(userID, serviceName, data) {
+        return MOCK_RESPONSE;
+    }
 };
+
+let ids = [];
 
 let admin = {
     username: "ernest",

@@ -19,7 +19,7 @@ const actions = {
     async login({dispatch, commit, getters, rootGetters}, form) {
         const response = await api.login(form.usernameOrEmail, form.password);
         if (response.code === 200) {
-            dispatch("admin/fetchAdmin", form.usernameOrEmail, {root: true});
+            await dispatch("admin/fetchAdmin", form.usernameOrEmail, {root: true});
         } else {
             form.response = response.message;
         }
@@ -38,9 +38,17 @@ const actions = {
         commit("admin/setAdmin", {}, {root: true});
         commit("member/setMembers", {}, {root: true});
         commit("member/setActiveId", null, {root: true});
+        commit("member/setHistory", {}, {root: true});
+        commit("member/setMemberServices", {}, {root: true});
         commit("service/setService", {}, {root: true});
+        // TODO - Debug only
+        commit("service/setServices", {}, {root: true});
+        // END TODO;
+        // NOTE - Reset these if profile pictures or service icons were added
+        commit("media/setProfileImages", {}, {root: true});
+        commit("media/setServiceIcons", {}, {root: true});
         commit("entered", false);
-        router.push("/welcome");
+        await router.push("/welcome");
     },
 };
 

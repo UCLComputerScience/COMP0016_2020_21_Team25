@@ -1,8 +1,7 @@
 <template>
     <people>
         <div class="people-default centred">
-            <h2 ref="header" class="people-default-header">Select a person from
-                your circle using the sidebar on the left.</h2>
+            <h2 ref="header" class="people-default-header">{{ text }}</h2>
         </div>
     </people>
 </template>
@@ -15,28 +14,36 @@ export default {
     components: {People},
     data() {
         return {
-            header: null,
+            width: window.innerWidth,
+            text: "",
         }
     },
     methods: {
         setText() {
-            let width = window.innerWidth || document.documentElement.clientWidth ||
+            const width = window.innerWidth || document.documentElement.clientWidth ||
                 document.body.clientWidth;
-            if (this.$refs.header === null || this.$refs.header === undefined)
-                return;
-            if (width <= 1024) {
-                this.$refs.header.innerHTML = "Select a person from your circle using the navigation bar above.";
+            this.text = "";
+            const members = this.$store.getters["member/memberIds"];
+            if (members.length === 0) {
+                this.text = "Add a new member to your circle using the "
             } else {
-                this.$refs.header.innerHTML = "Select a person from your circle using the sidebar on the left.";
+                this.text = "Select a member from your circle using the "
+            }
+            if (width <= 1024) {
+                this.text += "navigation bar above.";
+            } else {
+                this.text += "sidebar on the left.";
             }
         }
     },
-    mounted() {
-        this.setText();
-        window.addEventListener('resize', this.setText);
+    created() {
+        window.addEventListener("resize", this.setText);
     },
     beforeUnmount() {
-        window.removeEventListener('resize', this.setText);
+        window.removeEventListener("resize", this.setText);
+    },
+    mounted() {
+        this.setText();
     }
 }
 </script>

@@ -10,7 +10,7 @@
         <div ref="toolbar" class="marketplace-toolbar centred">
             <text-input id="marketplace-search" ref="search-bar" :maxlength="255"
                         :object="searchData" :on-enter="search" icon="search"
-                        key-name="searchTerm"
+                        key-name="searchTerm" :no-spaces="false"
                         label="Search the marketplace" placeholder="Search for services">
             </text-input>
             <dropdown :items="dropdownItems" label="Select a category"
@@ -18,7 +18,7 @@
         </div>
         <div class="marketplace-content centred">
             <marketplace-section v-for="category in categories" v-show="searchData.searchTerm.length < 4"
-                                 :ref="setRef" :category="category"
+                                 :ref="setRef" :category="category" :key="category"
                                  :grid-data="gridData">
             </marketplace-section>
             <search-results v-if="searchData.searchTerm.length >= 4" :columns="gridData.columns"
@@ -97,16 +97,22 @@ export default {
             } else if (width >= 1600) {
                 this.gridData.columns = 4;
             } else {
-                this.gridData.columns = 2;
+                this.gridData.columns = 1;
             }
         },
         search() {
             if (this.searchData.searchTerm.length < 4)
                 return;
             this.searchResults = [];
-            for (let section of this.sections) {
+            for (const section of this.sections) {
                 const resultSet = section.search(this.searchData.searchTerm.toLowerCase());
-                this.searchResults = this.searchResults.concat(resultSet);
+                if (resultSet !== null) {
+                    for (const service of resultSet) {
+                        if (service !== null) {
+                            this.searchResults.push(service);
+                        }
+                    }
+                }
             }
         }
     },

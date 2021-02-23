@@ -33,13 +33,16 @@ export default {
     computed: {
         redirect() {
             if (
-                this.$store.getters["service/activeService"].title === undefined
+                this.$store.getters["service/activeService"]["service_name"] === undefined
             ) {
                 this.$router.push("/404");
                 return false;
             }
             return true;
         },
+        title() {
+            return this["service_name"];
+        }
     },
     data() {
         return {
@@ -47,8 +50,8 @@ export default {
         };
     },
     props: {
-        id: Number,
-        title: String,
+        "service_id": Number,
+        "service_name": String,
         description: String,
         icon: String,
     },
@@ -71,7 +74,7 @@ export default {
         async confirm() {
             const response = {message: "", success: true};
             await this.$store.dispatch("member/addServiceToMembers", {
-                serviceId: this.id,
+                serviceId: this["service_id"],
                 members: this.users,
                 response,
             });
@@ -79,7 +82,7 @@ export default {
                 alert(
                     "Services successfully added. The selected users will now have " +
                     "access to " +
-                    this.title +
+                    this["service_name"] +
                     "."
                 );
                 this.toMarketplace();
@@ -137,19 +140,19 @@ export default {
     max-width: 100%;
 }
 
-.selected-user {
+.service-view .selected-user {
     pointer-events: auto !important;
     background: var(--blue) !important;
     opacity: unset !important;
 }
 
-.selected-user .profile-image {
+.service-view .selected-user .profile-image {
     width: 16vh !important;
     height: 16vh !important;
     border-color: #FFF !important;
 }
 
-.selected-user .name {
+.service-view .selected-user .name {
     color: #FFF !important;
 }
 

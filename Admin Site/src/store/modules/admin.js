@@ -41,7 +41,7 @@ const actions = {
         const username = getters.username;
         await dispatch("member/fetchMembers", username, {root: true});
         if (window.location.pathname === "/welcome") {
-            router.push({
+            await router.push({
                 name: "people",
                 params: {username},
             });
