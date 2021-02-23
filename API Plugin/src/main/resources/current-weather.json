@@ -17,5 +17,13 @@
   "error_messages": {
     "404": "Could not find ...",
     "default": "I'm sorry, I could not find any weather information."
+  },
+  "metadata": {
+    "main.temp": {
+      "alias": "temperature_in_kelvin"
+    },
+    "main.temp_min": "minimum_temperature_in_kelvin",
+    "weather[0]": "basic_weather_data",
+    "weather[0].id": "test"
   }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,17 +7,17 @@ import java.util.regex.Pattern;
 /**
  * Parses output from the API based on the information defined in the JSON file.
  * <p>
- * Limitations:
- * No support for multi-dimensional arrays.
- * No support for looping over an array.
- * No support for adding metadata.
- * No support for parameter-based endpoints.
- *
- * These limitations can be circumvented by implementing the service as a Java class.
+ * Limitations: No support for multi-dimensional arrays. No support for looping
+ * over an array. No support for custom nested metadata. No support for
+ * parameter-based endpoints.
+ * <p>
+ * class.
  */
 public class ResponseParser {
     private final String serviceName;
     private final Map<String, Object> structure;
+    private final Map<String, Object> metadataFields;
+    private final Map<String, Object> metadata = new HashMap<>();
 
     /**
      * Instantiate a new parser for the given service and JSON structure.
@@ -27,6 +28,7 @@ public class ResponseParser {
     public ResponseParser(String serviceName, Map<String, Object> structure) {
         this.serviceName = serviceName;
         this.structure = structure;
+        this.metadataFields = (Map<String, Object>) structure.getOrDefault("metadata", new HashMap<>());
     }
 
     /**
@@ -38,7 +40,7 @@ public class ResponseParser {
     public String parse(Map<String, Object> response) {
         try {
             return parseResponse(response);
-        } catch (NullPointerException | ClassCastException | IndexOutOfBoundsException e) {
+        } catch (NullPointerException | ClassCastException | IndexOutOfBoundsException ignored) {
             return parseErrorResponse(response);
         }
     }
@@ -53,7 +55,7 @@ public class ResponseParser {
         ArrayList<String> params = new ArrayList<>();
         Matcher matcher = Pattern.compile("\\{(.*?)}").matcher(message);
         while (matcher.find()) {
-            params.add(matcher.group(1).trim().replaceAll("\\s+",""));
+            params.add(matcher.group(1).trim().replaceAll("\\s+", ""));
         }
         return params;
     }
@@ -90,13 +92,6 @@ public class ResponseParser {
         return parseMessage(output, response);
     }
 
-    /*
-Nested object syntax:
-param1.param2 => param1: { "param2": value }
-param1[0] => param1: [ value1, value2, ... ]
-param1[0].param2 => param1: [{ "param2": value }]
-*/
-
     /**
      * Parse a message using the syntax defined above.
      *
@@ -117,11 +112,49 @@ param1[0].param2 => param1: [{ "param2": value }]
             }
             message = message.replace("{" + param + "}", value);
         }
+        populateMetadata(response);
         return message;
     }
 
     /**
-     * Extract a key from a map i.e., for param = 'key' and map = { param: value } -> extractDefault returns map[key].
+     * Inserts all parameters specified in the JSON schema into the metadata of the
+     * response.
+     *
+     * @param response the JSON response object.
+     */
+    private void populateMetadata(Map<String, Object> response) {
+        for (String parameter : metadataFields.keySet()) {
+            addToMetadata(parameter, response);
+        }
+    }
+
+    /**
+     * Adds the data at the location specified by param to the metadata of the
+     * response.
+     *
+     * @param param    the parameter used to locate the data.
+     * @param response the JSON response object.
+     */
+    private void addToMetadata(String param, Map<String, Object> response) {
+        Object value;
+        if (isMapNotation(param)) {
+            value = extractObjectFromMap(param, response);
+        } else {
+            value = extractObjectFromArray(param, response);
+        }
+        String keyName;
+        try {
+            Map<String, String> fieldData = (Map<String, String>) metadataFields.get(param);
+            keyName = fieldData.getOrDefault("alias", param);
+        } catch (ClassCastException ignored) {
+            keyName = (String) metadataFields.get(param);
+        }
+        metadata.put(keyName, value);
+    }
+
+    /**
+     * Extract a key from a map i.e., for param = 'key' and map = { param: value }
+     * -> extractDefault returns map[key].
      *
      * @param param the key of the map.
      * @param map   the map where the key, value pair is held.
@@ -133,8 +166,9 @@ param1[0].param2 => param1: [{ "param2": value }]
 
     /**
      * Extract a string from a map using the notation in the rawParam.
+     *
      * @param rawParam the parameter containing the index to return;
-     * @param map the map where the object is stored.
+     * @param map      the map where the object is stored.
      * @return the object stored in the map.
      */
     private String extractStringFromMap(String rawParam, Map<String, Object> map) {
@@ -147,8 +181,9 @@ param1[0].param2 => param1: [{ "param2": value }]
 
     /**
      * Extract an object from a map using the notation in the rawParam.
+     *
      * @param rawParam the parameter containing the index to return;
-     * @param map the map where the object is stored.
+     * @param map      the map where the object is stored.
      * @return the object stored in the map.
      */
     private Object extractObjectFromMap(String rawParam, Map<String, Object> map) {
@@ -163,7 +198,11 @@ param1[0].param2 => param1: [{ "param2": value }]
                 if (i < size - 1) {
                     mapCopy = (Map<String, Object>) mapCopy.get(parameter);
                 } else {
-                    return mapCopy.get(parameter).toString();
+                    Object value = mapCopy.get(parameter);
+                    if (value != null) {
+                        return value.toString();
+                    }
+                    return null;
                 }
             }
         }
@@ -203,10 +242,11 @@ param1[0].param2 => param1: [{ "param2": value }]
     }
 
     /**
-     * Returns an element, of type String only, from an array, which is stored in a map
+     * Returns an element, of type String only, from an array, which is stored in a
+     * map
      *
-     * @param param    specifies the name of the array and the index to retrieve.
-     * @param map the map containing the array.
+     * @param param specifies the name of the array and the index to retrieve.
+     * @param map   the map containing the array.
      * @return the string in the array at the index specified by the param.
      */
     private String extractStringFromArray(String param, Map<String, Object> map) {
@@ -214,7 +254,8 @@ param1[0].param2 => param1: [{ "param2": value }]
     }
 
     /**
-     * Parse the error response object from the API using error information defined in the JSON file or return a default error message.
+     * Parse the error response object from the API using error information defined
+     * in the JSON file or return a default error message.
      *
      * @param response the API response object.
      * @return a natural language string describing the error that occurred.
@@ -232,7 +273,8 @@ param1[0].param2 => param1: [{ "param2": value }]
     }
 
     /**
-     * Retrieve the error code from the API response object using information defined in the JSON file.
+     * Retrieve the error code from the API response object using information
+     * defined in the JSON file.
      *
      * @param response the API response object.
      * @return the error code contained inside it.
@@ -251,5 +293,9 @@ param1[0].param2 => param1: [{ "param2": value }]
 
     public String getServiceName() {
         return serviceName;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return this.metadata;
     }
 }

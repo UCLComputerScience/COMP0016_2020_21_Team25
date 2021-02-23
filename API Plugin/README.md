@@ -12,8 +12,8 @@ New services can be defined using a `json` schema with the following possible se
 * [api-key](#api-key)
 * [parameters](#parameters) - **required**
 * [message](#message) - **required**
-* [error_code_name](#error_code_name)
-* [error_messages](#error_messages)
+* [error_code_name](#error-code-name)
+* [error_messages](#error-messages)
 
 ### URL
 
@@ -157,7 +157,7 @@ Consider the following `json` response object:
 
 `{result[0]}` returns `"Hello"` - **array indexing starts at 0**.
 
-Note that indexing rules still apply - accessing an index outside of the range of the array will throw an exception.
+Note that indexing rules still apply - accessing an index outside the range of the array will throw an exception.
 
 Also note that if the array is nested in some map(s), prefix the array name with the names of the maps that contain it, using **map notation**.
 
@@ -166,17 +166,17 @@ These object notation forms can be chained together to access deeply nested obje
 
 * Note that **map notation cannot be used inside the square braces of an array notation**.
 
-*  Also note that the map notation takes precedence over the array notation and the top-level notation has the lowest precedence.
+*  Also note that the map notation takes precedence over the array notation, and the top-level notation has the lowest precedence.
 
 Whitespace inside the curly braces are removed.
 
-An example can be found in the [example-schema](#example) section below.
+An example can be found in the [example](#example-schema) section below.
 
 ### Error Code Name
 
 Should you want to return custom error messages for a set of HTTP error codes, the `error_code_name` defines where in the `json` response, returned by the API, to look for the error code.
 
-It uses the same syntax and notation as the `message` field so you can also locate nested error codes.
+It uses the same syntax and notation as the `message` field, so, you can also locate nested error codes.
 
 An example implementation:
 
@@ -196,7 +196,7 @@ In this case, it is assuming the code is stored in `json` response as:
 
 Note that the value of `error_code_name` must be of type string.
 
-If the API does not return a HTTP status code, only a default catch-all error message can be defined in the secma and this field can safely be omitted.
+If the API does not return an HTTP status code, only a default catch-all error message should be defined in the schema and this field can safely be omitted.
 
 ### Error Messages
 
@@ -219,9 +219,35 @@ An example implementation:
 
 Note that the `error_code_name` field must also be set in order for these values to be used otherwise a generic error response is returned.
 
-Also note that the error codes must be double-quoted (as per `json` standards) and are cast to strings internally.
+Also note that the error codes must be double-quoted (as per `json` standards) and are all cast to strings internally.
 
 If the API does not return any HTTP codes, any fields other than `"default"` are redundant.
+
+### Metadata
+
+Some information may be unsuitable for speech synthesis but may be needed elsewhere - this is referred to as `metadata` and specified in the `metadata` section of the schema.
+
+However, if the required parameter is nested inside a map or an array, the key name can become quite complicated. Instead, an `alias` sub-field can be used to rename the parameter in the response metadata map:
+
+<pre>
+"metadata": {
+      "parameter_name": {
+        "alias": "alias_name"
+      }
+}
+</pre>
+
+Leaving the `alias` sub-field blank sets the key name in the response metadata map to the the `parameter_name`.
+
+As with the [`parameters`](#parameters) section, the following shorthand also exists here for the `alias` sub-field:
+
+<pre>
+"metadata": {
+      "parameter_name": "alias"
+}
+</pre>
+
+The value specified by `parameter_name` does not have to be a single data point - it can also be an object. However, its structure is determined by the response object itself and cannot be customised using the schema. 
 
 ## Example Schema
 
@@ -252,6 +278,13 @@ An example `json` schema for a [weather service](https://openweathermap.org/curr
   "error_messages": {
     "404": "Could not find ...",
     "default": "I'm sorry, I could not find any weather information."
+  },
+    "metadata": {
+    "main.temp": {
+      "alias": "temperature_in_kelvin"
+    },
+    "main.temp_min": "minimum_temperature_in_kelvin",
+    "weather[0]": "basic_weather_data"
   }
 }
 </pre>
@@ -265,7 +298,7 @@ The following limitations currently exist:
 
 * No support for multi-dimensional arrays in response parsing.
 * No support for array-iteration in response parsing.
-* No support for adding metadata from a response.
+* No support for adding custom nested metadata objects from a response.
 * No support for parameter-based API endpoints i.e., if the service has two endpoints which take the same parameters and return the same response, they **must** be defined in separate schemas under different names.
 
 
