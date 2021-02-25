@@ -248,6 +248,8 @@ Consider the following `JSON` response object:
 
 `{result[0]}` returns `"Hello"` - **array indexing starts at 0**.
 
+Multidimensional arrays can also be accessed e.g., `{result[0][1]}`.
+
 Note that indexing rules still apply - accessing an index outside the range of the array will throw an exception.
 
 Also note that if the array is nested in some map(s), prefix the array name with the names of the maps that contain it,
@@ -477,7 +479,6 @@ Naturally, there is only so much that can be done with just string syntax parsin
 
 The following limitations currently exist:
 
-- No support for accessing multi-dimensional arrays in response parsing e.g., `{array[0][0]}`.
 - No support for array iteration in response parsing.
 - No support for adding custom arrays into response metadata.
 - URLs can only have parameter-based endpoints after _all_ fixed endpoints.

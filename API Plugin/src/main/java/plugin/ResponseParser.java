@@ -6,13 +6,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// TODO - Custom Exceptions, Multi-dimensional arrays
+// TODO - Custom Exceptions
 
 /**
  * Parses output from the API based on the information defined in the JSON file.
  * <p>
- * Limitations: No support for multi-dimensional arrays. No support for looping
- * over an array.
+ * Limitations: No support for array iteration.
  * <p>
  */
 public class ResponseParser {
@@ -245,7 +244,7 @@ public class ResponseParser {
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         }
-        return -1;
+        throw new RuntimeException("Invalid index specified in '" + param + "'");
     }
 
     /**
@@ -256,14 +255,33 @@ public class ResponseParser {
      * @return the element in the array at the index specified by the keyName.
      */
     private Object extractObjectFromArray(String keyName, Map<String, Object> map) {
-        int index = getArrayIndex(keyName);
-        if (index == -1) {
-            throw new RuntimeException("Invalid index specified in '" + keyName + "'");
-        }
         int notationIndex = keyName.indexOf("[");
         String formattedKeyName = keyName.substring(0, notationIndex);
         ArrayList<Object> array = (ArrayList<Object>) map.get(formattedKeyName);
-        return array.get(index);
+        int index = getArrayIndex(keyName);
+        Object objectInArray = array.get(index);
+
+        String indices = keyName.substring(notationIndex);
+        while (isMultidimensionalNotation(indices)) {
+            int firstClosingBrace = indices.indexOf("]");
+            indices = indices.substring(firstClosingBrace + 1);
+            int nestedIndex = getArrayIndex(indices);
+            ArrayList<Object> objectAsArray = (ArrayList<Object>) objectInArray;
+            objectInArray = objectAsArray.get(nestedIndex);
+        }
+
+        return objectInArray;
+    }
+
+    /**
+     * Returns whether or not the parameter is using multidimensional array notation e.g., arr[0][1].
+     *
+     * @param param the parameter to test.
+     * @return whether or not the parameter is using multidimensional array notation e.g., arr[0][1].
+     */
+    private boolean isMultidimensionalNotation(String param) {
+        Matcher matcher = Pattern.compile("(\\[(.*?)]){2,}").matcher(param);
+        return matcher.find();
     }
 
     /**
