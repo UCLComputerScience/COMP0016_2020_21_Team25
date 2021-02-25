@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -61,7 +62,7 @@ public final class Driver {
         return result.toString(StandardCharsets.UTF_8.name());
     }
 
-    public static void main(String[] args) {
+    public void runResponseParser() {
         String[] serviceNames = new String[]{"book", "current-weather", "joke", "news"};
         for (String serviceName : serviceNames) {
             String source = readFile(serviceName, false);
@@ -74,5 +75,11 @@ public final class Driver {
             System.out.println(responseParser.getMetadata());
             System.out.println();
         }
+    }
+
+    public static void main(String[] args) {
+        UrlParser urlParser = new UrlParser();
+        String url = urlParser.parse("test", new HashMap<>());
+        System.out.println(url);
     }
 }

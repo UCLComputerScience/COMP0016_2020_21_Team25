@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 // TODO - Custom Exceptions, Multi-dimensional arrays
 
 /**
  * Parses output from the API based on the information defined in the JSON file.
  * <p>
  * Limitations: No support for multi-dimensional arrays. No support for looping
- * over an array. No support for parameter-based endpoints.
+ * over an array.
  * <p>
  */
 public class ResponseParser {

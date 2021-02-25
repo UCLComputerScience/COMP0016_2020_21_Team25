@@ -17,27 +17,30 @@ exception reporting.
 
 New services can be defined using a `JSON` schema with the following possible sections:
 
--   [name](#name)
--   [description](#description)
--   [url](#url) - **required**
--   [api-key](#api-key)
--   [parameters](#parameters) - **required**
--   [message](#message) - **required** (If a natural language output is required)
--   [error_code_name](#error-code-name)
--   [error_messages](#error-messages)
--   [metadata](#metadata)
--   [error_metadata](#error-metadata)
-
+- [name](#name)
+- [description](#description)
+- [url](#url) - **required**
+- [endpoints](#endpoints)
+- [api-key](#api-key)
+- [parameters](#parameters) - **required**
+- [message](#message) - **required** (If a natural language output is required)
+- [error_code_name](#error-code-name)
+- [error_messages](#error-messages)
+- [metadata](#metadata)
+- [error_metadata](#error-metadata)
 
 ### Name
 
-If you want to give your service a specific name, you can do so using the `name` field. If this field is blank or not specified, the service name defaults to the name of the `JSON` schema.
+If you want to give your service a specific name, you can do so using the `name` field. If this field is blank or not
+specified, the service name defaults to the name of the `JSON` schema.
 
-* Note that this is only used when reporting error responses from the API - the filename of the schema is still used to resolve the schema.
+* Note that this is only used when reporting error responses from the API - the filename of the schema is still used to
+  resolve the schema.
 
 ### Description
 
-You can provide a description of this service for others looking over your schema - this has no effect on service interaction.
+You can provide a description of this service for others looking over your schema - this has no effect on service
+interaction.
 
 ### URL
 
@@ -54,6 +57,60 @@ section of the schema - they will be added internally (including the `?` charact
 So, for the weather service, the `url` field will be defined as:
 
 <pre>api.openweathermap.org/data/2.5/weather</pre>
+
+### Endpoints
+
+Some APIs have parameter-based endpoints
+e.g., `api.someApi/someFixedEndpoint/{parameter}/{anotherParameter}?{queryParameter}={someValue}`.
+
+* These parameters cannot be included in the [`parameters`](#parameters) as these are added as query parameters,
+  following a `?` character.
+
+To get around this, the `endpoints` section allows you to implement services with parameter-based endpoint.
+
+The `endpoints` section is an array of mappings, defining how to resolve each dynamic endpoint with the following
+fields:
+
+<table>
+<th align="center">Field</th>
+<th align="center">Type</th>
+<th align="center">Optional</th>
+<th align="center">Description</th>
+
+<tr>
+<td align="center"><pre>name</pre></td>
+<td align="center">String</td>
+<td align="center">No</td>
+<td>The name given to the endpoint. It is important that this name is <b>unique to both the endpoints and <a href="#parameters">parameters</a> sections</b> as endpoint and parameter values are taken from the same map when making an API call.</td>
+</tr>
+
+<tr>
+<td align="center"><pre>default</pre></td>
+<td align="center">String</td>
+<td align="center">Yes</td>
+<td>If you would like to set a default value for the endpoint, you can do so here, specifying it as a string regardless of its type. If a value for this endpoint is not included when making the API call, the default value will be substituted in. If this field is omitted and no value is supplied for the API call, an exception is thrown.</td>
+</tr>
+</table>
+
+You do not include these endpoint names in the `url` section.
+
+* e.g., with the URL above, `api.someApi/someFixedEndpoint/{parameter}/{anotherParameter}?{queryParameter}={someValue}`,
+  the `url` section is defined as everything before the dynamic endpoints i.e.:
+
+<pre>api.someApi/someFixedEndpoint</pre>
+
+* Notice the omission of the trailing slash, it is not required but is recommended to do so.
+* As a result, URLs can only have parameter-based endpoints after _all_ fixed endpoints.
+
+If you include any dynamic endpoints, any trailing slashes in the `url` are removed beforehand.
+
+**It is important to note that the endpoints are inserted in the same order in which they are defined in the `endpoints`
+array.**
+
+* Changing this order results in a different, potentially invalid, URL.
+
+Note that if the `default` value is the empty string and no value is provided for the API call at runtime, an exception
+is thrown.
 
 ### API Key
 
@@ -137,8 +194,8 @@ information.
 
 It uses a custom syntax defined as follows:
 
--   To insert some top-level value defined in the `JSON` response object, the key name of the object is placed into the
-    string as `{key_name}` i.e., surrounded with curly braces.
+- To insert some top-level value defined in the `JSON` response object, the key name of the object is placed into the
+  string as `{key_name}` i.e., surrounded with curly braces.
 
 If the value is stored in some nested object in the response, two object notation forms can be used to access it:
 
@@ -146,8 +203,8 @@ If the value is stored in some nested object in the response, two object notatio
 
 Map notation can be used to access data stored in nested maps.
 
--   Prefix the field name with the field name(s) of all outer maps, separated by `.` characters. For example, consider the
-    following `JSON` response object:
+- Prefix the field name with the field name(s) of all outer maps, separated by `.` characters. For example, consider the
+  following `JSON` response object:
 
 <pre>
 {
@@ -177,9 +234,9 @@ We add all parent maps, separated by `.` characters: `{result.inner.message}` - 
 
 If the data is stored in an array, rather than a map, **array notation** is used instead.
 
--   Uses the same array-indexing notation in several programming languages.
--   Given an array, named `array` in the response, to access the n<sup>th</sup> element, we use `array[n]` where `n` is
-    some integer.
+- Uses the same array-indexing notation in several programming languages.
+- Given an array, named `array` in the response, to access the n<sup>th</sup> element, we use `array[n]` where `n` is
+  some integer.
 
 Consider the following `JSON` response object:
 
@@ -201,30 +258,30 @@ using **map notation**.
 These object notation forms can be chained together to access deeply nested objects (with
 some [limitations](#limitations)).
 
--   e.g., `{map.array[0]}` or `{array[0].map}`.
+- e.g., `{map.array[0]}` or `{array[0].map}`.
 
--   Note that **map notation cannot be used inside the square braces of an array notation**.
+- Note that **map notation cannot be used inside the square braces of an array notation**.
 
--   Also note that the map notation takes precedence over the array notation, and the top-level notation
-    i.e., `{parameter}` - not stored in any nested structure, has the lowest precedence.
+- Also note that the map notation takes precedence over the array notation, and the top-level notation
+  i.e., `{parameter}` - not stored in any nested structure, has the lowest precedence.
 
 The name of the parameter can include spaces i.e. if a parameter is named `parameter name` we can still reference it
 as `{parameter name}` in the message.
 
--   This includes map notation: `{map.parameter name}` is valid syntax.
+- This includes map notation: `{map.parameter name}` is valid syntax.
 
--   Note that any fields with leading and trailing whitespace e.g., `{map . parameter name}`, will be trimmed
-    to `{map.parameter name}` internally. Whitespace within the parameter is preserved.
+- Note that any fields with leading and trailing whitespace e.g., `{map . parameter name}`, will be trimmed
+  to `{map.parameter name}` internally. Whitespace within the parameter is preserved.
 
 An example can be found in the [example](#example-schema) section below.
 
 Technically speaking, the `message` attribute does not _need_ to be a natural language string.
 
--   In theory, you could structure it to represent a stringified `JSON` object instead (with indentation if needed) - this
-    could be useful when transferring data between two APIs.
+- In theory, you could structure it to represent a stringified `JSON` object instead (with indentation if needed) - this
+  could be useful when transferring data between two APIs.
 
--   However, typing information may be lost using this method; a better approach is to define the structure using
-    the [`metadata`](#metadata) field defined below.
+- However, typing information may be lost using this method; a better approach is to define the structure using
+  the [`metadata`](#metadata) field defined below.
 
 ### Error Code Name
 
@@ -274,8 +331,8 @@ An example implementation:
 }
 </pre>
 
-Note that the `error_code_name` field must also be set for these values to be used otherwise a generic error
-response is returned.
+Note that the `error_code_name` field must also be set for these values to be used otherwise a generic error response is
+returned.
 
 Also, note that the error codes must be double-quoted (as per `JSON` standards) and are all cast to strings internally.
 
@@ -349,11 +406,11 @@ To achieve the above structure, using the example response:
 When using the `custom` flag, the parameter name (e.g., `data` in this case) is not searched for in the response,
 instead, its `children` are.
 
--   Note that children can also be marked as custom.
--   Children can be nested as much as required, ensuring the containing parameter is marked as `custom` otherwise they
-    will be ignored.
--   Setting `custom` to false yields the default behaviour - the parameter will be treated as a field in the JSON response
-    object returned by the API and will be searched for.
+- Note that children can also be marked as custom.
+- Children can be nested as much as required, ensuring the containing parameter is marked as `custom` otherwise they
+  will be ignored.
+- Setting `custom` to false yields the default behaviour - the parameter will be treated as a field in the JSON response
+  object returned by the API and will be searched for.
 
 Note that the parameter will be skipped if it is marked as `custom` but no `children` attribute is present -
 if `children` is empty, the metadata returned for the parameter will also be empty.
@@ -420,12 +477,11 @@ Naturally, there is only so much that can be done with just string syntax parsin
 
 The following limitations currently exist:
 
--   No support for accessing multi-dimensional arrays in response parsing e.g., `{array[0][0]}`.
--   No support for array iteration in response parsing.
--   No support for adding custom arrays into response metadata.
--   No support for parameter-based API endpoints i.e., if the service has two endpoints that take the same parameters and
-    return the same response, they **must** be defined in separate schemas under different names.
--   No support for map iteration.
+- No support for accessing multi-dimensional arrays in response parsing e.g., `{array[0][0]}`.
+- No support for array iteration in response parsing.
+- No support for adding custom arrays into response metadata.
+- URLs can only have parameter-based endpoints after _all_ fixed endpoints.
+- No support for map iteration.
 
 Array iteration can be achieved by duplicating the desired section of the `message` n times, increasing the array index
 in the duplicated section by the desired increment. Prior knowledge about the size of the array returned is required.
