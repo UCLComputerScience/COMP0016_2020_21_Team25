@@ -16,7 +16,7 @@ class ActionConciergeFetchStocks(Action):
         
         stock= next(tracker.get_latest_entity_values("ORG"), None)
         print(stock)
-        r = requests.get(url="http://0.0.0.0:8080/stocks", params={
+        r = requests.get(url="http://localhost:8080/stocks", params={
             "SYMBOL": stock,
         }).json()
         
@@ -43,7 +43,7 @@ class ActionConciergeFetchCharity(Action):
         search_term = next(tracker.get_latest_entity_values("charity_search_term"), None)
 
 
-        r = requests.get(url="http://0.0.0.0:8080/charity-search", params={
+        r = requests.get(url="http://localhost:8080/charity-search", params={
             "QUERY": search_term,
             
         }).json()
@@ -69,7 +69,7 @@ class ActionConciergeFetchCharityCity(Action):
         city = next(tracker.get_latest_entity_values("GPE"), None)
 
 
-        r = requests.get(url="http://0.0.0.0:8080/charity-by-city", params={
+        r = requests.get(url="http://localhost:8080/charity-by-city", params={
             "CITY": city,
             
         }).json()
