@@ -34,10 +34,10 @@ public class AskBobResponseController {
                 callFunctionality.makePhoneCall(callNumber);
                 break;
             case "SMS_CONTACT":
-//                String smsContact = (String) parsedResponse.get("Contact");
-//                SmsFunctionality smsFunctionality = new SmsFunctionality(context, activity);
-//                String smsNumber = searchContacts.searchContacts(smsContact);
-//                smsFunctionality.sendSMS(smsNumber, "test");
+                String smsContact = (String) parsedResponse.get("Contact");
+                SmsFunctionality smsFunctionality = new SmsFunctionality(context, activity);
+                String smsNumber = searchContacts.searchContacts(smsContact);
+                smsFunctionality.sendSMS(smsNumber, "test");
                 OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
                 openAppFunctionality.openApp("messages");
                 break;
