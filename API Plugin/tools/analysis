@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cd .. && mvn pmd:pmd && cd target/site/ && python3 -m http.server

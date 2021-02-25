@@ -1,22 +1,22 @@
+package plugin;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+// TODO - Custom Exceptions, Multi-dimensional arrays
 
 /**
  * Parses output from the API based on the information defined in the JSON file.
  * <p>
  * Limitations: No support for multi-dimensional arrays. No support for looping
- * over an array. No support for custom nested metadata. No support for
- * parameter-based endpoints.
+ * over an array. No support for parameter-based endpoints.
  * <p>
- * class.
  */
 public class ResponseParser {
     private final String serviceName;
     private final Map<String, Object> structure;
-    private final Map<String, Object> metadataFields;
     private final Map<String, Object> metadata = new HashMap<>();
 
     /**
@@ -26,9 +26,9 @@ public class ResponseParser {
      * @param structure   Map representation of the JSON file defining the service.
      */
     public ResponseParser(String serviceName, Map<String, Object> structure) {
-        this.serviceName = serviceName;
+        String name = (String) structure.getOrDefault("name", serviceName);
+        this.serviceName = name.length() == 0 ? serviceName : name;
         this.structure = structure;
-        this.metadataFields = (Map<String, Object>) structure.getOrDefault("metadata", new HashMap<>());
     }
 
     /**
@@ -55,7 +55,7 @@ public class ResponseParser {
         ArrayList<String> params = new ArrayList<>();
         Matcher matcher = Pattern.compile("\\{(.*?)}").matcher(message);
         while (matcher.find()) {
-            params.add(matcher.group(1).trim().replaceAll("\\s+", ""));
+            params.add(matcher.group(1).trim());
         }
         return params;
     }
@@ -67,8 +67,8 @@ public class ResponseParser {
      * @return whether or not the string is using array notation.
      */
     private boolean isArrayNotation(String param) {
-        Matcher matcher = Pattern.compile("\\[(\\d+)]").matcher(param);
-        return matcher.find() && !isMapNotation(param);
+        Matcher matcher = Pattern.compile("\\[(.*?)]").matcher(param);
+        return matcher.find();
     }
 
     /**
@@ -89,30 +89,33 @@ public class ResponseParser {
      */
     private String parseResponse(Map<String, Object> response) {
         String output = (String) structure.get("message");
-        return parseMessage(output, response);
+        Map<String, Object> metadataFields = (Map<String, Object>) structure.getOrDefault("metadata", new HashMap<>());
+        return parseMessage(output, response, metadataFields);
     }
 
     /**
      * Parse a message using the syntax defined above.
      *
-     * @param message  the message to put response values into.
-     * @param response the API response object.
+     * @param message        the message to put response values into.
+     * @param response       the API response object.
+     * @param metadataFields defines how to locate the required metadata fields.
      * @return a message with the API values inserted into the correct places.
      */
-    private String parseMessage(String message, Map<String, Object> response) {
+    private String parseMessage(String message, Map<String, Object> response, Map<String, Object> metadataFields) {
         ArrayList<String> params = extractParams(message);
         for (String param : params) {
             String value;
             if (isMapNotation(param)) {
-                value = (extractStringFromMap(param, response));
+                value = extractStringFromMap(param, response);
             } else if (isArrayNotation(param)) {
-                value = (extractStringFromArray(param, response));
+                value = extractStringFromArray(param, response);
             } else {
-                value = (extractDefault(param, response));
+                value = extractDefault(param, response);
             }
             message = message.replace("{" + param + "}", value);
         }
-        populateMetadata(response);
+        metadata.clear();
+        populateMetadata(metadataFields, metadata, response);
         return message;
     }
 
@@ -120,11 +123,29 @@ public class ResponseParser {
      * Inserts all parameters specified in the JSON schema into the metadata of the
      * response.
      *
-     * @param response the JSON response object.
+     * @param metadataFields defines how to locate the values.
+     * @param metadata       the metadata to add the values to, allowing for custom
+     *                       nested metadata.
+     * @param response       the JSON response object.
      */
-    private void populateMetadata(Map<String, Object> response) {
+    private void populateMetadata(Map<String, Object> metadataFields, Map<String, Object> metadata,
+                                  Map<String, Object> response) {
         for (String parameter : metadataFields.keySet()) {
-            addToMetadata(parameter, response);
+            try {
+                Map<String, Object> fieldData = (Map<String, Object>) metadataFields.get(parameter);
+                boolean isCustomParameter = (boolean) fieldData.getOrDefault("custom", false);
+                if (isCustomParameter) {
+                    if (fieldData.containsKey("children")) {
+                        Map<String, Object> childrenMetadataFields = (Map<String, Object>) fieldData.get("children");
+                        Map<String, Object> childrenMetadata = new HashMap<>();
+                        populateMetadata(childrenMetadataFields, childrenMetadata, response);
+                        metadata.put(parameter, childrenMetadata);
+                    }
+                    continue;
+                }
+            } catch (ClassCastException ignored) {
+            }
+            addToMetadata(parameter, response, metadata, metadataFields);
         }
     }
 
@@ -132,15 +153,20 @@ public class ResponseParser {
      * Adds the data at the location specified by param to the metadata of the
      * response.
      *
-     * @param param    the parameter used to locate the data.
-     * @param response the JSON response object.
+     * @param param          the parameter used to locate the data.
+     * @param response       the JSON response object.
+     * @param metadata       the metadata to add the value to.
+     * @param metadataFields defines how to locate the data.
      */
-    private void addToMetadata(String param, Map<String, Object> response) {
+    private void addToMetadata(String param, Map<String, Object> response, Map<String, Object> metadata,
+                               Map<String, Object> metadataFields) {
         Object value;
         if (isMapNotation(param)) {
             value = extractObjectFromMap(param, response);
-        } else {
+        } else if (isArrayNotation(param)) {
             value = extractObjectFromArray(param, response);
+        } else {
+            value = response.get(param);
         }
         String keyName;
         try {
@@ -161,7 +187,7 @@ public class ResponseParser {
      * @return the value pointed to by the key.
      */
     private String extractDefault(String param, Map<String, Object> map) {
-        return (String) map.get(param);
+        return map.get(param).toString();
     }
 
     /**
@@ -173,10 +199,7 @@ public class ResponseParser {
      */
     private String extractStringFromMap(String rawParam, Map<String, Object> map) {
         Object string = extractObjectFromMap(rawParam, map);
-        if (string == null) {
-            return "";
-        }
-        return string.toString();
+        return (string == null) ? "" : string.toString();
     }
 
     /**
@@ -193,16 +216,17 @@ public class ResponseParser {
         for (int i = 0; i < size; i++) {
             String parameter = params[i];
             if (isArrayNotation(parameter)) {
-                mapCopy = (Map<String, Object>) extractObjectFromArray(parameter, mapCopy);
+                Object value = extractObjectFromArray(parameter, mapCopy);
+                try {
+                    mapCopy = (Map<String, Object>) value;
+                } catch (ClassCastException ignored) {
+                    return value;
+                }
             } else {
                 if (i < size - 1) {
                     mapCopy = (Map<String, Object>) mapCopy.get(parameter);
                 } else {
-                    Object value = mapCopy.get(parameter);
-                    if (value != null) {
-                        return value.toString();
-                    }
-                    return null;
+                    return mapCopy.get(parameter);
                 }
             }
         }
@@ -216,7 +240,7 @@ public class ResponseParser {
      * @return the array index.
      */
     private int getArrayIndex(String param) {
-        Matcher matcher = Pattern.compile("\\[(.*?)]").matcher(param);
+        Matcher matcher = Pattern.compile("\\[(\\d*?)]").matcher(param);
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         }
@@ -250,7 +274,7 @@ public class ResponseParser {
      * @return the string in the array at the index specified by the param.
      */
     private String extractStringFromArray(String param, Map<String, Object> map) {
-        return (String) extractObjectFromArray(param, map);
+        return extractObjectFromArray(param, map).toString();
     }
 
     /**
@@ -261,12 +285,14 @@ public class ResponseParser {
      * @return a natural language string describing the error that occurred.
      */
     private String parseErrorResponse(Map<String, Object> response) {
-        String code = getErrorCode(response);
         if (structure.containsKey("error_messages")) {
             Map<String, String> allMessages = (Map<String, String>) structure.get("error_messages");
+            String code = getErrorCode(response);
             if (allMessages.containsKey(code)) {
                 String message = allMessages.get(code);
-                return parseMessage(message, response);
+                Map<String, Object> metadataFields = (Map<String, Object>) structure.getOrDefault("error_metadata",
+                        new HashMap<>());
+                return parseMessage(message, response, metadataFields);
             }
         }
         return "An error occurred while calling the " + serviceName + " service.";
@@ -286,9 +312,8 @@ public class ResponseParser {
             if (code != null) {
                 return code.toString();
             }
-            return "default";
         }
-        return "";
+        return "default";
     }
 
     public String getServiceName() {

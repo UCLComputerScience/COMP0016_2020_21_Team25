@@ -1,0 +1,45 @@
+{
+  "status": "ok",
+  "totalResults": 9152,
+  "articles": [
+    {
+      "source": {
+        "id": "engadget",
+        "name": "Engadget"
+      },
+      "author": "Jon Fingas",
+      "title": "Tesla buys $1.5 in Bitcoin, will soon accept it as payment",
+      "description": "Elon Musk’s cryptocurrency hype was more than just idle talk. CNBC reports that Tesla not only bought $1.5 billion worth of Bitcoin to help “diversify and maximize” its returns, but will start taking payments using the digital asset sometime in the “near futu…",
+      "url": "https://www.engadget.com/tesla-to-take-bitcoin-payments-140109988.html",
+      "urlToImage": "https://s.yimg.com/os/creatr-uploaded-images/2021-02/389f89e0-6a11-11eb-b5c5-309f2241e56a",
+      "publishedAt": "2021-02-08T14:01:09Z",
+      "content": "Elon Musks cryptocurrency hype was more than just idle talk. CNBCreports that Tesla not only bought $1.5 billion worth of Bitcoin to help diversify and maximize its returns, but will start taking pay… [+1182 chars]"
+    },
+    {
+      "source": {
+        "id": "the-verge",
+        "name": "The Verge"
+      },
+      "author": "Justine Calma",
+      "title": "Tesla’s $1.5 billion bitcoin purchase clashes with its environmental aspirations",
+      "description": "Tesla announced this week that it purchased $1.5 billion in bitcoin and plans to accept bitcoin as payment in the future. CEO Elon Musk might have boosted bitcoin’s credibility. But greenhouse gas emissions from bitcoin are on the rise as the price of the cry…",
+      "url": "https://www.theverge.com/2021/2/9/22275243/teslas-bitcoin-purchase-clashes-climate-change-mission",
+      "urlToImage": "https://cdn.vox-cdn.com/thumbor/eQST6cDSwG_MASzsxTUv3igFdxU=/0x430:6000x3571/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22293241/1231048263.jpg",
+      "publishedAt": "2021-02-09T23:10:46Z",
+      "content": "Tesla, led by Elon Musk, confirmed that it purchased about $ 1.5 billion in bitcoin in January and expects to start accepting it as a payment in the future.  | Photo by Artur Widak/NurPhoto via Getty… [+6118 chars]"
+    },
+    {
+      "source": {
+        "id": "wired",
+        "name": "Wired"
+      },
+      "author": "Gregory Barber",
+      "title": "Would You Trade a Bitcoin for a Tesla?",
+      "description": "The maker of electric vehicles said it had invested $1.5 billion in bitcoin and plans to accept the cryptocurrency as payment for its cars.",
+      "url": "https://www.wired.com/story/would-you-trade-bitcoin-tesla/",
+      "urlToImage": "https://media.wired.com/photos/6021da4ff1bf194f33695dc3/191:100/w_1280,c_limit/business_tesla-bitcoin_1229893729.jpg",
+      "publishedAt": "2021-02-09T12:00:00Z",
+      "content": "For a brief moment on Sunday, before Tesla said it had invested $1.5 billion in bitcoin and planned to let people use the cryptocurrency to pay for its cars, bitcoins price could be expressed with a … [+3302 chars]"
+    }
+  ]
+}

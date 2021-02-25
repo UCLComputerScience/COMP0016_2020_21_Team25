@@ -1,0 +1,19 @@
+{
+  "url": "https://gutendex.com/books",
+  "parameters": {
+    "query": "search",
+    "languages": "languages",
+    "topic": "topic"
+  },
+  "message": "I've found a {results[0].subjects[0]} book called {results[0].title}, written by {results[0].authors[0].name}. Would you like me to read it to you?",
+  "metadata": {
+    "results[0].id": {
+      "alias": "id"
+    },
+    "results[0].formats.image/jpeg": "cover",
+    "results[0].formats.text/html; charset=utf-8": "html",
+    "results[0].formats.text/plain; charset=utf-8": "plaintext",
+    "results[0].formats.application/x-mobipocket-ebook": "ebook",
+    "results[0].formats.application/epub+zip": "epub"
+  }
+}
