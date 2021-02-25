@@ -1,18 +1,22 @@
+package plugin;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+// TODO - Parameter based endpoints, custom exceptions.
 
 /**
- * Class to read service structure from a JSON file to build the URL to the external API.
+ * Class to read service structure from a JSON file to build the URL to the
+ * external API.
  */
 public class UrlParser {
+    private final String resourcesFolder = "src" + File.separator + "main" + File.separator + "resources"
+            + File.separator;
     private final String fileExtension = ".json";
 
     /**
@@ -32,37 +36,39 @@ public class UrlParser {
     }
 
     /**
-     * Read contents of the specified json file (stored in the resources folder) into a String.
+     * Read contents of the specified json file (stored in the resources folder)
+     * into a String.
      *
      * @param serviceName the filename to read from.
      * @return the contents of the file.
      */
     private String readFile(String serviceName) {
         try {
-            // The following two lines access the resource folder,
-            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream inputStream = classloader.getResourceAsStream(serviceName + fileExtension);
+            File file = new File(resourcesFolder + serviceName + fileExtension);
+            InputStream inputStream = new FileInputStream(file);
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length;
-            assert inputStream != null;
             while ((length = inputStream.read(buffer)) != -1) {
                 result.write(buffer, 0, length);
             }
+            inputStream.close();
             return result.toString(StandardCharsets.UTF_8.name());
         } catch (IOException e) {
-            throw new RuntimeException("Could not find service '" + serviceName + "'");
+            throw new RuntimeException("Unknown service '" + serviceName + "'");
         }
     }
 
     /**
-     * Build a service request object from the JSON structure defined in the value and populate the url parameters with the request values.
+     * Build a service request object from the JSON structure defined in the value
+     * and populate the url parameters with the request values.
      *
      * @param serviceName   the name of the service to call.
      * @param requestValues the parameters needed by the service.
-     * @return a ServiceRequest object encapsulating the service name and its formatted url to make the call.
+     * @return a ServiceRequest object encapsulating the service name and its
+     * formatted url to make the call.
      */
-    public ServiceRequest parse(String serviceName, Map<String, Object> requestValues) {
+    public String parse(String serviceName, Map<String, Object> requestValues) {
         String contents = readFile(serviceName);
         Map<String, Object> serviceStructure = JSONtoMap(contents);
         checkTopLevelKeys(serviceStructure);
@@ -80,8 +86,7 @@ public class UrlParser {
             apiKeyData = (Map<String, String>) serviceStructure.get("api-key");
         }
 
-        String url = buildUrl(baseUrl, urlParameters, requestValues, apiKeyData);
-        return new ServiceRequest(serviceName, url);
+        return buildUrl(baseUrl, urlParameters, requestValues, apiKeyData);
     }
 
     /**
@@ -99,12 +104,16 @@ public class UrlParser {
     }
 
     /**
-     * Populates the required parameters, specified in the JSON file, with the values passed in and put it into the url.
+     * Populates the required parameters, specified in the JSON file, with the
+     * values passed in and put it into the url.
      *
-     * @param baseUrl       the url without any transformations applied, defined in the JSON file.
-     * @param parameters    the parameters needed to make the call, defined in the JSON file.
+     * @param baseUrl       the url without any transformations applied, defined in
+     *                      the JSON file.
+     * @param parameters    the parameters needed to make the call, defined in the
+     *                      JSON file.
      * @param requestValues the values to insert into the url.
-     * @param apiKeyData    information needed to add the API key (if required) to the url, defined in the JSON file.
+     * @param apiKeyData    information needed to add the API key (if required) to
+     *                      the url, defined in the JSON file.
      * @return a formatted String used to make the API call.
      */
     private String buildUrl(String baseUrl, Map<String, Object> parameters, Map<String, Object> requestValues,
@@ -112,26 +121,32 @@ public class UrlParser {
         StringBuilder url = new StringBuilder(baseUrl);
         int size = parameters.size();
         int i = 0;
+        int paramsAdded = 0;
         for (String key : parameters.keySet()) {
-            if (i == 0) {
-                url.append("?");
-            } else if (i <= size - 1) {
-                url.append("&");
+            String formattedParam = formatParameter(key, parameters, requestValues);
+            if (formattedParam.length() > 0) {
+                if (i == 0) {
+                    url.append("?");
+                } else if (i <= size - 1) {
+                    url.append("&");
+                }
+                paramsAdded++;
             }
             i++;
-            String formattedParam = formatParameter(key, parameters, requestValues);
             url.append(formattedParam);
         }
-        addApiKey(url, size, apiKeyData);
+        addApiKey(url, paramsAdded, apiKeyData);
         return url.toString();
     }
 
     /**
-     * Adds the API key (if required) to the url based on information in the JSON file.
+     * Adds the API key (if required) to the url based on information in the JSON
+     * file.
      *
      * @param url        the url to insert the API key into.
      * @param params     how many parameters have already been added to the url.
-     * @param apiKeyData data about how to insert the API key into the url, defined in the JSON file.
+     * @param apiKeyData data about how to insert the API key into the url, defined
+     *                   in the JSON file.
      */
     private void addApiKey(StringBuilder url, int params, Map<String, String> apiKeyData) {
         if (apiKeyData.size() > 0) {
@@ -148,7 +163,8 @@ public class UrlParser {
      *
      * @param key           the name of the parameter.
      * @param parameters    the map containing the parameter.
-     * @param requestValues the map where the corresponding value for the parameter is stored.
+     * @param requestValues the map where the corresponding value for the parameter
+     *                      is stored.
      * @return the formatted parameter.
      */
     private String formatParameter(String key, Map<String, Object> parameters, Map<String, Object> requestValues) {
@@ -166,11 +182,14 @@ public class UrlParser {
     }
 
     /**
-     * Pairs a parameter with its value in the request values, applying the alias is required.
+     * Pairs a parameter with its value in the request values, applying the alias is
+     * required.
      *
      * @param paramName the name of the parameter.
-     * @param paramData instructions on how to pair the parameter with its value, defined in the json file.
-     * @param values    the map where the corresponding value for the parameter is stored.
+     * @param paramData instructions on how to pair the parameter with its value,
+     *                  defined in the json file.
+     * @param values    the map where the corresponding value for the parameter is
+     *                  stored.
      * @return a string representing the parameter and its value.
      */
     private String getParameterAndValue(String paramName, Map<String, Object> paramData, Map<String, Object> values) {
@@ -205,14 +224,5 @@ public class UrlParser {
         if (!apiKeyData.containsKey("value")) {
             throw new RuntimeException("Missing required field 'value' for the API key.");
         }
-    }
-
-    public static void main(String[] args) {
-        UrlParser urlParser = new UrlParser();
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("city", "london");
-        parameters.put("language", "en");
-        ServiceRequest serviceRequest = urlParser.parse("current-weather", parameters);
-        System.out.println(serviceRequest.getUrl());
     }
 }

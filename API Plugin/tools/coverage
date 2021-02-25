@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cd .. && mvn jacoco:prepare-agent test jacoco:report && cd target/site/ && python3 -m http.server

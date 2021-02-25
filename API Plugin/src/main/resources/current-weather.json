@@ -19,11 +19,14 @@
     "default": "I'm sorry, I could not find any weather information."
   },
   "metadata": {
-    "main.temp": {
-      "alias": "temperature_in_kelvin"
+    "data": {
+      "custom": true,
+      "children": {
+        "wind.speed": "wind_speed",
+        "coord.lat": "latitude",
+        "coord.lon": "longitude"
+      }
     },
-    "main.temp_min": "minimum_temperature_in_kelvin",
-    "weather[0]": "basic_weather_data",
-    "weather[0].id": "test"
+    "weather[0]": "basic_weather_data"
   }
 }
