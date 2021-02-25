@@ -104,6 +104,7 @@ export default {
     font-weight: 700;
     cursor: pointer;
     border: 2px solid var(--blue);
+    text-transform: capitalize;
 }
 
 .dropdown-button:hover {

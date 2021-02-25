@@ -1,11 +1,12 @@
 <template>
-    <div ref="service" class="service noselect" v-on:click="go">
+    <div :id="id" ref="service" class="service noselect" v-on:click="fn">
         <div class="service-icon image">
-            <img :alt="serviceData.title" :src="icon"/>
+            <img :alt="title" :src="icon"/>
         </div>
-        <div class="row">
-            <h3 class="service-title">{{ serviceData.title }}</h3>
-            <p class="service-description">{{ serviceData.description }}</p>
+        <div class="row centred">
+            <h3 class="service-title">{{ title }}</h3>
+            <p class="service-description">{{ description }}</p>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -17,16 +18,39 @@ export default {
     name: "marketplace-item",
     props: {
         serviceData: Object,
+        marketplace: {type: Boolean, default: true}
     },
     computed: {
         icon() {
-            return getServiceIcon(this.serviceData.icon);
+            const icon = this.getAttr("icon");
+            if (icon !== "") {
+                return getServiceIcon(icon);
+            }
+            return "";
         },
+        fn() {
+            return (this.marketplace) ? this.go : () => {};
+        },
+        id() {
+            return this.getAttr("service_id");
+        },
+        title() {
+            return this.getAttr("service_name");
+        },
+        description() {
+            return this.getAttr("description");
+        }
     },
     methods: {
+        getAttr(attr) {
+            if (this.serviceData !== null) {
+                return this.serviceData[attr];
+            }
+            return "";
+        },
         search(searchTerm) {
-            const title = this.serviceData.title.toLowerCase();
-            const description = this.serviceData.description.toLowerCase();
+            const title = this.title.toLowerCase();
+            const description = this.description.toLowerCase();
             if (
                 searchTerm.includes(title) ||
                 title.includes(searchTerm) ||
@@ -43,7 +67,7 @@ export default {
                 .then((_) => {
                     this.$router.push({
                         path: "marketplace/service",
-                        query: {"service-id": this.serviceData.id},
+                        query: {"service-id": this.serviceData["service_id"]},
                     });
                 });
         },
@@ -62,11 +86,13 @@ export default {
 
 .service {
     border-radius: var(--border-radius);
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.125);
     cursor: pointer;
     min-width: 0;
     overflow: hidden;
     height: 400px;
+    background: var(--blue);
 }
 
 .service:hover {
@@ -89,15 +115,17 @@ export default {
 .service .row {
     padding: 16px;
     height: 40%;
-    background: var(--blue);
     z-index: 2;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .service-title {
     color: #FFF;
     margin: 0;
-    font-size: 15px;
+    font-size: 21px;
     text-transform: capitalize;
+    width: 100%;
 }
 
 .service-description {

@@ -34,7 +34,7 @@ export default {
         go(user, el) {
             this.$store.dispatch("member/activeMember", user.id).then((r) => {
                 const person = user.firstName + " " + user.lastName;
-                const param = person.replace(" ", "-").toLowerCase();
+                const param = person.replaceAll(" ", "-").toLowerCase();
                 this.$router.push({
                     name: "user-details",
                     params: {person: param},
@@ -80,25 +80,25 @@ export default {
 }
 
 .people-carousel .user {
-    flex-direction: row;
+    flex-direction: row !important;
     padding: 6px !important;
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 
 .people-carousel .user .profile-image {
-    width: 2em;
-    height: 2em;
+    width: 2em !important;
+    height: 2em !important;
     margin-right: 8px;
     background: #D9D9D9;
     border: 2px solid #D9D9D9;
 }
 
 .people-carousel .user .name {
-    font-size: 16px;
-    margin: 0;
+    font-size: 16px !important;
+    margin: 0 !important;
     line-height: 2em;
     max-height: 2em;
-    text-align: left;
+    text-align: left !important;
 }
 
 @media (pointer: fine) {
@@ -133,8 +133,8 @@ export default {
 }
 
 .people-carousel .active-user .profile-image {
-    width: 60px;
-    height: 60px;
+    width: 60px !important;
+    height: 60px !important;
     border: 2px solid var(--blue);
 }
 
@@ -152,14 +152,14 @@ export default {
 }
 
 .minimised-sidebar .people-carousel .user .profile-image {
-    width: calc(0.65 * var(--min-sidebar-width));
-    height: calc(0.65 * var(--min-sidebar-width));
+    width: calc(0.65 * var(--min-sidebar-width)) !important;
+    height: calc(0.65 * var(--min-sidebar-width)) !important;
     margin-right: 0 !important;
 }
 
 .minimised-sidebar .people-carousel .active-user .profile-image {
-    width: calc(0.85 * var(--min-sidebar-width));
-    height: calc(0.85 * var(--min-sidebar-width));
+    width: calc(0.85 * var(--min-sidebar-width)) !important;
+    height: calc(0.85 * var(--min-sidebar-width)) !important;
 }
 
 .minimised-sidebar .people-carousel .user .name {
@@ -182,21 +182,21 @@ export default {
     }
 
     .people-carousel .user {
-        flex-direction: column;
+        flex-direction: column !important;
         width: unset;
-        justify-content: unset;
+        justify-content: unset !important;
         align-items: center;
     }
 
     .people-carousel .user .profile-image {
-        margin-right: 0;
+        margin-right: 0 !important;
         margin-bottom: 16px;
-        height: 75px;
-        width: 75px;
+        height: 75px !important;
+        width: 75px !important;
     }
 
     .people-carousel .user .name {
-        text-align: center;
+        text-align: center !important;
     }
 }
 </style>

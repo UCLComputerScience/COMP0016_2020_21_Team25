@@ -51,6 +51,7 @@ export default {
     left: 0;
     right: 0;
     top: 100%;
+    z-index: 2;
     height: 4px;
     background: linear-gradient(
         180deg,
@@ -78,6 +79,7 @@ export default {
 @media (max-width: 1024px) {
     .people-navbar {
         flex-direction: column-reverse;
+        min-height: unset;
         height: unset;
         padding-bottom: 32px;
     }

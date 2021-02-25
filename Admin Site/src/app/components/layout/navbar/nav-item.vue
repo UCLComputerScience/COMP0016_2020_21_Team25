@@ -31,6 +31,7 @@ export default {
     font-weight: 700;
     padding: 4px 8px;
     cursor: pointer;
+    line-height: 1.5;
 }
 
 .nav-item:hover {

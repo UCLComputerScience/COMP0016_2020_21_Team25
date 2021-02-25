@@ -1,19 +1,39 @@
 <template>
     <form class="login-form centred" v-on:submit.prevent="login">
-        <text-input id="login-username-or-email" ref="username" :maxlength="255"
-                    :no-spaces="true" :object="loginData"
-                    autocomplete="username" icon="person"
-                    key-name="usernameOrEmail" label="Username or Email"
-                    placeholder="Username or email address" type="text">
+        <text-input
+            id="login-username-or-email"
+            ref="username"
+            :maxlength="255"
+            :no-spaces="true"
+            :object="loginData"
+            autocomplete="username"
+            icon="person"
+            key-name="usernameOrEmail"
+            label="Username or Email"
+            placeholder="Username or email address"
+            type="text"
+        >
         </text-input>
 
-        <text-input id="login-password" ref="password"
-                    :no-spaces="true" :object="loginData"
-                    autocomplete="current-password" icon="lock" key-name="password"
-                    label="Password" placeholder="Password" type="password">
+        <text-input
+            id="login-password"
+            ref="password"
+            :no-spaces="true"
+            :object="loginData"
+            autocomplete="current-password"
+            icon="lock"
+            key-name="password"
+            label="Password"
+            placeholder="Password"
+            type="password"
+        >
         </text-input>
 
-        <v-link class="inline-link" href="/forgot" text="Forgot Password?"></v-link>
+        <v-link
+            class="inline-link"
+            href="/forgot"
+            text="Forgot Password?"
+        ></v-link>
 
         <flat-button text="Log In" v-on:click.prevent="login"></flat-button>
     </form>
@@ -33,8 +53,8 @@ export default {
                 usernameOrEmail: "",
                 password: "",
                 response: null,
-            }
-        }
+            },
+        };
     },
     methods: {
         activate() {
@@ -52,27 +72,28 @@ export default {
             this.$refs.username.focus();
         },
         validInputs() {
-            if (this.loginData.usernameOrEmail === "" ||
-                this.loginData.password === "") {
+            if (
+                this.loginData.usernameOrEmail === "" ||
+                this.loginData.password === ""
+            ) {
                 return "invalid";
             }
             return "valid";
         },
-        login() {
+        async login() {
             const message = this.validInputs();
             if (message === "valid") {
-                this.$store.dispatch('account/login', this.loginData).then(r => {
-                    if (this.loginData.response !== null) {
-                        alert("Login failed. " + this.loginData.response);
-                        this.clearSensitiveInputs();
-                    }
-                });
+                await this.$store.dispatch("account/login", this.loginData);
+                if (this.loginData.response !== null) {
+                    alert("Login failed. " + this.loginData.response);
+                    this.clearSensitiveInputs();
+                }
             } else {
                 this.clearSensitiveInputs();
             }
         },
-    }
-}
+    },
+};
 </script>
 
 <style>
@@ -85,7 +106,8 @@ export default {
     margin-bottom: 16px;
 }
 
-.login-form .flat-button, .login-form .text-input {
+.login-form .flat-button,
+.login-form .text-input {
     flex: 1;
     width: 100%;
 }

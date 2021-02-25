@@ -92,7 +92,7 @@ export const routes = [
                 meta: {
                     title: (route) => {
                         const title =
-                            store.getters["service/activeService"].title;
+                            store.getters["service/activeService"]["service_name"];
                         if (title === undefined) {
                             return "";
                         }
@@ -155,7 +155,7 @@ export const routes = [
                 name: "user-services",
                 component: () =>
                     import(
-                        /* webpackChunkName: "people-services", webpackPrefetch: true */ "../app/views/people/user-views/UserServices.vue"
+                        /* webpackChunkName: "people-services", webpackPrefetch: true */ "../app/views/people/user-views/user-services/UserServices.vue"
                         ),
                 meta: {
                     title: (route) => {
@@ -170,7 +170,7 @@ export const routes = [
                 name: "user-history",
                 component: () =>
                     import(
-                        /* webpackChunkName: "history", webpackPrefetch: true */ "../app/views/people/user-views/UserHistory.vue"
+                        /* webpackChunkName: "history", webpackPrefetch: true */ "../app/views/people/user-views/user-history/UserHistory.vue"
                         ),
                 meta: {
                     title: (route) => {

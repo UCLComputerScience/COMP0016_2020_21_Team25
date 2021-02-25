@@ -7,6 +7,7 @@
                 <marketplace-item v-for="service in serviceRow" :service-data="service">
                 </marketplace-item>
             </div>
+            <span v-show="chunkedServices.length === 0">No services found.</span>
         </div>
     </section>
 </template>

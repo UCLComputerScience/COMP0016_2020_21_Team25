@@ -9,16 +9,11 @@ const router = createRouter({
     history: createWebHistory(),
     scrollBehavior(to, from, savedPosition) {
         if (to.hash) {
-            let section = document.querySelector(to.hash);
-            if (section !== null) {
-                window.scrollTo({
-                    top: section.offsetTop - 50,
-                    behaviour: "smooth",
-                });
-            }
-            return false;
+            return {selector: to.hash}
+        } else if (savedPosition) {
+            return savedPosition;
         } else {
-            return {x: 0, y: 0};
+            return {x: 0, y: 0}
         }
     },
     routes,
@@ -45,8 +40,8 @@ router.afterEach((to, from) => {
     nextTick(() => {
         document.title =
             to.meta.title(to) + " — Concierge Portal" || DEFAULT_TITLE;
-        let desc = document.querySelector('head meta[name="description"]');
-        let content = to.meta.description || DEFAULT_DESCRIPTION;
+        const desc = document.querySelector('head meta[name="description"]');
+        const content = to.meta.description || DEFAULT_DESCRIPTION;
         desc.setAttribute("content", content);
     });
 });

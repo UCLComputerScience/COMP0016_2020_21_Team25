@@ -1,10 +1,11 @@
 package backend.app;
 
-import backend.models.Database;
-import backend.models.DatabaseFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import backend.models.Database;
+import backend.models.DatabaseFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,11 +29,7 @@ public class AppController {
     public HistoryResponse history(@RequestParam String id) {
         int code = 200;
         ArrayList<String> history = new ArrayList<>();
-<<<<<<< Updated upstream:Backend/src/main/java/backend/app/AppController.java
         String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID}";
-=======
-        String query = "SELECT NAME FROM SERVICE INNER JOIN SERVICE_LOG ON SERVICE.SERVICE_ID = SERVICE_LOG.SERVICE_ID WHERE SERVICE_LOG.USER_ID={ID}";
->>>>>>> Stashed changes:Backend/api/src/main/java/backend/controllers/app/AppController.java
         query = query.replace("{ID}", id);
         ResultSet results = database.query(query);
         try {

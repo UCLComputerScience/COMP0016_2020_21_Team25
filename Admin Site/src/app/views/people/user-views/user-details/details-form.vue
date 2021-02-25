@@ -66,7 +66,9 @@ export default {
                 phoneNumber: this.member.phoneNumber,
             };
             this.$nextTick(() => {
-                this.$refs.form.select(this.member.prefix);
+                if (this.$refs.form !== null) {
+                    this.$refs.form.select(this.member.prefix);
+                }
             });
         },
         checkForm(form) {
@@ -114,7 +116,7 @@ export default {
         },
         updateRoute() {
             const name = this.member.firstName + " " + this.member.lastName;
-            const person = name.replace(" ", "-").toLowerCase();
+            const person = name.replaceAll(" ", "-").toLowerCase();
             this.$router.replace({
                 name: "user-details",
                 params: {
