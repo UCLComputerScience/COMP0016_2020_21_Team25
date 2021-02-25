@@ -7,26 +7,38 @@
         {
             "intent_id": "request_call",
             "examples":[
-                "Can you call Mike",
-                "Call Steven",
-                "Please Call Dean",
-                "Call John",
-                "Please call Tim",
-                "I would like to speak to David",
-                "Can you please call Alex"
+                "Can you call [Mike]{\"entity\":\"PERSON\"}",
+                "Can you call [Alex Davidson]{\"entity\":\"PERSON\"}",
+                "Can you call [Steven Smith]{\"entity\":\"PERSON\"}",
+                "Call [John Mout]{\"entity\":\"PERSON\"}",
+                "Call [Allen]{\"entity\":\"PERSON\"}",
+                "Call [Jeffrey]{\"entity\":\"PERSON\"}",
+                "Please Call [Dan Dixon]{\"entity\":\"PERSON\"}",
+                "Please Call [Daniel]{\"entity\":\"PERSON\"}",
+                "Please call [Ned Nelson]{\"entity\":\"PERSON\"}",
+                "I would like to speak to [Bob Rogers]{\"entity\":\"PERSON\"}",
+                "I would like to speak to [Macie Denton]{\"entity\":\"PERSON\"}",
+                "Can you please call [Philip Kay]{\"entity\":\"PERSON\"}",
+                "Can you please call [Steve]{\"entity\":\"PERSON\"}"
             ]
 
         },
         {
             "intent_id": "request_message",
             "examples":[
-                "Can you message Mike",
-                "SMS Steven",
-                "Can you send Dean an SMS",
-                "Send John a message",
-                "Please send Tim a message",
-                "I would like to message Alex"
-                
+                "Can you message [Steve]{\"entity\":\"PERSON\"}",
+                "Can you message [Tyler Combs]{\"entity\":\"PERSON\"}",
+                "SMS [Anne Leech]{\"entity\":\"PERSON\"}",
+                "SMS [Jude]{\"entity\":\"PERSON\"}",
+                "Can you send [Selena]{\"entity\":\"PERSON\"} an SMS",
+                "Can you send [James Dupont]{\"entity\":\"PERSON\"} an SMS",
+                "Could you send [Jacob]{\"entity\":\"PERSON\"} an SMS",
+                "Send [Jeremy Lewis]{\"entity\":\"PERSON\"} a message",
+                "Send [Emma]{\"entity\":\"PERSON\"} a message",
+                "Please send [Wade Padilla]{\"entity\":\"PERSON\"} a message",
+                "Please send [Nathon Davey]{\"entity\":\"PERSON\"} a message",
+                "I would like to message [Myrtle]{\"entity\":\"PERSON\"}",
+                "I would like to message [Doris]{\"entity\":\"PERSON\"}"
             ]
 
         }

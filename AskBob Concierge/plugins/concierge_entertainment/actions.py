@@ -59,7 +59,7 @@ class ActionConciergeFetchBook(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        search_term = next(tracker.get_latest_entity_values("book_search_term"), None)
+        search_term = next(tracker.get_latest_entity_values("WORK_OF_ART"), None)
         print(search_term)
         r = requests.get(url="http://0.0.0.0:8080/book", params={
             "QUERY": search_term,

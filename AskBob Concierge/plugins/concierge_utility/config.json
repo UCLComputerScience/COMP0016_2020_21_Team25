@@ -19,49 +19,88 @@
         {
             "intent_id": "ask_weather",
             "examples": [
-                "What is the weather in Manchester?",
-                "Tell me what the weather is like in Leeds?",
-                "Give me the weather in London",
-                "Give me the weather in Liverpool please",
-                "What's the temperature in Chicago right now?",
-                "What is the temperature like in Paris"
+                "What is the weather in [Leeds]{\"entity\":\"GPE\"}",
+                "What is the weather in [Bristol]{\"entity\":\"GPE\"}",
+                "Tell me what the weather is like in [Leeds]{\"entity\":\"GPE\"}",
+                "Tell me what the weather is like in [Windsor]{\"entity\":\"GPE\"}",
+                "Give me the weather in [London]{\"entity\":\"GPE\"}",
+                "Give me the weather in [Liverpool]{\"entity\":\"GPE\"} please",
+                "What is the temperature in [Chicago]{\"entity\":\"GPE\"} right now?",
+                "What's the temperature in [Berlin]{\"entity\":\"GPE\"} right now?",
+                "What is the temperature like in [Paris]{\"entity\":\"GPE\"}",
+                "What is the weather [Manchester]{\"entity\":\"GPE\"}",
+                "What's the weather in [Rome]{\"entity\":\"GPE\"}",
+                "What's the temperature in [Camden]{\"entity\":\"GPE\"}?",
+                "What's the temperature in [Bloomsbury]{\"entity\":\"GPE\"} right now?",
+                "How hot is it in [New York]{\"entity\":\"GPE\"}",
+                "How hot is it in [Sydney]{\"entity\":\"GPE\"}",
+                "How cold is it in [Oslo]{\"entity\":\"GPE\"}",
+                "How cold is it in [Moscow]{\"entity\":\"GPE\"}"
             ]
         },
        
         {
             "intent_id": "ask_air_quality",
             "examples":[
-                "What is the air quality in London like?",
-                "What is the current air quality in Glasgow",
-                "Give me the air quality in Chicago",
-                "Give me the air quality",
-                "Tell me what the air quality is like in Beijing",
-                "Could you tell me what the air quality is like"
+                "What is the air quality in [London]{\"entity\":\"GPE\"} like",
+                "What is the air quality in [Bloomsbury]{\"entity\":\"GPE\"}",
+                "What is the air quality in [New York]{\"entity\":\"GPE\"}",
+                "What is the current air quality in [Rome]{\"entity\":\"GPE\"}",
+                "What is the current air quality like in [Berlin]{\"entity\":\"GPE\"}",
+                "Give me the air quality in [Beijing]{\"entity\":\"GPE\"}",
+                "Give me the air quality in [Sydney]{\"entity\":\"GPE\"}",
+                "Give me the air quality in [Melbourne]{\"entity\":\"GPE\"}",
+                "Give me the air quality in [Hampton]{\"entity\":\"GPE\"}",
+                "Give me the air quality in [Liverpool]{\"entity\":\"GPE\"}",
+                "Tell me what the air quality is like in [Manchester]{\"entity\":\"GPE\"}",
+                "Tell me what the air quality is like in [Glasgow]{\"entity\":\"GPE\"}",
+                "Could you tell me what the air quality is like [Brooklyn]{\"entity\":\"GPE\"}",
+                "Could you tell me what the air quality is in [Detroit]{\"entity\":\"GPE\"}"
             ]
         },
         {
             "intent_id": "ask_definition",
             "examples":[
-                "What is the definition of [simultaneous](search_word)?",
-                "What does the word [brilliant](search_word) mean?",
-                "Give me the definition if the word [striking](search_word)",
-                "Tell me the meaning fo the word [discord](search_word)",
-                "What does [interesting](search_word) mean?",
-                "What is the search definition of the word [trash](search_word)?",
-                "Please tell me the meaning of the word [academy](search_word)"
+                "What is the definition of [respect]{\"entity\":\"search_word\"}",
+                "What is the dictionary definition of [valley]{\"entity\":\"search_word\"}",
+                "What is the definition of [discord]{\"entity\":\"search_word\"}",
+                "What does the word [sunshine]{\"entity\":\"search_word\"} mean",
+                "What does the word [light]{\"entity\":\"search_word\"} mean",
+                "What does the word [darkness]{\"entity\":\"search_word\"} mean",
+                "Give me the definition if the word [desert]{\"entity\":\"search_word\"}",
+                "Give me the dictionary definition if the word [scale]{\"entity\":\"search_word\"}",
+                "Tell me the meaning fo the word [copy]{\"entity\":\"search_word\"}",
+                "Tell me the meaning fo the word [lake]{\"entity\":\"search_word\"}",
+                "What does [hardship]{\"entity\":\"search_word\"} mean",
+                "What does the word [struggle]{\"entity\":\"search_word\"} mean",
+                "What is the search definition of the word [nomination]{\"entity\":\"search_word\"}",
+                "What is the search definition of the word [enhance]{\"entity\":\"search_word\"}",
+                "Could you tell me the meaning of the word [spring]{\"entity\":\"search_word\"}",
+                "Could you tell me the definition of the word [mature]{\"entity\":\"search_word\"}",
+                "Could you tell me the dictionary definition of the word [confuse]{\"entity\":\"search_word\"}"
             ]
 
         },
         {
             "intent_id": "ask_synonym",
             "examples":[
-                "What are the synonyms of the word of [illustrate](search_word)?",
-                "What are some synonyms of the word [sentiment](search_word)?",
-                "Give me synonyms of [sunshine](search_word)",
-                "Tell me some synonyms of the word [software](search_word)",
-                "Please give me synonyms of [housing](search_word)",
-                "Tell me synonyms of [convention](search_word)",
-                "Please tell me some synonyms of [moving](search_word)"
+                "What are the synonyms of the word of [division]{\"entity\":\"search_word\"}",
+                "What are some synonyms of the word [colony]{\"entity\":\"search_word\"}",
+                "What are some synonyms of the word [shortage]{\"entity\":\"search_word\"}",
+                "What are some synonyms of the word [concede]{\"entity\":\"search_word\"}",
+                "Give me synonyms of [topple]{\"entity\":\"search_word\"}",
+                "Give me synonyms of [excavate]{\"entity\":\"search_word\"}",
+                "Give me synonyms of [trivial]{\"entity\":\"search_word\"}",
+                "Tell me some synonyms of the word [weak]{\"entity\":\"search_word\"}",
+                "Tell me some synonyms of the word [strong]{\"entity\":\"search_word\"}",
+                "Tell me some synonyms of the word [powerful]{\"entity\":\"search_word\"}",
+                "Please give me synonyms of [good]{\"entity\":\"search_word\"}",
+                "Please give me synonyms of [bad]{\"entity\":\"search_word\"}",
+                "Could you give me synonyms of [deprive]{\"entity\":\"search_word\"}",
+                "Could you tell tell me synonyms of [tolerant]{\"entity\":\"search_word\"}",
+                "Please tell me some synonyms of [facility]{\"entity\":\"search_word\"}",
+                "Please tell me some synonyms of [late]{\"entity\":\"search_word\"}"
+
             ]
 
         }

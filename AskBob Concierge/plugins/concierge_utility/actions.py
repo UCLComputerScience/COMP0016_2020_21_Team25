@@ -15,10 +15,10 @@ class ActionConciergeFetchWeather(Action):
         
         city = next(tracker.get_latest_entity_values("GPE"), None)
 
-
-        r = requests.get(url="http://0.0.0.0:8080/current-weather", params={
+        print(city)
+        r = requests.get(url="http://localhost:8080/current-weather", params={
             "CITY_NAME": city,
-            
+        
         }).json()
         data_package={
             "Service_Type": "API_CALL",
@@ -37,8 +37,8 @@ class ActionConciergeFetchAirQuality(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         city = next(tracker.get_latest_entity_values("GPE"), None)
-
-        r = requests.get(url="http://0.0.0.0:8080/air-quality", params={
+        print(city)
+        r = requests.get(url="http://localhost:8080/air-quality", params={
             "CITY_NAME": city,
         }).json()
         
