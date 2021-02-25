@@ -1,5 +1,6 @@
 package com.example.fisev2concierge;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.askBobConnectivity.AskBob;
-import com.example.fisev2concierge.askBobConnectivity.AskBobFramework;
-import com.example.fisev2concierge.backendConnectivity.Backend;
-import com.example.fisev2concierge.controller.MainController;
+import com.example.fisev2concierge.controllers.MainController;
 
 import java.util.ArrayList;
 
@@ -47,7 +45,7 @@ public class HistoryView extends AppCompatActivity {
         appButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainController.openApp(HistoryView.this, HistoryView.this, "settings");
+                mainController.openApp(HistoryView.this, HistoryView.this, "youtube");
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.fisev2concierge;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,11 +12,12 @@ import android.content.pm.PackageManager;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-import com.example.fisev2concierge.controller.MainController;
+import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,23 +34,29 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.config(this, conciergeStatusText);
 
         MainController mainController = new MainController();
-
         //Speech Synthesis defined on main thread
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
         speechSynthesis.configTts(this);
 
         findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public boolean onTouch(View v, MotionEvent event) {    
                 switch(event.getAction()){
                     case MotionEvent.ACTION_UP:
+                        //test opening apps
                         speechRecognition.stopListening();
+                        String userRequest = String.valueOf(conciergeStatusText.getText());
                         conciergeStatusText.setHint("Concierge is off");
-                        //MainController Thread starts here
-                        Thread thread=new Thread(mainController);
-                        thread.run();
-                        //Result from thread returned to APItext and speech Synthesis
-                        speechSynthesis.runTts(mainController.apiRequest("Weather", new HashMap()));
+                        if (userRequest.length()>0){
+                            HashMap askBobResponse = mainController.askBobRequest(userRequest);
+                            if (askBobResponse.get("Service_Type").equals("API_CALL")){
+                                speechSynthesis.runTts((String) askBobResponse.get("Response"));
+                            } else {
+                                mainController.askBobController(askBobResponse, MainActivity.this, MainActivity.this, MainActivity.this);
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Empty input", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();

@@ -25,7 +25,7 @@ public class CallFunctionality extends AppCompatActivity {
         this.activity = activity;
     }
 
-    public int getRequestCall(){
+    public int getREQUESTCALL(){
         return REQUEST_CALL;
     }
 
@@ -33,6 +33,7 @@ public class CallFunctionality extends AppCompatActivity {
         this.number = number;
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+            makePhoneCall(number);
         } else {
             String dial = "tel:" + number;
             activity.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));

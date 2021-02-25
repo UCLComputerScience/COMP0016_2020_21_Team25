@@ -33,6 +33,7 @@ public class SmsFunctionality extends AppCompatActivity {
         this.message = message;
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.SEND_SMS}, REQUEST_MSG);
+            sendSMS(number, message);
         } else {
             try {
                 SmsManager smsManager = SmsManager.getDefault();

@@ -1,18 +1,14 @@
 package com.example.fisev2concierge;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
-import com.example.fisev2concierge.controller.MainController;
-import com.example.fisev2concierge.helperClasses.NotificationHelper;
-import com.example.fisev2concierge.model.RemindersDbHelper;
+import com.example.fisev2concierge.controllers.MainController;
 
 public class AddReminderView extends AppCompatActivity {
 

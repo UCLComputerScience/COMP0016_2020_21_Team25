@@ -1,0 +1,34 @@
+package com.example.fisev2concierge.askBobConnectivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.json.*;
+
+public class AskBobResponseParser {
+
+    public HashMap parse(ArrayList<String> response){
+
+        HashMap parsedResponse = new HashMap();
+        try {
+            String jsonString = response.get(0);
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("messages");
+            JSONObject custom = (JSONObject) jsonArray.getJSONObject(0).get("custom");
+            parsedResponse.put("Service_Type", custom.getString("Service_Type"));
+            switch(custom.getString("Service_Type")){
+                case "API_CALL":
+                    parsedResponse.put("Service", custom.getString("Service"));
+                    parsedResponse.put("Response", custom.getString("Response"));
+                    break;
+                case "CALL_CONTACT":
+                    parsedResponse.put("Contact", custom.getString("Contact"));
+                case "SMS_CONTACT":
+                    parsedResponse.put("Contact", custom.getString("Contact"));
+                    break;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return parsedResponse;
+    }
+}

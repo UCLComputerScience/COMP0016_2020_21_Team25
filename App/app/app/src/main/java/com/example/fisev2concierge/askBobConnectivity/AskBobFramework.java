@@ -10,19 +10,16 @@ import java.util.ArrayList;
 
 public class AskBobFramework{
 
-//    private String baseUrl = "http://localhost:8080/";
+//    private String baseUrl = "http://localhost:8000/";
     private String baseUrl = "http://10.0.2.2:8000/";
 
     public ArrayList<String> request(String path, String parameters){
         ArrayList<String> response = new ArrayList<>();
         try {
-//            URL url = new URL("http://10.0.2.2:8000/query");
             URL url = new URL(baseUrl + path);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
-//            connection.setRequestProperty("message", "tell me a pun");
-//            connection.setRequestProperty("sender", "user");
             try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream())) {
                 wr.write(parameters.getBytes());
             }

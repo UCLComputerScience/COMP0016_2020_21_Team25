@@ -1,13 +1,9 @@
 package com.example.fisev2concierge;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.fisev2concierge.controller.MainController;
-import com.example.fisev2concierge.helperClasses.AlertReceiver;
+import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.helperClasses.DatePickerFragment;
 import com.example.fisev2concierge.helperClasses.NotificationHelper;
 import com.example.fisev2concierge.helperClasses.TimePickerFragment;
-import com.example.fisev2concierge.model.AlarmsDbHelper;
 
 import java.text.DateFormat;
 import java.util.Calendar;

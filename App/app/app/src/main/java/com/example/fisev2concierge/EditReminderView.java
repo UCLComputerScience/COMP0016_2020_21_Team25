@@ -8,8 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.controller.MainController;
-import com.example.fisev2concierge.model.RemindersDbHelper;
+import com.example.fisev2concierge.controllers.MainController;
 
 public class EditReminderView extends AppCompatActivity {
 
