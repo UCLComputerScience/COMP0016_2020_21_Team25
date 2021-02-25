@@ -15,6 +15,7 @@ import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenWebsiteFunctionality;
 import com.example.fisev2concierge.functionalityClasses.RemindersFunctionality;
+import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 
 import java.util.ArrayList;
@@ -22,6 +23,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class MainController{
+
+    public String searchContact(String name, AppCompatActivity appCompatActivity, Context context, Activity activity){
+        SearchContacts searchContacts = new SearchContacts(appCompatActivity, context, activity);
+        return searchContacts.searchContacts(name);
+    }
 
     public HashMap askBobRequest(String sTT){
         AskBobRequest askBobRequest = new AskBobRequest();

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_UP:
                         //test opening apps
+                        //test if calls are made automatically after being granted permission
                         speechRecognition.stopListening();
                         String userRequest = String.valueOf(conciergeStatusText.getText());
                         conciergeStatusText.setHint("Concierge is off");

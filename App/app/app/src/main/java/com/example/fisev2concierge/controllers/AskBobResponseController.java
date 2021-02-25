@@ -2,6 +2,7 @@ package com.example.fisev2concierge.controllers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,28 +24,36 @@ public class AskBobResponseController {
     public void responseController(HashMap parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity){
 
         String Service_Type = (String) parsedResponse.get("Service_Type");
-        SearchContacts searchContacts = new SearchContacts();
+//        SearchContacts searchContacts = new SearchContacts(appCompatActivity);
 
         switch (Service_Type){
             //Don't deal with API_CALL as this is managed directly by MainActivity
             case "CALL_CONTACT":
                 String callContact = (String) parsedResponse.get("Contact");
-                CallFunctionality callFunctionality = new CallFunctionality(context, activity);
-                String callNumber = searchContacts.searchContacts(callContact);
-                callFunctionality.makePhoneCall(callNumber);
+//                CallFunctionality callFunctionality = new CallFunctionality(context, activity);
+//                String callNumber = searchContacts.searchContacts(callContact);
+//                callFunctionality.makePhoneCall(callNumber);
+                String callNumber = mainController.searchContact(callContact, appCompatActivity, context, activity);
+                mainController.makeCall(context, activity, callNumber);
                 break;
             case "SMS_CONTACT":
                 String smsContact = (String) parsedResponse.get("Contact");
-                SmsFunctionality smsFunctionality = new SmsFunctionality(context, activity);
-                String smsNumber = searchContacts.searchContacts(smsContact);
-                smsFunctionality.sendSMS(smsNumber, "test");
-                OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
-                openAppFunctionality.openApp("messages");
+//                SmsFunctionality smsFunctionality = new SmsFunctionality(context, activity);
+//                String smsNumber = searchContacts.searchContacts(smsContact);
+//                smsFunctionality.sendSMS(smsNumber, "test");
+//                OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
+//                openAppFunctionality.openApp("messages");
+                String smsNumber = mainController.searchContact(smsContact, appCompatActivity, context, activity);
+                mainController.sendText(context, activity, smsNumber, "test");
+                mainController.openApp(appCompatActivity, context, "messages");
                 break;
             case "OPEN_APP":
-                //code for opening app
+                String appName = (String) parsedResponse.get("Application");
+                mainController.openApp(appCompatActivity, context, appName);
+                break;
             default:
                 //Improve error dealing
+                Toast.makeText(context, "Error with parsing", Toast.LENGTH_SHORT).show();
                 System.out.println("Error");
         }
     }

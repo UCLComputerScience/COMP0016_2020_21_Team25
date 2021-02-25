@@ -39,7 +39,6 @@ public class OpenAppFunctionality {
 
     public void openApp(String appName){
         String packageName = (String) appPackageNames.get(appName);
-        System.out.println(packageName);
         Intent launchIntent = appCompatActivity.getPackageManager().getLaunchIntentForPackage(packageName);
         if (launchIntent != null){
             appCompatActivity.startActivity(launchIntent);
@@ -49,6 +48,5 @@ public class OpenAppFunctionality {
             launchIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
             appCompatActivity.startActivity(launchIntent);
         }
-        //
     }
 }
