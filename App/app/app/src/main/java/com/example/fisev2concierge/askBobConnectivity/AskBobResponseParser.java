@@ -22,8 +22,12 @@ public class AskBobResponseParser {
                     break;
                 case "CALL_CONTACT":
                     parsedResponse.put("Contact", custom.getString("Contact"));
+                    break;
                 case "SMS_CONTACT":
                     parsedResponse.put("Contact", custom.getString("Contact"));
+                    break;
+                case "OPEN_APP":
+                    parsedResponse.put("Application", custom.getString("Application"));
                     break;
             }
         } catch (Exception e){

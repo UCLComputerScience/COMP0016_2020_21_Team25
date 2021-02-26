@@ -11,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fisev2concierge.controllers.MainController;
+import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HistoryView extends AppCompatActivity {
     public Button button;
@@ -53,7 +55,7 @@ public class HistoryView extends AppCompatActivity {
         webButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainController.openWebsite(HistoryView.this, "http://10.0.2.2:8080/servicedata?id=28");
+                mainController.openWebsite(HistoryView.this, "https://www.amazon.co.uk/");
             }
         });
         
@@ -69,8 +71,35 @@ public class HistoryView extends AppCompatActivity {
         askBobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> result = mainController.askBobServices("query", "message=\"tell me a pun\"&sender=\"user\"");
+                ArrayList<String> result = mainController.askBobServices("query", "message=\"tell me a joke\"&sender=\"user\"");
                 System.out.println("AskBobResult: " + result.toString());
+            }
+        });
+
+        Button addContact = findViewById(R.id.addContactButton);
+        addContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchContacts searchContacts = new SearchContacts(HistoryView.this, HistoryView.this, HistoryView.this);
+                searchContacts.addContacts("Bob 1", "05688797897");
+            }
+        });
+
+        Button viewContacts = findViewById(R.id.viewContactsButton);
+        viewContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchContacts searchContacts = new SearchContacts(HistoryView.this, HistoryView.this, HistoryView.this);
+                searchContacts.searchContacts("Bob 1");
+            }
+        });
+
+        Button askBobOpenApp = findViewById(R.id.askBobOpenApp);
+        askBobOpenApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap askBobResponse = mainController.askBobRequest("open settings");
+                mainController.askBobController(askBobResponse, HistoryView.this, HistoryView.this, HistoryView.this);
             }
         });
     }

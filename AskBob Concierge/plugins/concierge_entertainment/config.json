@@ -3,22 +3,16 @@
     "entities": [
         "joke_category",
         "news_search_term",
-        "book_search_term",
+        "WORK_OF_ART",
         "book_category"
     ],
     "regexes": [
         {
             "regex_id": "news_search_term",
             "examples":[
-                "(?:[A-Za-z]+ ){0,2}[A-Za-z]+"
+                "(?:[A-Za-z]+ ){0,3}[A-Za-z]+"
             ]
-        },
-        {
-            "regex_id": "book_search_term",
-            "examples":[
-                "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
-            ]
-        } 
+        }
     ],
     "lookups": [
         {
@@ -51,23 +45,41 @@
         {
             "intent_id": "ask_joke",
             "examples":[
+                "Tell me a joke",
                 "Tell me a funny joke",
-                "Tell me a [knock knock](joke_category) joke please",
-                "Give me a [science](joke_category) joke",
-                "Give me a joke",
-                "Could you tell me an [airplane](joke_category) joke",
-                "Could you tell me a joke"
+                "Tell me a dad joke",
+                "Tell me a pun",
+                "Tell me a [knock knock]{\"entity\":\"joke_category\"} joke please",
+                "Tell me a [food]{\"entity\":\"joke_category\"} joke please",
+                "Give me a [science]{\"entity\":\"joke_category\"} joke",
+                "Give me a [computer]{\"entity\":\"joke_category\"} joke",
+                "Give me an [animal]{\"entity\":\"joke_category\"} pun",
+                "Could you tell me a [science]{\"entity\":\"joke_category\"} joke",
+                "Could you tell me a [food]{\"entity\":\"joke_category\"} pun",
+                "Could you tell me a joke",
+                "Could you tell me a pun"
             ]
         },
         {
             "intent_id": "ask_news",
             "examples":[
-                "Give me recent news about [america](news_search_term)",
-                "Tell me news about [COVID](news_search_term)",
-                "What is the most recent news regarding [technology](news_search_term)",
-                "Please tell me some news about [pandas](news_search_term)",
-                "Is there any news about [Boris Johnson](news_search_term)",
-                "Could you give me some news about [vaccines](news_search_term)"
+                "Give me news about [american politics]{\"entity\":\"news_search_term\"}",
+                "Give me recent news about [the Perseverance rover]{\"entity\":\"news_search_term\"}",
+                "Give me some news about [Elon Musk]{\"entity\":\"news_search_term\"}",
+                "Tell me news about [covid]{\"entity\":\"news_search_term\"}",
+                "Tell me news about [Amazon]{\"entity\":\"news_search_term\"}",
+                "Tell me news about [Boris Johnson]{\"entity\":\"news_search_term\"}",
+                "What is the most recent news regarding [technology]{\"entity\":\"news_search_term\"}",
+                "What is the most recent news regarding [Google]{\"entity\":\"news_search_term\"}",
+                "Please tell me some news about [pandas]{\"entity\":\"news_search_term\"}",
+                "Please tell me recent news about [climate change]{\"entity\":\"news_search_term\"}",
+                "Please tell me news about [pandas]{\"entity\":\"news_search_term\"}",
+                "Is there any news about [The Paris Climate Agreement]{\"entity\":\"news_search_term\"}",
+                "Is there any recent news about [Bill Gates]{\"entity\":\"news_search_term\"}",
+                "Is there any news about [Boris Johnson]{\"entity\":\"news_search_term\"}",
+                "Could you give me some news about [London]{\"entity\":\"news_search_term\"}",
+                "Could you give me some recent news about [the covid vaccines]{\"entity\":\"news_search_term\"}"
+    
             ]
 
         },
@@ -75,22 +87,44 @@
             "intent_id": "ask_book_category",
             "examples":[
                 "Tell me about a [horror](book_category) story",
-                "Give me information about a [fantasy](book_category) book",
+                "Tell me about a [romance](book_category) story",
+                "Tell me about a [science fiction](book_category) story",
+                "Give me information about a [classic](book_category) book",
+                "Give me a brief summary about a [mystery](book_category) book",
+                "Give me a summary about a [fantasy](book_category) book",
                 "Read me a [romance](book_category) novel",
+                "Read me a [horror](book_category) novel",
                 "Could you read me a [science fiction](book_category) book",
+                "Could you read me a [classic](book_category) novel",
                 "Please read a [mystery](book_category) book",
-                "What is a good [classic](book_category) novel"
+                "Please read a [horror](book_category) novel",
+                "Please read me a [romance](book_category) book",
+                "What is a good [mystery](book_category) book",
+                "What is a good [classic](book_category) story",
+                "What is a good [science fiction](book_category) novel"
             ]
         },
         {
             "intent_id": "ask_book",
             "examples":[
-                "Tell me about the book [Frankenstein](book_search_term)",
-                "Give me information about the book [Dracula](book_search_term)",
-                "Read me the book [Great Expectations](book_search_term)",
-                "Could you read me [A Christmas Carol](book_search_term)",
-                "Please read [Macbeth](book_search_term]",
-                "Who wrote [Romeo and Juliet](book_search_term)"
+                "Tell me about the book [Frankenstein]{\"entity\":\"WORK_OF_ART\"}",
+                "Tell me about the story [Pride and Prejuidice]{\"entity\":\"WORK_OF_ART\"}",
+                "Tell me about the novel [Alice's Adventures in Wonderland]{\"entity\":\"WORK_OF_ART\"}",
+                "Give me information about the book [Dracula]{\"entity\":\"WORK_OF_ART\"}",
+                "Give me information about the story [The Scarlet Letter]{\"entity\":\"WORK_OF_ART\"}",
+                "Give me a summary of the novel [Metamorphosis]{\"entity\":\"WORK_OF_ART\"}",
+                "Read me the book [Great Expectations]{\"entity\":\"WORK_OF_ART\"}",
+                "Read me the book [The Strange Case of Dr Jekyll and Mr Hyde]{\"entity\":\"WORK_OF_ART\"}",
+                "Read me the book [The Great Gatsby]{\"entity\":\"WORK_OF_ART\"}",
+                "Could you read me [A Christmas Carol]{\"entity\":\"WORK_OF_ART\"}",
+                "Could you read me the book [The Adventures of Sherlock Holmes]{\"entity\":\"WORK_OF_ART\"}",
+                "Please read [Macbeth]{\"entity\":\"WORK_OF_ART\"}",
+                "Please read the book [Moby Dick]{\"entity\":\"WORK_OF_ART\"}",
+                "Please read the novel [The Picture of Dorian Gray]{\"entity\":\"WORK_OF_ART\"}",
+                "Who wrote [Romeo and Juliet]{\"entity\":\"WORK_OF_ART\"}",
+                "Who wrote the book [Beowulf]{\"entity\":\"WORK_OF_ART\"}",
+                "Could you tell me about the book [The Odyssey]{\"entity\":\"WORK_OF_ART\"}",
+                "Could you tell me about the novel [Peter Pan]{\"entity\":\"WORK_OF_ART\"}"
             ]
 
         }

@@ -14,7 +14,7 @@ class ActionConciergeFetchJoke(Action):
 
         joke_term = next(tracker.get_latest_entity_values("joke_category"), None)
         print(joke_term)
-        r = requests.get(url="http://0.0.0.0:8080/joke", params={
+        r = requests.get(url="http://localhost:8080/joke", params={
             "TERM":joke_term}).json()
         
         data_package={
@@ -37,7 +37,7 @@ class ActionConciergeFetchNews(Action):
 
         search_term = next(tracker.get_latest_entity_values("news_search_term"), None)
         print(search_term)
-        r = requests.get(url="http://0.0.0.0:8080/news", params={
+        r = requests.get(url="http://localhost:8080/news", params={
             "QUERY": search_term,
             "LANGUAGE": "en"
         }).json()
@@ -59,9 +59,9 @@ class ActionConciergeFetchBook(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        search_term = next(tracker.get_latest_entity_values("book_search_term"), None)
+        search_term = next(tracker.get_latest_entity_values("WORK_OF_ART"), None)
         print(search_term)
-        r = requests.get(url="http://0.0.0.0:8080/book", params={
+        r = requests.get(url="http://localhost:8080/book", params={
             "QUERY": search_term,
             "LANGUAGES": "en"
         }).json()
@@ -85,7 +85,7 @@ class ActionConciergeFetchBookCategory(Action):
 
         category = next(tracker.get_latest_entity_values("book_category"), None)
         print(category)
-        r = requests.get(url="http://0.0.0.0:8080/book", params={
+        r = requests.get(url="http://localhost:8080/book", params={
             "TOPIC": category,
             "LANGUAGES": "en"
         }).json()
