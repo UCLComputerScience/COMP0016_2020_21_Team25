@@ -142,9 +142,6 @@ The `api-key` field has the following sub-fields:
 </tr>
 </table>
 
-Note that if you include the `api-key` field in your schema, you **must** specify a value, otherwise, a parsing error is
-thrown.
-
 ### Parameters
 
 This section defines how to add custom parameters to the URL. It is required if you'd like to include any custom (or
@@ -186,6 +183,8 @@ A shorthand can be used for the `alias` field:
 
 This will transform `parameter` into `alias` when inserted into the URL - the parameter has no `default` value and is
 not required.
+
+A blank `default` value and no value supplied for the API call will skip the parameter from being added.
 
 ### Message
 
