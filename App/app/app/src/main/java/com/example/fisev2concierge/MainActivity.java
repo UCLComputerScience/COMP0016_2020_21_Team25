@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                             HashMap askBobResponse = mainController.askBobRequest(userRequest);
                             if (askBobResponse.get("Service_Type").equals("API_CALL")){
                                 speechSynthesis.runTts((String) askBobResponse.get("Response"));
+                            } else if (askBobResponse.get("Service_Type").equals("ERROR")){
+                                speechSynthesis.runTts((String) askBobResponse.get("text"));
+                                Toast.makeText(MainActivity.this, "Command not understood", Toast.LENGTH_SHORT).show();
                             } else {
                                 mainController.askBobController(askBobResponse, MainActivity.this, MainActivity.this, MainActivity.this);
                             }

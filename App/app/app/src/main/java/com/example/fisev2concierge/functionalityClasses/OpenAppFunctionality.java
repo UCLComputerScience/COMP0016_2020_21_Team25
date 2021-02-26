@@ -43,7 +43,8 @@ public class OpenAppFunctionality {
         if (launchIntent != null){
             appCompatActivity.startActivity(launchIntent);
         } else {
-            Toast.makeText(context, "Could not open", Toast.LENGTH_SHORT).show();
+            //check to see if appname is mentioned in hashmap, if not don't redirect to playstore
+            Toast.makeText(context, "Could not open: " + appName, Toast.LENGTH_SHORT).show();
             launchIntent = new Intent(Intent.ACTION_VIEW);
             launchIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
             appCompatActivity.startActivity(launchIntent);

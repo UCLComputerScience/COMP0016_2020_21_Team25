@@ -71,7 +71,7 @@ public class HistoryView extends AppCompatActivity {
         askBobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> result = mainController.askBobServices("query", "message=\"tell me a joke\"&sender=\"user\"");
+                ArrayList<String> result = mainController.askBobServices("query", "message=\"call bob\"&sender=\"user\"");
                 System.out.println("AskBobResult: " + result.toString());
             }
         });
@@ -90,7 +90,8 @@ public class HistoryView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SearchContacts searchContacts = new SearchContacts(HistoryView.this, HistoryView.this, HistoryView.this);
-                searchContacts.searchContacts("Bob 1");
+                String res = searchContacts.searchContacts("Bob 6");
+                System.out.println("Res: " + res);
             }
         });
 
@@ -98,8 +99,11 @@ public class HistoryView extends AppCompatActivity {
         askBobOpenApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap askBobResponse = mainController.askBobRequest("open settings");
-                mainController.askBobController(askBobResponse, HistoryView.this, HistoryView.this, HistoryView.this);
+                HashMap askBobResponse = mainController.askBobRequest("random ting");
+//                mainController.askBobController(askBobResponse, HistoryView.this, HistoryView.this, HistoryView.this);
+                if (askBobResponse.get("Service_Type").equals("ERROR")){
+                    System.out.println("Command not understood: " + askBobResponse.get("text").toString());
+                }
             }
         });
     }
