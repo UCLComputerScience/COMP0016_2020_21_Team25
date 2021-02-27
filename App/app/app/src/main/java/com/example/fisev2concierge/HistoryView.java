@@ -47,7 +47,8 @@ public class HistoryView extends AppCompatActivity {
         appButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainController.openApp(HistoryView.this, HistoryView.this, "youtube");
+//                mainController.openApp(HistoryView.this, HistoryView.this, "youtube");
+                mainController.openApp(HistoryView.this, HistoryView.this, "amazon");
             }
         });
 
@@ -55,7 +56,7 @@ public class HistoryView extends AppCompatActivity {
         webButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainController.openWebsite(HistoryView.this, "https://www.amazon.co.uk/");
+                mainController.openWebsite(HistoryView.this, "amazon");
             }
         });
         

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".MainActivity">
+    <!--    android:paddingTop="?attr/actionBarSize"-->
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/nav_view"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="0dp"-->
+    <!--        android:layout_marginEnd="0dp"-->
+    <!--        android:background="?android:attr/windowBackground"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:menu="@menu/bottom_nav_menu" />-->
+
+    <!--    <androidx.fragment.app.FragmentContainerView-->
+    <!--        android:id="@+id/nav_host_fragment"-->
+    <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:defaultNavHost="true"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/nav_view"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:navGraph="@navigation/mobile_navigation" />-->
+
+    <ScrollView
+        android:id="@+id/buttonsScrollView"
+        android:layout_width="275dp"
+        android:layout_height="134dp"
+        android:background="@drawable/stroke_bg"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalGuide10"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuide2"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuide1"
+        app:layout_constraintTop_toTopOf="@+id/horizontalGuide4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/help_view_button"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/help"
+                android:textSize="35sp"
+                app:backgroundTint="#1FCD66"
+                tools:text="help" />
+
+            <Button
+                android:id="@+id/alarms_view_button"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/alarms"
+                android:textSize="35sp"
+                app:backgroundTint="#1FCD66" />
+
+            <Button
+                android:id="@+id/reminders_view_button"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/reminders"
+                android:textSize="35sp"
+                app:backgroundTint="#1FCD66" />
+
+            <Button
+                android:id="@+id/timers_view_button"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/timers"
+                android:textSize="35sp"
+                app:backgroundTint="#1FCD66" />
+
+            <Button
+                android:id="@+id/history_view_button"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/history"
+                android:textSize="35sp"
+                app:backgroundTint="#1FCD66"
+                tools:text="history" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <ImageView
+        android:id="@+id/headerBox"
+        android:layout_width="729dp"
+        android:layout_height="183dp"
+        android:contentDescription="@string/header_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/box" />
+
+    <EditText
+        android:id="@+id/conciergeStatusText"
+        android:layout_width="365dp"
+        android:layout_height="176dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/conciergeStatus"
+        android:inputType="textPersonName"
+        android:keepScreenOn="false"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/holdToUseText"
+        android:layout_width="194dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="4dp"
+        android:text="Hold to use Concierge"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuide3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ibmLogo"
+        android:layout_width="46dp"
+        android:layout_height="28dp"
+        android:contentDescription="@string/ibm_logo_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuide1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ibm_logo" />
+
+    <ImageView
+        android:id="@+id/uclLogo"
+        android:layout_width="50dp"
+        android:layout_height="33dp"
+        android:contentDescription="@string/ucl_logo_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuide2"
+        app:srcCompat="@drawable/ucl_logo" />
+
+    <ImageView
+        android:id="@+id/tapToStartConciergeIcon"
+        android:layout_width="165dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/stroke_bg"
+        android:clickable="true"
+        android:contentDescription="@string/start_concierge_icon_description"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuide1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.14" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuide2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuide3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuide4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuide5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.44" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuide10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.93" />
+</androidx.constraintlayout.widget.ConstraintLayout>

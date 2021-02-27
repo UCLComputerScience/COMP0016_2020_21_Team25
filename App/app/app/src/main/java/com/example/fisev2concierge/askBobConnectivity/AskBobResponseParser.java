@@ -1,5 +1,8 @@
 package com.example.fisev2concierge.askBobConnectivity;
 
+import com.example.fisev2concierge.controllers.MainController;
+import com.example.fisev2concierge.helperClasses.GetLocation;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.*;
@@ -30,7 +33,9 @@ public class AskBobResponseParser {
                 case "OPEN_APP":
                     parsedResponse.put("Application", custom.getString("Application"));
                     break;
-                    //add case for ask bob not recognising command
+                case "SEARCH_SITE":
+                    //get location and add it to hash map before giving hashmap to openurl class
+                    break;
             }
         } catch (Exception e){
             System.out.println("Error: exception");
