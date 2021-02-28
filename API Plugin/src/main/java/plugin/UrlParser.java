@@ -1,11 +1,5 @@
 package plugin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,78 +7,39 @@ import java.util.Map;
 // TODO - custom exceptions.
 
 /**
- * Class to read service structure from a JSON file to build the URL to the
+ * Class to read service schema from a JSON file to build the URL to the
  * external API.
  */
-public class UrlParser {
-    private final String resourcesFolder = "src" + File.separator + "main" + File.separator + "resources"
-            + File.separator;
-    private final String fileExtension = ".json";
-
+public final class UrlParser {
     /**
-     * Convert a String into a Map.
-     *
-     * @param source the input string to convert.
-     * @return a Map representing the input.
+     * Private constructor to prevent instantiation
      */
-    private Map<String, Object> JSONtoMap(String source) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(source, new TypeReference<>() {
-            });
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Malformed service data, please consult the docs on the correct structure.");
-        }
+    private UrlParser() {
     }
 
     /**
-     * Read contents of the specified json file (stored in the resources folder)
-     * into a String.
+     * Function to test URL parsing without reading from a file - allows for
+     * constructing a schema in JUnit.
      *
-     * @param serviceName the filename to read from.
-     * @return the contents of the file.
-     */
-    private String readFile(String serviceName) {
-        try {
-            File file = new File(resourcesFolder + serviceName + fileExtension);
-            InputStream inputStream = new FileInputStream(file);
-            ByteArrayOutputStream result = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) != -1) {
-                result.write(buffer, 0, length);
-            }
-            inputStream.close();
-            return result.toString(StandardCharsets.UTF_8.name());
-        } catch (IOException e) {
-            throw new RuntimeException("Unknown service '" + serviceName + "'");
-        }
-    }
-
-    /**
-     * Function to test URL parsing without reading from a file - allows for constructing a schema in JUnit.
-     *
-     * @param requestValues    parameters to insert into URL.
-     * @param serviceStructure the schema with parsing instructions.
+     * @param requestValues parameters to insert into URL.
+     * @param serviceSchema the schema with parsing instructions.
      * @return the URL with values inserted.
      */
-    public String parseTest(Map<String, Object> requestValues,
-                            Map<String, Object> serviceStructure) {
-        return buildUrl(serviceStructure, requestValues);
+    public static String parseTest(Map<String, Object> requestValues, Map<String, Object> serviceSchema) {
+        return buildUrl(serviceSchema, requestValues);
     }
 
     /**
      * Helper function to build url when either testing or using in production.
      *
-     * @param requestValues    parameters to insert into URL.
-     * @param serviceStructure the schema with parsing instructions.
+     * @param requestValues parameters to insert into URL.
+     * @param serviceSchema the schema with parsing instructions.
      * @return the URL with values inserted.
      */
-    private String buildUrl(Map<String, Object> serviceStructure,
-                            Map<String, Object> requestValues) {
-        checkTopLevelKeys(serviceStructure);
+    private static String buildUrl(Map<String, Object> serviceSchema, Map<String, Object> requestValues) {
+        checkTopLevelKeys(serviceSchema);
 
-        String baseUrl = (String) serviceStructure.get("url");
+        String baseUrl = (String) serviceSchema.get("url");
         // Remove any parameters just in case
         int paramIndex = baseUrl.indexOf("?");
         if (paramIndex != -1) {
@@ -92,38 +47,37 @@ public class UrlParser {
         }
 
         Map<String, String> apiKeyData = new HashMap<>();
-        if (serviceStructure.containsKey("api-key")) {
-            apiKeyData = (Map<String, String>) serviceStructure.get("api-key");
+        if (serviceSchema.containsKey("api-key")) {
+            apiKeyData = (Map<String, String>) serviceSchema.get("api-key");
         }
 
-        return buildUrl(baseUrl, serviceStructure, requestValues, apiKeyData);
+        return buildUrl(baseUrl, serviceSchema, requestValues, apiKeyData);
     }
 
-
     /**
-     * Build a service request object from the JSON structure defined in the value
-     * and populate the url parameters with the request values.
+     * Build a service request object from the JSON schema defined in the value and
+     * populate the url parameters with the request values.
      *
      * @param serviceName   the name of the service to call.
      * @param requestValues the parameters needed by the service.
      * @return a ServiceRequest object encapsulating the service name and its
-     * formatted url to make the call.
+     *         formatted url to make the call.
      */
-    public String parse(String serviceName, Map<String, Object> requestValues) {
-        String contents = readFile(serviceName);
-        Map<String, Object> serviceStructure = JSONtoMap(contents);
-        return buildUrl(serviceStructure, requestValues);
+    public static String parse(String serviceName, Map<String, Object> requestValues) {
+        String contents = Util.readFile(serviceName, false);
+        Map<String, Object> serviceSchema = Util.JSONtoMap(contents);
+        return buildUrl(serviceSchema, requestValues);
     }
 
     /**
-     * Ensure the top-level keys in the JSON file are of the correct structure.
+     * Ensure the top-level keys in the JSON file are of the correct schema.
      *
-     * @param serviceStructure the Map representation of the JSON file.
+     * @param serviceSchema the Map representation of the JSON file.
      */
-    private void checkTopLevelKeys(Map<String, Object> serviceStructure) {
-        String[] requiredParameters = new String[]{"url", "parameters", "message"};
+    private static void checkTopLevelKeys(Map<String, Object> serviceSchema) {
+        String[] requiredParameters = new String[] { "url", "parameters", "message" };
         for (String parameter : requiredParameters) {
-            if (!serviceStructure.containsKey(parameter)) {
+            if (!serviceSchema.containsKey(parameter)) {
                 throw new RuntimeException("Missing required top-level parameter '" + parameter + "'");
             }
         }
@@ -135,16 +89,17 @@ public class UrlParser {
      *
      * @param baseUrl       the url without any transformations applied, defined in
      *                      the JSON file.
-     * @param structure     the JSON file as a map.
+     * @param schema        the JSON file as a map.
      * @param requestValues the values to insert into the url.
      * @param apiKeyData    information needed to add the API key (if required) to
      *                      the url, defined in the JSON file.
      * @return a formatted String used to make the API call.
      */
-    private String buildUrl(String baseUrl, Map<String, Object> structure, Map<String, Object> requestValues,
-                            Map<String, String> apiKeyData) {
-        ArrayList<Map<String, Object>> endpoints = (ArrayList<Map<String, Object>>) structure.getOrDefault("endpoints", new ArrayList<>());
-        Map<String, Object> parameters = (Map<String, Object>) structure.get("parameters");
+    private static String buildUrl(String baseUrl, Map<String, Object> schema, Map<String, Object> requestValues,
+            Map<String, String> apiKeyData) {
+        ArrayList<Map<String, Object>> endpoints = (ArrayList<Map<String, Object>>) schema.getOrDefault("endpoints",
+                new ArrayList<>());
+        Map<String, Object> parameters = (Map<String, Object>) schema.get("parameters");
 
         // Remove trailing slashes
         if (endpoints.size() > 0) {
@@ -161,28 +116,28 @@ public class UrlParser {
     }
 
     /**
-     * Adds the parameters defined in requestValues to the URL based on information from the JSON files.
+     * Adds the parameters defined in requestValues to the URL based on information
+     * from the JSON files.
      *
      * @param url           the URL to add parameters to.
      * @param parameters    defines how to add a parameter to the URL.
      * @param requestValues the parameters to add to the URL.
      * @return the number of parameters that were added to the URL.
      */
-    private int addParameters(StringBuilder url, Map<String, Object> parameters, Map<String, Object> requestValues) {
+    private static int addParameters(StringBuilder url, Map<String, Object> parameters,
+            Map<String, Object> requestValues) {
         int size = parameters.size();
-        int i = 0;
         int paramsAdded = 0;
         for (String key : parameters.keySet()) {
             String formattedParam = formatParameter(key, parameters, requestValues);
             if (formattedParam.length() > 0) {
-                if (i == 0) {
+                if (paramsAdded == 0) {
                     url.append("?");
-                } else if (i <= size - 1) {
+                } else if (paramsAdded <= size - 1) {
                     url.append("&");
                 }
                 paramsAdded++;
             }
-            i++;
             url.append(formattedParam);
         }
         return paramsAdded;
@@ -195,8 +150,8 @@ public class UrlParser {
      * @param endpoints      defines how to add a dynamic endpoint to the URL.
      * @param endpointValues contains the endpoints to add.
      */
-    private void addEndpoints(StringBuilder url, ArrayList<Map<String, Object>> endpoints,
-                              Map<String, Object> endpointValues) {
+    private static void addEndpoints(StringBuilder url, ArrayList<Map<String, Object>> endpoints,
+            Map<String, Object> endpointValues) {
         for (Map<String, Object> endpoint : endpoints) {
             if (!endpoint.containsKey("name")) {
                 throw new RuntimeException("Missing required parameter 'name' for an endpoint");
@@ -206,7 +161,8 @@ public class UrlParser {
                 throw new RuntimeException("Required parameter 'name' for an endpoint must not be blank");
             }
             if (!endpoint.containsKey("default") && !endpointValues.containsKey(name)) {
-                throw new RuntimeException("No value was specified for the endpoint '" + name + "' and no default value was provided");
+                throw new RuntimeException(
+                        "No value was specified for the endpoint '" + name + "' and no default value was provided");
             }
             String defaultValue = (String) endpoint.getOrDefault("default", "");
             String endpointValue = (String) endpointValues.getOrDefault(name, defaultValue);
@@ -230,7 +186,7 @@ public class UrlParser {
      * @param apiKeyData data about how to insert the API key into the url, defined
      *                   in the JSON file.
      */
-    private void addApiKey(StringBuilder url, int params, Map<String, String> apiKeyData) {
+    private static void addApiKey(StringBuilder url, int params, Map<String, String> apiKeyData) {
         if (apiKeyData.size() > 0) {
             checkApiKeyData(apiKeyData);
             url.append((params == 0) ? "?" : "&");
@@ -252,7 +208,8 @@ public class UrlParser {
      *                      is stored.
      * @return the formatted parameter.
      */
-    private String formatParameter(String key, Map<String, Object> parameters, Map<String, Object> requestValues) {
+    private static String formatParameter(String key, Map<String, Object> parameters,
+            Map<String, Object> requestValues) {
         String formattedParam;
         Object param = parameters.get(key);
         try {
@@ -277,7 +234,8 @@ public class UrlParser {
      *                  stored.
      * @return a string representing the parameter and its value.
      */
-    private String getParameterAndValue(String paramName, Map<String, Object> paramData, Map<String, Object> values) {
+    private static String getParameterAndValue(String paramName, Map<String, Object> paramData,
+            Map<String, Object> values) {
         String param = "";
         boolean required = false;
         if (paramData.containsKey("required")) {
@@ -318,7 +276,7 @@ public class UrlParser {
      *
      * @param apiKeyData the data describing how to insert the API key into the url.
      */
-    private void checkApiKeyData(Map<String, String> apiKeyData) {
+    private static void checkApiKeyData(Map<String, String> apiKeyData) {
         if (apiKeyData.size() > 2) {
             throw new RuntimeException("The field 'api-key' must have either zero, one or two parameters");
         }

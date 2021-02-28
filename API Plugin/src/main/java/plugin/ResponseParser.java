@@ -16,19 +16,19 @@ import java.util.regex.Pattern;
  */
 public class ResponseParser {
     private final String serviceName;
-    private final Map<String, Object> structure;
+    private final Map<String, Object> schema;
     private final Map<String, Object> metadata = new HashMap<>();
 
     /**
-     * Instantiate a new parser for the given service and JSON structure.
+     * Instantiate a new parser for the given service and JSON schema.
      *
      * @param serviceName the name of the service.
-     * @param structure   Map representation of the JSON file defining the service.
+     * @param schema      Map representation of the JSON file defining the service.
      */
-    public ResponseParser(String serviceName, Map<String, Object> structure) {
-        String name = (String) structure.getOrDefault("name", serviceName);
+    public ResponseParser(String serviceName, Map<String, Object> schema) {
+        String name = (String) schema.getOrDefault("name", serviceName);
         this.serviceName = name.length() == 0 ? serviceName : name;
-        this.structure = structure;
+        this.schema = schema;
     }
 
     /**
@@ -88,8 +88,8 @@ public class ResponseParser {
      * @return a natural language string representing the response.
      */
     private String parseResponse(Map<String, Object> response) {
-        String output = (String) structure.get("message");
-        Map<String, Object> metadataFields = (Map<String, Object>) structure.getOrDefault("metadata", new HashMap<>());
+        String output = (String) schema.get("message");
+        Map<String, Object> metadataFields = (Map<String, Object>) schema.getOrDefault("metadata", new HashMap<>());
         return parseMessage(output, response, metadataFields);
     }
 
@@ -129,7 +129,7 @@ public class ResponseParser {
      * @param response       the JSON response object.
      */
     private void populateMetadata(Map<String, Object> metadataFields, Map<String, Object> metadata,
-                                  Map<String, Object> response) {
+            Map<String, Object> response) {
         for (String parameter : metadataFields.keySet()) {
             try {
                 Map<String, Object> fieldData = (Map<String, Object>) metadataFields.get(parameter);
@@ -159,7 +159,7 @@ public class ResponseParser {
      * @param metadataFields defines how to locate the data.
      */
     private void addToMetadata(String param, Map<String, Object> response, Map<String, Object> metadata,
-                               Map<String, Object> metadataFields) {
+            Map<String, Object> metadataFields) {
         Object value;
         if (isMapNotation(param)) {
             value = extractObjectFromMap(param, response);
@@ -274,10 +274,12 @@ public class ResponseParser {
     }
 
     /**
-     * Returns whether or not the parameter is using multidimensional array notation e.g., arr[0][1].
+     * Returns whether or not the parameter is using multidimensional array notation
+     * e.g., arr[0][1].
      *
      * @param param the parameter to test.
-     * @return whether or not the parameter is using multidimensional array notation e.g., arr[0][1].
+     * @return whether or not the parameter is using multidimensional array notation
+     *         e.g., arr[0][1].
      */
     private boolean isMultidimensionalNotation(String param) {
         Matcher matcher = Pattern.compile("(\\[(.*?)]){2,}").matcher(param);
@@ -304,12 +306,12 @@ public class ResponseParser {
      * @return a natural language string describing the error that occurred.
      */
     private String parseErrorResponse(Map<String, Object> response) {
-        if (structure.containsKey("error_messages")) {
-            Map<String, String> allMessages = (Map<String, String>) structure.get("error_messages");
+        if (schema.containsKey("error_messages")) {
+            Map<String, String> allMessages = (Map<String, String>) schema.get("error_messages");
             String code = getErrorCode(response);
             if (allMessages.containsKey(code)) {
                 String message = allMessages.get(code);
-                Map<String, Object> metadataFields = (Map<String, Object>) structure.getOrDefault("error_metadata",
+                Map<String, Object> metadataFields = (Map<String, Object>) schema.getOrDefault("error_metadata",
                         new HashMap<>());
                 return parseMessage(message, response, metadataFields);
             }
@@ -325,8 +327,8 @@ public class ResponseParser {
      * @return the error code contained inside it.
      */
     public String getErrorCode(Map<String, Object> response) {
-        if (structure.containsKey("error_code_name")) {
-            String key = (String) structure.get("error_code_name");
+        if (schema.containsKey("error_code_name")) {
+            String key = (String) schema.get("error_code_name");
             Object code = extractObjectFromMap(key, response);
             if (code != null) {
                 return code.toString();

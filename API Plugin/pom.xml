@@ -57,11 +57,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/Driver.class</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

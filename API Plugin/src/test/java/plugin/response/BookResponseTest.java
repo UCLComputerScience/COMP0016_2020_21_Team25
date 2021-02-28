@@ -23,18 +23,18 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void defaultMessage() {
-        check(serviceName, structure, defaultOutput, metadata, false);
+        check(serviceName, schema, defaultOutput, metadata, false);
     }
 
     // Testing different metadata
 
     /**
-     * Defining empty metadata structure should return an empty map in the response.
+     * Defining empty metadata schema should return an empty map in the response.
      */
     @Test
     public void noMetadata() {
-        structure.put("metadata", new HashMap<>());
-        check(serviceName, structure, defaultOutput, metadata, true);
+        schema.put("metadata", new HashMap<>());
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
@@ -42,11 +42,11 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void bookIdInMetadataNoAlias() {
-        Map<String, Object> metadataStructure = new HashMap<>();
-        metadataStructure.put("results[0].id", "results[0].id");
-        structure.put("metadata", metadataStructure);
+        Map<String, Object> metadataSchema = new HashMap<>();
+        metadataSchema.put("results[0].id", "results[0].id");
+        schema.put("metadata", metadataSchema);
         metadata.put("results[0].id", 84);
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
@@ -54,11 +54,11 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void bookIdInMetadataWithAliasShorthand() {
-        Map<String, Object> metadataStructure = new HashMap<>();
-        metadataStructure.put("results[0].id", "id");
-        structure.put("metadata", metadataStructure);
+        Map<String, Object> metadataSchema = new HashMap<>();
+        metadataSchema.put("results[0].id", "id");
+        schema.put("metadata", metadataSchema);
         metadata.put("id", 84);
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
@@ -66,13 +66,13 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void bookIdInMetadataWithAlias() {
-        Map<String, Object> metadataStructure = new HashMap<>();
+        Map<String, Object> metadataSchema = new HashMap<>();
         Map<String, Object> field = new HashMap<>();
         field.put("alias", "id");
-        metadataStructure.put("results[0].id", field);
-        structure.put("metadata", metadataStructure);
+        metadataSchema.put("results[0].id", field);
+        schema.put("metadata", metadataSchema);
         metadata.put("id", 84);
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
@@ -80,7 +80,7 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void customMetadataWithChildren() {
-        Map<String, Object> metadataStructure = new HashMap<>();
+        Map<String, Object> metadataSchema = new HashMap<>();
         Map<String, Object> field = new HashMap<>();
         field.put("custom", true);
 
@@ -88,13 +88,13 @@ public class BookResponseTest extends AbstractResponseParserTest {
         children.put("results[0].id", "id");
         field.put("children", children);
 
-        metadataStructure.put("data", field);
-        structure.put("metadata", metadataStructure);
+        metadataSchema.put("data", field);
+        schema.put("metadata", metadataSchema);
 
         Map<String, Object> data = new HashMap<>();
         data.put("id", 84);
         metadata.put("data", data);
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
@@ -102,14 +102,14 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void customMetadataNoChildren() {
-        Map<String, Object> metadataStructure = new HashMap<>();
+        Map<String, Object> metadataSchema = new HashMap<>();
         Map<String, Object> field = new HashMap<>();
         field.put("custom", true);
 
-        metadataStructure.put("data", field);
-        structure.put("metadata", metadataStructure);
+        metadataSchema.put("data", field);
+        schema.put("metadata", metadataSchema);
 
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
@@ -117,36 +117,37 @@ public class BookResponseTest extends AbstractResponseParserTest {
      */
     @Test
     public void customMetadataEmptyChildren() {
-        Map<String, Object> metadataStructure = new HashMap<>();
+        Map<String, Object> metadataSchema = new HashMap<>();
         Map<String, Object> field = new HashMap<>();
         field.put("custom", true);
 
         Map<String, Object> children = new HashMap<>();
         field.put("children", children);
-        metadataStructure.put("data", field);
-        structure.put("metadata", metadataStructure);
+        metadataSchema.put("data", field);
+        schema.put("metadata", metadataSchema);
 
         Map<String, Object> data = new HashMap<>();
         metadata.put("data", data);
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 
     /**
-     * Defining the children attribute is redundant if the parameter is not marked as custom.
+     * Defining the children attribute is redundant if the parameter is not marked
+     * as custom.
      */
     @Test
     public void customMetadataWithChildrenNoFlag() {
-        Map<String, Object> metadataStructure = new HashMap<>();
+        Map<String, Object> metadataSchema = new HashMap<>();
         Map<String, Object> field = new HashMap<>();
 
         Map<String, Object> children = new HashMap<>();
         children.put("results[0].id", "id");
         field.put("children", children);
 
-        metadataStructure.put("data", field);
-        structure.put("metadata", metadataStructure);
+        metadataSchema.put("data", field);
+        schema.put("metadata", metadataSchema);
 
         metadata.put("data", null);
-        check(serviceName, structure, defaultOutput, metadata, true);
+        check(serviceName, schema, defaultOutput, metadata, true);
     }
 }

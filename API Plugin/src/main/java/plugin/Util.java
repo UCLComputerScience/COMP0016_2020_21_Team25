@@ -9,36 +9,43 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * For running manually, not for production
+ * Utility class providing common IO methods.
  */
-public final class Driver {
+public final class Util {
     private static final String resourcesFolder = "src" + File.separator + "{folder}" + File.separator + "resources"
             + File.separator;
     private static final String fileExtension = ".json";
 
-    private Driver() {
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private Util() {
     }
 
-    public static void printMap(Map<String, Object> map) {
-        ObjectMapper mapper = new ObjectMapper();
-        String output;
-        try {
-            output = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
-            System.out.println(output);
-        } catch (JsonProcessingException ignored) {
-        }
-    }
-
+    /**
+     * Convert JSON string to Map object.
+     *
+     * @param source the JSON string.
+     * @return the JSON string as a Map object.
+     */
     public static Map<String, Object> JSONtoMap(String source) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(source, new TypeReference<>() {
             });
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Malformed service data, please consult the docs on the correct structure.");
+        } catch (JsonProcessingException ignored) {
+            throw new RuntimeException(
+                    "Malformed service data, please consult the docs on the correct schema structure.");
         }
     }
 
+    /**
+     * Read the contents of a file.
+     *
+     * @param serviceName the base name of the file to read
+     * @param test        indicates whether to read from the main or test folder.
+     * @return the contents of the file.
+     */
     public static String readFile(String serviceName, boolean test) {
         try {
             String base = resourcesFolder.replace("{folder}", test ? "test" : "main");
@@ -48,6 +55,13 @@ public final class Driver {
         }
     }
 
+    /**
+     * Read the contents of the file.
+     *
+     * @param src the location of the file.
+     * @return the string contents of the file.
+     * @throws IOException if the file could not be located.
+     */
     private static String readFile(String src) throws IOException {
         File file = new File(src);
         InputStream inputStream = new FileInputStream(file);
@@ -59,24 +73,5 @@ public final class Driver {
         }
         inputStream.close();
         return result.toString(StandardCharsets.UTF_8.name());
-    }
-
-    public static void runResponseParser() {
-        String[] serviceNames = new String[]{"book", "current-weather", "joke", "news"};
-        for (String serviceName : serviceNames) {
-            String source = readFile(serviceName, false);
-            Map<String, Object> structure = JSONtoMap(source);
-            ResponseParser responseParser = new ResponseParser(serviceName, structure);
-            String responseSrc = readFile(serviceName, true);
-            Map<String, Object> response = JSONtoMap(responseSrc);
-            System.out.println(serviceName);
-            System.out.println(responseParser.parse(response));
-            System.out.println(responseParser.getMetadata());
-            System.out.println();
-        }
-    }
-
-    public static void main(String[] args) {
-        runResponseParser();
     }
 }
