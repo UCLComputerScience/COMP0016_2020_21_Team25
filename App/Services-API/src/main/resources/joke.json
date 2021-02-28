@@ -1,0 +1,23 @@
+{
+  "url": "https://icanhazdadjoke.com/search",
+  "api-key": {
+    "alias": "apiKey",
+    "value": "9728c23d120f4d1985ff2a7cc019bd96"
+  },
+  "parameters": {
+    "term": {
+      "alias": "term",
+      "required": true
+    }
+  },
+  "message": "{results[0].joke}",
+  "error_code_name": "status",
+  "error_messages": {
+    "403": "The joke service is refusing to respond to your request.",
+    "404": "The requested action could not be performed. The joke service has been permanently removed.",
+    "429": "You are accessing the joke service too frequently, please try again in a little while.",
+    "500": "The requested action could not be performed, the joke service experienced an unknown error. Please try again.",
+    "523": "The requested action could not be performed, the joke service may be down or experiencing issues. Please try again in a little while.",
+    "default": "A problem occurred accessing the joke service."
+  }
+}

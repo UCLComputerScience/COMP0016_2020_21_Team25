@@ -11,6 +11,7 @@ import servicesAPI.services.food.RandomRecipeServiceRequest;
 import servicesAPI.services.food.RecipeByIngredientServiceRequest;
 import servicesAPI.services.food.RecipeBySearchServiceRequest;
 import servicesAPI.services.food.RecipeInstructionsService;
+import servicesAPI.services.schema.SchemaServiceFactory;
 import servicesAPI.services.transport.BusOrTrainBySearchServiceRequest;
 import servicesAPI.services.transport.NearestBusOrTrainServiceRequest;
 import servicesAPI.services.utility.AirQualityServiceRequest;
@@ -18,9 +19,14 @@ import servicesAPI.services.utility.CurrentWeatherServiceRequest;
 import servicesAPI.services.utility.DictionaryServiceRequest;
 import servicesAPI.services.utility.WeatherForecastServiceRequest;
 
+import java.io.IOException;
 import java.util.HashMap;
 
-public class ServiceFactory {
+public final class ServiceFactory {
+    private ServiceFactory() {
+
+    }
+
     /**
      * Employs the factory pattern to map a service name to its corresponding
      * service request object.
@@ -64,7 +70,11 @@ public class ServiceFactory {
             case "weather forecast":
                 return new WeatherForecastServiceRequest(payload);
             default:
-                return null;
+                try {
+                    return SchemaServiceFactory.getService(serviceName, payload);
+                } catch (IOException ignored) {
+                    return null;
+                }
         }
     }
 }

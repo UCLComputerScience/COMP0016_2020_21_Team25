@@ -23,26 +23,24 @@ public class BookSearchServiceRequest extends AbstractServiceRequest {
         // Return the shortest category name (some returned by the API are extremely
         // verbose)
         String category = (categories.size() == 0) ? ""
-                : categories.stream().sorted((e2, e1) -> e1.length() > e2.length() ? -1 : 1).findFirst().get();
-        ;
+                : categories.stream().min((e2, e1) -> e1.length() > e2.length() ? -1 : 1).get();
         output = output.replace("{CATEGORY}", category.toLowerCase());
         output = output.replace("{NAME}", (String) book.get("title"));
         ArrayList<HashMap<String, Object>> authors = (ArrayList<HashMap<String, Object>>) book.get("authors");
-        String authorStr = "";
+        StringBuilder authorStr = new StringBuilder();
         int length = authors.size();
         for (int i = 0; i < length; i++) {
             HashMap<String, Object> authorData = authors.get(i);
             String name = (String) authorData.get("name");
-            authorStr += name;
+            authorStr.append(name);
             if (i == length - 1) {
-                continue;
             } else if (i == length - 2) {
-                authorStr += " and ";
+                authorStr.append(" and ");
             } else {
-                authorStr += ", ";
+                authorStr.append(", ");
             }
         }
-        output = output.replace("{AUTHOR}", authorStr);
+        output = output.replace("{AUTHOR}", authorStr.toString());
         metadata.put("id", book.get("id"));
 
         HashMap<String, String> mimeTypes = (HashMap<String, String>) book.get("formats");
