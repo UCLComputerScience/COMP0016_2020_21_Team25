@@ -1,0 +1,86 @@
+{
+    "plugin": "concierge_lookup",
+    "entities": [
+        "amazon_search_term",
+        "yell_search_term"
+    ],
+    "regexes": [
+        {
+            "regex_id": "amazon_search_term",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        },
+        {
+            "regex_id": "yell_search_term",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        }
+    ],
+    "intents": [
+        {
+            "intent_id": "request_amazon_search",
+            "examples":[
+                "Can you search Amazon for [baked beans]{\"entity\":\"amazon_search_term\"}",
+                "Can you search Amazon for [stationary]{\"entity\":\"amazon_search_term\"}",
+                "Can you search Amazon [apples]{\"entity\":\"amazon_search_term\"}",
+                "Can you open Amazon and search for [whiskey]{\"entity\":\"amazon_search_term\"}",
+                "Search Amazon for [jam]{\"entity\":\"amazon_search_term\"}",
+                "Search Amazon for [coat hangers]{\"entity\":\"amazon_search_term\"}",
+                "Search Amazon for [baking trays]{\"entity\":\"amazon_search_term\"}",
+                "Please open Amazon and search for [kitchen utensils]{\"entity\":\"amazon_search_term\"}",
+                "Please open Amazon and buy [trainers]{\"entity\":\"amazon_search_term\"}",
+                "Please can I buy [carpets]{\"entity\":\"amazon_search_term\"}",
+                "I would like to buy [keyboards]{\"entity\":\"amazon_search_term\"}",
+                "I would like to purchase [water bottles]{\"entity\":\"amazon_search_term\"}",
+                "I want to buy [cable ties]{\"entity\":\"amazon_search_term\"}",
+                "Purchase [pens]{\"entity\":\"amazon_search_term\"}",
+                "Purchase [biscuits]{\"entity\":\"amazon_search_term\"}"
+            ]
+
+        },
+        {
+            "intent_id": "request_yell_search",
+            "examples":[
+                "Can you find me a [plumber]{\"entity\":\"yell_search_term\"} on yell",
+                "Can you get me an [electrician]{\"entity\":\"yell_search_term\"} on yell",
+                "Can you get me a [window cleaner]{\"entity\":\"yell_search_term\"}",
+                "Can you find me a [gardener]{\"entity\":\"yell_search_term\"}",
+                "Get me a [carpenter]{\"entity\":\"yell_search_term\"} from yell",
+                "Get me a [gas engineer]{\"entity\":\"yell_search_term\"}",
+                "Get me a nearby [estate agent]{\"entity\":\"yell_search_term\"}",
+                "Please find me a [hairdresser]{\"entity\":\"yell_search_term\"} from yell",
+                "Please find me a [solicitor]{\"entity\":\"yell_search_term\"}",
+                "Please could you find me a [roofing service]{\"entity\":\"yell_search_term\"} app",
+                "I would like to find a nearby [vet]{\"entity\":\"yell_search_term\"}",
+                "I would like to find nearby [builders]{\"entity\":\"yell_search_term\"}",
+                "I would like to find an [accountant]{\"entity\":\"yell_search_term\"} from yell",
+                "Can you please get me an [architect]{\"entity\":\"yell_search_term\"}",
+                "Can you please get me a [florist]{\"entity\":\"yell_search_term\"} from yell"
+            ]
+
+        }
+    ],
+    "actions": [
+        "place_request_amazon_search",
+        "place_request_yell_search"
+    ],
+    "skills": [
+        {
+            "description":"Ask Concierge to search Amazon for a given search term",
+            "intent": "request_amazon_search",
+            "actions":[
+                "place_request_amazon_search"
+            ]
+        },
+
+        {
+            "description":"Ask Concierge to search Yell for a given search term",
+            "intent": "request_yell_search",
+            "actions":[
+                "place_request_yell_search"
+            ]
+        }
+    ]
+}

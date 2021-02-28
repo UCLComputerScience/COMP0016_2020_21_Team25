@@ -12,6 +12,7 @@ import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
+import com.example.fisev2concierge.helperClasses.GetLocation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,10 @@ public class AskBobResponseController {
                 String appName = (String) parsedResponse.get("Application");
                 mainController.openApp(appCompatActivity, context, appName.toLowerCase());
                 break;
+            case "SEARCH_SITE":
+                String postcode = mainController.getLocation(context, activity);
+                HashMap hashMap = new HashMap();
+                hashMap.put("location", postcode);
             default:
                 //Improve error dealing
                 Toast.makeText(context, "Error with parsing", Toast.LENGTH_SHORT).show();

@@ -3,25 +3,15 @@
     "entities": [
         "application"
     ],
-    "lookups": [
+    "regexes": [
         {
-            "lookup_id": "application",
-            "examples": [
-                "facebook",
-                "snapchat",
-                "twitter",
-                "instagram",
-                "whatsapp",
-                "gumtree",
-                "yell",
-                "settings",
-                "messages",
-                "chrome",
-                "youtube"
+            "regex_id": "application",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,2}[A-Za-z]+"
             ]
         }
+       
     ],
-
     "intents": [
         {
             "intent_id": "request_app",
@@ -29,18 +19,18 @@
                 "Can you open [facebook]{\"entity\":\"application\"}",
                 "Can you open [instagram]{\"entity\":\"application\"}",
                 "Can you open the app [whatsapp]{\"entity\":\"application\"}",
-                "Can you open the [whatsapp]{\"entity\":\"application\"} application",
+                "Can you open the [calculator]{\"entity\":\"application\"} application",
                 "Open [chrome]{\"entity\":\"application\"}",
                 "Open [youtube]{\"entity\":\"application\"}",
                 "Open the [yell]{\"entity\":\"application\"} application",
                 "Please open the app [settings]{\"entity\":\"application\"}",
                 "Please open [messages]{\"entity\":\"application\"}",
                 "Please open the [twitter]{\"entity\":\"application\"} app",
-                "I would like to open [snapchat]{\"entity\":\"application\"}",
-                "I would like to open the app [snapchat]{\"entity\":\"application\"}",
-                "I would like to open the [chrome]{\"entity\":\"application\"} application",
-                "Can you please open [facebook]{\"entity\":\"application\"}",
-                "Can you please open the [yell]{\"entity\":\"application\"} application"
+                "I would like to open [contacts]{\"entity\":\"application\"}",
+                "I would like to open the app [gmail]{\"entity\":\"application\"}",
+                "I would like to open the [camera]{\"entity\":\"application\"} application",
+                "Can you please open [google]{\"entity\":\"application\"}",
+                "Can you please open the [maps]{\"entity\":\"application\"} application"
             ]
 
         }

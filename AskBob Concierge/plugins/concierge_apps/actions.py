@@ -20,7 +20,7 @@ class ActionConciergePlaceCall(Action):
        
         data_package={
             "Service_Type": "OPEN_APP",
-            "Application": response
+            "Application": response.lower()
         }
 
         dispatcher.utter_message(json_message= data_package)
