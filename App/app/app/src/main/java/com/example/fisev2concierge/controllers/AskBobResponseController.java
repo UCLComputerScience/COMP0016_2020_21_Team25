@@ -12,6 +12,7 @@ import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
+import com.example.fisev2concierge.helperClasses.GetLocation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,37 +25,36 @@ public class AskBobResponseController {
     public void responseController(HashMap parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity){
 
         String Service_Type = (String) parsedResponse.get("Service_Type");
-//        SearchContacts searchContacts = new SearchContacts(appCompatActivity);
 
         switch (Service_Type){
             //Don't deal with API_CALL as this is managed directly by MainActivity
             case "CALL_CONTACT":
                 String callContact = (String) parsedResponse.get("Contact");
-//                CallFunctionality callFunctionality = new CallFunctionality(context, activity);
-//                String callNumber = searchContacts.searchContacts(callContact);
-//                callFunctionality.makePhoneCall(callNumber);
                 String callNumber = mainController.searchContact(callContact, appCompatActivity, context, activity);
-                mainController.makeCall(context, activity, callNumber);
+                if (!callNumber.equals("-1")) {
+                    mainController.makeCall(context, activity, callNumber);
+                }
                 break;
             case "SMS_CONTACT":
                 String smsContact = (String) parsedResponse.get("Contact");
-//                SmsFunctionality smsFunctionality = new SmsFunctionality(context, activity);
-//                String smsNumber = searchContacts.searchContacts(smsContact);
-//                smsFunctionality.sendSMS(smsNumber, "test");
-//                OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
-//                openAppFunctionality.openApp("messages");
                 String smsNumber = mainController.searchContact(smsContact, appCompatActivity, context, activity);
-                mainController.sendText(context, activity, smsNumber, "test");
-                mainController.openApp(appCompatActivity, context, "messages");
+                if (!smsNumber.equals("-1")) {
+                    mainController.sendText(context, activity, smsNumber, "test");
+                    mainController.openApp(appCompatActivity, context, "messages");
+                }
                 break;
             case "OPEN_APP":
                 String appName = (String) parsedResponse.get("Application");
-                mainController.openApp(appCompatActivity, context, appName);
+                mainController.openApp(appCompatActivity, context, appName.toLowerCase());
                 break;
+            case "SEARCH_SITE":
+                String postcode = mainController.getLocation(context, activity);
+                HashMap hashMap = new HashMap();
+                hashMap.put("location", postcode);
             default:
                 //Improve error dealing
                 Toast.makeText(context, "Error with parsing", Toast.LENGTH_SHORT).show();
-                System.out.println("Error");
+                System.out.println("Error with parsing");
         }
     }
 }

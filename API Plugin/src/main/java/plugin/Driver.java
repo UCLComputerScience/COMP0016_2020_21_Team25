@@ -61,7 +61,7 @@ public final class Driver {
         return result.toString(StandardCharsets.UTF_8.name());
     }
 
-    public static void main(String[] args) {
+    public static void runResponseParser() {
         String[] serviceNames = new String[]{"book", "current-weather", "joke", "news"};
         for (String serviceName : serviceNames) {
             String source = readFile(serviceName, false);
@@ -74,5 +74,9 @@ public final class Driver {
             System.out.println(responseParser.getMetadata());
             System.out.println();
         }
+    }
+
+    public static void main(String[] args) {
+        runResponseParser();
     }
 }

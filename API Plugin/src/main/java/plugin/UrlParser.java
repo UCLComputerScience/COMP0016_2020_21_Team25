@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-// TODO - Parameter based endpoints, custom exceptions.
+
+// TODO - custom exceptions.
 
 /**
  * Class to read service structure from a JSON file to build the URL to the
@@ -60,6 +62,45 @@ public class UrlParser {
     }
 
     /**
+     * Function to test URL parsing without reading from a file - allows for constructing a schema in JUnit.
+     *
+     * @param requestValues    parameters to insert into URL.
+     * @param serviceStructure the schema with parsing instructions.
+     * @return the URL with values inserted.
+     */
+    public String parseTest(Map<String, Object> requestValues,
+                            Map<String, Object> serviceStructure) {
+        return buildUrl(serviceStructure, requestValues);
+    }
+
+    /**
+     * Helper function to build url when either testing or using in production.
+     *
+     * @param requestValues    parameters to insert into URL.
+     * @param serviceStructure the schema with parsing instructions.
+     * @return the URL with values inserted.
+     */
+    private String buildUrl(Map<String, Object> serviceStructure,
+                            Map<String, Object> requestValues) {
+        checkTopLevelKeys(serviceStructure);
+
+        String baseUrl = (String) serviceStructure.get("url");
+        // Remove any parameters just in case
+        int paramIndex = baseUrl.indexOf("?");
+        if (paramIndex != -1) {
+            baseUrl = baseUrl.substring(0, paramIndex);
+        }
+
+        Map<String, String> apiKeyData = new HashMap<>();
+        if (serviceStructure.containsKey("api-key")) {
+            apiKeyData = (Map<String, String>) serviceStructure.get("api-key");
+        }
+
+        return buildUrl(baseUrl, serviceStructure, requestValues, apiKeyData);
+    }
+
+
+    /**
      * Build a service request object from the JSON structure defined in the value
      * and populate the url parameters with the request values.
      *
@@ -71,22 +112,7 @@ public class UrlParser {
     public String parse(String serviceName, Map<String, Object> requestValues) {
         String contents = readFile(serviceName);
         Map<String, Object> serviceStructure = JSONtoMap(contents);
-        checkTopLevelKeys(serviceStructure);
-
-        Map<String, Object> urlParameters = (Map<String, Object>) serviceStructure.get("parameters");
-        String baseUrl = (String) serviceStructure.get("url");
-        // Remove any parameters just in case
-        int index = baseUrl.indexOf("?");
-        if (index != -1) {
-            baseUrl = baseUrl.substring(0, index);
-        }
-
-        Map<String, String> apiKeyData = new HashMap<>();
-        if (serviceStructure.containsKey("api-key")) {
-            apiKeyData = (Map<String, String>) serviceStructure.get("api-key");
-        }
-
-        return buildUrl(baseUrl, urlParameters, requestValues, apiKeyData);
+        return buildUrl(serviceStructure, requestValues);
     }
 
     /**
@@ -109,16 +135,40 @@ public class UrlParser {
      *
      * @param baseUrl       the url without any transformations applied, defined in
      *                      the JSON file.
-     * @param parameters    the parameters needed to make the call, defined in the
-     *                      JSON file.
+     * @param structure     the JSON file as a map.
      * @param requestValues the values to insert into the url.
      * @param apiKeyData    information needed to add the API key (if required) to
      *                      the url, defined in the JSON file.
      * @return a formatted String used to make the API call.
      */
-    private String buildUrl(String baseUrl, Map<String, Object> parameters, Map<String, Object> requestValues,
+    private String buildUrl(String baseUrl, Map<String, Object> structure, Map<String, Object> requestValues,
                             Map<String, String> apiKeyData) {
+        ArrayList<Map<String, Object>> endpoints = (ArrayList<Map<String, Object>>) structure.getOrDefault("endpoints", new ArrayList<>());
+        Map<String, Object> parameters = (Map<String, Object>) structure.get("parameters");
+
+        // Remove trailing slashes
+        if (endpoints.size() > 0) {
+            while (baseUrl.endsWith("/")) {
+                baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+            }
+        }
+
         StringBuilder url = new StringBuilder(baseUrl);
+        addEndpoints(url, endpoints, requestValues);
+        int paramsAdded = addParameters(url, parameters, requestValues);
+        addApiKey(url, paramsAdded, apiKeyData);
+        return url.toString();
+    }
+
+    /**
+     * Adds the parameters defined in requestValues to the URL based on information from the JSON files.
+     *
+     * @param url           the URL to add parameters to.
+     * @param parameters    defines how to add a parameter to the URL.
+     * @param requestValues the parameters to add to the URL.
+     * @return the number of parameters that were added to the URL.
+     */
+    private int addParameters(StringBuilder url, Map<String, Object> parameters, Map<String, Object> requestValues) {
         int size = parameters.size();
         int i = 0;
         int paramsAdded = 0;
@@ -135,8 +185,40 @@ public class UrlParser {
             i++;
             url.append(formattedParam);
         }
-        addApiKey(url, paramsAdded, apiKeyData);
-        return url.toString();
+        return paramsAdded;
+    }
+
+    /**
+     * Add dynamic endpoints to the URL.
+     *
+     * @param url            the URL to add the endpoints to.
+     * @param endpoints      defines how to add a dynamic endpoint to the URL.
+     * @param endpointValues contains the endpoints to add.
+     */
+    private void addEndpoints(StringBuilder url, ArrayList<Map<String, Object>> endpoints,
+                              Map<String, Object> endpointValues) {
+        for (Map<String, Object> endpoint : endpoints) {
+            if (!endpoint.containsKey("name")) {
+                throw new RuntimeException("Missing required parameter 'name' for an endpoint");
+            }
+            String name = (String) endpoint.get("name");
+            if (name.length() == 0) {
+                throw new RuntimeException("Required parameter 'name' for an endpoint must not be blank");
+            }
+            if (!endpoint.containsKey("default") && !endpointValues.containsKey(name)) {
+                throw new RuntimeException("No value was specified for the endpoint '" + name + "' and no default value was provided");
+            }
+            String defaultValue = (String) endpoint.getOrDefault("default", "");
+            String endpointValue = (String) endpointValues.getOrDefault(name, defaultValue);
+            if (endpointValue.length() == 0) {
+                if (endpointValue.equals(defaultValue)) {
+                    throw new RuntimeException("Missing value for endpoint '" + name + "'");
+                }
+                endpointValue = defaultValue;
+            }
+            url.append("/");
+            url.append(endpointValue.replace(" ", "%20"));
+        }
     }
 
     /**
@@ -153,6 +235,9 @@ public class UrlParser {
             checkApiKeyData(apiKeyData);
             url.append((params == 0) ? "?" : "&");
             String apiKeyName = apiKeyData.getOrDefault("alias", "api-key");
+            if (apiKeyName.length() == 0) {
+                apiKeyName = "api-key";
+            }
             String apikey = apiKeyData.get("value");
             url.append(apiKeyName).append("=").append(apikey);
         }
@@ -194,7 +279,15 @@ public class UrlParser {
      */
     private String getParameterAndValue(String paramName, Map<String, Object> paramData, Map<String, Object> values) {
         String param = "";
-        boolean required = paramData.containsKey("required") && (boolean) paramData.get("required");
+        boolean required = false;
+        if (paramData.containsKey("required")) {
+            Object requiredBool = paramData.get("required");
+            try {
+                required = (boolean) requiredBool;
+            } catch (ClassCastException ignored) {
+                throw new RuntimeException("Field name 'required' must be of type boolean");
+            }
+        }
         boolean hasValue = values.containsKey(paramName);
 
         boolean hasDefault = paramData.containsKey("default");
@@ -202,14 +295,22 @@ public class UrlParser {
             throw new RuntimeException("Missing required service parameter '" + paramName + "'");
         }
 
-        Object defaultValue = paramData.getOrDefault("default", "");
-        Object value = hasValue ? values.get(paramName) : defaultValue;
-        if (value == defaultValue && defaultValue == "" && !required) {
-            return "";
-        }
         String apiParamName = (String) paramData.getOrDefault("alias", paramName);
+        // If value associated with 'alias' is blank.
+        if (apiParamName.length() == 0) {
+            apiParamName = paramName;
+        }
+
+        Object defaultValue = paramData.getOrDefault("default", "");
+        Object value = values.getOrDefault(apiParamName, defaultValue);
+        if (value == defaultValue && defaultValue == "") {
+            if (!required) {
+                return "";
+            }
+            throw new RuntimeException("Missing value for required parameter '" + apiParamName + "'");
+        }
         param += apiParamName + "=" + value;
-        return param;
+        return param.replace(" ", "%20");
     }
 
     /**

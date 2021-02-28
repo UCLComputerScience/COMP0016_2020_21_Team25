@@ -13,16 +13,27 @@ import com.example.fisev2concierge.backendConnectivity.Backend;
 import com.example.fisev2concierge.functionalityClasses.AlarmsFunctionality;
 import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
-import com.example.fisev2concierge.functionalityClasses.OpenWebsiteFunctionality;
+import com.example.fisev2concierge.functionalityClasses.OpenUrlFunctionality;
 import com.example.fisev2concierge.functionalityClasses.RemindersFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
+import com.example.fisev2concierge.helperClasses.AppPackageNameLookup;
+import com.example.fisev2concierge.helperClasses.GetLocation;
+import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
+import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class MainController{
+
+    public String getLocation(Context context, Activity activity){
+        GetLocation getLocation = new GetLocation(context, activity);
+        Thread thread = new Thread(getLocation);
+        thread.start();
+        return getLocation.getPostcode();
+    }
 
     public String searchContact(String name, AppCompatActivity appCompatActivity, Context context, Activity activity){
         SearchContacts searchContacts = new SearchContacts(appCompatActivity, context, activity);
@@ -121,12 +132,6 @@ public class MainController{
         alarmsFunctionality.stopAlarm(appCompatActivity, context, id);
     }
 
-    //Method for setting timers
-
-    //Method for adding requests to history
-
-    //Method for calling NLP algorithm
-
     //There should be a method for running speech recognition and synthesis here but this doesn't work so keep it on the main page
 
     //Method for making calls
@@ -147,10 +152,34 @@ public class MainController{
         openAppFunctionality.openApp(app);
     }
 
-    //Method for opening websites
-    public void openWebsite(AppCompatActivity appCompatActivity, String website){
-        OpenWebsiteFunctionality openWebsiteFunctionality = new OpenWebsiteFunctionality(appCompatActivity);
-        openWebsiteFunctionality.openWeb(website);
+    public void openPackage(AppCompatActivity appCompatActivity, Context context, String packageName){
+        OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
+        openAppFunctionality.openPackage(packageName);
     }
 
+    //Method for opening websites
+    public void openWebsite(AppCompatActivity appCompatActivity, String website){
+        OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
+        openUrlFunctionality.openWeb(website);
+    }
+
+    public void searchSite(AppCompatActivity appCompatActivity, String website, HashMap searchItems){
+        OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
+        openUrlFunctionality.searchWeb(website, searchItems);
+    }
+
+    public String websiteUrlLookup(String website){
+        WebsiteUrlLookup websiteUrlLookup = new WebsiteUrlLookup();
+        return websiteUrlLookup.search(website);
+    }
+
+    public String searchUrlLookup(String website){
+        SearchUrlLookup searchUrlLookup = new SearchUrlLookup();
+        return searchUrlLookup.search(website);
+    }
+
+    public String packageNameLookup(String appName){
+        AppPackageNameLookup appPackageNameLookup = new AppPackageNameLookup();
+        return appPackageNameLookup.search(appName);
+    }
 }

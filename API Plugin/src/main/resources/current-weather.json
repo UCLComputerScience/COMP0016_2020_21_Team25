@@ -12,7 +12,7 @@
       "required": false
     }
   },
-  "message": "The weather in {name} today is {weather[0].description} with the temperature being {main.temp} degrees celsius but will probably feel like {main.feels_like} degrees celsius. The high will be {main.temp_max} degrees celsius and the low, {main.temp_min} degrees celsius.",
+  "message": "{custom[0][1]} The weather in {name} today is {weather[0].description} with the temperature being {main.temp} degrees celsius but will probably feel like {main.feels_like} degrees celsius. The high will be {main.temp_max} degrees celsius and the low, {main.temp_min} degrees celsius.",
   "error_code_name": "cod",
   "error_messages": {
     "404": "Could not find ...",
