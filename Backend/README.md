@@ -1,21 +1,20 @@
 # Backend API
-Source code for the backend of the IBM FISE Concierge, providing support for both the app and the companion web app, accessed via a restful API on `localhost`.
+
+Source code for the backend of the **IBM FISE Concierge**, providing support for both the app and the companion web app, accessed via a restful API on `localhost`.
 
 ## Endpoints
 
 Parameters are to be supplied in the URL in lowercase form.
 
-- e.g., the `services` endpoint requires an `ID` parameter  and is supplied (in lowercase) as:
+-   e.g., the `services` endpoint requires an `ID` parameter and is supplied (in lowercase) as:
 
+<pre>/services?id=id_here</pre>
 
-    /services?id=id_here
-
-
-- Endpoints that require multiple parameters are supplied by an ampersand (&) separated list.
+-   Endpoints that require multiple parameters are supplied by an ampersand (&) separated list of strings.
 
 ### Web App Endpoints
 
-Required endpoints for the Concierge web app with required parameters and expected responses.
+Required endpoints for the Concierge web app with required parameters and expected responses:
 
 <table>
 <tr>
@@ -388,20 +387,20 @@ Note that the URL must be quoted to escape the question marks and ampersands if 
 
 There are different execution options for the API, summarised below.
 
-Note that these can only be enabled by passing them as command line arguments to the Python `run` script or running the application as a `jar`. Command line arguments are unavailable with Java if not executing a `jar` file using the `java -jar ...` command.
+Note that these can only be enabled by passing them as command line arguments to the Python `run` script or running the application as a `jar`. Command line arguments are unavailable with Java if not executing using a `jar` file (using the `java -jar ...` command).
 
 The following arguments are all optional.
 
-- A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8080` by default.
-- Logging information to the console can be enabled with the `-l` (or `--l`) flag - logging is disabled by default.
-- The application can be built into a single jar and executing using the `-jar` (or `--jar`) flag.
-   - This option is only available using the Python run script.
+-   A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8080` by default.
+-   Logging information to the console can be enabled with the `-l` (or `--l`) flag - logging is disabled by default.
+-   The application can be built into a single jar and executing using the `-jar` (or `--jar`) flag.
+    -   This option is only available using the Python `run` script.
 
-When using the `jar` file:
+When using the `jar` file (with `java -jar ...`):
 
-- The `-l` flag is supplied **without** the leading `-` character(s) - i.e. as `l`.
-- The `-port` flag is **always** supplied with a single `-` and the same goes for `-p`.
+-   The `-l` flag is supplied **without** the leading `-` character(s) - i.e. as `l`.
+-   The `-port` flag is **always** supplied with a single `-` and the same goes for `-p`.
 
 Running `python3 tools/run.py -h` gives you a similar breakdown of possible command line arguments and their aliases.
 
-- The `-h` flag is not available outside of the Python script.
+-   The `-h` flag is not available outside of the Python script.

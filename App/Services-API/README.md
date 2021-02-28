@@ -2,7 +2,7 @@
 
 The service API package defines and handles the interaction between the app and external RESTful APIs over HTTP(S). It also performs its own error handling and output parsing.
 
-For use as a RESTful API (instead of native Java code, detailed below), more information can be found in `api` package [here](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/App/Services-API/src/main/java/servicesAPI/api).
+For use as a RESTful API (instead of native Java code, detailed below), more information can be found in the `api` package [here](src/main/java/servicesAPI/api).
 
 ## Interface
 
@@ -10,7 +10,7 @@ The `makeRequest` method takes the service name and required data as parameters 
 
 -   This output is put onto an API response queue, maintained by the main controller of the app.
 
-`void makeRequest(String serviceName, HashMap<String, String> payload)`
+<pre>void makeRequest(String serviceName, HashMap<String, String> payload)</pre>
 
 The recognised service names are:
 
@@ -35,7 +35,7 @@ The recognised service names are:
 
 The API response queue should have the type:
 
-         BlockingQueue<ApiResponse> appQueue;
+<pre>BlockingQueue<ApiResponse> appQueue;</pre>
 
 Periodically polling this queue returns an `ApiResponse` object returning the service's response after a call is made.
 
@@ -320,7 +320,24 @@ The metadata returned by this service is:
 
 ## Adding Services
 
-The service interaction is highly extensible. A service must extend the abstract `ServiceRequest` class, providing the following attributes:
+The API service interaction is highly extensible. There are two methods to extending Concierge with new services, detailed below.
+
+### JSON Schema
+
+The JSON schema greatly simplifies the extension of Concierge's already rich API interaction ecosystem. It also allows
+for new services to be added in a language-independent manner, providing a simple and intuitive, yet powerful interface.
+
+Full details on getting started with the schema can be found [here](src/main/java/servicesAPI/services/schema/README.md).
+
+-   After following the instructions, no code needs to be modified to add the service to Concierge.
+
+For most services, the JSON schema should be sufficient to perform and parse API calls. However, there are some limitations with the schema; to circumvent these, the service can be implemented as a [Java class](#java-class).
+
+### Java Class
+
+Should you require more fine-grained control over the API URL, or the response parsing, it is recommended to do so using a Java class.
+
+A service must extend the abstract `ServiceRequest` class, providing the following attributes:
 
 -   `URL` - The URL where the resource provided by the API is located.
 -   If the URL requires any named parameters, they are to be added in the following format:
@@ -350,6 +367,14 @@ It must also implement the following methods:
 
 The service can then be called by adding its name to the switch statement in the `ServiceFactory` by adding a new case for its `name` attribute in lowercase and returning a new object of the service (which takes the `payload` as its only parameter). No other code interaction needs to take place.
 
-The service should be placed in the `services` package, in the relevant category package, and its API format should be listed in the ["API Format"](#api-formats) section with its description and any metadata it returns.
+The service should be placed in the `services` package, in the relevant category package, defining a new package if it does not fall into an existing category.
 
-The new service's name should also be added to the bullet list of [endpoints](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/blob/main/App/Services-API/README.md#endpoints) defined in the RESTful API package's README.
+### Documentation
+
+With either extension method, please ensure to update the documentation accordingly after adding new services.
+
+The new service's name should be add to the bullet [list of recognised service names](#interface), preferably to maintain alphabetical order.
+
+The new service's API format should also be listed in the ["API Format"](#api-formats) section with its description, parameters it takes (if applicable) and any metadata it returns.
+
+The new service's name should also be added to the bullet list of [endpoints](src/main/java/servicesAPI/api/README.md#endpoints) defined in the RESTful API package's README.

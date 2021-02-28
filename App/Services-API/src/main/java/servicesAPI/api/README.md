@@ -29,7 +29,7 @@ Parameters are to be supplied in the URL in lowercase form.
 
 -   e.g., the dictionary service endpoint requires a `WORD` parameter (as per the outer README) and is supplied (in lowercase) as:
 
-    /dictionary?word=word_here
+<pre>/dictionary?word=word_here</pre>
 
 -   Services that require multiple parameters are supplied by an ampersand (&) separated list.
 
@@ -40,12 +40,13 @@ will result in an error.
 
 All responses are of the form:
 
-    {
+<pre>    {
        "service": "",
        "message": "",
        "metadata": {},
        "code": code
     }
+</pre>
 
 Where
 
@@ -74,12 +75,14 @@ And then perform your HTTP requests. For example, after the application is runni
 
 This will return something similar to:
 
+<pre>
     {
         "service":"current weather",
         "message":"The weather in London today is broken clouds with the temperature being 7 degrees celsius but will probably feel like 4 degrees celsius. The high will be 7 degrees celsius and the low, 6 degrees celsius. Don't forget to dress warm today!",
         "metadata":{},
         "code":200
     }
+</pre>
 
 Note that the URL must be quoted to escape the question marks and ampersands if performing HTTP requests from the command line.
 
@@ -87,16 +90,16 @@ Note that the URL must be quoted to escape the question marks and ampersands if 
 
 There are different execution options for the API, summarised below.
 
-Note that these can only be enabled by passing them as command line arguments to the Python `run` script or running the application as a `jar`. Command line arguments are unavailable with Java if not executing using a `jar` file.
+Note that these can only be enabled by passing them as command line arguments to the Python `run` script or running the application as a `jar`. Command line arguments are unavailable with Java if not executing using a `jar` file (using the `java -jar ...` command).
 
 The following arguments are all optional.
 
 -   A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8080` by default.
 -   Logging information to the console can be enabled with the `-l` (or `--l`) flag - logging is disabled by default.
 -   The application can be built into a single jar and executing using the `-jar` (or `--jar`) flag.
-    -   This option is only available using the Python run script.
+    -   This option is only available using the Python `run` script.
 
-When using the `jar` file:
+When using the `jar` file (with `java -jar ...`):
 
 -   The `-l` flag is supplied **without** the leading `-` character(s) - i.e. as `l`.
 -   The `-port` flag is **always** supplied with a single `-` and the same goes for `-p`.
