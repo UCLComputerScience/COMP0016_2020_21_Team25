@@ -56,7 +56,7 @@ public class MainActivityKeyAssertions {
         button3.check(matches(isDisplayed()));
 
         ViewInteraction button4 = onView(
-                allOf(withId(R.id.help_view_button), withText("HELP"),
+                allOf(withId(R.id.instructions_view_button), withText("HELP"),
                         withParent(allOf(withId(R.id.container),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));

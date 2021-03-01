@@ -2,7 +2,6 @@ package com.example.fisev2concierge;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button help_view_button = findViewById(R.id.help_view_button);
+        Button help_view_button = findViewById(R.id.instructions_view_button);
         help_view_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

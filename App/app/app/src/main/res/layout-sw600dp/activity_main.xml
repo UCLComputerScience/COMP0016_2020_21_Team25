@@ -37,64 +37,63 @@
     <ScrollView
         android:id="@+id/buttonsScrollView"
         android:layout_width="wrap_content"
-        android:layout_height="137dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/stroke_bg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerBox">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/instructions_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="102dp"
+                android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="Instructions"
-                android:textSize="40sp"
+                android:textSize="60sp"
                 app:backgroundTint="#1FCD66"
                 tools:text="Instructions" />
 
             <Button
                 android:id="@+id/alarms_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
+                android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/alarms"
-                android:textSize="40sp"
+                android:textSize="60sp"
                 app:backgroundTint="#1FCD66" />
 
             <Button
                 android:id="@+id/reminders_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
+                android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/reminders"
-                android:textSize="40sp"
+                android:textSize="60sp"
                 app:backgroundTint="#1FCD66" />
 
             <Button
                 android:id="@+id/timers_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
+                android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/timers"
-                android:textSize="40sp"
+                android:textSize="60sp"
                 app:backgroundTint="#1FCD66" />
 
             <Button
                 android:id="@+id/history_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
-                android:layout_marginLeft="30dp"
+                android:layout_height="118dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
                 android:text="@string/history"
-                android:textSize="35sp"
+                android:textSize="60sp"
                 app:backgroundTint="#1FCD66"
                 tools:text="history" />
 
@@ -103,8 +102,8 @@
 
     <ImageView
         android:id="@+id/headerBox"
-        android:layout_width="733dp"
-        android:layout_height="206dp"
+        android:layout_width="1279dp"
+        android:layout_height="340dp"
         android:contentDescription="@string/header_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -112,11 +111,11 @@
 
     <EditText
         android:id="@+id/conciergeStatusText"
-        android:layout_width="355dp"
-        android:layout_height="166dp"
-        android:layout_marginStart="376dp"
-        android:layout_marginLeft="376dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="106dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="12dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/conciergeStatus"
@@ -124,27 +123,27 @@
         android:keepScreenOn="false"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="40sp"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBox"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/holdToUseText"
-        android:layout_width="202dp"
-        android:layout_height="162dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="308dp"
+        android:layout_height="203dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
         android:text="Hold to use Concierge"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="60sp"
         app:layout_constraintStart_toEndOf="@+id/tapToStartConciergeIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ibmLogo"
-        android:layout_width="55dp"
-        android:layout_height="47dp"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
         android:contentDescription="@string/ibm_logo_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,8 +151,8 @@
 
     <ImageView
         android:id="@+id/uclLogo"
-        android:layout_width="51dp"
-        android:layout_height="44dp"
+        android:layout_width="88dp"
+        android:layout_height="60dp"
         android:contentDescription="@string/ucl_logo_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -162,11 +161,11 @@
 
     <ImageView
         android:id="@+id/tapToStartConciergeIcon"
-        android:layout_width="159dp"
-        android:layout_height="164dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="260dp"
+        android:layout_height="203dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/stroke_bg"
         android:clickable="true"
         android:contentDescription="@string/start_concierge_icon_description"

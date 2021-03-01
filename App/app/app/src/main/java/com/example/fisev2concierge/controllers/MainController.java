@@ -18,6 +18,7 @@ import com.example.fisev2concierge.functionalityClasses.RemindersFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 import com.example.fisev2concierge.helperClasses.AppPackageNameLookup;
+import com.example.fisev2concierge.helperClasses.GetLatLon;
 import com.example.fisev2concierge.helperClasses.GetLocation;
 import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
 import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
@@ -152,9 +153,9 @@ public class MainController{
         openAppFunctionality.openApp(app);
     }
 
-    public void openPackage(AppCompatActivity appCompatActivity, Context context, String packageName){
+    public void openPackage(AppCompatActivity appCompatActivity, Context context, String appName, String packageName){
         OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
-        openAppFunctionality.openPackage(packageName);
+        openAppFunctionality.openPackage(appName, packageName);
     }
 
     //Method for opening websites

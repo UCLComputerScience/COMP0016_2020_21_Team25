@@ -24,7 +24,7 @@ public class OpenUrlFunctionality {
     public void openWeb(String websiteName){
         String url = mainController.websiteUrlLookup(websiteName);
         System.out.println("WebsiteUrl: " + url);
-        if (url.equals(null)){
+        if (url == null){
             //url was not found, do google search
             websiteName = websiteName.replace(" ", "+");
             url = mainController.searchUrlLookup("google") + websiteName;
@@ -36,7 +36,7 @@ public class OpenUrlFunctionality {
         String url = mainController.searchUrlLookup(websiteName);
         System.out.println("SearchUrl: " + url);
         String searchItem = (String) searchItems.get("searchItem");
-        if (url.equals(null)){
+        if (url == null){
             //search url was not found, do google search
             websiteName = websiteName.replace(" ", "+");
             searchItem = searchItem.replace(" ", "+");

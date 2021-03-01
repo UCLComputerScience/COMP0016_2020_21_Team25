@@ -40,7 +40,7 @@ public class HelpViewBackButton {
     @Test
     public void helpViewBackButton() {
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.help_view_button), withText("Help"),
+                allOf(withId(R.id.instructions_view_button), withText("Help"),
                         childAtPosition(
                                 allOf(withId(R.id.container),
                                         childAtPosition(

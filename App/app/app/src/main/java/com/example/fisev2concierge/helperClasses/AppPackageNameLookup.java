@@ -1,6 +1,11 @@
 package com.example.fisev2concierge.helperClasses;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AppPackageNameLookup {
     private HashMap appPackageNames = new HashMap();
@@ -17,6 +22,7 @@ public class AppPackageNameLookup {
         appPackageNames.put("messages", "com.google.android.apps.messaging");
         appPackageNames.put("chrome", "com.android.chrome");
         appPackageNames.put("youtube", "com.google.android.youtube");
+        appPackageNames.put("calculator", "com.android.calculator2");
         //need to expand these to comman apps preinstalled on the phone such as calc and notepad
         //need to also expand to apps old people might use
     }
