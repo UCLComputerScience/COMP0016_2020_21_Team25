@@ -12,6 +12,10 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -42,7 +46,7 @@ public class SpeechRecognition {
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     }
 
-    private void configSpeechRecognizer(EditText conciergeStatusText){
+    private void configSpeechRecognizer(TextView conciergeStatusText){
         mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle params) {
@@ -126,7 +130,7 @@ public class SpeechRecognition {
 
 
 
-    public void config(AppCompatActivity appCompatActivity, EditText editText) {
+    public void config(AppCompatActivity appCompatActivity, TextView editText) {
         createSpeechRecognizer(appCompatActivity);
         createSpeechRecognizerIntent();
         configSpeechRecognizer(editText);

@@ -62,7 +62,7 @@
             <Button
                 android:id="@+id/alarms_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
+                android:layout_height="102dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/alarms"
                 android:textSize="35sp"
@@ -71,7 +71,7 @@
             <Button
                 android:id="@+id/reminders_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
+                android:layout_height="102dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/reminders"
                 android:textSize="35sp"
@@ -80,7 +80,7 @@
             <Button
                 android:id="@+id/timers_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
+                android:layout_height="102dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/timers"
                 android:textSize="35sp"
@@ -89,10 +89,8 @@
             <Button
                 android:id="@+id/history_view_button"
                 android:layout_width="wrap_content"
-                android:layout_height="91dp"
-                android:layout_marginLeft="30dp"
+                android:layout_height="102dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
                 android:text="@string/history"
                 android:textSize="35sp"
                 app:backgroundTint="#1FCD66"
@@ -104,23 +102,20 @@
     <ImageView
         android:id="@+id/headerBox"
         android:layout_width="match_parent"
-        android:layout_height="299dp"
+        android:layout_height="293dp"
         android:contentDescription="@string/header_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/box" />
 
-    <EditText
+    <TextView
         android:id="@+id/conciergeStatusText"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/conciergeStatus"
-        android:inputType="textPersonName"
-        android:keepScreenOn="false"
+        android:layout_height="82dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Concierge is not on"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="35sp"

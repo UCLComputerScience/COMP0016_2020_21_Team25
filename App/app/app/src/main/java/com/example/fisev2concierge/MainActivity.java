@@ -9,12 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import android.content.pm.PackageManager;
 import android.view.MotionEvent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText conciergeStatusText = findViewById(R.id.conciergeStatusText);
+        TextView conciergeStatusText = findViewById(R.id.conciergeStatusText);
 
         SpeechRecognition speechRecognition = new SpeechRecognition();
         speechRecognition.checkPermission(this);

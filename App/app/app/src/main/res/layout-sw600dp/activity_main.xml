@@ -109,18 +109,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/box" />
 
-    <EditText
+    <TextView
         android:id="@+id/conciergeStatusText"
         android:layout_width="wrap_content"
-        android:layout_height="106dp"
+        android:layout_height="90dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="12dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/conciergeStatus"
-        android:inputType="textPersonName"
-        android:keepScreenOn="false"
+        android:text="Concierge is not on"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="60sp"
