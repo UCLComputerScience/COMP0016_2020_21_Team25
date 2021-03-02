@@ -49,27 +49,31 @@ public class Database {
      * Run SQL query - no different to execute, just provides better semantics.
      */
     public ResultSet query(String query) {
-        return executeStatement(query);
+        return executeStatement(query, true);
     }
 
     /**
      * Execute SQL statement - just to provide better semantics.
      */
     public void execute(String command) {
-        executeStatement(command);
+        executeStatement(command, false);
     }
 
     /**
      * @param command the statement to execute.
+     * @param query   indicates whether the statement is a query or insert statement
      * @return ResultSet the result of the SQL operation.
      */
-    private ResultSet executeStatement(String command) {
+    private ResultSet executeStatement(String command, boolean query) {
         try {
             ApiLogger.log("Executing SQL Statement:\n" + command);
-            ResultSet result = statement.executeQuery(command);
-            // Save changes to database
-            connection.commit();
-            return result;
+            if (query) {
+                return statement.executeQuery(command);
+            } else {
+                statement.executeUpdate(command);
+                connection.commit();
+                return null;
+            }
         } catch (SQLException ex) {
             System.err.println("SQLException information");
             while (ex != null) {

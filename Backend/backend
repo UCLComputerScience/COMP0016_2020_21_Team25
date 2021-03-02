@@ -1,0 +1,11 @@
+#!/bin/bash
+
+BACKEND_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+BACKEND_JAR="$BACKEND_ROOT/target/backend-api-1.0-SNAPSHOT.jar"
+
+if [ ! -f "$BACKEND_JAR" ]; then
+    echo Backend is not built && exit 1
+fi
+
+java -jar "$BACKEND_JAR" "$@"
