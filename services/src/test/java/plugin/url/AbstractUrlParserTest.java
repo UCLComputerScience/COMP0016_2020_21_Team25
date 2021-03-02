@@ -1,23 +1,24 @@
 package plugin.url;
 
-import org.junit.Before;
 import services.api.schema.SchemaServiceFactory;
 import services.api.schema.SchemaServiceRequest;
 import services.api.schema.UrlParser;
 import services.api.schema.Util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractUrlParserTest {
     protected final String jokeApiKey = "9728c23d120f4d1985ff2a7cc019bd96";
     protected Map<String, Object> schema;
     protected Map<String, String> parameters;
 
-    @Before
+    @BeforeEach
     public void setServiceName() {
         try {
             String schemaSource = Util.readFile("joke", false);

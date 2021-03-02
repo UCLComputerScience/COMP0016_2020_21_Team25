@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     log = " l" if args.l else ""
     if (args.jar):
-        cmd = "set -e; mvn clean package; java -jar target/services-1.0-SNAPSHOT-jar-with-dependencies.jar port={PORT}{LOG}"
+        cmd = "set -e; mvn clean package; java -jar target/services-1.0-SNAPSHOT.jar port={PORT}{LOG}"
     else:
         cmd = "set -e; mvn clean; mvn org.springframework.boot:spring-boot-maven-plugin:run -Dspring-boot.run.arguments=\"--port={PORT}{LOG}\""
     system(cmd.format(LOG=log, PORT=args.port))

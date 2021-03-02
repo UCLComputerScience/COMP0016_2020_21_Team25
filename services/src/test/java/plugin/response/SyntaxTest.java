@@ -1,9 +1,12 @@
 package plugin.response;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the response parser with malformed/invalid syntax in the "message" field
@@ -13,6 +16,7 @@ public class SyntaxTest extends AbstractResponseParserTest {
     private final String defaultOutput = "An error occurred while calling the book service.\n";
 
     @Override
+    @BeforeEach
     public void setName() {
         setServiceName("book");
     }
@@ -20,11 +24,13 @@ public class SyntaxTest extends AbstractResponseParserTest {
     /**
      * Array indices must only be integers.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void nonIntegerArrayIndex() {
         String message = "test {results[test]}";
+        System.out.println(schema);
         schema.put("message", message);
-        check(serviceName, schema, defaultOutput, metadata, false);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+                () -> check(serviceName, schema, defaultOutput, metadata, false), "Expected RuntimeException");
     }
 
     /**
@@ -78,19 +84,20 @@ public class SyntaxTest extends AbstractResponseParserTest {
      * Invalid syntax should result in an error.
      */
     @Test
-    public void MapNotationNoChild() {
+    public void mapNotationNoChild() {
         setServiceName("joke");
         String message = "{result[0].}";
         schema.put("message", message);
         String expected = "An error occurred while calling the joke service.";
-        check("joke", schema, expected, metadata, false);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+                () -> check("joke", schema, expected, metadata, false), "Expected RuntimeException");
     }
 
     /**
      * Invalid syntax should result in an error.
      */
     @Test
-    public void MapNotationNoParent() {
+    public void mapNotationNoParent() {
         setServiceName("current-weather");
         String message = "{.lon}";
         schema.put("message", message);
@@ -102,7 +109,7 @@ public class SyntaxTest extends AbstractResponseParserTest {
      * Parser should be able to add arrays to metadata.
      */
     @Test
-    public void AddArrayToMetadata() {
+    public void addArrayToMetadata() {
         setServiceName("current-weather");
         Map<String, Object> metadataSchema = new HashMap<>();
         metadataSchema.put("weather[0]", "weather[0]");

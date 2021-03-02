@@ -67,6 +67,10 @@ And then to start the application on port `8080`:
 
     docker run --rm services services/services
 
+Note that you must be running these docker commands from one level up, just outside this folder. You should navigate to the containing folder before building or running the image:
+
+    cd ..
+
 To start the application, ensuring no service is currently using port `8080`, run the following command in a terminal in
 the "services" directory (where the `pom.xml` is located):
 
@@ -79,6 +83,15 @@ An executable `jar` file can be used instead, built and executed manually using:
 You can also start the application using a Python script with the following command:
 
     python3 tools/run.py
+
+For simplicity, a shell script is included to run the service interaction as a RESTful API:
+
+    ./services
+
+Depending on your system configuration, you may need to give the script execution permissions which can only be done with administrator privileges (`sudo`):
+
+     chmod +x services
+
 
 And then perform your HTTP requests. For example, after the application is running, open a terminal and enter:
 

@@ -1,13 +1,14 @@
 package plugin.response;
 
-import org.junit.Before;
 import services.api.schema.ResponseParser;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static services.api.schema.Util.JSONtoMap;
 import static services.api.schema.Util.readFile;
 
@@ -17,7 +18,7 @@ public abstract class AbstractResponseParserTest {
     protected Map<String, Object> schema;
     protected Map<String, Object> metadata = new HashMap<>();
 
-    @Before
+    @BeforeEach
     public abstract void setName();
 
     protected void setServiceName(String serviceName) {
