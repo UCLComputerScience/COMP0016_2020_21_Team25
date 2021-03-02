@@ -37,7 +37,7 @@
     <ScrollView
         android:id="@+id/buttonsScrollView"
         android:layout_width="wrap_content"
-        android:layout_height="137dp"
+        android:layout_height="188dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/stroke_bg"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
         app:layout_constraintVertical_bias="0.353">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -56,7 +56,6 @@
                 android:id="@+id/instructions_view_button"
                 android:layout_width="wrap_content"
                 android:layout_height="102dp"
-                android:layout_marginTop="20dp"
                 android:text="Instructions"
                 android:textSize="35sp"
                 app:backgroundTint="#0e62fe"
@@ -66,7 +65,7 @@
                 android:id="@+id/alarms_view_button"
                 android:layout_width="wrap_content"
                 android:layout_height="102dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/alarms"
                 android:textSize="35sp"
                 app:backgroundTint="#0e62fe" />
@@ -75,7 +74,7 @@
                 android:id="@+id/reminders_view_button"
                 android:layout_width="wrap_content"
                 android:layout_height="102dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/reminders"
                 android:textSize="35sp"
                 app:backgroundTint="#0e62fe" />
@@ -84,7 +83,7 @@
                 android:id="@+id/timers_view_button"
                 android:layout_width="wrap_content"
                 android:layout_height="102dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/timers"
                 android:textSize="35sp"
                 app:backgroundTint="#0e62fe" />
@@ -93,7 +92,7 @@
                 android:id="@+id/history_view_button"
                 android:layout_width="wrap_content"
                 android:layout_height="102dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/history"
                 android:textSize="35sp"
                 app:backgroundTint="#0e62fe"
@@ -170,5 +169,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
+    <TextView
+        android:id="@+id/scrollToViewButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scroll through buttons below"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonsScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

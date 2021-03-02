@@ -56,7 +56,6 @@
                 android:id="@+id/instructions_view_button"
                 android:layout_width="wrap_content"
                 android:layout_height="118dp"
-                android:layout_marginTop="20dp"
                 android:text="Instructions"
                 android:textSize="60sp"
                 app:backgroundTint="#0e62fe"
