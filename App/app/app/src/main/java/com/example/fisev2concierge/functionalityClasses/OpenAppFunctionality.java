@@ -30,7 +30,7 @@ public class OpenAppFunctionality {
     }
 
     public void openApp(String appName){
-        String packageName = mainController.packageNameLookup(appName);
+        String packageName = mainController.packageNameLookup(appCompatActivity, appName);
         if (packageName == null){
             System.out.println("Hooray! Package name is null");
         }

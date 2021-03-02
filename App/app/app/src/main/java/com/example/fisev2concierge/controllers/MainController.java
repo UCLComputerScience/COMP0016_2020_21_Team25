@@ -3,9 +3,12 @@ package com.example.fisev2concierge.controllers;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fisev2concierge.MainActivity;
 import com.example.fisev2concierge.askBobConnectivity.AskBob;
 import com.example.fisev2concierge.askBobConnectivity.AskBobRequest;
 import com.example.fisev2concierge.askBobConnectivity.AskBobResponseParser;
@@ -22,12 +25,24 @@ import com.example.fisev2concierge.helperClasses.GetLatLon;
 import com.example.fisev2concierge.helperClasses.GetLocation;
 import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
 import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
+import com.example.fisev2concierge.speech.SpeechSynthesis;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class MainController{
+
+    public void handleUserRequest(String[] userRequest, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity, Context context, Activity activity, TextView conciergeStatusText){
+        if (userRequest[0].length()>0) {
+            conciergeStatusText.setText(userRequest[0]);
+            speechSynthesis.runTts(userRequest[0]);
+            HashMap askBobResponse = askBobRequest(userRequest[0]);
+            askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+        } else {
+            Toast.makeText(context, "Empty input", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public String getLocation(Context context, Activity activity){
         GetLocation getLocation = new GetLocation(context, activity);
@@ -51,9 +66,9 @@ public class MainController{
         return parser.parse(response);
     }
 
-    public void askBobController(HashMap parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity){
+    public void askBobController(HashMap parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
         AskBobResponseController askBobResponseController = new AskBobResponseController();
-        askBobResponseController.responseController(parsedResponse, context, activity, appCompatActivity);
+        askBobResponseController.responseController(parsedResponse, context, activity, appCompatActivity, speechSynthesis);
     }
 
     //BackendServices
@@ -179,8 +194,8 @@ public class MainController{
         return searchUrlLookup.search(website);
     }
 
-    public String packageNameLookup(String appName){
-        AppPackageNameLookup appPackageNameLookup = new AppPackageNameLookup();
+    public String packageNameLookup(AppCompatActivity appCompatActivity, String appName){
+        AppPackageNameLookup appPackageNameLookup = new AppPackageNameLookup(appCompatActivity);
         return appPackageNameLookup.search(appName);
     }
 }

@@ -18,6 +18,7 @@ import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.helperClasses.GetLatLon;
 import com.example.fisev2concierge.helperClasses.GetLocation;
+import com.example.fisev2concierge.speech.SpeechSynthesis;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -53,8 +54,12 @@ public class HistoryView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                mainController.openApp(HistoryView.this, HistoryView.this, "youtube");
-                mainController.openApp(HistoryView.this, HistoryView.this, "settings");
+//                mainController.openApp(HistoryView.this, HistoryView.this, "messaging");
 //                mainController.openApp(HistoryView.this, HistoryView.this, "settings");
+//                mainController.openPackage(HistoryView.this, HistoryView.this, "googlesearchbox", "com.google.android.googlequicksearchbox");
+                SpeechSynthesis speechSynthesis = new SpeechSynthesis();
+                speechSynthesis.configTts(HistoryView.this);
+                speechSynthesis.runTts("hello how are you");
             }
         });
 
@@ -141,11 +146,14 @@ public class HistoryView extends AppCompatActivity {
         askBobOpenApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap askBobResponse = mainController.askBobRequest("random ting");
-//                mainController.askBobController(askBobResponse, HistoryView.this, HistoryView.this, HistoryView.this);
-                if (askBobResponse.get("Service_Type").equals("ERROR")){
-                    System.out.println("Command not understood: " + askBobResponse.get("text").toString());
+                if(ContextCompat.checkSelfPermission(HistoryView.this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(HistoryView.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE}, 8);
                 }
+                else {HashMap askBobResponse = mainController.askBobRequest("open snapchat");}
+//                mainController.askBobController(askBobResponse, HistoryView.this, HistoryView.this, HistoryView.this);
+//                if (askBobResponse.get("Service_Type").equals("ERROR")){
+//                    System.out.println("Command not understood: " + askBobResponse.get("text").toString());
+//                }
             }
         });
 

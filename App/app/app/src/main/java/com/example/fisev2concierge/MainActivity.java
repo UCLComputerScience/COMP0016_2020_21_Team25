@@ -30,38 +30,49 @@ public class MainActivity extends AppCompatActivity {
 
         TextView conciergeStatusText = findViewById(R.id.conciergeStatusText);
 
-        SpeechRecognition speechRecognition = new SpeechRecognition();
-        speechRecognition.checkPermission(this);
-        speechRecognition.config(this, conciergeStatusText);
+//        MainController mainController = new MainController();
 
-        MainController mainController = new MainController();
         //Speech Synthesis defined on main thread
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
         speechSynthesis.configTts(this);
 
+        //note that speech recognition software must be installed and configured on target device
+        SpeechRecognition speechRecognition = new SpeechRecognition();
+        speechRecognition.checkPermission(this);
+        speechRecognition.config(this, speechSynthesis, this, this, conciergeStatusText);
+
         findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {    
+            public synchronized boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_UP:
                         //test opening apps
                         //test if calls are made automatically after being granted permission
+//                        System.out.println("Stopped listening");
                         speechRecognition.stopListening();
-                        String userRequest = String.valueOf(conciergeStatusText.getText());
-                        conciergeStatusText.setHint("Concierge is off");
-                        if (userRequest.length()>0){
-                            HashMap askBobResponse = mainController.askBobRequest(userRequest);
-                            if (askBobResponse.get("Service_Type").equals("API_CALL")){
-                                speechSynthesis.runTts((String) askBobResponse.get("Response"));
-                            } else if (askBobResponse.get("Service_Type").equals("ERROR")){
-                                speechSynthesis.runTts((String) askBobResponse.get("text"));
-                                Toast.makeText(MainActivity.this, "Command not understood", Toast.LENGTH_SHORT).show();
-                            } else {
-                                mainController.askBobController(askBobResponse, MainActivity.this, MainActivity.this, MainActivity.this);
-                            }
-                        } else {
-                            Toast.makeText(MainActivity.this, "Empty input", Toast.LENGTH_SHORT).show();
-                        }
+//                        mainController.speak(speechSynthesis);
+//                        speechSynthesis.runTts("hello how are you");
+//                        if (speechRecognition.ready[0] == true){
+//                            System.out.println("ready is true");
+//                        }
+//                        String[] result = speechRecognition.getResult();
+//                        System.out.println("mainActivity: result[0]: " + result[0]);
+//                        System.out.println("conciergeStatusText: " + conciergeStatusText.getText());
+//                        String userRequest = String.valueOf(conciergeStatusText.getText());
+//                        conciergeStatusText.setHint("Concierge is off");
+//                        if (userRequest.length()>0){
+//                            HashMap askBobResponse = mainController.askBobRequest(userRequest);
+//                            if (askBobResponse.get("Service_Type").equals("API_CALL")){
+//                                speechSynthesis.runTts((String) askBobResponse.get("Response"));
+//                            } else if (askBobResponse.get("Service_Type").equals("ERROR")){
+//                                speechSynthesis.runTts((String) askBobResponse.get("text"));
+//                                Toast.makeText(MainActivity.this, "Command not understood", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                mainController.askBobController(askBobResponse, MainActivity.this, MainActivity.this, MainActivity.this);
+//                            }
+//                        } else {
+//                            Toast.makeText(MainActivity.this, "Empty input", Toast.LENGTH_SHORT).show();
+//                        }
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();

@@ -40,9 +40,12 @@
         android:layout_height="137dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/stroke_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBox">
+        app:layout_constraintTop_toBottomOf="@+id/headerBox"
+        app:layout_constraintVertical_bias="0.353">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,7 +59,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Instructions"
                 android:textSize="35sp"
-                app:backgroundTint="#1FCD66"
+                app:backgroundTint="#0e62fe"
                 tools:text="Instructions" />
 
             <Button
@@ -66,7 +69,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/alarms"
                 android:textSize="35sp"
-                app:backgroundTint="#1FCD66" />
+                app:backgroundTint="#0e62fe" />
 
             <Button
                 android:id="@+id/reminders_view_button"
@@ -75,7 +78,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/reminders"
                 android:textSize="35sp"
-                app:backgroundTint="#1FCD66" />
+                app:backgroundTint="#0e62fe" />
 
             <Button
                 android:id="@+id/timers_view_button"
@@ -84,7 +87,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/timers"
                 android:textSize="35sp"
-                app:backgroundTint="#1FCD66" />
+                app:backgroundTint="#0e62fe" />
 
             <Button
                 android:id="@+id/history_view_button"
@@ -93,7 +96,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/history"
                 android:textSize="35sp"
-                app:backgroundTint="#1FCD66"
+                app:backgroundTint="#0e62fe"
                 tools:text="history" />
 
         </LinearLayout>
@@ -115,9 +118,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Concierge is not on"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
+        android:text="Concierge is off"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBox"
         app:layout_constraintStart_toStartOf="parent" />
@@ -128,7 +131,7 @@
         android:layout_height="162dp"
         android:layout_marginTop="16dp"
         android:text="Hold to use Concierge"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="35sp"
         app:layout_constraintStart_toEndOf="@+id/tapToStartConciergeIcon"
         app:layout_constraintTop_toTopOf="parent" />

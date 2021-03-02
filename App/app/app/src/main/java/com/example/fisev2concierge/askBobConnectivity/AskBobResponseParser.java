@@ -13,6 +13,7 @@ public class AskBobResponseParser {
 
         HashMap parsedResponse = new HashMap();
         try {
+            //take 500 into account
             String jsonString = response.get(0);
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray("messages");
