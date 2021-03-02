@@ -6,21 +6,27 @@ import askbob.plugin
 import requests
 
 
-@askbob.plugin.action("concierge_lookup", "place_request_amazon_search")
+@askbob.plugin.action("concierge_lookup", "place_request_shop_search")
 class ActionConciergePlaceCall(Action):
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        status="ok"
 
-        search_term = next(tracker.get_latest_entity_values("amazon_search_term"), None)
-        response=search_term
+        search_term = next(tracker.get_latest_entity_values("shopping_search_term"), None)
+        shop= next(tracker.get_latest_entity_values("shop_term"), None)     
+
         if not search_term:
-            response="Sorry, I can't open this app"
-       
+            search_term="Amazon"
+        elif not shop:
+            status='error'
+        
         data_package={
-            "Service_Type": "AMAZON_SEARCH",
-            "Application": response.lower()
+            "Service_Type": "SHOP_SEARCH",
+            "Status": status,
+            "Service": shop.upper(),
+            "Application": search_term.lower()
         }
 
         dispatcher.utter_message(json_message= data_package)
@@ -36,14 +42,16 @@ class ActionConciergePlaceCall(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        status="ok"
         search_term = next(tracker.get_latest_entity_values("yell_search_term"), None)
-        response=search_term
+        
         if not search_term:
-            response="Sorry, I can't open this app"
+            status='error'
        
         data_package={
             "Service_Type": "YELL_SEARCH",
-            "Application": response.lower()
+            "Status": status,
+            "Application": search_term.lower()
         }
 
         dispatcher.utter_message(json_message= data_package)

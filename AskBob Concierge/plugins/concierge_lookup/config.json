@@ -1,14 +1,21 @@
 {
     "plugin": "concierge_lookup",
     "entities": [
-        "amazon_search_term",
+        "shopping_search_term",
+        "shop_term",
         "yell_search_term"
     ],
     "regexes": [
         {
-            "regex_id": "amazon_search_term",
+            "regex_id": "shopping_search_term",
             "examples":[
                 "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        },
+        {
+            "regex_id": "shop_term",
+            "examples":[
+                "[a-z]+"
             ]
         },
         {
@@ -20,23 +27,23 @@
     ],
     "intents": [
         {
-            "intent_id": "request_amazon_search",
+            "intent_id": "request_shop_search",
             "examples":[
-                "Can you search Amazon for [baked beans]{\"entity\":\"amazon_search_term\"}",
-                "Can you search Amazon for [stationary]{\"entity\":\"amazon_search_term\"}",
-                "Can you search Amazon [apples]{\"entity\":\"amazon_search_term\"}",
-                "Can you open Amazon and search for [whiskey]{\"entity\":\"amazon_search_term\"}",
-                "Search Amazon for [jam]{\"entity\":\"amazon_search_term\"}",
-                "Search Amazon for [coat hangers]{\"entity\":\"amazon_search_term\"}",
-                "Search Amazon for [baking trays]{\"entity\":\"amazon_search_term\"}",
-                "Please open Amazon and search for [kitchen utensils]{\"entity\":\"amazon_search_term\"}",
-                "Please open Amazon and buy [trainers]{\"entity\":\"amazon_search_term\"}",
-                "Please can I buy [carpets]{\"entity\":\"amazon_search_term\"}",
-                "I would like to buy [keyboards]{\"entity\":\"amazon_search_term\"}",
-                "I would like to purchase [water bottles]{\"entity\":\"amazon_search_term\"}",
-                "I want to buy [cable ties]{\"entity\":\"amazon_search_term\"}",
-                "Purchase [pens]{\"entity\":\"amazon_search_term\"}",
-                "Purchase [biscuits]{\"entity\":\"amazon_search_term\"}"
+                "Can you search [Amazon]{\"entity\":\"shop_term\"} for [baked beans]{\"entity\":\"shopping_search_term\"}",
+                "Can you search [ebay]{\"entity\":\"shop_term\"} for [stationary]{\"entity\":\"shopping_search_term\"}",
+                "Can you search [Argos]{\"entity\":\"shop_term\"} [apples]{\"entity\":\"shopping_search_term\"}",
+                "Can you open [Amazon]{\"entity\":\"shop_term\"} and search for [whiskey]{\"entity\":\"shopping_search_term\"}",
+                "Search [Morissons]{\"entity\":\"shop_term\"} for [jam]{\"entity\":\"shopping_search_term\"}",
+                "Search [Argos]{\"entity\":\"shop_term\"} for [coat hangers]{\"entity\":\"shopping_search_term\"}",
+                "Search [Amazon]{\"entity\":\"shop_term\"} for [baking trays]{\"entity\":\"shopping_search_term\"}",
+                "Please open [Ebay]{\"entity\":\"shop_term\"} and search for [kitchen utensils]{\"entity\":\"shopping_search_term\"}",
+                "Please open [Waitrose]{\"entity\":\"shop_term\"} and buy [trainers]{\"entity\":\"shopping_search_term\"}",
+                "Please can I buy [carpets]{\"entity\":\"shopping_search_term\"}",
+                "I would like to buy [keyboards]{\"entity\":\"shopping_search_term\"}",
+                "I would like to purchase [water bottles]{\"entity\":\"shopping_search_term\"}",
+                "I want to buy [cable ties]{\"entity\":\"shopping_search_term\"}",
+                "Purchase [pens]{\"entity\":\"shopping_search_term\"}",
+                "Purchase [biscuits]{\"entity\":\"shopping_search_term\"}"
             ]
 
         },
@@ -63,15 +70,15 @@
         }
     ],
     "actions": [
-        "place_request_amazon_search",
+        "place_request_shop_search",
         "place_request_yell_search"
     ],
     "skills": [
         {
             "description":"Ask Concierge to search Amazon for a given search term",
-            "intent": "request_amazon_search",
+            "intent": "request_shop_search",
             "actions":[
-                "place_request_amazon_search"
+                "place_request_shop_search"
             ]
         },
 
