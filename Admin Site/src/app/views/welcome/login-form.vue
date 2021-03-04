@@ -9,8 +9,8 @@
             autocomplete="username"
             icon="person"
             key-name="usernameOrEmail"
-            label="Username or Email"
-            placeholder="Username or email address"
+            label="Username"
+            placeholder="Username"
             type="text"
         >
         </text-input>
@@ -29,12 +29,6 @@
         >
         </text-input>
 
-        <v-link
-            class="inline-link"
-            href="/forgot"
-            text="Forgot Password?"
-        ></v-link>
-
         <flat-button text="Log In" v-on:click.prevent="login"></flat-button>
     </form>
 </template>
@@ -42,11 +36,10 @@
 <script>
 import TextInput from "../../components/widgets/text-input/text-input.vue";
 import FlatButton from "../../components/widgets/buttons/flat-button.vue";
-import VLink from "../../components/widgets/buttons/v-link.vue";
 
 export default {
     name: "login-form",
-    components: {VLink, FlatButton, TextInput},
+    components: {FlatButton, TextInput},
     data() {
         return {
             loginData: {

@@ -26,7 +26,7 @@ export default {
             return allData[this.userId];
         },
         firstName() {
-            return this.data.firstName;
+            return this.data["first-name"];
         },
         fullName() {
             return this.firstName + " " + this.lastName;
@@ -37,10 +37,10 @@ export default {
             }`;
         },
         lastName() {
-            return this.data.lastName;
+            return this.data["last-name"];
         },
         profilePicture() {
-            return getProfileImage(this.data.profilePicture);
+            return getProfileImage(this.data["profile-picture"]);
         },
     },
     methods: {

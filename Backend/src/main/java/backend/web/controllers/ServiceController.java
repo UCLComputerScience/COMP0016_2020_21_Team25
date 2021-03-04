@@ -1,11 +1,11 @@
 package backend.web.controllers;
 
-import backend.web.responses.CategoryResponse;
-import backend.web.responses.ServicesInCategoryResponse;
-import backend.web.responses.MemberServicesResponse;
-import backend.web.util.MapComparator;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
+import backend.web.responses.CategoryResponse;
+import backend.web.responses.MemberServicesResponse;
+import backend.web.responses.ServicesInCategoryResponse;
+import backend.web.util.MapComparator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -89,7 +89,7 @@ public class ServiceController {
         int code = 200;
 
         String query = "SELECT SERVICE.* FROM USER_SERVICE INNER JOIN SERVICE ON USER_SERVICE.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_SERVICE.USER_ID='{USER_ID}'";
-        
+
         ResultSet result = database.query(query.replace("{USER_ID}", user_id));
         try {
             while (result.next()) {
@@ -100,7 +100,6 @@ public class ServiceController {
                 Map<String, String> service = new HashMap<>();
                 service.put("category", category);
                 service.put("name", name);
-                service.put("category", category);
                 service.put("icon", icon);
                 service.put("description", description);
                 services.add(service);

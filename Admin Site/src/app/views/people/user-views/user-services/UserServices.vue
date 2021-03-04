@@ -42,7 +42,7 @@ export default {
         },
         name() {
             if (this.user !== undefined) {
-                return this.user.firstName + " " + this.user.lastName;
+                return this.user["first-name"] + " " + this.user["last-name"];
             }
         },
         title() {

@@ -32,7 +32,7 @@ export default {
             return this.$store.getters["member/activeId"];
         },
         fullName() {
-            return this.member.firstName + " " + this.member.lastName;
+            return this.member["first-name"] + " " + this.member["last-name"];
         },
     },
     data() {
@@ -60,10 +60,10 @@ export default {
     methods: {
         updateDefault() {
             this.form = {
-                firstName: this.member.firstName,
-                lastName: this.member.lastName,
+                firstName: this.member["first-name"],
+                lastName: this.member["last-name"],
                 prefix: this.member.prefix,
-                phoneNumber: this.member.phoneNumber,
+                phoneNumber: this.member["phone-number"],
             };
             this.$nextTick(() => {
                 if (this.$refs.form !== null) {
@@ -106,7 +106,7 @@ export default {
         setData() {
             const form = {
                 id: this.member.id,
-                profilePicture: this.member.profilePicture,
+                profilePicture: this.member["profile-picture"],
                 response: null,
             };
             for (let [key, value] of Object.entries(this.form)) {
@@ -115,7 +115,7 @@ export default {
             return form;
         },
         updateRoute() {
-            const name = this.member.firstName + " " + this.member.lastName;
+            const name = this.member["first-name"] + " " + this.member["last-name"];
             const person = name.replaceAll(" ", "-").toLowerCase();
             this.$router.replace({
                 name: "user-details",

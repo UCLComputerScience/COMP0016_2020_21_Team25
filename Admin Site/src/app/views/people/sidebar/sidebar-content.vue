@@ -33,7 +33,7 @@ export default {
     methods: {
         go(user, el) {
             this.$store.dispatch("member/activeMember", user.id).then((r) => {
-                const person = user.firstName + " " + user.lastName;
+                const person = user["first-name"] + " " + user["last-name"];
                 const param = person.replaceAll(" ", "-").toLowerCase();
                 this.$router.push({
                     name: "user-details",

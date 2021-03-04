@@ -37,7 +37,7 @@ export default {
     computed: {
         fullName() {
             const user = this.$store.getters["admin/admin"]
-            return user.firstName + " " + user.lastName;
+            return user["first-name"] + " " + user["last-name"];
         }
     },
     data() {

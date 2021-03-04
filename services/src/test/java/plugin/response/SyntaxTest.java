@@ -27,7 +27,6 @@ public class SyntaxTest extends AbstractResponseParserTest {
     @Test
     public void nonIntegerArrayIndex() {
         String message = "test {results[test]}";
-        System.out.println(schema);
         schema.put("message", message);
         RuntimeException thrown = assertThrows(RuntimeException.class,
                 () -> check(serviceName, schema, defaultOutput, metadata, false), "Expected RuntimeException");

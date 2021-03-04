@@ -15,6 +15,7 @@ public final class SchemaServiceFactory {
     public static SchemaServiceRequest getService(String name, HashMap<String, String> payload) throws IOException {
         String contents = Util.readFile(name, false);
         Map<String, Object> schema = Util.JSONtoMap(contents);
+        Util.validateJSONagainstSchema(contents);
         String URL = UrlParser.parse(schema, payload);
         return new SchemaServiceRequest(name, URL, schema, payload);
     }

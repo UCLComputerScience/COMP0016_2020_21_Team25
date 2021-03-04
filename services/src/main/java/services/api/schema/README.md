@@ -34,6 +34,7 @@ New services can be defined using a `JSON` schema with the following possible se
 </pre>
 
 The sections are defined as the following:
+
 ### Name
 
 If you want to give your service a specific name, you can do so using the `name` field. If this field is blank or not

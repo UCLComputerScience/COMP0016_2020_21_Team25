@@ -33,7 +33,7 @@ export default {
     computed: {
         currentPicture() {
             if (this.user !== undefined) {
-                return getProfileImage(this.user.profilePicture);
+                return getProfileImage(this.user["profile-picture"]);
             }
             return "";
         },
@@ -57,7 +57,7 @@ export default {
             if (user === undefined) {
                 return "";
             }
-            return user.firstName;
+            return user["first-name"];
         },
     },
     data() {

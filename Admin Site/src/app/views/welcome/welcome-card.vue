@@ -35,7 +35,7 @@ export default {
             return "It's good to see you again";
         },
         name() {
-            return this.$store.getters["admin/admin"].firstName;
+            return this.$store.getters["admin/admin"]["first-name"];
         },
         show() {
             const show = !this.$store.getters["account/entered"] || this.newlyRegistered;
