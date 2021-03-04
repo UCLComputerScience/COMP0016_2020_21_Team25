@@ -113,8 +113,7 @@ public class LoginController {
         
         if (!message.equals("fail")){
             database.executeUpdate(statement);
-            errors.put("field", "OK");
-            errors.put("message", "OK");
+            errors.put("STATUS", "OK");
         }
             
         
