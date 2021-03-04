@@ -4,7 +4,7 @@
 
     <groupId>backend-api</groupId>
     <artifactId>backend-api</artifactId>
-    <version>0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IBM FISE Concierge Backend</name>
@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>concierge.App</start-class>
+        <start-class>backend.App</start-class>
         <java.version>1.8</java.version>
         <lombok.version>1.14.8</lombok.version>
         <log4jdbc.log4j2.version>1.16</log4jdbc.log4j2.version>
