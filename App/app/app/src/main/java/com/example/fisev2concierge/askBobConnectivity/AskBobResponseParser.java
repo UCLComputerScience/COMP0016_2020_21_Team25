@@ -34,8 +34,13 @@ public class AskBobResponseParser {
                 case "OPEN_APP":
                     parsedResponse.put("Application", custom.getString("Application"));
                     break;
-                case "SEARCH_SITE":
+                case "SHOP_SEARCH":
                     //get location and add it to hash map before giving hashmap to openurl class
+                    parsedResponse.put("Service", custom.getString("Service"));
+                    parsedResponse.put("Application", custom.getString("Application"));
+                    break;
+                case "YELL_SEARCH":
+                    parsedResponse.put("Application", custom.getString("Application"));
                     break;
             }
         } catch (Exception e){
@@ -50,6 +55,7 @@ public class AskBobResponseParser {
                 parsedResponse.put("Service_Type", "ERROR");
                 parsedResponse.put("text", text);
             } catch (Exception e1){
+                //add error catches for "500"
                 System.out.println("Error: exception 2");
                 e1.printStackTrace();
             }

@@ -15,7 +15,6 @@ public class OpenUrlFunctionality {
 
     AppCompatActivity appCompatActivity;
     MainController mainController = new MainController();
-    //refactor code to use new url lookup classes
 
     public OpenUrlFunctionality(AppCompatActivity appCompatActivity){
         this.appCompatActivity = appCompatActivity;
@@ -34,8 +33,7 @@ public class OpenUrlFunctionality {
 
     public void searchWeb(String websiteName, HashMap searchItems){
         String url = mainController.searchUrlLookup(websiteName);
-        System.out.println("SearchUrl: " + url);
-        String searchItem = (String) searchItems.get("searchItem");
+        String searchItem = (String) searchItems.get("Application");
         if (url == null){
             //search url was not found, do google search
             websiteName = websiteName.replace(" ", "+");
@@ -61,7 +59,6 @@ public class OpenUrlFunctionality {
                     searchItem = searchItem.replace(" ", "+");
                     url = url + searchItem;
                     break;
-
             }
             System.out.println("finalSearchUrl: " + url);
         }

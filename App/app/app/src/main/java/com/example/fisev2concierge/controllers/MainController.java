@@ -33,19 +33,31 @@ import java.util.HashMap;
 
 public class MainController{
 
+    //need to change this name
+    public void test(Context context, Activity activity, HashMap parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+        GetLatLon test = new GetLatLon(context, activity, parsedResponse, appCompatActivity, speechSynthesis);
+        test.searchLatLon();
+    }
+
     public void handleUserRequest(String[] userRequest, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity, Context context, Activity activity, TextView conciergeStatusText){
         if (userRequest[0].length()>0) {
             conciergeStatusText.setText(userRequest[0]);
-            speechSynthesis.runTts(userRequest[0]);
             HashMap askBobResponse = askBobRequest(userRequest[0]);
-            askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+            //add a check here, if we require searching a site then call getLatLon which in turn should add location to the hashmap and then call askBobController
+            if (askBobResponse.containsKey("Service_Type")){
+                if (askBobResponse.get("Service_Type").equals("YELL_SEARCH")){
+                    test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
+                } else {
+                    askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                }
+            }
         } else {
             Toast.makeText(context, "Empty input", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public String getLocation(Context context, Activity activity){
-        GetLocation getLocation = new GetLocation(context, activity);
+    public String getLocation(Context context, Activity activity, Double lat, Double lon){
+        GetLocation getLocation = new GetLocation(context, activity, lat, lon);
         Thread thread = new Thread(getLocation);
         thread.start();
         return getLocation.getPostcode();
@@ -180,6 +192,7 @@ public class MainController{
     }
 
     public void searchSite(AppCompatActivity appCompatActivity, String website, HashMap searchItems){
+        System.out.println("Searching site: mainController");
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
         openUrlFunctionality.searchWeb(website, searchItems);
     }

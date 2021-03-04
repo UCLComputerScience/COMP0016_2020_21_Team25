@@ -5,28 +5,43 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.fisev2concierge.controllers.MainController;
+import com.example.fisev2concierge.speech.SpeechSynthesis;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class GetLatLon{
 
-    private volatile Double lat = null;
-    private volatile Double lon = null;
+    private Double lat;
+    private Double lon;
     private Context context;
-    private ArrayList<Double> latlon = new ArrayList<>();
     private final int REQUEST_LOCATION = 6;
     private Activity activity;
+    private HashMap askBobResponse;
+    private AppCompatActivity appCompatActivity;
+    private SpeechSynthesis speechSynthesis;
 
-    public GetLatLon(Context context, Activity activity){
+    public GetLatLon(Context context, Activity activity, HashMap askBobResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
         this.context = context;
         this.activity = activity;
+        this.askBobResponse = askBobResponse;
+        this.appCompatActivity = appCompatActivity;
+        this.speechSynthesis = speechSynthesis;
     }
 
     public void searchLatLon(){
@@ -41,20 +56,16 @@ public class GetLatLon{
                     if (location != null) {
                         lat = location.getLatitude();
                         lon = location.getLongitude();
-                        latlon.add(lat);
-                        latlon.add(lon);
-                        printLatLon();
+                        MainController mainController = new MainController();
+                        String postcode = mainController.getLocation(context, activity, lat, lon);
+                        askBobResponse.put("location", postcode);
+                        mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
                     } else {
+                        askBobResponse.put("location", "london");
                         System.out.println("location was null!!!");
                     }
                 }
             });
         }
-    }
-
-    public void printLatLon(){
-        System.out.println("lat: " + lat);
-        System.out.println("lon: " + lon);
-        System.out.println("lat and lon obtained ");
     }
 }

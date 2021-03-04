@@ -10,7 +10,7 @@ public class AskBobRequest {
     private MainController mainController = new MainController();
 
     public HashMap makeRequest(String sTT){
-        String parameters = "message=\"" + sTT +"\"&sender=\"user\"";
+        String parameters = "message=\"" + sTT +"\"&sender=\"concierge\"";
         ArrayList<String> response = mainController.askBobServices("query", parameters);
         HashMap parsedResponse = mainController.parseAskBobResponse(response);
         return parsedResponse;

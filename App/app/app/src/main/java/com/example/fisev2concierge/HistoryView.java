@@ -1,9 +1,11 @@
 package com.example.fisev2concierge;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -53,13 +55,7 @@ public class HistoryView extends AppCompatActivity {
         appButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mainController.openApp(HistoryView.this, HistoryView.this, "youtube");
-//                mainController.openApp(HistoryView.this, HistoryView.this, "messaging");
-//                mainController.openApp(HistoryView.this, HistoryView.this, "settings");
-//                mainController.openPackage(HistoryView.this, HistoryView.this, "googlesearchbox", "com.google.android.googlequicksearchbox");
-                SpeechSynthesis speechSynthesis = new SpeechSynthesis();
-                speechSynthesis.configTts(HistoryView.this);
-                speechSynthesis.runTts("hello how are you");
+                mainController.openApp(HistoryView.this, HistoryView.this, "calculator");
             }
         });
 
@@ -83,51 +79,8 @@ public class HistoryView extends AppCompatActivity {
         searchSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GetLatLon getLatLon = new GetLatLon(HistoryView.this, HistoryView.this);
-                getLatLon.searchLatLon();
-//                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(HistoryView.this);
-//                if (ContextCompat.checkSelfPermission(HistoryView.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(HistoryView.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-//                    ActivityCompat.requestPermissions(HistoryView.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 6);
-//                } else {
-//                    fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-//                        @Override
-//                        public void onSuccess(Location location) {
-//                            System.out.println("fusedLocationProviderClient onSuccess");
-//                            if (location != null) {
-//                                Double lat = location.getLatitude();
-//                                Double lon = location.getLongitude();
-//                                System.out.println("lat: " + lat);
-//                                System.out.println("lon: " + lon);
-//                                System.out.println("lat and lon obtained ");
-//                            } else {
-//                                System.out.println("First location was null");
-//                                LocationRequest locationRequest = LocationRequest.create();
-//                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//                                locationRequest.setInterval(20 * 1000);
-//                                LocationCallback locationCallback = new LocationCallback() {
-//                                    @Override
-//                                    public void onLocationResult(LocationResult locationResult) {
-//                                        if (locationResult == null) {
-//                                            System.out.println("Second location also null");
-//                                            return;
-//                                        }
-//                                        for (Location location : locationResult.getLocations()) {
-//                                            if (location != null) {
-//                                                System.out.println("Lat: " + location.getLatitude());
-//                                                System.out.println("Lon: " + location.getLongitude());
-//                                            }
-//                                        }
-//                                    }
-//                                };
-//                                if (fusedLocationProviderClient != null) {
-//                                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-//                                }
-//                            }
-//                        }
-//                    });
-//                    System.out.println("Success in else");
-//                }
-//                System.out.println("Code was completed");
+                mainController.handleUserRequest(new String[] {"can you find me a plumber"}, null, HistoryView.this, HistoryView.this, HistoryView.this, null);
+//            mainController.test(HistoryView.this, HistoryView.this, null, HistoryView.this, null);
             }
         });
 
@@ -135,7 +88,6 @@ public class HistoryView extends AppCompatActivity {
         searchGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //test yale as well
                 HashMap hashMap = new HashMap();
                 hashMap.put("searchItem", "ipad");
                 mainController.searchSite(HistoryView.this, "ebay", hashMap);
@@ -146,14 +98,7 @@ public class HistoryView extends AppCompatActivity {
         askBobOpenApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(HistoryView.this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(HistoryView.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE}, 8);
-                }
-                else {HashMap askBobResponse = mainController.askBobRequest("open snapchat");}
-//                mainController.askBobController(askBobResponse, HistoryView.this, HistoryView.this, HistoryView.this);
-//                if (askBobResponse.get("Service_Type").equals("ERROR")){
-//                    System.out.println("Command not understood: " + askBobResponse.get("text").toString());
-//                }
+                //
             }
         });
 

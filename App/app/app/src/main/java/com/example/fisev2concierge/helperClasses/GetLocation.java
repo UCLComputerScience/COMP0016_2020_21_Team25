@@ -34,21 +34,18 @@ import org.json.*;
 
 public class GetLocation implements Runnable{
 
-    Context context;
-    Activity activity;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    private Context context;
+    private Activity activity;
     private volatile String postcode;
     private volatile boolean ready = false;
-    private final int REQUEST_LOCATION = 6;
-    private LocationRequest locationRequest;
-    private LocationCallback locationCallback;
     private double lat;
     private double lon;
 
-    public GetLocation(Context context, Activity activity){
+    public GetLocation(Context context, Activity activity, Double lat, Double lon){
         this.context = context;
         this.activity = activity;
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public synchronized String getPostcode(){
@@ -64,75 +61,16 @@ public class GetLocation implements Runnable{
 
     @Override
     public synchronized void run(){
-        getLocation(getLatLon());
+        getLocation(lat, lon);
         notifyAll();
     }
 
-    public ArrayList<Double> getLatLon(){
-        ArrayList<Double> arrayList = new ArrayList<>();
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
-//            getLocation();
-        } else {
-            locationRequest = LocationRequest.create();
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(20 * 1000);
-            locationCallback = new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    if (locationResult == null) {
-                        return;
-                    }
-                    for (Location location : locationResult.getLocations()) {
-                        if (location != null) {
-                            Double wayLatitude = location.getLatitude();
-                            Double wayLongitude = location.getLongitude();
-                            System.out.println(String.format(Locale.US, "%s -- %s", wayLatitude, wayLongitude));
-                        }
-                    }
-                }
-            };
-            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
-            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-            final Boolean[] ready = {false};
-            System.out.println("Getting location");
-            postcode = makeApiRequest(51.5661867, -0.279656);
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    System.out.println("fusedLocationProviderClient onSuccess");
-                    if (location != null) {
-                        lat = location.getLatitude();
-                        lon = location.getLongitude();
-                        ready[0] = true;
-                        arrayList.add(lat);
-                        arrayList.add(lon);
-                        System.out.println("lat: " + lat);
-                        System.out.println("lon: " + lon);
-                        System.out.println("lat and lon obtained ");
-                    } else{
-                        System.out.println("location was null!!!");
-                    }
-                }
-            });
-            System.out.println("Helllooooooooooooo");
-            if (ready[0] == true){
-                System.out.println("yayyyyyyyyyyy");
-            }
-        }
-        return arrayList;
-    }
-
-    public void getLocation(ArrayList<Double> arrayList) {
-        System.out.println("about to obtain postcode");
-        System.out.println("lat, lon : " + lat + lon );
-        postcode = makeApiRequest(arrayList.get(0), arrayList.get(1));
-        System.out.println("postcode: " + postcode);
+    public void getLocation(Double lat, Double lon) {
+        postcode = makeApiRequest(lat, lon);
         ready = true;
     }
 
     public String makeApiRequest(Double lat, Double lon){
-        System.out.println("making api request");
         //refactor
         try {
             String urlString = "https://api.postcodes.io/postcodes?lon={lon}&lat={lat}";

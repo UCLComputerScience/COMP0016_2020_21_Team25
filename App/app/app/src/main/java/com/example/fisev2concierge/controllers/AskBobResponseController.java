@@ -15,6 +15,7 @@ import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 import com.example.fisev2concierge.helperClasses.GetLocation;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
+import java.io.SyncFailedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -50,10 +51,15 @@ public class AskBobResponseController {
                 String appName = (String) parsedResponse.get("Application");
                 mainController.openApp(appCompatActivity, context, appName.toLowerCase());
                 break;
-            case "SEARCH_SITE":
-                String postcode = mainController.getLocation(context, activity);
-                HashMap hashMap = new HashMap();
-                hashMap.put("location", postcode);
+            case "SHOP_SEARCH":
+                String websiteName = (String) parsedResponse.get("Service");
+                websiteName = websiteName.toLowerCase();
+                mainController.searchSite(appCompatActivity, websiteName, parsedResponse);
+                break;
+            case "YELL_SEARCH":
+                websiteName =  "yell";
+                mainController.searchSite(appCompatActivity, websiteName, parsedResponse);
+                break;
             case "ERROR":
                 speechSynthesis.runTts((String) parsedResponse.get("text"));
                 Toast.makeText(context, "Command not understood", Toast.LENGTH_SHORT).show();

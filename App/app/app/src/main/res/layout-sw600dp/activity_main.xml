@@ -63,7 +63,7 @@
 
             <Button
                 android:id="@+id/alarms_view_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/alarms"
@@ -72,7 +72,7 @@
 
             <Button
                 android:id="@+id/reminders_view_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/reminders"
@@ -81,7 +81,7 @@
 
             <Button
                 android:id="@+id/timers_view_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/timers"
@@ -90,7 +90,7 @@
 
             <Button
                 android:id="@+id/history_view_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="118dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/history"
