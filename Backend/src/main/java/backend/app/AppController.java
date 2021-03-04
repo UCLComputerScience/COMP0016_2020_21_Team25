@@ -1,11 +1,10 @@
 package backend.app;
 
+import backend.models.Database;
+import backend.models.DatabaseFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import backend.models.Database;
-import backend.models.DatabaseFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

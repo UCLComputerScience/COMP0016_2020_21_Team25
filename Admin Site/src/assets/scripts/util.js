@@ -1,5 +1,26 @@
 import {store} from "../../store/store";
 
+export function toKebabCaseMap(map) {
+    const formattedMap = {};
+    for (const [key, value] of Object.entries(map)) {
+        formattedMap[toKebabCase(key)] = value;
+    }
+    return formattedMap;
+}
+
+export function toSnakeCaseMap(map) {
+    const formattedMap = {};
+    for (const [key, value] of Object.entries(map)) {
+        formattedMap[toSnakeCase(key)] = value;
+    }
+    return formattedMap;
+}
+
+export const toSnakeCase = (str) => {
+    const formatted = str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    return formatted.replace("-", "_");
+}
+
 export const toKebabCase = (str) => {
     return str
         .split("")
@@ -12,7 +33,7 @@ export const toKebabCase = (str) => {
 };
 
 export function getName() {
-    const firstName = store.getters["member/activeMember"].firstName;
+    const firstName = store.getters["member/activeMember"]["first-name"];
     if (firstName.endsWith("s")) return firstName + "'";
     return firstName + "'s";
 }

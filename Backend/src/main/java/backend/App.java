@@ -20,7 +20,7 @@ public class App implements ApplicationRunner {
     public static void main(String... args) {
         Options options = new Options();
         Option portOption = new Option("p", "port", true,
-                "(optional) choose to run on a desired port - default is 8080");
+                "(optional) choose to run on a desired port - default is 8100");
         portOption.setRequired(false);
         options.addOption(portOption);
 
@@ -41,7 +41,7 @@ public class App implements ApplicationRunner {
             return;
         }
 
-        String port = cmd.getOptionValue("port", "8080");
+        String port = cmd.getOptionValue("port", "8100");
         ApiLogger.LOG_API_CALLS = Arrays.asList(cmd.getArgs()).contains("l");
         ApiLogger.welcome();
         SpringApplication application = new SpringApplication(App.class);

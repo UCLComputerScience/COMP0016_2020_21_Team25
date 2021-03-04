@@ -1,0 +1,9 @@
+#!/bin/bash
+
+trap 'kill 0' EXIT
+
+./services/services &
+./Backend/backend &
+# python -m AskBob/askbob -s &
+
+wait

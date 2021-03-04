@@ -1,10 +1,11 @@
 package backend.web.controllers;
 
-import backend.web.responses.CategoryResponse;
-import backend.web.responses.ServicesInCategoryResponse;
-import backend.web.util.MapComparator;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
+import backend.web.responses.CategoryResponse;
+import backend.web.responses.MemberServicesResponse;
+import backend.web.responses.ServicesInCategoryResponse;
+import backend.web.util.MapComparator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +79,40 @@ public class ServiceController {
             success = false;
         }
         return new ServicesInCategoryResponse(success, message, services, code);
+    }
+
+    @GetMapping("member-services")
+    public MemberServicesResponse getMemberServices(@RequestParam String user_id) {
+        boolean success = true;
+        ArrayList<Map<String, String>> services = new ArrayList<>();
+        String message = "Ok";
+        int code = 200;
+
+        String query = "SELECT SERVICE.* FROM USER_SERVICE INNER JOIN SERVICE ON USER_SERVICE.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_SERVICE.USER_ID='{USER_ID}'";
+
+        ResultSet result = database.query(query.replace("{USER_ID}", user_id));
+        try {
+            while (result.next()) {
+                String name = result.getString("NAME");
+                String category = result.getString("CATEGORY");
+                String icon = result.getString("ICON");
+                String description = result.getString("DESCRIPTION");
+                Map<String, String> service = new HashMap<>();
+                service.put("category", category);
+                service.put("name", name);
+                service.put("icon", icon);
+                service.put("description", description);
+                services.add(service);
+            }
+            if (services.size() == 0) {
+                throw new RuntimeException("Could not find any services assigned to that given USER-ID");
+            }
+        } catch (SQLException | RuntimeException e) {
+            code = 500;
+            message = e.getMessage();
+            success = false;
+        }
+
+        return new MemberServicesResponse(success, message, services, code);
     }
 }

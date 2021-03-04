@@ -1,6 +1,6 @@
 package plugin.url;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Test the URL parser can parse JSON files and reject malformed schemas
  */
 public class SyntaxTest extends AbstractUrlParserTest {
 
-    @Test(expected = FileNotFoundException.class)
+    @Test
     public void unknownService() throws IOException {
-        checkIO("unknown", parameters, "");
+        FileNotFoundException thrown = assertThrows(FileNotFoundException.class,
+                () -> checkIO("unknown", parameters, ""), "Expected FileNotFoundException");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void malformedSchema() throws IOException {
-        checkIO("malformed", parameters, "");
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+                () -> checkIO("malformed", parameters, ""), "Expected FileNotFoundException");
     }
 
     @Test
@@ -32,35 +36,43 @@ public class SyntaxTest extends AbstractUrlParserTest {
     /**
      * URL is a required parameter field.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void noUrl() {
         schema.remove("url");
-        checkSchema(parameters, "");
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+                () -> checkSchema(parameters, ""), "Expected RuntimeException");
     }
 
     @Test
     public void urlWithParamsAlreadyAdded() {
         parameters.put("term", "something");
+        String url = "https://icanhazdadjoke.com/search?term=something&apiKey=" + jokeApiKey;
         schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
-        checkSchema(parameters, "https://icanhazdadjoke.com/search?term=something&apiKey=" + jokeApiKey);
+        checkSchema(parameters, url);
     }
 
     /**
      * Parameters is a required parameter field.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void noParamField() {
         schema.remove("parameters");
-        checkSchema(parameters, "");
+        String url = "";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     /**
      * Message is a required parameter field.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void noMessage() {
         schema.remove("message");
-        checkSchema(parameters, "");
+        String url = "";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     @Test
@@ -107,16 +119,20 @@ public class SyntaxTest extends AbstractUrlParserTest {
         checkSchema(parameters, "https://icanhazdadjoke.com/search?term=something&api-key=" + jokeApiKey);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void apiKeyNoValue() {
         parameters.put("term", "something");
         Map<String, String> apiKeyData = new HashMap<>();
         apiKeyData.put("alias", "apiKey");
         schema.put("api-key", apiKeyData);
-        checkSchema(parameters, "");
+        String url = "";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
+        
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void tooManyApiKeyFields() {
         parameters.put("term", "something");
         Map<String, String> apiKeyData = new HashMap<>();
@@ -124,7 +140,10 @@ public class SyntaxTest extends AbstractUrlParserTest {
         apiKeyData.put("value", "some_value");
         apiKeyData.put("field", "value");
         schema.put("api-key", apiKeyData);
-        checkSchema(parameters, "");
+        String url = "";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     @Test
@@ -217,7 +236,7 @@ public class SyntaxTest extends AbstractUrlParserTest {
         checkSchema(parameters, "https://icanhazdadjoke.com/search?apiKey=" + jokeApiKey);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void requiredParamWithBlankDefaultAndNoValue() {
         Map<String, Object> paramData = new HashMap<>();
         Map<String, Object> param = new HashMap<>();
@@ -225,7 +244,10 @@ public class SyntaxTest extends AbstractUrlParserTest {
         param.put("required", true);
         paramData.put("term", param);
         schema.put("parameters", paramData);
-        checkSchema(parameters, "https://icanhazdadjoke.com/search?apiKey=" + jokeApiKey);
+        String url = "https://icanhazdadjoke.com/search?apiKey=" + jokeApiKey;
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     @Test
@@ -239,24 +261,30 @@ public class SyntaxTest extends AbstractUrlParserTest {
         checkSchema(parameters, "https://icanhazdadjoke.com/search?term=something&apiKey=" + jokeApiKey);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void requiredParamNoDefaultNoValue() {
         Map<String, Object> paramData = new HashMap<>();
         Map<String, Object> param = new HashMap<>();
         param.put("required", true);
         paramData.put("term", param);
         schema.put("parameters", paramData);
-        checkSchema(parameters, "");
+        String url = "";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void requiredParamNotBoolean() {
         Map<String, Object> paramData = new HashMap<>();
         Map<String, Object> param = new HashMap<>();
         param.put("required", "not a boolean!");
         paramData.put("term", param);
         schema.put("parameters", paramData);
-        checkSchema(parameters, "");
+        String url = "";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     @Test
@@ -315,7 +343,7 @@ public class SyntaxTest extends AbstractUrlParserTest {
         checkSchema(parameters, "api.testUrl/1234?term=something");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void endpointNoDefaultNoValue() {
         parameters.put("term", "something");
         ArrayList<Map<String, Object>> endpoints = new ArrayList<>();
@@ -325,10 +353,13 @@ public class SyntaxTest extends AbstractUrlParserTest {
         schema.put("endpoints", endpoints);
         schema.put("url", "api.testUrl");
         schema.remove("api-key");
-        checkSchema(parameters, "api.testUrl/1234?term=something");
+        String url = "api.testUrl/1234?term=something";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void endpointNoName() {
         parameters.put("term", "something");
         ArrayList<Map<String, Object>> endpoints = new ArrayList<>();
@@ -337,10 +368,13 @@ public class SyntaxTest extends AbstractUrlParserTest {
         schema.put("endpoints", endpoints);
         schema.put("url", "api.testUrl");
         schema.remove("api-key");
-        checkSchema(parameters, "api.testUrl/1234?term=something");
+        String url = "api.testUrl/1234?term=something";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void endpointBlankName() {
         parameters.put("term", "something");
         ArrayList<Map<String, Object>> endpoints = new ArrayList<>();
@@ -350,7 +384,10 @@ public class SyntaxTest extends AbstractUrlParserTest {
         schema.put("endpoints", endpoints);
         schema.put("url", "api.testUrl");
         schema.remove("api-key");
-        checkSchema(parameters, "api.testUrl/1234?term=something");
+        String url = "api.testUrl/1234?term=something";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     @Test
@@ -367,7 +404,7 @@ public class SyntaxTest extends AbstractUrlParserTest {
         checkSchema(parameters, "api.testUrl/default?term=something");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void endpointBlankDefaultBlankValue() {
         parameters.put("id", "");
         parameters.put("term", "something");
@@ -379,7 +416,10 @@ public class SyntaxTest extends AbstractUrlParserTest {
         schema.put("endpoints", endpoints);
         schema.put("url", "api.testUrl");
         schema.remove("api-key");
-        checkSchema(parameters, "api.testUrl/1234?term=something");
+        String url = "api.testUrl/1234?term=something";
+        schema.put("url", "https://icanhazdadjoke.com/search?some_param=some_value");
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> checkSchema(parameters, url),
+                "Expected RuntimeException");
     }
 
     @Test

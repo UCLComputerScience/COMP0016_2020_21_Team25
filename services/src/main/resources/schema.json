@@ -1,0 +1,140 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Service",
+    "description": "A RESTful service API defining its endpoint and how to parse its JSON response message",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the service, used in error-reporting",
+            "type": "string"
+        },
+        "description": {
+            "description": "Description of the service for others viewing the schema",
+            "type": "string"
+        },
+        "url": {
+            "description": "The base URL of the API with no query parameters or dynamic, parameter-based endpoints",
+            "type": "string",
+            "minLength": 1
+        },
+        "endpoints": {
+            "description": "Dynamic, parameter-based endpoints to insert into the URL",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "default": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "api-key": {
+            "description": "API key required to access the endpoint (if necessary)",
+            "type": [
+                "string",
+                "object"
+            ],
+            "oneOf": [
+                {
+                    "type": "string",
+                    "minLength": 1
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "alias": {
+                            "type": "string"
+                        },
+                        "value": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    },
+                    "required": [
+                        "value"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "parameters": {
+            "description": "Parameters, usually from user input, to insert into the URL query parameters",
+            "type": "object",
+            "items": {
+                "type": ["string", "object"],
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "alias": {
+                                "type": "string"
+                            },
+                            "default": {
+                                "type": "string"
+                            },
+                            "required": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                ]
+            }
+        },
+        "message": {
+            "description": "Describes how to parse the JSON response object from the API",
+            "type": "string"
+        },
+        "error_code_name": {
+            "description": "Describes where in the JSON response object to find the HTTP status code, if applicable",
+            "type": "string"
+        },
+        "error_messages": {
+            "description": "Defines a set of error messages for different HTTP codes",
+            "type": "object",
+            "items": {
+                "type": "string"
+            }
+        },
+        "metadata": {
+            "description": "Defines how to store any extra information returned which is unsuitable for natural language",
+            "type": "object",
+            "items": {
+                "type": [
+                    "string",
+                    "object"
+                ]
+            }
+        },
+        "error_metadata": {
+            "description": "Defines how to store any extra information from an error JSON response",
+            "type": "object",
+            "items": {
+                "type": [
+                    "string",
+                    "object"
+                ]
+            }
+        }
+    },
+    "required": [
+        "url",
+        "parameters",
+        "message"
+    ],
+    "additionalProperties": false
+}

@@ -15,7 +15,7 @@ const getters = {
     dataFields: (state, getters, rootState, rootGetters) => async (serviceName) => {
         const userID = rootGetters["member/activeId"];
         const response = await api.memberServiceData(userID, serviceName);
-        if (response.code === 200) {
+        if (response.success) {
             return response.fields;
         }
         alert(response.message);
@@ -35,7 +35,7 @@ const actions = {
         const name = form.serviceName;
         delete form["serviceName"];
         const response = await api.updateMemberServiceData(userID, name, form);
-        if (response.code === 200) {
+        if (response.success) {
             alert("Service data successfully updated for the assigned member.");
         } else {
             alert(response.message);
@@ -46,11 +46,11 @@ const actions = {
     },
     async setServices({commit}) {
         const response = await api.serviceCategories();
-        if (response.code === 200) {
+        if (response.success) {
             const services = {};
             for (const category of response.categories) {
                 const serviceResponse = await api.servicesInCategory(category);
-                if (serviceResponse.code === 200) {
+                if (serviceResponse.success) {
                     services[category] = serviceResponse.services;
                 } else {
                     alert(serviceResponse.message);

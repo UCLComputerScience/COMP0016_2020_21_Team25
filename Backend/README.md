@@ -358,7 +358,7 @@ Required endpoints for the Concierge web app with required parameters and expect
 
 ## Deployment
 
-To start the application, ensuring no service is currently using port `8080`, run the following command in a terminal in this directory (where the `pom.xml` is located):
+To start the application, ensuring no service is currently using port `8100`, run the following command in a terminal in this directory (where the `pom.xml` is located):
 
     mvn clean; mvn org.springframework.boot:spring-boot-maven-plugin:run
 
@@ -370,9 +370,9 @@ You can also start the application using a Python script with the following comm
 
     python3 tools/run.py
 
-And then perform your HTTP requests. For example, after the application is running (on port 8080), open a terminal and enter:
+And then perform your HTTP requests. For example, after the application is running (on port 8100), open a terminal and enter:
 
-    curl "localhost:8080/services?id=1"
+    curl "localhost:8100/services?id=1"
 
 This will return something similar (depending on the user) to:
 
@@ -391,7 +391,7 @@ Note that these can only be enabled by passing them as command line arguments to
 
 The following arguments are all optional.
 
--   A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8080` by default.
+-   A desired port can be specified using `-port=PORT` (or one of `--port`, `-p` and `--p`). Note that this must be an integer and is set to `8100` by default.
 -   Logging information to the console can be enabled with the `-l` (or `--l`) flag - logging is disabled by default.
 -   The application can be built into a single jar and executing using the `-jar` (or `--jar`) flag.
     -   This option is only available using the Python `run` script.

@@ -18,10 +18,10 @@ export default {
     },
     computed: {
         profilePicture() {
-            return getProfileImage(this.admin.profilePicture);
+            return getProfileImage(this.admin["profile-picture"]);
         },
         name() {
-            return this.admin.firstName;
+            return this.admin["first-name"];
         },
         admin() {
             return this.$store.getters["admin/admin"];

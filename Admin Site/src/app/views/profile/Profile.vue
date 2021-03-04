@@ -51,7 +51,7 @@ export default {
     },
     computed: {
         currentPicture() {
-            return this.$store.getters["admin/admin"].profilePicture;
+            return this.$store.getters["admin/admin"]["profile-picture"];
         }
     },
     data() {

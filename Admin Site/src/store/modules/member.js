@@ -33,7 +33,7 @@ const getters = {
 const actions = {
     async fetchMemberServices({dispatch, commit, getters, rootGetters}) {
         const response = await api.memberServices(getters.activeId);
-        if (response.code === 200) {
+        if (response.success) {
             commit("setMemberServices", response.services);
         } else {
             alert(response.message);
@@ -41,7 +41,7 @@ const actions = {
     },
     async fetchHistory({dispatch, commit, getters, rootGetters}) {
         const response = await api.memberHistory(getters.activeId);
-        if (response.code === 200) {
+        if (response.success) {
             commit("setHistory", response.history);
         } else {
             alert(response.message);
@@ -51,7 +51,7 @@ const actions = {
         {dispatch, commit, getters, rootGetters}, serviceID
     ) {
         const response = await api.removeServiceFromUser(getters.activeId, serviceID);
-        if (response.code === 200) {
+        if (response.success) {
             alert("Service successfully removed.");
         } else {
             alert(response.message);
@@ -66,7 +66,7 @@ const actions = {
                 member.id,
                 serviceId
             );
-            if (apiResponse.code !== 200) {
+            if (apiResponse.success) {
                 response.message = apiResponse.message;
                 response.success = false;
                 break;
@@ -82,7 +82,7 @@ const actions = {
         }
         form.userID = form.id;
         const response = await api.updateMember(form);
-        if (response.code === 200) {
+        if (response.success) {
             commit("updateMember", form);
         } else {
             form.response = response.message;
@@ -90,7 +90,7 @@ const actions = {
     },
     async removeMember({dispatch, commit, getters, rootGetters}, userId) {
         const response = await api.removeMember(userId);
-        if (response.code === 200) {
+        if (response.success) {
             await commit("removeMember");
             alert("Member successfully removed from your circle.");
             await router.push({
@@ -103,12 +103,12 @@ const actions = {
     async addMember({dispatch, commit, getters, rootGetters}, form) {
         form.username = rootGetters["admin/username"];
         const response = await api.addMember(form);
-        if (response.code === 200) {
+        if (response.success) {
             await dispatch("fetchMembers", form.username);
             const newId = response["user-id"];
             const newMember = getters.members[newId];
             await dispatch("activeMember", newId);
-            const name = newMember.firstName + " " + newMember.lastName;
+            const name = newMember["first-name"] + " " + newMember["last-name"];
             await router.push({
                 name: "user-details",
                 params: {
@@ -124,12 +124,12 @@ const actions = {
     },
     async updateMemberPic({dispatch, commit, getters, rootGetters}, newPic) {
         const member = {...getters.activeMember};
-        member.profilePicture = newPic;
+        member["profile-picture"] = newPic;
         await dispatch("updateMember", member);
     },
     async fetchMembers({dispatch, commit, getters, rootGetters}, username) {
         const response = await api.members(username);
-        if (response.code === 200) {
+        if (response.success) {
             commit("setMembers", response.members);
         } else {
             alert(response.message);
