@@ -79,10 +79,10 @@ export default {
     },
     created() {
         this.profileData = {
-            firstName: this.user.firstName,
-            lastName: this.user.lastName,
+            firstName: this.user["first-name"],
+            lastName: this.user["last-name"],
             email: this.user.email,
-            phoneNumber: this.user.phoneNumber,
+            phoneNumber: this.user["phone-number"],
             currentPassword: "",
             newPassword: "",
             repeatPassword: "",

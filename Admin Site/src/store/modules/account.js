@@ -18,7 +18,7 @@ const getters = {
 const actions = {
     async login({dispatch, commit, getters, rootGetters}, form) {
         const response = await api.login(form.usernameOrEmail, form.password);
-        if (response.code === 200) {
+        if (response.success) {
             await dispatch("admin/fetchAdmin", form.usernameOrEmail, {root: true});
         } else {
             form.response = response.message;
@@ -26,7 +26,7 @@ const actions = {
     },
     async signup({dispatch, commit}, form) {
         const response = await api.register(form);
-        if (response.code === 200) {
+        if (response.success) {
             commit("newlyRegistered", true);
             dispatch("admin/fetchAdmin", form.username, {root: true});
         } else {

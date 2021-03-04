@@ -1,9 +1,11 @@
 import axios from "axios";
+import {toKebabCaseMap, toSnakeCaseMap} from "../assets/scripts/util";
 
-const PORT = 8080;
+const PORT = 8100;
 const BASE_URL = `http://localhost:${PORT}/`;
 
 async function makeHttpRequest(URL, method, params = {}) {
+    const formattedParams = toSnakeCaseMap(params);
     const options = {
         method: method.toUpperCase(),
         url: URL,
@@ -12,11 +14,12 @@ async function makeHttpRequest(URL, method, params = {}) {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
         },
-        data: params,
+        params: formattedParams,
     };
     const response = await axios(options);
     if (response && response.status === 200) {
-        return await response.data;
+        const data = await response.data;
+        return toKebabCaseMap(data);
     }
     return {
         status: response.status,
@@ -36,288 +39,106 @@ const api = {
     async ping() {
     },
     async login(username, password) {
-        // const response = await makeHttpRequest("login", "GET", {
-        //     username,
-        //     password,
-        // });
-        admin = {
-            username: "ernest",
-            firstName: "Ernest",
-            lastName: "Badu",
-            email: "you@mail.co.uk",
-            phoneNumber: "07111111111",
-            profilePicture: "apples",
-            password: "12345",
-        };
-
-        members = {
-            1: {
-                id: 1,
-                firstName: "Jane",
-                lastName: "Williams",
-                phoneNumber: "07111111111",
-                prefix: "Ms",
-                profilePicture: "apples",
-            },
-            2: {
-                id: 2,
-                firstName: "Margaret",
-                lastName: "Phillips",
-                phoneNumber: "07111111111",
-                prefix: "Mrs",
-                profilePicture: "hills",
-            },
-            3: {
-                id: 3,
-                firstName: "Mark",
-                lastName: "Phillips",
-                phoneNumber: "07111111111",
-                prefix: "Mr",
-                profilePicture: "tulip",
-            },
-            4: {
-                id: 4,
-                firstName: "George",
-                lastName: "Best",
-                phoneNumber: "07111111111",
-                prefix: "Mr",
-                profilePicture: "mountains",
-            },
-        };
-        return MOCK_RESPONSE;
+        return await makeHttpRequest("login", "GET", {
+            username, password,
+        });
     },
     async logout() {
-        admin = {};
-        members = {};
-        ids = [];
+
     },
-    async register({
-                       username,
-                       firstName,
-                       lastName,
-                       email,
-                       phoneNumber,
-                       password,
-                   }) {
-        // const response = await makeHttpRequest("register", "POST", {
-        //     username: username,
-        //     "first-name": firstName,
-        //     "last-name": lastName,
-        //     email: email,
-        //     "phone-number": phoneNumber,
-        //     password: password,
-        // });
-        admin = {
-            username,
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            password,
-            profilePicture: "mountains",
-        };
-        return MOCK_RESPONSE;
+    async register({ username, firstName, lastName, email, phoneNumber, password, }) {
+        return await makeHttpRequest("register", "POST", {
+            username: username,
+            "first-name": firstName,
+            "last-name": lastName,
+            email: email,
+            "phone-number": phoneNumber,
+            password: password,
+        });
     },
     async admin(username) {
-        // const response = await makeHttpRequest("admin", "GET", {
-        //     username,
-        // });
-        const response = {...MOCK_RESPONSE};
-        response.data = admin;
-        return response;
+        return await makeHttpRequest("admin", "GET", {
+            username,
+        });
     },
     async members(username) {
-        // const response = await makeHttpRequest("members", "GET", {
-        //     username: username,
-        // });
-        const response = {...MOCK_RESPONSE};
-        response.members = members;
-        return response;
+        return await makeHttpRequest("members", "GET", {
+            username,
+        });
     },
     async memberServices(userID) {
-        // const response = await makeHttpRequest("member-services", "GET", {
-        //     "user-id": userID,
-        // });
-        const categoriesResponse = await this.serviceCategories();
-        const categories = categoriesResponse.categories;
-        const response = {...MOCK_RESPONSE};
-        response.services = [];
-        for (const id of ids) {
-            response.services.push({
-                "service_id": id,
-                "service_name": "Service Name " + id,
-                description:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
-                    " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" +
-                    " nisi ut aliquip ex ea commodo consequat.",
-                icon: categories[Math.floor(Math.random() * categories.length)],
-            });
-        }
-        return response;
+        return await makeHttpRequest("member-services", "GET", {
+            "user-id": userID,
+        });
     },
     async serviceCategories() {
-        // const response = await makeHttpRequest("service-categories", "GET", {});
-        // return response;
-        const response = {...MOCK_RESPONSE};
-        response.categories = ["entertainment", "food", "utility"];
-        return response;
+        return await makeHttpRequest("service-categories", "GET", {});
     },
     async profilePictures() {
-        const response = await makeHttpRequest("profile-pictures", "GET", {});
-        return response;
+        return await makeHttpRequest("profile-pictures", "GET", {});
     },
     async servicesInCategory(category) {
-        // const response = await makeHttpRequest("services-in-category", "GET", {
-        //     category,
-        // });
-        // return response;
-        const response = {...MOCK_RESPONSE};
-        response.services = [];
-        for (const n of [...Array(6).keys()]) {
-            const id = new Date().valueOf() + Math.floor(Math.random() * 20 + 1);
-            ids.push(id);
-            const service = {
-                "service_id": id,
-                "service_name": "Service Name " + id,
-                description:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
-                    " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" +
-                    " nisi ut aliquip ex ea commodo consequat.",
-                icon: category,
-            };
-            response.services.push(service);
-        }
-        return response;
+        return await makeHttpRequest("services-in-category", "GET", {
+            category,
+        });
     },
     async addServiceToUser(userID, serviceID) {
-        // const response = makeHttpRequest("add-service-to-user", "POST", {
-        //     "user-id": userID,
-        //     "service-id": serviceID,
-        // });
-        return MOCK_RESPONSE;
+        return makeHttpRequest("add-service-to-user", "POST", {
+            "user-id": userID, "service-id": serviceID,
+        });
     },
     async removeServiceFromUser(userID, serviceID) {
-        // const response = makeHttpRequest("remove-service-from-user", "POST", {
-        //     "user-id": userID,
-        //     "service-id": serviceID,
-        // });
-        return MOCK_RESPONSE;
+        return makeHttpRequest("remove-service-from-user", "POST", {
+            "user-id": userID, "service-id": serviceID,
+        });
     },
-    async updateAdmin({
-                          username,
-                          firstName,
-                          lastName,
-                          email,
-                          phoneNumber,
-                          password,
-                          profilePicture,
-                      }) {
-        // const response = await makeHttpRequest("update-admin", "POST", {
-        // username: username,
-        // "first-name": firstName,
-        // "last-name": lastName,
-        // email: email,
-        // "phone-number": phoneNumber,
-        // password: password,
-        // "profile-picture": profilePicture
-        // });
-        admin = {
+    async updateAdmin({ username, firstName, lastName, email, phoneNumber, password, profilePicture }) {
+        return await makeHttpRequest("update-admin", "POST", {
+            username: username,
+            "first-name": firstName,
+            "last-name": lastName,
+            email: email,
+            "phone-number": phoneNumber,
+            password: password,
+            "profile-picture": profilePicture
+        });
+    },
+    async addMember({ username, firstName, lastName, phoneNumber, prefix, profilePicture }) {
+        return await makeHttpRequest("add-member", "POST", {
             username,
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            password,
-            profilePicture,
-        };
-        return MOCK_RESPONSE;
-    },
-    async addMember({
-                        username,
-                        firstName,
-                        lastName,
-                        phoneNumber,
-                        prefix,
-                        profilePicture,
-                    }) {
-        // const response = await makeHttpRequest("add-member", "POST", {
-        //     username,
-        //     "first-name": firstName,
-        //     "last-name": lastName,
-        //     "phone-number": phoneNumber,
-        //     prefix,
-        //     "profile-picture": profilePicture,
-        // });
-        const userID = 5;
-        members[userID] = {
-            id: userID,
-            firstName,
-            lastName,
-            phoneNumber,
+            "first-name": firstName,
+            "last-name": lastName,
+            "phone-number": phoneNumber,
             prefix,
-            profilePicture,
-        };
-        const response = {...MOCK_RESPONSE};
-        response["user-id"] = userID;
-        return response;
+            "profile-picture": profilePicture,
+        });
     },
     async removeMember(userID) {
-        // const response = makeHttpRequest("remove-member", "DELETE", {
-        //     "user-id": userID,
-        // });
-        delete members[userID];
-        return MOCK_RESPONSE;
+        return makeHttpRequest("remove-member", "DELETE", {
+            "user-id": userID,
+        });
     },
-    async updateMember({
-                           userID,
-                           firstName,
-                           lastName,
-                           phoneNumber,
-                           prefix,
-                           profilePicture,
-                       }) {
-        // const response = await makeHttpRequest("update-member", "POST", {
-        //     "user-id": userID,
-        //     "first-name": firstName,
-        //     "last-name": lastName,
-        //     "phone-number": phoneNumber,
-        //     prefix: prefix,
-        //     "profile-picture": profilePicture,
-        // });
-        members[userID] = {
-            id: userID,
-            firstName,
-            lastName,
-            phoneNumber,
-            prefix,
-            profilePicture,
-        };
-        return MOCK_RESPONSE;
+    async updateMember({ userID, firstName, lastName, phoneNumber, prefix, profilePicture }) {
+        return await makeHttpRequest("update-member", "POST", {
+            "user-id": userID,
+            "first-name": firstName,
+            "last-name": lastName,
+            "phone-number": phoneNumber,
+            prefix: prefix,
+            "profile-picture": profilePicture,
+        });
     },
     async memberHistory(userID) {
-        // const response = await makeHttpRequest("member-history", "GET", {
-        //     "user-id": userID,
-        // });
-        const response = {...MOCK_RESPONSE};
-        response.history = [];
-        for (const id of ids) {
-            response.history.push({
-                "service_id": id,
-                "service_name": "Service Name",
-                "timestamp": 1613996038,
-            })
-        }
-        return response;
+        return await makeHttpRequest("member-history", "GET", {
+            "user-id": userID,
+        });
     },
     async memberServiceData(userID, serviceName) {
-        const response = {...MOCK_RESPONSE};
+        const response = { ...MOCK_RESPONSE };
         const random = Math.random();
         if (random < 0.33) {
             response.fields = {
-                "ACCOUNT_NUMBER": 123456789101112,
-                "SORT_CODE": 123456
+                "ACCOUNT_NUMBER": 123456789101112, "SORT_CODE": 123456
             };
         } else if (random >= 0.33 && random < 0.67) {
             response.fields = {
@@ -326,58 +147,10 @@ const api = {
         } else {
             response.fields = {};
         }
-        return response;
     },
     async updateMemberServiceData(userID, serviceName, data) {
         return MOCK_RESPONSE;
     }
-};
-
-let ids = [];
-
-let admin = {
-    username: "ernest",
-    firstName: "Ernest",
-    lastName: "Badu",
-    email: "you@mail.co.uk",
-    phoneNumber: "07111111111",
-    profilePicture: "apples",
-    password: "12345",
-};
-
-let members = {
-    1: {
-        id: 1,
-        firstName: "Jane",
-        lastName: "Williams",
-        phoneNumber: "07111111111",
-        prefix: "Ms",
-        profilePicture: "apples",
-    },
-    2: {
-        id: 2,
-        firstName: "Margaret",
-        lastName: "Phillips",
-        phoneNumber: "07111111111",
-        prefix: "Mrs",
-        profilePicture: "hills",
-    },
-    3: {
-        id: 3,
-        firstName: "Mark",
-        lastName: "Phillips",
-        phoneNumber: "07111111111",
-        prefix: "Mr",
-        profilePicture: "tulip",
-    },
-    4: {
-        id: 4,
-        firstName: "George",
-        lastName: "Best",
-        phoneNumber: "07111111111",
-        prefix: "Mr",
-        profilePicture: "mountains",
-    },
 };
 
 export default api;

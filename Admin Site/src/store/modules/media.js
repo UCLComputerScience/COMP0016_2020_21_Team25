@@ -40,7 +40,7 @@ const getters = {
 const actions = {
     async setProfileImages({dispatch, commit, getters, rootGetters}) {
         const imageNamesResponse = await api.profilePictures();
-        if (imageNamesResponse.code !== 200) {
+        if (imageNamesResponse.success) {
             return;
         }
         const imageNames = Object.values(
@@ -51,7 +51,7 @@ const actions = {
     },
     async setServiceIcons({dispatch, commit, getters, rootGetters}) {
         const namesResponse = await api.serviceCategories();
-        if (namesResponse.code !== 200) {
+        if (namesResponse.success) {
             return;
         }
         const serviceImages = await fetchImages(

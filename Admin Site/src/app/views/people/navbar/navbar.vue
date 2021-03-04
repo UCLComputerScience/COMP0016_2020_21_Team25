@@ -27,7 +27,7 @@ export default {
         person() {
             const member = this.$store.getters["member/activeMember"];
             if (member !== null && member !== undefined) {
-                return member.firstName + " " + member.lastName;
+                return member["first-name"] + " " + member["last-name"];
             }
             return "";
         },

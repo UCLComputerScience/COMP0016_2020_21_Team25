@@ -27,7 +27,7 @@ const actions = {
         }
         form.username = admin.username;
         const response = await api.updateAdmin(form);
-        if (response.code === 200) {
+        if (response.success) {
             commit("setAdmin", form);
         } else {
             form.response = response.message;
@@ -49,8 +49,10 @@ const actions = {
     },
     async updateAdmin({commit}, usernameOrEmail) {
         const response = await api.admin(usernameOrEmail);
-        if (response.code === 200) {
-            commit("setAdmin", response.data);
+        if (response.success) {
+            const data = {... response.data }
+            data["username"] = usernameOrEmail;
+            commit("setAdmin", data);
         } else {
             alert(response.message);
         }
@@ -67,7 +69,7 @@ const mutations = {
         state.admin = Object.assign({}, admin);
     },
     updateProfilePic(state, newPic) {
-        state.admin.profilePicture = newPic;
+        state.admin["profile-picture"] = newPic;
     },
 };
 

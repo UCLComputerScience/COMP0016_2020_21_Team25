@@ -27,13 +27,9 @@ export const routes = [
         redirect: "/welcome",
     },
     {
-        path: "/forgot-password",
-        redirect: "/forgot",
-    },
-    {
         path: "/logout",
-        redirect: () => {
-            store.dispatch("account/logout");
+        redirect: async () => {
+            await store.dispatch("account/logout");
             return "/welcome";
         },
     },
@@ -42,21 +38,6 @@ export const routes = [
         redirect: () => {
             store.dispatch("account/logout");
             return "/welcome";
-        },
-    },
-    {
-        path: "/forgot",
-        component: () =>
-            import(
-                /* webpackChunkName: "forgot-password", webpackPrefetch: true */ "../app/views/ForgotPassword.vue"
-                ),
-        name: "forgot-password",
-        meta: {
-            title: (route) => {
-                return "Reset Your Password";
-            },
-            description:
-                "Quickly gain access to your account again by resetting your password.",
         },
     },
     {
