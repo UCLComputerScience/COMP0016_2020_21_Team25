@@ -93,6 +93,7 @@ public class Database {
         }
         return null;
     }
+
     /**
      * @param command the statement to execute.
      * @return ResultSet the result of the SQL operation.
@@ -115,25 +116,24 @@ public class Database {
         }
     }
 
-    public int checkExisting(String table, String column,String condition){
-        String sqlStatement= "SELECT {COLUMN} FROM {TABLE} WHERE {CONDITION}";
-        sqlStatement= sqlStatement.replace("{TABLE}", table);
-        sqlStatement= sqlStatement.replace("{COLUMN}", column);
-        sqlStatement= sqlStatement.replace("{CONDITION}", condition);
+    public int checkExisting(String table, String column, String condition) {
+        String sqlStatement = "SELECT {COLUMN} FROM {TABLE} WHERE {CONDITION}";
+        sqlStatement = sqlStatement.replace("{TABLE}", table);
+        sqlStatement = sqlStatement.replace("{COLUMN}", column);
+        sqlStatement = sqlStatement.replace("{CONDITION}", condition);
         ResultSet results = query(sqlStatement);
-        boolean valid=false;
-        try{
-            if (!results.next()){
-                valid=true;
+        boolean valid = false;
+        try {
+            if (!results.next()) {
+                valid = true;
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             return 2;
         }
-    
-        if (valid==false){
+
+        if (valid == false) {
             return 0;
-        }
-        else{
+        } else {
             return 1;
         }
     }

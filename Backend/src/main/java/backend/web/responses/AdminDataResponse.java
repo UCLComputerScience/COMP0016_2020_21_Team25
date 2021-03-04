@@ -1,45 +1,16 @@
 package backend.web.responses;
 
+import java.util.Map;
+
 public class AdminDataResponse extends StandardResponse {
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String phoneNumber;
-    private final String password;
-    private final String profilePicture;
+    private final Map<String, String> data;
 
-    public AdminDataResponse(boolean success, String message, String firstName, String lastName, String email,
-                             String phoneNumber, String password, String profilePicture, int code) {
+    public AdminDataResponse(boolean success, String message, Map<String, String> data, int code) {
         super(success, message, code);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.profilePicture = profilePicture;
+        this.data = data;
     }
 
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public String getProfilePicture() {
-        return this.profilePicture;
+    public Map<String, String> getData() {
+        return data;
     }
 }
