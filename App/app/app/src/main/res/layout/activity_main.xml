@@ -112,17 +112,22 @@
 
     <TextView
         android:id="@+id/conciergeStatusText"
-        android:layout_width="wrap_content"
-        android:layout_height="82dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
+        android:autoSizeMaxTextSize="35sp"
+        android:autoSizeMinTextSize="20sp"
+        android:autoSizeTextType="uniform"
         android:text="Concierge is off"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBox"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:autoSizeMaxTextSize="35sp"
+        app:autoSizeMinTextSize="20sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tapToStartConciergeIcon" />
 
     <TextView
         android:id="@+id/holdToUseText"

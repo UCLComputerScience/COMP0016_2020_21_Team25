@@ -121,7 +121,13 @@
         android:textColorHint="@color/white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBox"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="20sp"
+        android:autoSizeMaxTextSize="35sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="20sp"
+        app:autoSizeMaxTextSize="35sp" />
 
     <TextView
         android:id="@+id/holdToUseText"

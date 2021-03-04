@@ -1,5 +1,6 @@
 package com.example.fisev2concierge;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.content.pm.PackageManager;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -28,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView conciergeStatusText = findViewById(R.id.conciergeStatusText);
+        //Ask for all permissions
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 10);
 
-//        MainController mainController = new MainController();
+        TextView conciergeStatusText = findViewById(R.id.conciergeStatusText);
 
         //Speech Synthesis defined on main thread
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
@@ -48,31 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         //test opening apps
                         //test if calls are made automatically after being granted permission
-//                        System.out.println("Stopped listening");
                         speechRecognition.stopListening();
-//                        mainController.speak(speechSynthesis);
-//                        speechSynthesis.runTts("hello how are you");
-//                        if (speechRecognition.ready[0] == true){
-//                            System.out.println("ready is true");
-//                        }
-//                        String[] result = speechRecognition.getResult();
-//                        System.out.println("mainActivity: result[0]: " + result[0]);
-//                        System.out.println("conciergeStatusText: " + conciergeStatusText.getText());
-//                        String userRequest = String.valueOf(conciergeStatusText.getText());
-//                        conciergeStatusText.setHint("Concierge is off");
-//                        if (userRequest.length()>0){
-//                            HashMap askBobResponse = mainController.askBobRequest(userRequest);
-//                            if (askBobResponse.get("Service_Type").equals("API_CALL")){
-//                                speechSynthesis.runTts((String) askBobResponse.get("Response"));
-//                            } else if (askBobResponse.get("Service_Type").equals("ERROR")){
-//                                speechSynthesis.runTts((String) askBobResponse.get("text"));
-//                                Toast.makeText(MainActivity.this, "Command not understood", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                mainController.askBobController(askBobResponse, MainActivity.this, MainActivity.this, MainActivity.this);
-//                            }
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "Empty input", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();

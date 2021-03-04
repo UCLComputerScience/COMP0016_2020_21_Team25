@@ -37,7 +37,7 @@
     <ScrollView
         android:id="@+id/buttonsScrollView"
         android:layout_width="wrap_content"
-        android:layout_height="450dp"
+        android:layout_height="194dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/stroke_bg"
         app:layout_constraintBottom_toBottomOf="parent"
