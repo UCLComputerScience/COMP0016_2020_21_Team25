@@ -4,14 +4,13 @@ The service API package defines and handles the interaction between the app and 
 
 For use as a RESTful API (instead of native Java code, detailed below), more information can be found in the `api` package [here](src/main/java/services/application).
 
-
 ## Interface
 
 The `makeRequest` method takes the service name and required data as parameters and performs the API request, the output is a sentence for the speech synthesiser to speak aloud to the user (with the relevant data included).
 
 -   This output is put onto an API response queue, maintained by the main controller of the app.
 
-<pre>void makeRequest(String serviceName, HashMap<String, String> payload)</pre>
+<pre>void makeRequest(String serviceName, HashMap &lt;String, String&gt; payload)</pre>
 
 The recognised service names are:
 
@@ -36,7 +35,7 @@ The recognised service names are:
 
 The API response queue should have the type:
 
-<pre>BlockingQueue<ApiResponse> appQueue;</pre>
+    BlockingQueue<ApiResponse> appQueue;
 
 Periodically polling this queue returns an `ApiResponse` object returning the service's response after a call is made.
 
