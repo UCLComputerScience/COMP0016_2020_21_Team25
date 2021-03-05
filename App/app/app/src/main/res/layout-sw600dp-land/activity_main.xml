@@ -168,13 +168,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/stroke_bg"
         android:clickable="true"
         android:contentDescription="@string/start_concierge_icon_description"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+        app:srcCompat="@drawable/miciconoffwithbg" />
 
     <TextView
         android:id="@+id/scrollToViewButtons"

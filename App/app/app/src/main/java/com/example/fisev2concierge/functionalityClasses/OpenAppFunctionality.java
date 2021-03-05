@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fisev2concierge.MainActivity;
+import com.example.fisev2concierge.TimersView;
 import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.helperClasses.AppPackageNameLookup;
 import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
@@ -30,11 +32,17 @@ public class OpenAppFunctionality {
     }
 
     public void openApp(String appName){
-        String packageName = mainController.packageNameLookup(appCompatActivity, appName);
-        if (packageName == null){
-            System.out.println("Hooray! Package name is null");
+        if (appName.equals("reminders") || appName.equals("alarms") || appName.equals("timers") || appName.equals("instructions") || appName.equals("history")){
+            //appName == activity name open activity
+            mainController.openActivity(appCompatActivity, context, appName);
+        } else {
+            String packageName = mainController.packageNameLookup(appCompatActivity, appName);
+            if (packageName == null) {
+                System.out.println("Hooray! Package name is null");
+                System.out.println("appName: " + appName);
+            }
+            openPackage(appName, packageName);
         }
-        openPackage(appName, packageName);
     }
 
     public void openPackage(String appName, String packageName){
@@ -43,6 +51,7 @@ public class OpenAppFunctionality {
             Toast.makeText(context, "Could not open: " + appName, Toast.LENGTH_SHORT).show();
             //package name not found -> open playstore
             System.out.println("Searching playstore");
+            System.out.println("appName: " + appName);
             searchPlayStore(appName);
         } else {
             //package name found

@@ -123,10 +123,10 @@
         app:layout_constraintBottom_toBottomOf="@+id/headerBox"
         app:layout_constraintStart_toStartOf="parent"
         android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="20sp"
+        android:autoSizeMinTextSize="25sp"
         android:autoSizeMaxTextSize="35sp"
         app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="20sp"
+        app:autoSizeMinTextSize="25sp"
         app:autoSizeMaxTextSize="35sp" />
 
     <TextView
@@ -168,13 +168,12 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/stroke_bg"
         android:clickable="true"
         android:contentDescription="@string/start_concierge_icon_description"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+        app:srcCompat="@drawable/miciconoffwithbg"/>
 
     <TextView
         android:id="@+id/scrollToViewButtons"

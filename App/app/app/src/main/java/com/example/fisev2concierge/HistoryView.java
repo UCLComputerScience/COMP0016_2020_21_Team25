@@ -1,34 +1,17 @@
 package com.example.fisev2concierge;
 
-import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
-import com.example.fisev2concierge.functionalityClasses.SearchContacts;
-import com.example.fisev2concierge.helperClasses.GetLatLon;
-import com.example.fisev2concierge.helperClasses.GetLocation;
-import com.example.fisev2concierge.speech.SpeechSynthesis;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HistoryView extends AppCompatActivity {

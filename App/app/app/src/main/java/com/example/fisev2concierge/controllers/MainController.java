@@ -8,20 +8,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.MainActivity;
 import com.example.fisev2concierge.askBobConnectivity.AskBob;
 import com.example.fisev2concierge.askBobConnectivity.AskBobRequest;
 import com.example.fisev2concierge.askBobConnectivity.AskBobResponseParser;
 import com.example.fisev2concierge.backendConnectivity.Backend;
 import com.example.fisev2concierge.functionalityClasses.AlarmsFunctionality;
 import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
+import com.example.fisev2concierge.functionalityClasses.OpenActivity;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenUrlFunctionality;
 import com.example.fisev2concierge.functionalityClasses.RemindersFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 import com.example.fisev2concierge.helperClasses.AppPackageNameLookup;
-import com.example.fisev2concierge.helperClasses.GetLatLon;
+import com.example.fisev2concierge.functionalityClasses.GetLatLon;
 import com.example.fisev2concierge.helperClasses.GetLocation;
 import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
 import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
@@ -32,6 +32,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class MainController{
+
+    public void openActivity(AppCompatActivity appCompatActivity, Context context, String activityName){
+        OpenActivity openActivity = new OpenActivity(appCompatActivity, context);
+        openActivity.openActivity(activityName);
+    }
 
     //need to change this name
     public void test(Context context, Activity activity, HashMap parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
@@ -52,6 +57,7 @@ public class MainController{
                 }
             }
         } else {
+            conciergeStatusText.setText("Concierge is off");
             Toast.makeText(context, "Empty input", Toast.LENGTH_SHORT).show();
         }
     }

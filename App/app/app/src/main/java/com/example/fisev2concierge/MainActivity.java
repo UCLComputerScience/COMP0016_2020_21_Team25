@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.pm.PackageManager;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         speechRecognition.checkPermission(this);
         speechRecognition.config(this, speechSynthesis, this, this, conciergeStatusText);
 
+        ImageView mic = findViewById(R.id.tapToStartConciergeIcon);
         findViewById(R.id.tapToStartConciergeIcon).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public synchronized boolean onTouch(View v, MotionEvent event) {
@@ -54,9 +56,12 @@ public class MainActivity extends AppCompatActivity {
                         //test opening apps
                         //test if calls are made automatically after being granted permission
                         speechRecognition.stopListening();
+                        mic.setImageResource(R.drawable.miciconoffwithbg);
+                        conciergeStatusText.setHint("Concierge is off");
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();
+                        mic.setImageResource(R.drawable.micicononwithbg);
                         conciergeStatusText.setText("");
                         conciergeStatusText.setHint("Concierge is listening");
                         break;

@@ -1,4 +1,4 @@
-package com.example.fisev2concierge.helperClasses;
+package com.example.fisev2concierge.functionalityClasses;
 
 import android.Manifest;
 import android.app.Activity;
