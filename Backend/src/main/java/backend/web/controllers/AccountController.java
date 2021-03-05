@@ -5,7 +5,9 @@ import backend.web.responses.StandardResponse;
 import backend.web.responses.account.ProfilePictureResponse;
 import backend.web.responses.account.MemberDataResponse;
 import backend.web.responses.account.MemberHistoryResponse;
+import backend.web.responses.account.AddMemberResponse;
 import backend.web.util.MapComparator;
+import backend.web.util.RegistrationCodeGenerator;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -343,5 +346,115 @@ public class AccountController {
 
         return new MemberHistoryResponse(success, message, history, code);
     }
+
+    @GetMapping("add-member")
+    public AddMemberResponse postAddMember(@RequestParam String username, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String phone_number, @RequestParam String prefix){
+        boolean success = true;
+        String message = "Ok";
+        int code = 200;
+        String user_id="";
+        String picture_id="37";
+        RegistrationCodeGenerator codeGenerate= new RegistrationCodeGenerator();
+        ArrayList<String> codeWords = new ArrayList<>();
+
+        try{
+            codeWords=codeGenerate.generateCode();
+        } catch (IOException e){
+            code=500;
+            success= false;
+            message=e.getMessage();
+            return new AddMemberResponse(success, message, user_id, codeWords.toString(), code);
+
+        }
+
+        String sqlStatementUserID="SELECT USER_ID FROM USER ORDER BY USER_ID DESC LIMIT 1";
+        ResultSet result = database.query(sqlStatementUserID);
+        try{
+            if (result.next()) {
+                String prevUserId = result.getString("USER_ID");
+                user_id=String.valueOf(Integer.parseInt(prevUserId)+1);
+            }
+        }
+        catch (SQLException e) {
+            code = 500;
+            message = e.getMessage();
+            success = false;
+            return new AddMemberResponse(success, message, user_id, codeWords.toString(), code);
+        }
+
+        
+        String sqlStatementUser = "INSERT INTO USER (FIRST_NAME, LAST_NAME, PHONE_NUMBER, PREFIX, PICTURE_ID) VALUES('{FIRST_NAME}','{LAST_NAME}','{PHONE_NUMBER}','{PREFIX}','{PICTURE_ID}')";
+        sqlStatementUser = sqlStatementUser.replace("{FIRST_NAME}", first_name);
+        sqlStatementUser = sqlStatementUser.replace("{LAST_NAME}", last_name);
+        sqlStatementUser = sqlStatementUser.replace("{PHONE_NUMBER}", phone_number);
+        sqlStatementUser = sqlStatementUser.replace("{PREFIX}", prefix);
+        sqlStatementUser = sqlStatementUser.replace("{PICTURE_ID}", picture_id);
+
+        String sqlStatementAdminCircle= "INSERT INTO ADMIN_CIRCLE VALUES ('{USERNAME}','{USER_ID}')";
+        sqlStatementAdminCircle = sqlStatementAdminCircle.replace("{USERNAME}", username);
+        sqlStatementAdminCircle = sqlStatementAdminCircle.replace("{USER_ID}", user_id);
+
+        String sqlStatementRegistration = "INSERT INTO REGISTRATION_CODES VALUES('{FIRST_WORD}','{SECOND_WORD}','{LAST_WORD}','{USERNAME}','{USER_ID}')";
+        sqlStatementRegistration = sqlStatementRegistration.replace("{FIRST_WORD}", codeWords.get(0));
+        sqlStatementRegistration = sqlStatementRegistration.replace("{SECOND_WORD}", codeWords.get(1));
+        sqlStatementRegistration = sqlStatementRegistration.replace("{LAST_WORD}", codeWords.get(2));
+        sqlStatementRegistration = sqlStatementRegistration.replace("{USERNAME}", username);
+        sqlStatementRegistration = sqlStatementRegistration.replace("{USER_ID}", user_id);
+
+        switch (database.checkExisting("ADMIN","USERNAME","USERNAME="+"'"+username+"'")){
+            case 1:
+                success=false;
+                message="Invalid Input";
+                //errors.put("USER", "Username does not exist");
+                break;
+            case 2:
+                success=false;
+                message="Server error";
+                code=500;
+                
+        }
+        switch (database.checkExisting("USER","PHONE_NUMBER","PHONE_NUMBER ="+"'"+phone_number+"'")){
+            case 0:
+                success=false;
+                message="Invalid Input (Data may already be in use by another account)";
+                //errors.put("PHONE_NUMBER", "Phone number is already being utilised");
+                break;
+            case 2:
+                success=false;
+                message="Server error";
+                code=500;
+        }
+
+        if (success){
+            database.executeUpdate(sqlStatementUser);
+            database.executeUpdate(sqlStatementAdminCircle);
+            database.executeUpdate(sqlStatementRegistration);
+            
+        }
+        
+        
+        return new AddMemberResponse(success, message, user_id, codeWords.toString(), code);
+    }
+
+    @GetMapping("remove-member")
+    public StandardResponse deleteRemoveMember(@RequestParam String user_id){
+        boolean success = true;
+        String message = "Ok";
+        int code = 200;
+        
+        String sqlStatementDeleteUser = "DELETE FROM USER WHERE USER_ID='{USER_ID}'";
+        String sqlStatementDeleteAdminCircle = "DELETE FROM ADMIN_CIRCLE WHERE USER_ID='{USER_ID}'";
+        String sqlStatementDeleteRegistrationCodes = "DELETE FROM REGISTRATION_CODES WHERE USER_ID='{USER_ID}'";
+        sqlStatementDeleteUser = sqlStatementDeleteUser.replace("{USER_ID}", user_id);
+        sqlStatementDeleteAdminCircle = sqlStatementDeleteAdminCircle.replace("{USER_ID}", user_id);
+        sqlStatementDeleteRegistrationCodes = sqlStatementDeleteRegistrationCodes.replace("{USER_ID}", user_id);
+        
+        database.executeUpdate(sqlStatementDeleteUser);
+        database.executeUpdate(sqlStatementDeleteAdminCircle);
+        database.executeUpdate(sqlStatementDeleteRegistrationCodes);
+
+        return new StandardResponse(success, message, code);
+    }
+
 
 }
