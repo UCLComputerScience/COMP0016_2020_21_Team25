@@ -1,4 +1,6 @@
-package backend.web.responses;
+package backend.web.responses.login;
+
+import backend.web.responses.StandardResponse;
 
 import java.util.Map;
 

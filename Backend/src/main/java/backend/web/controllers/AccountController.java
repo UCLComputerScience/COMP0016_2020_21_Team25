@@ -1,17 +1,13 @@
 package backend.web.controllers;
 
-import backend.web.responses.AdminDataResponse;
+import backend.web.responses.account.AdminDataResponse;
 import backend.web.responses.StandardResponse;
-import backend.web.responses.ProfilePictureResponse;
-import backend.web.responses.MemberDataResponse;
-import backend.web.responses.MemberHistoryResponse;
+import backend.web.responses.account.ProfilePictureResponse;
+import backend.web.responses.account.MemberDataResponse;
+import backend.web.responses.account.MemberHistoryResponse;
 import backend.web.util.MapComparator;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
-import backend.web.responses.AdminDataResponse;
-import backend.web.responses.MemberDataResponse;
-import backend.web.responses.ProfilePictureResponse;
-import backend.web.responses.StandardResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,9 +31,11 @@ public class AccountController {
         boolean success = true;
         String message = "Ok";
         int code = 200;
+
         Map<String, String> profilePictures = new HashMap<>();
-        String query = "SELECT * FROM PROFILE_PICTURE";
-        ResultSet result = database.query(query);
+
+        String sqlStatement = "SELECT * FROM PROFILE_PICTURE";
+        ResultSet result = database.query(sqlStatement);
 
         try {
             while (result.next()) {
@@ -58,9 +56,11 @@ public class AccountController {
         boolean success = true;
         String message = "Ok";
         int code = 200;
+
         Map<String, String> data = new HashMap<>();
-        String query = "SELECT * FROM ADMIN WHERE USERNAME='{USERNAME}'";
-        ResultSet result = database.query(query.replace("{USERNAME}", username));
+
+        String sqlStatement = "SELECT * FROM ADMIN WHERE USERNAME='{USERNAME}'";
+        ResultSet result = database.query(sqlStatement.replace("{USERNAME}", username));
 
         try {
             if (result.next()) {
@@ -84,6 +84,7 @@ public class AccountController {
         boolean success = true;
         String message = "Ok";
         int code = 200;
+
         String userID;
         String firstName;
         String lastName;
@@ -91,8 +92,9 @@ public class AccountController {
         String prefix;
         String profilePicture;
         Map<String, Map<String, String>> members = new HashMap<>();
-        String query = "SELECT USER.* FROM ADMIN_CIRCLE INNER JOIN USER ON ADMIN_CIRCLE.USER_ID=USER.USER_ID WHERE ADMIN_CIRCLE.USERNAME='{USERNAME}'";
-        ResultSet result = database.query(query.replace("{USERNAME}", username));
+
+        String sqlStatement = "SELECT USER.* FROM ADMIN_CIRCLE INNER JOIN USER ON ADMIN_CIRCLE.USER_ID=USER.USER_ID WHERE ADMIN_CIRCLE.USERNAME='{USERNAME}'";
+        ResultSet result = database.query(sqlStatement.replace("{USERNAME}", username));
 
         try {
             while (result.next()) {
@@ -119,30 +121,34 @@ public class AccountController {
     }
 
     @PostMapping("add-service-to-user")
+    //could benefit from errors array
     public StandardResponse postAddServiceToUser(@RequestParam String user_id, @RequestParam String service_id) {
         boolean success = true;
         String message = "Ok";
         int code = 200;
-        String statement = "INSERT INTO USER_SERVICE VALUES ('{SERVICE_ID}','{USER_ID}')";
-        statement = statement.replace("{SERVICE_ID}", service_id);
-        statement = statement.replace("{USER_ID}", user_id);
+
+        String sqlStatement = "INSERT INTO USER_SERVICE VALUES ('{SERVICE_ID}','{USER_ID}')";
+        sqlStatement = sqlStatement.replace("{SERVICE_ID}", service_id);
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
 
         switch (database.checkExisting("USER", "USER_ID", "USER_ID = " + "'" + user_id + "'")) {
             case 1:
                 success = false;
-                message = "User_ID does not exist";
+                message = "Invalid Input (Check the user_id and service_id are correct)";
                 break;
             case 2:
                 success = false;
+                message="Server error";
                 code = 500;
         }
         switch (database.checkExisting("SERVICE", "SERVICE_ID USER_ID", "SERVICE_ID =" + "'" + service_id + "'")) {
             case 1:
                 success = false;
-                message = "Service_ID does not exist";
+                message = "Invalid Input (Check the user_id and service_id are correct)";
                 break;
             case 2:
                 success = false;
+                message="Server error";
                 code = 500;
         }
         switch (database.checkExisting("USER_SERVICE", "SERVICE_ID USER_ID", "SERVICE_ID =" + "'" + service_id + "'" + " AND " + "USER_ID = " + "'" + user_id + "'")) {
@@ -152,13 +158,13 @@ public class AccountController {
                 break;
             case 2:
                 success = false;
+                message="Server error";
                 code = 500;
         }
 
 
         if (success) {
-            database.executeUpdate(statement);
-
+            database.executeUpdate(sqlStatement);
         }
 
 
@@ -170,9 +176,10 @@ public class AccountController {
         boolean success = true;
         String message = "Ok";
         int code = 200;
-        String statement = "DELETE FROM USER_SERVICE WHERE SERVICE_ID='{SERVICE_ID}' AND USER_ID='{USER_ID}'";
-        statement = statement.replace("{SERVICE_ID}", service_id);
-        statement = statement.replace("{USER_ID}", user_id);
+
+        String sqlStatement = "DELETE FROM USER_SERVICE WHERE SERVICE_ID='{SERVICE_ID}' AND USER_ID='{USER_ID}'";
+        sqlStatement = sqlStatement.replace("{SERVICE_ID}", service_id);
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
 
 
         switch (database.checkExisting("USER_SERVICE", "SERVICE_ID USER_ID", "SERVICE_ID =" + "'" + service_id + "'" + " AND " + "USER_ID = " + "'" + user_id + "'")) {
@@ -182,11 +189,12 @@ public class AccountController {
                 break;
             case 2:
                 success = false;
+                message="Server error";
                 code = 500;
         }
 
         if (success) {
-            database.executeUpdate(statement);
+            database.executeUpdate(sqlStatement);
 
         }
 
@@ -200,49 +208,52 @@ public class AccountController {
         String message = "Ok";
         int code = 200;
 
-        String statement = "UPDATE ADMIN SET FIRST_NAME='{FIRST_NAME}',LAST_NAME='{LAST_NAME}',PHONE_NUMBER='{PHONE_NUMBER}',EMAIL='{EMAIL}',PICTURE_ID='{PICTURE_ID}',PASSWORD='{PASSWORD}' WHERE USERNAME='{USERNAME}'";
-        statement = statement.replace("{USERNAME}", username);
-        statement = statement.replace("{FIRST_NAME}", first_name);
-        statement = statement.replace("{LAST_NAME}", last_name);
-        statement = statement.replace("{PHONE_NUMBER}", phone_number);
-        statement = statement.replace("{EMAIL}", email);
-        statement = statement.replace("{PICTURE_ID}", picture_id);
-        statement = statement.replace("{PASSWORD}", password);
+        String sqlStatement = "UPDATE ADMIN SET FIRST_NAME='{FIRST_NAME}',LAST_NAME='{LAST_NAME}',PHONE_NUMBER='{PHONE_NUMBER}',EMAIL='{EMAIL}',PICTURE_ID='{PICTURE_ID}',PASSWORD='{PASSWORD}' WHERE USERNAME='{USERNAME}'";
+        sqlStatement = sqlStatement.replace("{USERNAME}", username);
+        sqlStatement = sqlStatement.replace("{FIRST_NAME}", first_name);
+        sqlStatement = sqlStatement.replace("{LAST_NAME}", last_name);
+        sqlStatement = sqlStatement.replace("{PHONE_NUMBER}", phone_number);
+        sqlStatement = sqlStatement.replace("{EMAIL}", email);
+        sqlStatement = sqlStatement.replace("{PICTURE_ID}", picture_id);
+        sqlStatement = sqlStatement.replace("{PASSWORD}", password);
 
          
         switch (database.checkExisting("ADMIN","USERNAME","USERNAME ="+"'"+username+"'")){
             case 1:
                 success=false;
-                message="fail";
+                message="Invalid Input (Data may already be in use by another account)";
                 //errors.put("USER", "Username does not exist");
                 break;
             case 2:
                 success=false;
+                message="Server error";
                 code=500;
         }
         switch (database.checkExisting("ADMIN","EMAIL","EMAIL ="+"'"+email+"'"+ " AND NOT USERNAME="+"'"+username+"'")){
             case 0:
                 success=false;
-                message="fail";
+                message="Invalid Input (Data may already be in use by another account)";
                 //errors.put("EMAIL", "Email is already being utilised");
                 break;
             case 2:
                 success=false;
+                message="Server error";
                 code=500;
         }
         switch (database.checkExisting("ADMIN","PHONE_NUMBER","PHONE_NUMBER ="+"'"+phone_number+"'"+ " AND NOT USERNAME="+"'"+username+"'")){
             case 0:
                 success=false;
-                message="fail";
+                message="Invalid Input (Data may already be in use by another account)";
                 //errors.put("PHONE_NUMBER", "Phone number is already being utilised");
                 break;
             case 2:
                 success=false;
+                message="Server error";
                 code=500;
         }
         
-        if (!message.equals("fail")){
-            database.executeUpdate(statement);
+        if (success){
+            database.executeUpdate(sqlStatement);
             //errors.put("STATUS", "OK");
         }
             
@@ -256,42 +267,44 @@ public class AccountController {
         String message = "Ok";
         int code = 200;
 
-        String statement = "UPDATE USER SET FIRST_NAME='{FIRST_NAME}',LAST_NAME='{LAST_NAME}',PHONE_NUMBER='{PHONE_NUMBER}',PREFIX='{PREFIX}',PICTURE_ID='{PICTURE_ID}' WHERE USER_ID='{USER_ID}'";
-        statement = statement.replace("{USER_ID}", user_id);
-        statement = statement.replace("{FIRST_NAME}", first_name);
-        statement = statement.replace("{LAST_NAME}", last_name);
-        statement = statement.replace("{PHONE_NUMBER}", phone_number);
-        statement = statement.replace("{PREFIX}", prefix);
-        statement = statement.replace("{PICTURE_ID}", picture_id);
-        
+        String sqlStatement = "UPDATE USER SET FIRST_NAME='{FIRST_NAME}',LAST_NAME='{LAST_NAME}',PHONE_NUMBER='{PHONE_NUMBER}',PREFIX='{PREFIX}',PICTURE_ID='{PICTURE_ID}' WHERE USER_ID='{USER_ID}'";
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
+        sqlStatement = sqlStatement.replace("{FIRST_NAME}", first_name);
+        sqlStatement = sqlStatement.replace("{LAST_NAME}", last_name);
+        sqlStatement = sqlStatement.replace("{PHONE_NUMBER}", phone_number);
+        sqlStatement = sqlStatement.replace("{PREFIX}", prefix);
+        sqlStatement = sqlStatement.replace("{PICTURE_ID}", picture_id);
 
-         
+
+
         switch (database.checkExisting("USER","USER_ID","USER_ID ="+"'"+user_id+"'")){
             case 1:
                 success=false;
-                message="fail";
+                message="Invalid Input (Data may already be in use by another account)";
                 //errors.put("USER", "Username does not exist");
                 break;
             case 2:
                 success=false;
+                message="Server error";
                 code=500;
         }
         switch (database.checkExisting("USER","PHONE_NUMBER","PHONE_NUMBER ="+"'"+phone_number+"'"+ " AND NOT USER_ID="+"'"+user_id+"'")){
             case 0:
                 success=false;
-                message="fail";
+                message="Invalid Input (Data may already be in use by another account)";
                 //errors.put("PHONE_NUMBER", "Phone number is already being utilised");
                 break;
             case 2:
                 success=false;
+                message="Server error";
                 code=500;
         }
-        
-        if (!message.equals("fail")){
-            database.executeUpdate(statement);
+
+        if (success){
+            database.executeUpdate(sqlStatement);
             //errors.put("STATUS", "OK");
         }
-            
+
         return new StandardResponse(success, message, code);
     }
 
@@ -300,10 +313,11 @@ public class AccountController {
         boolean success = true;
         String message = "Ok";
         int code = 200;
+
         ArrayList<Map<String, String>> history = new ArrayList<>();
-        
-        String query = "SELECT SERVICE.NAME,  SERVICE_LOG.* FROM SERVICE_LOG INNER JOIN SERVICE ON SERVICE_LOG.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_ID='{USER_ID}'";
-        ResultSet result = database.query(query.replace("{USER_ID}", user_id));
+
+        String sqlStatement = "SELECT SERVICE.NAME,  SERVICE_LOG.* FROM SERVICE_LOG INNER JOIN SERVICE ON SERVICE_LOG.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_ID='{USER_ID}'";
+        ResultSet result = database.query(sqlStatement.replace("{USER_ID}", user_id));
         try {
             while (result.next()) {
                 String service_id = result.getString("SERVICE_ID");
@@ -326,7 +340,7 @@ public class AccountController {
             success = false;
         }
 
-            
+
         return new MemberHistoryResponse(success, message, history, code);
     }
 

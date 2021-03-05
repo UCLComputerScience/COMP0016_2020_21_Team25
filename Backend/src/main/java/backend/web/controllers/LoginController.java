@@ -2,8 +2,8 @@ package backend.web.controllers;
 
 import backend.models.Database;
 import backend.models.DatabaseFactory;
-import backend.web.responses.LoginDataResponse;
-import backend.web.responses.RegisterAdminResponse;
+import backend.web.responses.login.LoginResponse;
+import backend.web.responses.login.RegisterAdminResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +23,7 @@ public class LoginController {
     private final Database database = DatabaseFactory.instance();
 
     @GetMapping("login")
-    public LoginDataResponse getLoginData(@RequestParam String username, @RequestParam String password) {
+    public LoginResponse getLoginData(@RequestParam String username, @RequestParam String password) {
         boolean success = true;
         String message = "Ok";
         int code = 200;
@@ -31,9 +31,10 @@ public class LoginController {
         Map<String, String> errors = new HashMap<>();
         String databaseUsername = "";
         String databasePassword = "";
-        String query = "SELECT USERNAME, PASSWORD FROM ADMIN WHERE USERNAME='{USER}'";
-        query = query.replace("{USER}", username);
-        ResultSet results = database.query(query);
+
+        String sqlStatement = "SELECT USERNAME, PASSWORD FROM ADMIN WHERE USERNAME='{USER}'";
+        sqlStatement = sqlStatement.replace("{USER}", username);
+        ResultSet results = database.query(sqlStatement);
 
         try {
             if (results.next()) {
@@ -58,7 +59,7 @@ public class LoginController {
         }
 
 
-        return new LoginDataResponse(success, message, errors, code);
+        return new LoginResponse(success, message, errors, code);
     }
 
     @PostMapping("register")
@@ -69,50 +70,53 @@ public class LoginController {
 
         Map<String, String> errors = new HashMap<>();
         String defaultPictureID = "37";
-        String statement = "INSERT INTO ADMIN VALUES ('{USERNAME}', '{FIRST_NAME}', '{LAST_NAME}', '{PHONE_NUMBER}', '{EMAIL}', '{PICTURE_ID}', '{PASSWORD}')";
-        statement = statement.replace("{USERNAME}", username);
-        statement = statement.replace("{FIRST_NAME}", first_name);
-        statement = statement.replace("{LAST_NAME}", last_name);
-        statement = statement.replace("{PHONE_NUMBER}", phone_number);
-        statement = statement.replace("{EMAIL}", email);
-        statement = statement.replace("{PICTURE_ID}", defaultPictureID);
-        statement = statement.replace("{PASSWORD}", password);
+
+        String sqlStatement = "INSERT INTO ADMIN VALUES ('{USERNAME}', '{FIRST_NAME}', '{LAST_NAME}', '{PHONE_NUMBER}', '{EMAIL}', '{PICTURE_ID}', '{PASSWORD}')";
+        sqlStatement = sqlStatement.replace("{USERNAME}", username);
+        sqlStatement = sqlStatement.replace("{FIRST_NAME}", first_name);
+        sqlStatement = sqlStatement.replace("{LAST_NAME}", last_name);
+        sqlStatement = sqlStatement.replace("{PHONE_NUMBER}", phone_number);
+        sqlStatement = sqlStatement.replace("{EMAIL}", email);
+        sqlStatement = sqlStatement.replace("{PICTURE_ID}", defaultPictureID);
+        sqlStatement = sqlStatement.replace("{PASSWORD}", password);
 
 
         switch (database.checkExisting("ADMIN", "USERNAME", "USERNAME =" + "'" + username + "'")) {
             case 0:
                 success = false;
-                message = "fail";
+                message = "Error";
                 errors.put("USER", "Username is already taken");
                 break;
             case 2:
                 success = false;
+                message = "Server error";
                 code = 500;
         }
         switch (database.checkExisting("ADMIN", "EMAIL", "EMAIL =" + "'" + email + "'")) {
             case 0:
                 success = false;
-                message = "fail";
+                message = "Error";
                 errors.put("EMAIL", "Email is already being utilised");
                 break;
             case 2:
                 success = false;
+                message = "Server error";
                 code = 500;
         }
         switch (database.checkExisting("ADMIN", "PHONE_NUMBER", "PHONE_NUMBER =" + "'" + phone_number + "'")) {
             case 0:
                 success = false;
-                message = "fail";
+                message = "Error";
                 errors.put("PHONE_NUMBER", "Phone number is already being utilised");
                 break;
             case 2:
                 success = false;
+                message = "Server error";
                 code = 500;
         }
 
         if (!message.equals("fail")) {
-            database.executeUpdate(statement);
-            errors.put("STATUS", "OK");
+            database.executeUpdate(sqlStatement);
         }
 
 

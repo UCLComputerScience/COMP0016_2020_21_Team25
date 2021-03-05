@@ -2,9 +2,9 @@ package backend.web.controllers;
 
 import backend.models.Database;
 import backend.models.DatabaseFactory;
-import backend.web.responses.CategoryResponse;
-import backend.web.responses.MemberServicesResponse;
-import backend.web.responses.ServicesInCategoryResponse;
+import backend.web.responses.service.CategoryResponse;
+import backend.web.responses.service.MemberServicesResponse;
+import backend.web.responses.service.ServicesInCategoryResponse;
 import backend.web.util.MapComparator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,12 +26,14 @@ public class ServiceController {
     @GetMapping("service-categories")
     public CategoryResponse getCategories() {
         boolean success = true;
-        ArrayList<String> categories = new ArrayList<>();
         String message = "Ok";
         int code = 200;
 
-        String query = "SELECT CATEGORY FROM SERVICE";
-        ResultSet result = database.query(query);
+        ArrayList<String> categories = new ArrayList<>();
+
+        String sqlStatement = "SELECT CATEGORY FROM SERVICE";
+        ResultSet result = database.query(sqlStatement);
+
         try {
             while (result.next()) {
                 String category = result.getString("CATEGORY");
@@ -45,18 +47,21 @@ public class ServiceController {
             message = e.getMessage();
             success = false;
         }
+
         return new CategoryResponse(success, message, categories, code);
     }
 
     @GetMapping("services-in-category")
     public ServicesInCategoryResponse getServicesInCategory(@RequestParam String category) {
         boolean success = true;
-        ArrayList<Map<String, String>> services = new ArrayList<>();
         String message = "Ok";
         int code = 200;
 
-        String query = "SELECT NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
-        ResultSet result = database.query(query.replace("{CATEGORY}", category.toLowerCase()));
+        ArrayList<Map<String, String>> services = new ArrayList<>();
+
+        String sqlStatement = "SELECT NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
+        ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category.toLowerCase()));
+
         try {
             while (result.next()) {
                 String name = result.getString("NAME");
@@ -78,6 +83,7 @@ public class ServiceController {
             message = e.getMessage();
             success = false;
         }
+
         return new ServicesInCategoryResponse(success, message, services, code);
     }
 
@@ -88,9 +94,10 @@ public class ServiceController {
         String message = "Ok";
         int code = 200;
 
-        String query = "SELECT SERVICE.* FROM USER_SERVICE INNER JOIN SERVICE ON USER_SERVICE.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_SERVICE.USER_ID='{USER_ID}'";
+        String sqlStatement = "SELECT SERVICE.* FROM USER_SERVICE INNER JOIN SERVICE ON USER_SERVICE.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_SERVICE.USER_ID='{USER_ID}'";
 
-        ResultSet result = database.query(query.replace("{USER_ID}", user_id));
+        ResultSet result = database.query(sqlStatement.replace("{USER_ID}", user_id));
+
         try {
             while (result.next()) {
                 String name = result.getString("NAME");

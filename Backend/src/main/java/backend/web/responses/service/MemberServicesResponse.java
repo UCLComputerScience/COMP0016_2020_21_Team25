@@ -1,4 +1,6 @@
-package backend.web.responses;
+package backend.web.responses.service;
+
+import backend.web.responses.StandardResponse;
 
 import java.util.ArrayList;
 import java.util.Map;
