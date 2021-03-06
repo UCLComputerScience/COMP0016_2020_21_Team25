@@ -3,6 +3,8 @@ package backend.models;
 import backend.ApiLogger;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Wrapper class to abstract database operation from the rest of the backend.
@@ -10,7 +12,7 @@ import java.sql.*;
 public class Database {
     private final String urlPrefix = "jdbc:db2:";
     private Connection connection;
-    private Statement statement;
+    private List<Statement> statements;
 
     public Database() {
         try {
@@ -39,10 +41,9 @@ public class Database {
         URL = URL.replace("USERNAME", username).replace("PASSWORD", password);
         Class.forName("com.ibm.db2.jcc.DB2Driver");
         connection = DriverManager.getConnection(URL);
+        statements = new ArrayList<>();
         // Do not autosave on command execution.
         connection.setAutoCommit(false);
-        // Create statement object for executing SQL statements.
-        statement = connection.createStatement();
     }
 
     /**
@@ -55,15 +56,8 @@ public class Database {
     /**
      * Execute SQL statement - just to provide better semantics.
      */
-    public void execute(String command) {
-        executeStatement(command, false);
-    }
-
-    /**
-     * Execute SQL update statement - just to provide better semantics.
-     */
     public void executeUpdate(String command) {
-        executeUpdateStatement(command);
+        executeStatement(command, false);
     }
 
     /**
@@ -73,7 +67,9 @@ public class Database {
      */
     private ResultSet executeStatement(String command, boolean query) {
         try {
-            ApiLogger.log("Executing SQL Statement:\n" + command);
+            Statement statement = connection.createStatement();
+            statements.add(statement);
+            ApiLogger.log("Executing SQL Statement:\n" + command + "\n\n");
             if (query) {
                 return statement.executeQuery(command);
             } else {
@@ -92,28 +88,6 @@ public class Database {
             }
         }
         return null;
-    }
-
-    /**
-     * @param command the statement to execute.
-     * @return ResultSet the result of the SQL operation.
-     */
-    private void executeUpdateStatement(String command) {
-        try {
-            ApiLogger.log("Executing SQL Statement:\n" + command);
-            statement.executeUpdate(command);
-            // Save changes to database
-            connection.commit();
-        } catch (SQLException ex) {
-            System.err.println("SQLException information");
-            while (ex != null) {
-                System.err.println("Error msg: " + ex.getMessage());
-                System.err.println("SQLSTATE: " + ex.getSQLState());
-                System.err.println("Error code: " + ex.getErrorCode());
-                ex.printStackTrace();
-                ex = ex.getNextException(); // For drivers that support chained exceptions
-            }
-        }
     }
 
     public int checkExisting(String table, String column, String condition) {
@@ -140,7 +114,9 @@ public class Database {
 
     public void close() {
         try {
-            statement.close();
+            for (Statement statement : statements) {
+                statement.close();
+            }
             if (!connection.isClosed())
                 connection.close();
         } catch (SQLException ignored) {

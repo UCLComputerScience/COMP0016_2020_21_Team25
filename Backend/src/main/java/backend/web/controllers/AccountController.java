@@ -10,6 +10,8 @@ import backend.web.util.MapComparator;
 import backend.web.util.RegistrationCodeGenerator;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -347,7 +349,7 @@ public class AccountController {
         return new MemberHistoryResponse(success, message, history, code);
     }
 
-    @GetMapping("add-member")
+    @PostMapping("add-member")
     public AddMemberResponse postAddMember(@RequestParam String username, @RequestParam String first_name, @RequestParam String last_name, @RequestParam String phone_number, @RequestParam String prefix){
         boolean success = true;
         String message = "Ok";
@@ -363,7 +365,7 @@ public class AccountController {
             code=500;
             success= false;
             message=e.getMessage();
-            return new AddMemberResponse(success, message, user_id, codeWords.toString(), code);
+            return new AddMemberResponse(success, message, user_id, codeWords, code);
 
         }
 
@@ -379,7 +381,7 @@ public class AccountController {
             code = 500;
             message = e.getMessage();
             success = false;
-            return new AddMemberResponse(success, message, user_id, codeWords.toString(), code);
+            return new AddMemberResponse(success, message, user_id, codeWords, code);
         }
 
         
@@ -433,10 +435,10 @@ public class AccountController {
         }
         
         
-        return new AddMemberResponse(success, message, user_id, codeWords.toString(), code);
+        return new AddMemberResponse(success, message, user_id, codeWords, code);
     }
 
-    @GetMapping("remove-member")
+    @DeleteMapping("remove-member")
     public StandardResponse deleteRemoveMember(@RequestParam String user_id){
         boolean success = true;
         String message = "Ok";

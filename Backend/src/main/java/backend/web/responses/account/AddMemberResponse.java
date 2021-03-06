@@ -1,13 +1,15 @@
 package backend.web.responses.account;
 
+import java.util.ArrayList;
+
 import backend.web.responses.StandardResponse;
 
 
 public class AddMemberResponse extends StandardResponse {
     private final String user_id;
-    private final String registration_code;
+    private final ArrayList<String> registration_code;
 
-    public AddMemberResponse(boolean success, String message, String user_id, String registration_code, int code) {
+    public AddMemberResponse(boolean success, String message, String user_id, ArrayList<String> registration_code, int code) {
         super(success, message, code);
         this.user_id = user_id;
         this.registration_code= registration_code;
@@ -16,7 +18,7 @@ public class AddMemberResponse extends StandardResponse {
     public String getUserId() {
         return user_id;
     }
-    public String getRegistrationCode() {
+    public ArrayList<String> getRegistrationCode() {
         return registration_code;
     }
 }
