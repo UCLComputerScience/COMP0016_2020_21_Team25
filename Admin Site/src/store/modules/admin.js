@@ -18,14 +18,17 @@ const getters = {
 };
 
 const actions = {
-    async profile({dispatch, commit, getters, rootGetters}, form) {
-        const admin = {...getters.admin};
-        for (let [key, field] of Object.entries(form)) {
+    async profile({ dispatch, commit, getters, rootGetters }, form) {
+        const admin = { ...getters.admin };
+        for (const [key, field] of Object.entries(form)) {
             if (field === "") {
                 form[key] = admin[key];
             }
         }
         form.username = admin.username;
+        if (form["profilePicture"] === undefined) {
+            form["profilePicture"] = admin["profile-picture"];
+        }
         const response = await api.updateAdmin(form);
         if (response.success) {
             commit("setAdmin", form);
@@ -34,31 +37,31 @@ const actions = {
         }
     },
     async fetchAdmin(
-        {dispatch, commit, getters, rootGetters},
+        { dispatch, commit, getters, rootGetters },
         usernameOrEmail
     ) {
         await dispatch("updateAdmin", usernameOrEmail);
         const username = getters.username;
-        await dispatch("member/fetchMembers", username, {root: true});
+        await dispatch("member/fetchMembers", username, { root: true });
         if (window.location.pathname === "/welcome") {
             await router.push({
                 name: "people",
-                params: {username},
+                params: { username },
             });
         }
     },
-    async updateAdmin({commit}, usernameOrEmail) {
+    async updateAdmin({ commit }, usernameOrEmail) {
         const response = await api.admin(usernameOrEmail);
         if (response.success) {
-            const data = {... response.data }
+            const data = { ...response.data };
             data["username"] = usernameOrEmail;
             commit("setAdmin", data);
         } else {
             alert(response.message);
         }
     },
-    async updateAdminPic({dispatch, commit, getters, rootGetters}, newPic) {
-        const form = {...getters.admin};
+    async updateAdminPic({ dispatch, commit, getters, rootGetters }, newPic) {
+        const form = { ...getters.admin };
         form.profilePicture = newPic;
         await dispatch("profile", form);
     },

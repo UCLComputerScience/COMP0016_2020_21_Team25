@@ -24,7 +24,7 @@ const getters = {
 };
 
 const actions = {
-    async updateDataFields({dispatch, commit, getters, rootGetters}, form) {
+    async updateDataFields({ dispatch, commit, getters, rootGetters }, form) {
         const defaultData = getters["dataFields"];
         for (const [key, value] of Object.entries(form)) {
             if (value === "" || value === null) {
@@ -41,10 +41,10 @@ const actions = {
             alert(response.message);
         }
     },
-    service({commit}, service) {
+    service({ commit }, service) {
         commit("setService", service);
     },
-    async setServices({commit}) {
+    async setServices({ commit }) {
         const response = await api.serviceCategories();
         if (response.success) {
             const services = {};

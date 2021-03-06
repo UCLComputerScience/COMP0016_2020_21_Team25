@@ -13,8 +13,8 @@ import {getProfileImage} from '../../../../assets/scripts/util';
 export default {
     name: "profile-picture",
     props: {
-        borderColor: {type: String, default: "var(--light-blue)"},
-        borderWidth: {type: Number, default: 2},
+        borderColor: { type: String, default: "var(--light-blue)" },
+        borderWidth: { type: Number, default: 2 },
     },
     computed: {
         profilePicture() {
@@ -27,7 +27,7 @@ export default {
             return this.$store.getters["admin/admin"];
         }
     }
-}
+};
 </script>
 
 <style scoped>

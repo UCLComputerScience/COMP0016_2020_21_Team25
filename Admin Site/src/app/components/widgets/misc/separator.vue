@@ -5,7 +5,7 @@
 <script>
 export default {
     name: "separator"
-}
+};
 </script>
 
 <style scoped>

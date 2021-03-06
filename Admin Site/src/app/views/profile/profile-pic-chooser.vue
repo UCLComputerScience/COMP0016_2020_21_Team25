@@ -47,7 +47,7 @@ import FlatButton from "../../components/widgets/buttons/flat-button.vue";
 
 export default {
     name: "profile-pic-chooser",
-    components: {FlatButton},
+    components: { FlatButton },
     props: {
         data: Object,
         fn: Function,
@@ -57,7 +57,7 @@ export default {
             const imageObj = this.$store.getters["media/profileImages"];
             const images = [];
             for (const [name, image] of Object.entries(imageObj)) {
-                images.push({name, image});
+                images.push({ name, image });
             }
             return images;
         },

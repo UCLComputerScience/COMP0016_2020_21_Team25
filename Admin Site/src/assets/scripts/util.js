@@ -19,7 +19,7 @@ export function toSnakeCaseMap(map) {
 export const toSnakeCase = (str) => {
     const formatted = str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
     return formatted.replace("-", "_");
-}
+};
 
 export const toKebabCase = (str) => {
     return str

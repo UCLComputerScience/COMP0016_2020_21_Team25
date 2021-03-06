@@ -11,7 +11,7 @@ import VLink from "./v-link.vue";
 
 export default {
     name: "link-button",
-    components: {VLink, FlatButton},
+    components: { VLink, FlatButton },
     props: {
         href: {
             type: String,
@@ -31,7 +31,7 @@ export default {
             default: ""
         }
     },
-}
+};
 </script>
 
 <style scoped>

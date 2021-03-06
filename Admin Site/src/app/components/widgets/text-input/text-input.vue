@@ -32,8 +32,8 @@ export default {
             default: 32
         },
         placeholder: String,
-        label: {type: String, default: ""},
-        noSpaces: {type: Boolean, default: false},
+        label: { type: String, default: "" },
+        noSpaces: { type: Boolean, default: false },
         onEnter: {
             type: Function, default: () => {
             }
@@ -42,10 +42,10 @@ export default {
             type: Array,
             default: [],
         },
-        autocomplete: {type: String, default: "off"},
-        object: {type: Object},
-        keyName: {type: String},
-        required: {type: Boolean, default: false}
+        autocomplete: { type: String, default: "off" },
+        object: { type: Object },
+        keyName: { type: String },
+        required: { type: Boolean, default: false }
     },
     methods: {
         focus() {
@@ -79,7 +79,7 @@ export default {
             this.disallowedKeys.push(" ");
         }
     }
-}
+};
 </script>
 
 <style scoped>
@@ -109,6 +109,7 @@ b {
     cursor: text;
     box-shadow: 0 1px 3px 0 rgba(21, 28, 52, .16);
     width: 100%;
+    justify-content: flex-start;
 }
 
 .input-container, .input-container * {
@@ -174,5 +175,15 @@ input {
     display: none;
     width: 0;
     height: 0;
+}
+
+@media (max-width: 320px) {
+    .material-icons {
+        font-size: 16px;
+    }
+
+    input {
+        font-size: 13px;
+    }
 }
 </style>

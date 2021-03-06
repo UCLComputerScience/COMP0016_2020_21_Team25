@@ -23,7 +23,7 @@ export default {
             }
         },
         go() {
-            this.$router.push({name: this.href});
+            this.$router.push({ name: this.href });
         },
         activate() {
             this.$refs.button.classList.add("active-people-item");
@@ -35,7 +35,7 @@ export default {
     mounted() {
         this.toggle(this.$route);
     }
-}
+};
 </script>
 
 <style scoped>

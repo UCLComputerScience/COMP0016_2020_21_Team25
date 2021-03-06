@@ -100,7 +100,7 @@ const api = {
             email: email,
             "phone-number": phoneNumber,
             password: password,
-            "profile-picture": profilePicture
+            "picture_id": profilePicture
         });
     },
     async addMember({ username, firstName, lastName, phoneNumber, prefix, profilePicture }) {
@@ -110,7 +110,7 @@ const api = {
             "last-name": lastName,
             "phone-number": phoneNumber,
             prefix,
-            "profile-picture": profilePicture,
+            "picture_id": profilePicture,
         });
     },
     async removeMember(userID) {
@@ -124,8 +124,8 @@ const api = {
             "first-name": firstName,
             "last-name": lastName,
             "phone-number": phoneNumber,
-            prefix: prefix,
-            "profile-picture": profilePicture,
+            prefix,
+            "picture_id": profilePicture,
         });
     },
     async memberHistory(userID) {

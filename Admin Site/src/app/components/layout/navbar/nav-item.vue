@@ -17,10 +17,10 @@ export default {
             this.$refs.button.classList.remove("active-nav-item");
         },
         go() {
-            this.$router.push({name: this.href})
+            this.$router.push({ name: this.href });
         }
     }
-}
+};
 </script>
 
 <style scoped>
@@ -29,7 +29,7 @@ export default {
     text-align: center;
     border-radius: 5px;
     font-weight: 700;
-    padding: 4px 8px;
+    padding: 2px 8px;
     cursor: pointer;
     line-height: 1.5;
 }

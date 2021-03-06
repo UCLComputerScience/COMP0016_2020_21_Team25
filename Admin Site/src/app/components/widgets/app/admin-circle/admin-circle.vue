@@ -16,7 +16,7 @@ import User from "./user.vue";
 
 export default {
     name: "admin-circle",
-    components: {User},
+    components: { User },
     props: {
         fn: {
             type: Function,

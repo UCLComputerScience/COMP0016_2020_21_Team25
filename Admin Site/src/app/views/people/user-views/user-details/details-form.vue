@@ -22,7 +22,7 @@ import FlatButton from "../../../../components/widgets/buttons/flat-button.vue";
 import AddUserForm from "../../sidebar/dialog/add-user-form.vue";
 
 export default {
-    components: {AddUserForm, FlatButton},
+    components: { AddUserForm, FlatButton },
     name: "details-form",
     computed: {
         member() {

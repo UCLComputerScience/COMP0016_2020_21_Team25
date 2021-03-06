@@ -21,7 +21,7 @@ export default {
             this.$refs.button.classList.add("disabled");
         }
     }
-}
+};
 </script>
 
 <style scoped>

@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import WelcomeCard from "../welcome/welcome-card.vue";
 import Page from "../../components/layout/Page.vue";
-import FlatButton from "../../components/widgets/buttons/flat-button.vue";
 import AdminCircle from "../../components/widgets/app/admin-circle/admin-circle.vue";
+import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+import WelcomeCard from "../welcome/welcome-card.vue";
 
 export default {
     name: "ServiceView",
-    components: {AdminCircle, FlatButton, Page, WelcomeCard},
+    components: { AdminCircle, FlatButton, Page, WelcomeCard },
     computed: {
         redirect() {
             if (
@@ -72,7 +72,7 @@ export default {
             el.classList.toggle("selected-user");
         },
         async confirm() {
-            const response = {message: "", success: true};
+            const response = { message: "", success: true };
             await this.$store.dispatch("member/addServiceToMembers", {
                 serviceId: this["service_id"],
                 members: this.users,
@@ -91,7 +91,7 @@ export default {
             }
         },
         toMarketplace() {
-            this.$router.push({name: "marketplace"});
+            this.$router.push({ name: "marketplace" });
         },
     },
     watch: {

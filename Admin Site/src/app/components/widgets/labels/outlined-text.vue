@@ -7,10 +7,10 @@
 export default {
     name: "outlined-text",
     props: {
-        outlineColor: {type: String, default: "var(--text-color)"},
-        text: {type: String}
+        outlineColor: { type: String, default: "var(--text-color)" },
+        text: { type: String }
     }
-}
+};
 </script>
 
 <style scoped>

@@ -1,19 +1,19 @@
-import {createRouter, createWebHistory} from "vue-router";
 import {nextTick} from "@vue/runtime-core";
+import {createRouter, createWebHistory} from "vue-router";
+import {store} from "../store/store";
 
 import {routes} from "./routes";
-import {store} from "../store/store";
 
 const router = createRouter({
     mode: "history",
     history: createWebHistory(),
     scrollBehavior(to, from, savedPosition) {
         if (to.hash) {
-            return {selector: to.hash}
+            return { selector: to.hash };
         } else if (savedPosition) {
             return savedPosition;
         } else {
-            return {x: 0, y: 0}
+            return { x: 0, y: 0 };
         }
     },
     routes,

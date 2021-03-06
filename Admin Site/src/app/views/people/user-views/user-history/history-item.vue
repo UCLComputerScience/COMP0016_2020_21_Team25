@@ -13,7 +13,7 @@
 <script>
 export default {
     name: "history-item",
-    props: {data: Object},
+    props: { data: Object },
     computed: {
         dateObject() {
             return new Date(this.data.timestamp * 1000);
@@ -33,10 +33,10 @@ export default {
     },
     methods: {
         go() {
-            this.$router.push({name: "marketplace", hash: `#${this.id}`});
+            this.$router.push({ name: "marketplace", hash: `#${this.id}` });
         }
     }
-}
+};
 </script>
 
 <style scoped>

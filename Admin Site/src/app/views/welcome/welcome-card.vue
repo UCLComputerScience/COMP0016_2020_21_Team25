@@ -17,7 +17,7 @@ import ProfilePicture from "../../components/widgets/misc/profile-picture.vue";
 
 export default {
     name: "welcome-card",
-    components: {ProfilePicture, FlatButton},
+    components: { ProfilePicture, FlatButton },
     computed: {
         newlyRegistered() {
             return this.$store.getters["account/newlyRegistered"];
@@ -76,7 +76,7 @@ export default {
     beforeUnmount() {
         this.enableScroll();
     }
-}
+};
 </script>
 
 <style scoped>

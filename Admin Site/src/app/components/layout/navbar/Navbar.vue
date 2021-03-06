@@ -15,14 +15,14 @@
 </template>
 
 <script>
-import NavLogo from "./nav-logo.vue";
-import NavItem from "./nav-item.vue";
-import MobileNavbar from "./mobile-nav/mobile-navbar.vue";
 import ProfilePicture from "../../widgets/misc/profile-picture.vue";
+import MobileNavbar from "./mobile-nav/mobile-navbar.vue";
+import NavItem from "./nav-item.vue";
+import NavLogo from "./nav-logo.vue";
 
 export default {
     name: "navbar",
-    components: {ProfilePicture, MobileNavbar, NavItem, NavLogo},
+    components: { ProfilePicture, MobileNavbar, NavItem, NavLogo },
     computed: {
         mobileNav() {
             return this.width <= 768;
@@ -36,7 +36,7 @@ export default {
             width: window.innerWidth || document.documentElement.clientWidth ||
                 document.body.clientWidth,
             scrollTop: document.body.scrollTop,
-        }
+        };
     },
     watch: {
         scrollTop() {
@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         toProfile() {
-            this.$router.push({name: "profile"});
+            this.$router.push({ name: "profile" });
         },
         toggleNavShadow() {
             if (this.showShadow)
@@ -90,7 +90,7 @@ export default {
         window.removeEventListener('scroll', this.updateScroll);
         window.removeEventListener('resize', this.updateSize);
     }
-}
+};
 </script>
 
 <style scoped>
@@ -124,26 +124,13 @@ export default {
 }
 
 .profile-toggler {
-    height: 37px;
-    width: 37px;
+    height: 28px;
+    width: 28px;
     right: 24px;
 }
 
-.profile-toggler:before {
-    content: "";
-    background: var(--pale-blue);
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.profile-toggler:hover:before {
-    top: -4px;
-    bottom: -4px;
-    right: -4px;
-    left: -4px;
+.profile-toggler:hover {
+    filter: brightness(65%);
 }
 
 .profile-toggler .profile-picture-container {

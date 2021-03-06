@@ -29,13 +29,13 @@ import GithubIcon from "../../../widgets/misc/github-icon.vue";
 
 export default {
     name: "authors",
-    components: {GithubIcon},
+    components: { GithubIcon },
     methods: {
         image(name) {
             return require(`./../../../../../assets/images/collaborators/${name}.webp`).default;
         }
     }
-}
+};
 </script>
 
 <style scoped>

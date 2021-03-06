@@ -1,5 +1,5 @@
-import api from "../../backend/api";
 import Reference from "firebase-storage-lite";
+import api from "../../backend/api";
 
 const base = "gs://fise-concierge.appspot.com/";
 const baseBucket = new Reference(base);
@@ -38,7 +38,7 @@ const getters = {
 };
 
 const actions = {
-    async setProfileImages({dispatch, commit, getters, rootGetters}) {
+    async setProfileImages({ dispatch, commit, getters, rootGetters }) {
         const imageNamesResponse = await api.profilePictures();
         if (imageNamesResponse.success) {
             return;
@@ -49,7 +49,7 @@ const actions = {
         const profileImages = await fetchImages("profile-images", imageNames);
         commit("setProfileImages", profileImages);
     },
-    async setServiceIcons({dispatch, commit, getters, rootGetters}) {
+    async setServiceIcons({ dispatch, commit, getters, rootGetters }) {
         const namesResponse = await api.serviceCategories();
         if (namesResponse.success) {
             return;

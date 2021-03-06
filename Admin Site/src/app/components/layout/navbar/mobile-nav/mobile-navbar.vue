@@ -26,17 +26,17 @@
 
 <script>
 import ProfilePicture from "../../../widgets/misc/profile-picture.vue";
-import Collaborators from "./collaborators/collaborators.vue";
-import Authors from "./authors.vue";
-import MobileNavItem from "./mobile-nav-item.vue";
 import Separator from "../../../widgets/misc/separator.vue";
+import Authors from "./authors.vue";
+import Collaborators from "./collaborators/collaborators.vue";
+import MobileNavItem from "./mobile-nav-item.vue";
 
 export default {
     name: "mobile-navbar",
-    components: {Separator, MobileNavItem, Authors, Collaborators, ProfilePicture},
+    components: { Separator, MobileNavItem, Authors, Collaborators, ProfilePicture },
     computed: {
         fullName() {
-            const user = this.$store.getters["admin/admin"]
+            const user = this.$store.getters["admin/admin"];
             return user["first-name"] + " " + user["last-name"];
         }
     },
@@ -44,7 +44,7 @@ export default {
         return {
             navOpen: false,
             refs: [],
-        }
+        };
     },
     beforeUpdate() {
         this.refs = [];
@@ -100,7 +100,7 @@ export default {
         document.getElementById('app').removeEventListener('click', this.toggle, false);
 
     }
-}
+};
 </script>
 
 <style scoped>

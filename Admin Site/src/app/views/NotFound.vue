@@ -1,10 +1,10 @@
 <template>
     <div ref="container" class="not-found centred">
         <div class="content centred">
-            <h1>Oops!</h1>
-            <h3 ref="subtitle">404 - Page Not Found</h3>
-            <p ref="text">
-                The page you're looking for may have had it's name changed, be temporarily
+            <h1 class="centred">Oops!</h1>
+            <h3 ref="subtitle" class="centred">404 - Page Not Found</h3>
+            <p ref="text" class="centred">
+                The page you're looking for may have had its name changed, be temporarily
                 unavailable, been removed or may not exist at all.</p>
             <vlink-button href="/" text="Back to safety"></vlink-button>
         </div>
@@ -19,7 +19,7 @@ import FooterLogo from "../components/widgets/misc/footer-logo.vue";
 
 export default {
     name: "NotFound",
-    components: {FooterLogo, VlinkButton, FlatButton},
+    components: { FooterLogo, VlinkButton, FlatButton },
     methods: {
         resize() {
             let maxWidth = "75%";
@@ -36,7 +36,7 @@ export default {
     beforeUnmount() {
         window.removeEventListener('resize', this.setColumns);
     }
-}
+};
 </script>
 
 <style scoped>

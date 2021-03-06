@@ -17,17 +17,17 @@ import MarketplaceItem from "./marketplace-item.vue";
 
 export default {
     name: "search-results",
-    components: {MarketplaceItem},
+    components: { MarketplaceItem },
     props: {
         searchData: Object,
         searchResults: Array,
-        columns: {type: Number, default: 3},
+        columns: { type: Number, default: 3 },
     },
     computed: {
         chunkedServices() {
             const chunks = [];
             for (let i = 0, j = this.searchResults.length; i < j; i += this.columns) {
-                chunks.push(this.searchResults.slice(i, i + this.columns))
+                chunks.push(this.searchResults.slice(i, i + this.columns));
             }
             return chunks;
         },
@@ -37,7 +37,7 @@ export default {
             return this.$refs.container.offsetWidth;
         }
     }
-}
+};
 </script>
 
 <style scoped>

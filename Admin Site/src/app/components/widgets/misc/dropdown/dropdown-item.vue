@@ -14,7 +14,7 @@ export default {
             this.item.fn(this.item);
         }
     }
-}
+};
 </script>
 
 <style scoped>

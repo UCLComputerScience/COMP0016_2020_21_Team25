@@ -1,25 +1,25 @@
 <template>
-    <text-input v-for="[field, value] in Object.entries(fields)" :key="field"
-                :placeholder="value.toString()" :label="formatField(field)" :ref="setRef"
-                type="text" :id="field" autocomplete="off" :no-spaces="false"
-                :object="serviceData" :key-name="field" :required="false"></text-input>
-    <flat-button text="Update" v-on:click="updateServiceData" v-if="Object.keys(fields).length > 0"></flat-button>
+    <text-input v-for="[field, value] in Object.entries(fields)" :id="field"
+                :key="field" :ref="setRef" :key-name="field"
+                :label="formatField(field)" :no-spaces="false" :object="serviceData" :placeholder="value.toString()"
+                :required="false" autocomplete="off" type="text"></text-input>
+    <flat-button v-if="Object.keys(fields).length > 0" text="Update" v-on:click="updateServiceData"></flat-button>
 </template>
 
 <script>
-import TextInput from "../../../../components/widgets/text-input/text-input.vue";
 import FlatButton from "../../../../components/widgets/buttons/flat-button.vue";
+import TextInput from "../../../../components/widgets/text-input/text-input.vue";
 
 export default {
     name: "service-data-fields",
-    components: {FlatButton, TextInput},
-    props: {serviceName: String},
+    components: { FlatButton, TextInput },
+    props: { serviceName: String },
     data() {
         return {
             serviceData: {},
             fields: {},
             inputRefs: [],
-        }
+        };
     },
     created() {
         this.setDefaultData();
@@ -49,13 +49,13 @@ export default {
             const form = {
                 serviceName: this.serviceName,
                 ...this.serviceData
-            }
+            };
             await this.$store.dispatch("service/updateDataFields", form);
             this.clearAll();
             await this.setDefaultData();
         }
     },
-}
+};
 </script>
 
 <style>

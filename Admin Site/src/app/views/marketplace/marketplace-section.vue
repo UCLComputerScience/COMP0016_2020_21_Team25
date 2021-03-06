@@ -28,7 +28,7 @@ import MarketplaceItem from "./marketplace-item.vue";
 
 export default {
     name: "marketplace-section",
-    components: {MarketplaceItem},
+    components: { MarketplaceItem },
     props: {
         category: String,
         gridData: {
@@ -127,6 +127,7 @@ export default {
 .section-content > .row > * {
     max-width: calc(100% / var(--columns) - 24px);
     margin-left: 12px;
+    width: 100%;
 }
 
 .section-content > .row > *:not(:last-child) {

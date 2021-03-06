@@ -9,7 +9,7 @@
 <script>
 export default {
     name: "sidebar-header"
-}
+};
 </script>
 
 <style scoped>

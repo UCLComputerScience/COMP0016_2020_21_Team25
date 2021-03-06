@@ -7,20 +7,20 @@
                 service means you must re-enter the required data (if applicable) should you want to assign it to this
                 user again. Click the arrow on a service to expand it and view its relevant actions.</p>
         </div>
-        <text-input id="user-services-search" ref="search-bar" :maxlength="255"
-                    :object="searchData" :on-enter="search" icon="search"
-                    :no-spaces="false"
-                    key-name="searchTerm" :label="`Search ${title} services`"
+        <text-input id="user-services-search" ref="search-bar" :label="`Search ${title} services`"
+                    :maxlength="255" :no-spaces="false" :object="searchData"
+                    :on-enter="search"
+                    icon="search" key-name="searchTerm"
                     placeholder="Search assigned services">
         </text-input>
-        <div class="services-content centred noselect" v-show="!searching">
-            <service-item :key="service" v-for="service in services" :data="service" :ref="setRef">
+        <div v-show="!searching" class="services-content centred noselect">
+            <service-item v-for="service in services" :key="service" :ref="setRef" :data="service">
             </service-item>
         </div>
-        <div class="search-results centred noselect" v-show="searching">
+        <div v-show="searching" class="search-results centred noselect">
             <h2 class="section-header">Search Results for "{{ searchData.searchTerm }}"</h2>
             <div class="services-content centred noselect">
-                <service-item :key="service" v-for="service in searchResults" :data="service">
+                <service-item v-for="service in searchResults" :key="service" :data="service">
                 </service-item>
             </div>
             <span v-show="searchResults.length === 0">No services found.</span>
@@ -30,12 +30,12 @@
 
 <script>
 import {getName} from "../../../../../assets/scripts/util";
-import ServiceItem from "./service-item.vue";
 import TextInput from "../../../../components/widgets/text-input/text-input.vue";
+import ServiceItem from "./service-item.vue";
 
 export default {
     name: "UserServices",
-    components: {TextInput, ServiceItem},
+    components: { TextInput, ServiceItem },
     computed: {
         searching() {
             return this.searchData.searchTerm.length >= 4;
@@ -69,7 +69,7 @@ export default {
             },
             searchResults: [],
             serviceRefs: [],
-        }
+        };
     },
     watch: {
         searchData: {
@@ -106,7 +106,7 @@ export default {
     created() {
         this.updateServices();
     }
-}
+};
 </script>
 
 <style scoped>

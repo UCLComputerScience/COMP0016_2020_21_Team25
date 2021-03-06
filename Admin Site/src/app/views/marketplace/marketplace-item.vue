@@ -18,7 +18,7 @@ export default {
     name: "marketplace-item",
     props: {
         serviceData: Object,
-        marketplace: {type: Boolean, default: true}
+        marketplace: { type: Boolean, default: true }
     },
     computed: {
         icon() {
@@ -29,7 +29,8 @@ export default {
             return "";
         },
         fn() {
-            return (this.marketplace) ? this.go : () => {};
+            return (this.marketplace) ? this.go : () => {
+            };
         },
         id() {
             return this.getAttr("service_id");
@@ -66,8 +67,8 @@ export default {
                 .dispatch("service/service", this.serviceData)
                 .then((_) => {
                     this.$router.push({
-                        path: "marketplace/service",
-                        query: {"service-id": this.serviceData["service_id"]},
+                        name: "service",
+                        query: { "service-id": this.serviceData["service_id"] },
                     });
                 });
         },
@@ -136,6 +137,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     color: #FFF;
+    width: 100%;
 }
 
 .service-icon {

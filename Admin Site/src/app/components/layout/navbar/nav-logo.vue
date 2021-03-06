@@ -8,7 +8,7 @@
 <script>
 export default {
     name: "nav-logo"
-}
+};
 </script>
 
 <style scoped>

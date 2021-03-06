@@ -23,13 +23,13 @@
 </template>
 
 <script>
+import {getName, getProfileImage} from "../../../../../assets/scripts/util";
 import ProfilePicChooser from "../../../profile/profile-pic-chooser.vue";
 import DetailsForm from "./details-form.vue";
-import {getName, getProfileImage} from "../../../../../assets/scripts/util";
 
 export default {
     name: "UserDetails",
-    components: {DetailsForm, ProfilePicChooser},
+    components: { DetailsForm, ProfilePicChooser },
     computed: {
         currentPicture() {
             if (this.user !== undefined) {

@@ -9,7 +9,7 @@ import AdminCircle from "../../../components/widgets/app/admin-circle/admin-circ
 
 export default {
     name: "sidebar-content",
-    components: {AdminCircle},
+    components: { AdminCircle },
     computed: {
         activeMember() {
             return this.$store.getters["member/activeMember"];
@@ -37,7 +37,7 @@ export default {
                 const param = person.replaceAll(" ", "-").toLowerCase();
                 this.$router.push({
                     name: "user-details",
-                    params: {person: param},
+                    params: { person: param },
                 });
             });
         },

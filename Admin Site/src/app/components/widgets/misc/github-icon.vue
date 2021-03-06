@@ -16,7 +16,7 @@ export default {
         height: String,
         colour: String,
     }
-}
+};
 </script>
 
 <style scoped>

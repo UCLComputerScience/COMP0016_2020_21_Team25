@@ -57,8 +57,8 @@ import TextInput from "../../../../components/widgets/text-input/text-input.vue"
 
 export default {
     name: "add-user-form",
-    components: {TextInput, Dropdown},
-    props: {form: Object},
+    components: { TextInput, Dropdown },
+    props: { form: Object },
     computed: {
         prefixes() {
             const prefixes = ["Mr", "Ms", "Mrs", "Mx", "Miss", "Dr", "Prof", "Sir"];
@@ -147,5 +147,6 @@ export default {
 
 .add-user-form > * {
     margin-bottom: 24px;
+    width: 100%;
 }
 </style>

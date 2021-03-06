@@ -13,7 +13,7 @@ export default {
             this.$store.dispatch("account/logout");
         }
     }
-}
+};
 </script>
 
 <style scoped>

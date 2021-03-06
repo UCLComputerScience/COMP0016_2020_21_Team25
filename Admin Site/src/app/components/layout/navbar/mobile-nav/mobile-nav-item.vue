@@ -13,7 +13,7 @@ export default {
         text: String,
         href: String,
         icon: String,
-        hoverColor: {type: String, default: "var(--blue)"}
+        hoverColor: { type: String, default: "var(--blue)" }
     },
     methods: {
         activate() {
@@ -24,9 +24,9 @@ export default {
         },
         go() {
             if (this.href.includes("/"))
-                this.$router.push({path: this.href});
+                this.$router.push({ path: this.href });
             else
-                this.$router.push({name: this.href});
+                this.$router.push({ name: this.href });
         }
     },
     mounted() {
@@ -34,7 +34,7 @@ export default {
             this.activate();
         }
     }
-}
+};
 </script>
 
 <style scoped>

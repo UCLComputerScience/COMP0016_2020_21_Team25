@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import TextInput from "../../components/widgets/text-input/text-input.vue";
 import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+import TextInput from "../../components/widgets/text-input/text-input.vue";
 
 export default {
     name: "login-form",
-    components: {FlatButton, TextInput},
+    components: { FlatButton, TextInput },
     data() {
         return {
             loginData: {

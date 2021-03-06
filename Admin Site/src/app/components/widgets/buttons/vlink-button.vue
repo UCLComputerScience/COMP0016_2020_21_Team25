@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import VLink from "./v-link.vue";
 import FlatButton from "./flat-button.vue";
+import VLink from "./v-link.vue";
 
 export default {
     name: "vlink-button",
-    components: {VLink, FlatButton},
+    components: { VLink, FlatButton },
     props: {
         href: {
             type: String,
@@ -25,7 +25,7 @@ export default {
             default: "var(--text-color)"
         },
     },
-}
+};
 </script>
 
 <style scoped>

@@ -17,7 +17,7 @@ import DropdownItem from "./dropdown-item.vue";
 
 export default {
     name: "dropdown",
-    components: {DropdownItem},
+    components: { DropdownItem },
     computed: {
         elements() {
             const elements = [];
@@ -35,7 +35,7 @@ export default {
                 text: this.label
             },
             isActive: false,
-        }
+        };
     },
     props: {
         label: String,
@@ -77,7 +77,7 @@ export default {
     beforeUnmount() {
         document.getElementById('app').removeEventListener('click', this.toggle, false);
     }
-}
+};
 </script>
 
 <style scoped>

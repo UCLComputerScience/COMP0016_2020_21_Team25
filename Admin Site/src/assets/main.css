@@ -2,18 +2,18 @@
     --header-color: #002E43;
     --page-bg-color: rgb(246, 246, 246);
     --text-color: #212121;
-    --pale-blue: #edf5ff;
-    --light-blue: #4589ff;
-    --blue: #0530ad;
+    --pale-blue: #EDF5FF;
+    --light-blue: #4589FF;
+    --blue: #0530AD;
     --light-gray: #E1EDFF;
     --light-green: #55EFC4;
-    --green: #42be65;
+    --green: #42BE65;
     --red: #E74C3C;
     --border-radius: 3px;
-    --nav-height: 56px;
+    --nav-height: 50px;
     --max-sidebar-width: 256px;
     --min-sidebar-width: 64px;
-    --people-nav-height: 50px;
+    --people-nav-height: 48px;
 }
 
 html {

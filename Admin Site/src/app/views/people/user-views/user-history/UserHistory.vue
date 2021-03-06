@@ -18,7 +18,7 @@ import HistoryItem from "./history-item.vue";
 
 export default {
     name: "UserHistory",
-    components: {HistoryItem},
+    components: { HistoryItem },
     computed: {
         history() {
             return this.$store.getters["member/history"];
@@ -47,7 +47,7 @@ export default {
     created() {
         this.$store.dispatch("member/fetchHistory");
     }
-}
+};
 </script>
 
 <style scoped>

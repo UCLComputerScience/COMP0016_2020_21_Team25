@@ -1,22 +1,24 @@
 <template>
     <people>
         <div class="people-default centred">
-            <h2 ref="header" class="people-default-header">{{ text }}</h2>
+            <h2 ref="header" class="people-default-header centred">{{ text }}</h2>
+            <footer-logo></footer-logo>
         </div>
     </people>
 </template>
 
 <script>
+import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
 import People from "./People.vue";
 
 export default {
     name: "people-default",
-    components: {People},
+    components: { FooterLogo, People },
     data() {
         return {
             width: window.innerWidth,
             text: "",
-        }
+        };
     },
     methods: {
         setText() {
@@ -25,9 +27,9 @@ export default {
             this.text = "";
             const members = this.$store.getters["member/memberIds"];
             if (members.length === 0) {
-                this.text = "Add a new member to your circle using the "
+                this.text = "Add a new member to your circle using the ";
             } else {
-                this.text = "Select a member from your circle using the "
+                this.text = "Select a member from your circle using the ";
             }
             if (width <= 1024) {
                 this.text += "navigation bar above.";
@@ -45,12 +47,13 @@ export default {
     mounted() {
         this.setText();
     }
-}
+};
 </script>
 
 <style scoped>
 .people-default {
     flex: 1;
+    flex-direction: column;
 }
 
 .people-default-header {
@@ -60,6 +63,8 @@ export default {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
+    margin: auto;
+    height: 100%;
 }
 
 @media (max-width: 1024px) {

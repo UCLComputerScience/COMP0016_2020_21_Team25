@@ -5,19 +5,22 @@
             <span class="logo-title">CONCIERGE</span>
         </div>
         <span class="logo-subtitle">Providing a helping hand, through speech.</span>
+        <collaborators></collaborators>
     </div>
 </template>
 
 <script>
+import Collaborators from "../../layout/navbar/mobile-nav/collaborators/collaborators.vue";
+
 export default {
-    name: "footer-logo"
-}
+    name: "footer-logo",
+    components: { Collaborators }
+};
 </script>
 
-<style scoped>
+<style>
 .logo-container {
     margin-top: auto;
-    padding-bottom: 16px;
     padding-top: 28px;
     flex-direction: column;
 }
@@ -27,21 +30,38 @@ export default {
     margin-top: 4px;
 }
 
-.logo-title {
+.logo-container .logo-title {
     letter-spacing: .06em;
     transform: scale(.95, .925);
 }
 
-.logo-title, .logo-container .icon {
+.logo-container .logo-title, .logo-container .icon {
     font-size: 28px;
     font-weight: 900;
     color: var(--blue);
 }
 
-.logo-subtitle {
+.logo-container .logo-subtitle {
     color: rgb(107, 119, 140);
     font-size: 12px;
     text-align: center;
     margin-top: 8px;
+}
+
+.logo-container .collaborators {
+    margin-top: 8px;
+}
+
+.logo-container .collaborators .tagline {
+    display: none;
+}
+
+.logo-container .collaborators .logos {
+    flex-direction: row;
+}
+
+.logo-container .collab-logo:not(:last-child) {
+    margin-bottom: 0;
+    margin-right: 8px;
 }
 </style>

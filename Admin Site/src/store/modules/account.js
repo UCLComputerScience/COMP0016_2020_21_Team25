@@ -16,37 +16,37 @@ const getters = {
 };
 
 const actions = {
-    async login({dispatch, commit, getters, rootGetters}, form) {
+    async login({ dispatch, commit, getters, rootGetters }, form) {
         const response = await api.login(form.usernameOrEmail, form.password);
         if (response.success) {
-            await dispatch("admin/fetchAdmin", form.usernameOrEmail, {root: true});
+            await dispatch("admin/fetchAdmin", form.usernameOrEmail, { root: true });
         } else {
             form.response = response.message;
         }
     },
-    async signup({dispatch, commit}, form) {
+    async signup({ dispatch, commit }, form) {
         const response = await api.register(form);
         if (response.success) {
             commit("newlyRegistered", true);
-            dispatch("admin/fetchAdmin", form.username, {root: true});
+            dispatch("admin/fetchAdmin", form.username, { root: true });
         } else {
             form.response = response.message;
         }
     },
-    async logout({commit}) {
+    async logout({ commit }) {
         await api.logout();
-        commit("admin/setAdmin", {}, {root: true});
-        commit("member/setMembers", {}, {root: true});
-        commit("member/setActiveId", null, {root: true});
-        commit("member/setHistory", {}, {root: true});
-        commit("member/setMemberServices", {}, {root: true});
-        commit("service/setService", {}, {root: true});
+        commit("admin/setAdmin", {}, { root: true });
+        commit("member/setMembers", {}, { root: true });
+        commit("member/setActiveId", null, { root: true });
+        commit("member/setHistory", {}, { root: true });
+        commit("member/setMemberServices", {}, { root: true });
+        commit("service/setService", {}, { root: true });
         // TODO - Debug only
-        commit("service/setServices", {}, {root: true});
+        commit("service/setServices", {}, { root: true });
         // END TODO;
         // NOTE - Reset these if profile pictures or service icons were added
-        commit("media/setProfileImages", {}, {root: true});
-        commit("media/setServiceIcons", {}, {root: true});
+        commit("media/setProfileImages", {}, { root: true });
+        commit("media/setServiceIcons", {}, { root: true });
         commit("entered", false);
         await router.push("/welcome");
     },

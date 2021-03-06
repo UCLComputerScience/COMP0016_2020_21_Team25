@@ -48,13 +48,13 @@
 </template>
 
 <script>
-import TextInput from "../../components/widgets/text-input/text-input.vue";
-import FlatButton from "../../components/widgets/buttons/flat-button.vue";
 import {toKebabCase} from "../../../assets/scripts/util";
+import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+import TextInput from "../../components/widgets/text-input/text-input.vue";
 
 export default {
     name: "signup-form",
-    components: {FlatButton, TextInput},
+    components: { FlatButton, TextInput },
     data() {
         return {
             signupData: {
@@ -67,7 +67,7 @@ export default {
                 repeatPassword: "",
                 response: null,
             },
-        }
+        };
     },
     methods: {
         activate() {
@@ -122,7 +122,7 @@ export default {
                     ref: "password"
                 };
             }
-            return {message: "valid", ref: null};
+            return { message: "valid", ref: null };
         },
         signup() {
             const messageAndField = this.validInputs();
@@ -140,7 +140,7 @@ export default {
             }
         },
     }
-}
+};
 </script>
 
 <style>

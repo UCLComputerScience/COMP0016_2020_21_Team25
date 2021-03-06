@@ -35,12 +35,12 @@
 
 <script>
 import Page from "../../components/layout/Page.vue";
-import WelcomeCard from "../welcome/welcome-card.vue";
-import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
-import ProfileForm from "./profile-form.vue";
-import ProfilePicture from "../../components/widgets/misc/profile-picture.vue";
-import LogoutButton from "../../components/widgets/buttons/logout-button.vue";
 import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+import LogoutButton from "../../components/widgets/buttons/logout-button.vue";
+import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
+import ProfilePicture from "../../components/widgets/misc/profile-picture.vue";
+import WelcomeCard from "../welcome/welcome-card.vue";
+import ProfileForm from "./profile-form.vue";
 import ProfilePicChooser from "./profile-pic-chooser.vue";
 
 export default {
@@ -60,7 +60,7 @@ export default {
                 selected: this.currentPicture,
                 original: this.currentPicture,
             }
-        }
+        };
     },
     methods: {
         logout() {
@@ -75,7 +75,7 @@ export default {
             this.$store.dispatch("admin/updateAdminPic", this.picData.selected);
         }
     },
-}
+};
 </script>
 
 <style scoped>
@@ -83,10 +83,9 @@ export default {
     justify-content: flex-start;
     padding: 32px;
     max-width: 100%;
-    width: 100%;
 }
 
-.profile .header-container, .profile, .profile-title {
+.profile, .profile .header-container, .profile, .profile-title, .profile-content {
     width: 100%;
 }
 

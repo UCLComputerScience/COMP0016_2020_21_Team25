@@ -22,7 +22,7 @@ import NavItem from "./nav-item.vue";
 
 export default {
     name: "navbar",
-    components: {NavItem},
+    components: { NavItem },
     computed: {
         person() {
             const member = this.$store.getters["member/activeMember"];

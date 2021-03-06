@@ -31,15 +31,16 @@ const getters = {
 };
 
 const actions = {
-    async fetchMemberServices({dispatch, commit, getters, rootGetters}) {
-        const response = await api.memberServices(getters.activeId);
+    async fetchMemberServices({ dispatch, commit, getters, rootGetters }, userId = undefined) {
+        const id = (userId === undefined) ? getters.activeId : userId;
+        const response = await api.memberServices(id);
         if (response.success) {
             commit("setMemberServices", response.services);
         } else {
             alert(response.message);
         }
     },
-    async fetchHistory({dispatch, commit, getters, rootGetters}) {
+    async fetchHistory({ dispatch, commit, getters, rootGetters }) {
         const response = await api.memberHistory(getters.activeId);
         if (response.success) {
             commit("setHistory", response.history);
@@ -48,7 +49,7 @@ const actions = {
         }
     },
     async removeServiceFromMember(
-        {dispatch, commit, getters, rootGetters}, serviceID
+        { dispatch, commit, getters, rootGetters }, serviceID
     ) {
         const response = await api.removeServiceFromUser(getters.activeId, serviceID);
         if (response.success) {
@@ -58,8 +59,8 @@ const actions = {
         }
     },
     async addServiceToMembers(
-        {dispatch, commit, getters, rootGetters},
-        {serviceId, members, response}
+        { dispatch, commit, getters, rootGetters },
+        { serviceId, members, response }
     ) {
         for (const member of members) {
             const apiResponse = await api.addServiceToUser(
@@ -73,7 +74,7 @@ const actions = {
             }
         }
     },
-    async updateMember({dispatch, commit, getters, rootGetters}, form) {
+    async updateMember({ dispatch, commit, getters, rootGetters }, form) {
         const member = getters.activeMember;
         for (let [key, field] of Object.entries(form)) {
             if (field === "") {
@@ -88,7 +89,7 @@ const actions = {
             form.response = response.message;
         }
     },
-    async removeMember({dispatch, commit, getters, rootGetters}, userId) {
+    async removeMember({ dispatch, commit, getters, rootGetters }, userId) {
         const response = await api.removeMember(userId);
         if (response.success) {
             await commit("removeMember");
@@ -100,7 +101,7 @@ const actions = {
             alert(response.message);
         }
     },
-    async addMember({dispatch, commit, getters, rootGetters}, form) {
+    async addMember({ dispatch, commit, getters, rootGetters }, form) {
         form.username = rootGetters["admin/username"];
         const response = await api.addMember(form);
         if (response.success) {
@@ -119,15 +120,15 @@ const actions = {
             form.response = response.message;
         }
     },
-    activeMember({dispatch, commit, getters, rootGetters}, id) {
+    activeMember({ dispatch, commit, getters, rootGetters }, id) {
         commit("setActiveId", id);
     },
-    async updateMemberPic({dispatch, commit, getters, rootGetters}, newPic) {
-        const member = {...getters.activeMember};
+    async updateMemberPic({ dispatch, commit, getters, rootGetters }, newPic) {
+        const member = { ...getters.activeMember };
         member["profile-picture"] = newPic;
         await dispatch("updateMember", member);
     },
-    async fetchMembers({dispatch, commit, getters, rootGetters}, username) {
+    async fetchMembers({ dispatch, commit, getters, rootGetters }, username) {
         const response = await api.members(username);
         if (response.success) {
             commit("setMembers", response.members);
@@ -155,7 +156,7 @@ const mutations = {
         state.memberServices = Object.assign({}, services);
     },
     updateMember(state, member) {
-        const allMembers = {...state.members};
+        const allMembers = { ...state.members };
         allMembers[member.id] = member;
         state.members = Object.assign({}, allMembers);
     },

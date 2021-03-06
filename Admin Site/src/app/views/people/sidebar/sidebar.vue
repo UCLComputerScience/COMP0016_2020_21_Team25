@@ -23,7 +23,7 @@ import SidebarHeader from "./sidebar-header.vue";
 
 export default {
     name: "sidebar",
-    components: {SidebarHeader, SidebarContent, AddUserDialog},
+    components: { SidebarHeader, SidebarContent, AddUserDialog },
     computed: {
         showAddButton() {
             return this.users.length < 5;
@@ -36,7 +36,7 @@ export default {
         return {
             minimised: false,
             autoMinimised: false,
-        }
+        };
     },
     methods: {
         addNewUser() {
@@ -79,7 +79,7 @@ export default {
     beforeUnmount() {
         window.removeEventListener('resize', this.scaleSidebar);
     }
-}
+};
 </script>
 
 <style scoped>

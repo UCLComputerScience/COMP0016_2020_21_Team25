@@ -9,8 +9,8 @@
             options below to find the specific service(s) you're looking for.</p>
         <div ref="toolbar" class="marketplace-toolbar centred">
             <text-input id="marketplace-search" ref="search-bar" :maxlength="255"
-                        :object="searchData" :on-enter="search" icon="search"
-                        key-name="searchTerm" :no-spaces="false"
+                        :no-spaces="false" :object="searchData" :on-enter="search"
+                        icon="search" key-name="searchTerm"
                         label="Search the marketplace" placeholder="Search for services">
             </text-input>
             <dropdown :items="dropdownItems" label="Select a category"
@@ -18,7 +18,7 @@
         </div>
         <div class="marketplace-content centred">
             <marketplace-section v-for="category in categories" v-show="searchData.searchTerm.length < 4"
-                                 :ref="setRef" :category="category" :key="category"
+                                 :key="category" :ref="setRef" :category="category"
                                  :grid-data="gridData">
             </marketplace-section>
             <search-results v-if="searchData.searchTerm.length >= 4" :columns="gridData.columns"
@@ -30,16 +30,16 @@
 </template>
 
 <script>
-import Dropdown from "../../components/widgets/misc/dropdown/dropdown.vue";
-import SearchResults from "./search-results.vue";
-import TextInput from "../../components/widgets/text-input/text-input.vue";
-import MarketplaceSection from "./marketplace-section.vue";
-import WelcomeCard from "../welcome/welcome-card.vue";
 import Page from "../../components/layout/Page.vue";
+import Dropdown from "../../components/widgets/misc/dropdown/dropdown.vue";
+import TextInput from "../../components/widgets/text-input/text-input.vue";
+import WelcomeCard from "../welcome/welcome-card.vue";
+import MarketplaceSection from "./marketplace-section.vue";
+import SearchResults from "./search-results.vue";
 
 export default {
     name: "MarketplaceView",
-    components: {Dropdown, SearchResults, TextInput, MarketplaceSection, WelcomeCard, Page},
+    components: { Dropdown, SearchResults, TextInput, MarketplaceSection, WelcomeCard, Page },
     computed: {
         dropdownItems() {
             const items = [];
@@ -49,7 +49,7 @@ export default {
                     fn: () => {
                         this.$router.push("#" + category.toLowerCase());
                     }
-                })
+                });
             }
             return items;
         },
@@ -73,7 +73,7 @@ export default {
             },
             sections: [],
             searchResults: [],
-        }
+        };
     },
     beforeUpdate() {
         this.sections = [];
@@ -123,7 +123,7 @@ export default {
     beforeUnmount() {
         window.removeEventListener('resize', this.setColumns);
     }
-}
+};
 </script>
 
 <style scoped>
@@ -151,6 +151,11 @@ export default {
     margin-top: 0;
     font-size: 18px;
     text-align: left;
+}
+
+.marketplace-content {
+    width: 100%;
+    align-items: flex-start;
 }
 
 .marketplace-toolbar {

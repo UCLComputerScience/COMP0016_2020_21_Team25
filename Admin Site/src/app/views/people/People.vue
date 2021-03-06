@@ -8,6 +8,7 @@
                 <navbar></navbar>
                 <div class="people centred">
                     <router-view></router-view>
+                    <footer-logo></footer-logo>
                 </div>
             </div>
             <slot v-else></slot>
@@ -17,14 +18,15 @@
 
 <script>
 import Page from "../../components/layout/Page.vue";
+import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
 import WelcomeCard from "../welcome/welcome-card.vue";
-import Sidebar from "./sidebar/sidebar.vue";
 import Navbar from "./navbar/navbar.vue";
+import Sidebar from "./sidebar/sidebar.vue";
 
 export default {
     name: "People",
-    components: {Navbar, Sidebar, WelcomeCard, Page},
-}
+    components: { FooterLogo, Navbar, Sidebar, WelcomeCard, Page },
+};
 </script>
 
 <style>

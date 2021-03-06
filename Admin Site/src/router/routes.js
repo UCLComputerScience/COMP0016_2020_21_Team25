@@ -1,5 +1,5 @@
-import {store} from "../store/store";
 import {getName} from "../assets/scripts/util";
+import {store} from "../store/store";
 
 export const routes = [
     {

@@ -1,5 +1,5 @@
 <template>
-    <li :id="id" ref="container" class="user centred" v-on:click="onClick">
+    <li v-show="!hasService" :id="id" ref="container" class="user centred" v-on:click="onClick">
         <div class="profile-image image">
             <img :alt="fullName" :src="profilePicture"/>
         </div>
@@ -19,6 +19,11 @@ export default {
             default: (user, el) => {
             },
         },
+    },
+    data() {
+        return {
+            hasService: false,
+        };
     },
     computed: {
         data() {
@@ -43,7 +48,28 @@ export default {
             return getProfileImage(this.data["profile-picture"]);
         },
     },
+    created() {
+        if (this.$route.name === "service") {
+            this.setHasService();
+        }
+    },
     methods: {
+        async setHasService() {
+            await this.$store.dispatch(
+                "member/fetchMemberServices",
+                this.userId
+            );
+            const memberServices = [
+                ...this.$store.getters["member/memberServices"],
+            ];
+            const activeService = this.$route.params["service-id"];
+            for (const service of memberServices) {
+                if (service["service-id"] === activeService) {
+                    this.hasService = true;
+                    break;
+                }
+            }
+        },
         user() {
             return this.data;
         },

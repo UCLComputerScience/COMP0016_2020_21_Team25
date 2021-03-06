@@ -1,22 +1,24 @@
 <template>
     <div class="collaborators centred">
         <p class="tagline">In collaboration with</p>
-        <a aria-label="IBM" class="collab-logo" href="https://www.ibm.com/uk-en" rel="noopener"
-           target="_blank">
-            <img :src="image('IBM')" alt="IBM" class="image">
-        </a>
-        <a aria-label="UCL" class="collab-logo" href="https://www.ucl.ac.uk/" rel="noopener"
-           target="_blank">
-            <img :src="image('UCL')" alt="UCL" class="image">
-        </a>
-        <a aria-label="NHS" class="collab-logo" href="https://www.nhs.uk/" rel="noopener"
-           target="_blank">
-            <img :src="image('NHS')" alt="NHS" class="image">
-        </a>
-        <!--        <a aria-label="Waitrose" class="collab-logo" href="https://www.nhs.uk/" rel="noopener"-->
-        <!--           target="_blank">-->
-        <!--            <img :src="image('Waitrose')" alt="Waitrose" class="image">-->
-        <!--        </a>-->
+        <div class="logos centred">
+            <a aria-label="IBM" class="collab-logo" href="https://www.ibm.com/uk-en" rel="noopener"
+               target="_blank">
+                <img :src="image('IBM')" alt="IBM" class="image">
+            </a>
+            <a aria-label="UCL" class="collab-logo" href="https://www.ucl.ac.uk/" rel="noopener"
+               target="_blank">
+                <img :src="image('UCL')" alt="UCL" class="image">
+            </a>
+            <!--        <a aria-label="NHS" class="collab-logo" href="https://www.nhs.uk/" rel="noopener"-->
+            <!--           target="_blank">-->
+            <!--            <img :src="image('NHS')" alt="NHS" class="image">-->
+            <!--        </a>-->
+            <!--        <a aria-label="Waitrose" class="collab-logo" href="https://www.nhs.uk/" rel="noopener"-->
+            <!--           target="_blank">-->
+            <!--            <img :src="image('Waitrose')" alt="Waitrose" class="image">-->
+            <!--        </a>-->
+        </div>
     </div>
 </template>
 
@@ -28,7 +30,7 @@ export default {
             return require(`./../../../../../../assets/images/collaborators/${name}.webp`).default;
         }
     }
-}
+};
 </script>
 
 <style scoped>
@@ -41,6 +43,10 @@ export default {
 .collaborators .tagline {
     width: 100%;
     text-align: center;
+}
+
+.collaborators .logos {
+    flex-direction: column;
 }
 
 .collab-logo {

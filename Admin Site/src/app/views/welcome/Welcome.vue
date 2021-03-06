@@ -18,18 +18,18 @@
 </template>
 
 <script>
-import LoginForm from "./login-form.vue";
-import SignupForm from "./signup-form.vue";
 import FlatButton from "../../components/widgets/buttons/flat-button.vue";
 import FooterLogo from "../../components/widgets/misc/footer-logo.vue";
+import LoginForm from "./login-form.vue";
+import SignupForm from "./signup-form.vue";
 
 export default {
     name: "Login",
-    components: {FooterLogo, FlatButton, SignupForm, LoginForm},
+    components: { FooterLogo, FlatButton, SignupForm, LoginForm },
     data() {
         return {
             activeTab: this.$refs.login,
-        }
+        };
     },
     computed: {
         title() {
@@ -57,7 +57,7 @@ export default {
             this.activeTab.classList.add("active-tab");
             const activeForm = (this.activeTab === this.$refs.login) ?
                 this.$refs["login-form"] :
-                this.$refs["signup-form"]
+                this.$refs["signup-form"];
             activeForm.activate();
         }
     },
@@ -71,7 +71,7 @@ export default {
         }
         this.activate();
     }
-}
+};
 </script>
 
 <style scoped>

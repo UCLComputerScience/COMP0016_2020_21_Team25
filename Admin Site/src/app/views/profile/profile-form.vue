@@ -2,28 +2,28 @@
     <form class="profile-form centred" v-on:submit.prevent="update">
         <div class="row centred">
             <text-input id="profile-first-name" ref="first-name"
-                        :object="profileData" autocomplete="given-name" icon="perm_identity"
-                        key-name="firstName" label="First Name" placeholder="John" type="text">
+                        :object="profileData" :placeholder="user['first-name']" autocomplete="given-name"
+                        icon="perm_identity" key-name="firstName" label="First Name" type="text">
             </text-input>
 
             <text-input id="profile-last-name" ref="last-name"
-                        :object="profileData" autocomplete="family-name" icon="people"
-                        key-name="lastName" label="Last Name" placeholder="Doe" type="text">
+                        :object="profileData" :placeholder="user['last-name']" autocomplete="family-name"
+                        icon="people" key-name="lastName" label="Last Name" type="text">
             </text-input>
         </div>
 
         <div class="row centred">
             <text-input id="profile-email" ref="email" :maxlength="255"
                         :no-spaces="true" :object="profileData"
-                        autocomplete="email" icon="mail" key-name="email"
-                        label="Email Address" placeholder="you@mail.co.uk" type="text">
+                        :placeholder="user['email']" autocomplete="email" icon="mail"
+                        key-name="email" label="Email Address" type="text">
             </text-input>
 
             <text-input id="profile-phone-number" ref="phone-number" :maxlength="11"
                         :no-spaces="true" :object="profileData"
-                        autocomplete="tel" icon="phone"
-                        key-name="phoneNumber" label="Phone Number"
-                        placeholder="07..." type="text">
+                        :placeholder="user['phone-number']" autocomplete="tel"
+                        icon="phone" key-name="phoneNumber"
+                        label="Phone Number" type="text">
             </text-input>
         </div>
 
@@ -49,19 +49,19 @@
 </template>
 
 <script>
-import TextInput from "../../components/widgets/text-input/text-input.vue";
 import FlatButton from "../../components/widgets/buttons/flat-button.vue";
+import TextInput from "../../components/widgets/text-input/text-input.vue";
 
 export default {
     name: "profile-form",
-    components: {FlatButton, TextInput},
+    components: { FlatButton, TextInput },
     computed: {
         user() {
             return this.$store.getters["admin/admin"];
         },
         currentPassword() {
             return this.$store.getters["admin/admin"].password;
-        }
+        },
     },
     data() {
         return {
@@ -73,23 +73,24 @@ export default {
                 currentPassword: "",
                 newPassword: "",
                 repeatPassword: "",
-                response: null,
             },
-        }
+        };
     },
     created() {
-        this.profileData = {
-            firstName: this.user["first-name"],
-            lastName: this.user["last-name"],
-            email: this.user.email,
-            phoneNumber: this.user["phone-number"],
-            currentPassword: "",
-            newPassword: "",
-            repeatPassword: "",
-            response: null,
-        }
+        this.reset();
     },
     methods: {
+        reset() {
+            this.profileData = {
+                firstName: this.user["first-name"],
+                lastName: this.user["last-name"],
+                email: this.user.email,
+                phoneNumber: this.user["phone-number"],
+                currentPassword: "",
+                newPassword: "",
+                repeatPassword: "",
+            };
+        },
         activate() {
             this.clearInputs();
             this.$refs["first-name"].focus();
@@ -120,28 +121,32 @@ export default {
             if (this.profileData.newPassword.length !== 0) {
                 if (this.profileData.currentPassword.length === 0) {
                     return {
-                        message: "To change your password, please enter your password" +
+                        message:
+                            "To change your password, please enter your password" +
                             "in the 'Current Password' field.",
-                        ref: "current-password"
-                    }
-
+                        ref: "current-password",
+                    };
                 }
                 if (this.profileData.newPassword.length < 5) {
                     return {
-                        message: "Your new password must be at least five characters long.",
-                        ref: "new-password"
+                        message:
+                            "Your new password must be at least five characters long.",
+                        ref: "new-password",
                     };
                 }
-                if (this.profileData.newPassword !== this.profileData.repeatPassword) {
+                if (
+                    this.profileData.newPassword !==
+                    this.profileData.repeatPassword
+                ) {
                     return {
                         message: "The two entered passwords do not match.",
-                        ref: "new-password"
+                        ref: "new-password",
                     };
                 }
             }
-            return {message: "valid", ref: null};
+            return { message: "valid", ref: null };
         },
-        update() {
+        async update() {
             const messageAndField = this.validInputs();
             const profileData = {
                 firstName: this.profileData.firstName,
@@ -150,26 +155,31 @@ export default {
                 phoneNumber: this.profileData.phoneNumber,
                 password: this.profileData.newPassword,
                 response: null,
-            }
+            };
             if (messageAndField["message"] === "valid") {
-                this.$store.dispatch('admin/profile', profileData).then(r => {
-                    if (this.profileData.response !== null) {
-                        alert("Update failed. " + profileData.response);
-                        this.clearSensitiveInputs();
-                    }
-                });
+                await this.$store.dispatch("admin/profile", profileData);
+                if (profileData.response !== null) {
+                    alert("Update failed. " + profileData.response);
+                    this.clearSensitiveInputs();
+                } else {
+                    alert("Update successful, " + profileData["firstName"]);
+                    this.profileData = { ...profileData };
+                    await this.$store.dispatch("admin/fetchAdmin");
+                    this.reset();
+                }
             } else {
                 alert("Update failed. " + messageAndField["message"]);
                 this.clearSensitiveInputs();
                 this.$refs[messageAndField["ref"]].clearInput();
             }
         },
-    }
-}
+    },
+};
 </script>
 
 <style>
-.profile-form, .profile-form .row {
+.profile-form,
+.profile-form .row {
     flex-direction: column;
     width: 100%;
 }
@@ -178,7 +188,8 @@ export default {
     margin-bottom: 16px;
 }
 
-.profile-form .flat-button, .profile-form .text-input {
+.profile-form .flat-button,
+.profile-form .text-input {
     flex: 1;
     width: 100%;
 }

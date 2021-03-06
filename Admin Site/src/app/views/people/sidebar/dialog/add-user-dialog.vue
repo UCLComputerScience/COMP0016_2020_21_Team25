@@ -26,7 +26,7 @@ import AddUserForm from './add-user-form.vue';
 
 export default {
     name: "add-user-dialog",
-    components: {AddUserForm, FlatButton, ModalDialog, ProfilePicChooser},
+    components: { AddUserForm, FlatButton, ModalDialog, ProfilePicChooser },
     computed: {},
     data() {
         return {
@@ -39,7 +39,7 @@ export default {
                 original: null,
                 response: null,
             }
-        }
+        };
     },
     methods: {
         openProfilePicture() {
@@ -90,13 +90,12 @@ export default {
             };
         }
     },
-}
+};
 </script>
 
 <style scoped>
 .description {
     color: rgba(0, 0, 0, .67);
-    max-width: 66.7%;
     text-align: center;
     margin-top: 0;
     margin-bottom: 24px;
@@ -108,11 +107,39 @@ export default {
     margin-bottom: 24px;
 }
 
-.confirm {
-    margin-right: 12px;
+form, .button-group, .confirm, .cancel, .profile-pic-button {
+    width: 100%;
 }
 
-.cancel {
-    margin-left: 12px;
+.button-group {
+    flex-direction: column;
+}
+
+.confirm {
+    margin-bottom: 12px;
+}
+
+.confirm, .cancel {
+    flex: 1;
+}
+
+@media (min-width: 620px) {
+    .button-group, .profile-pic-button, .description, form {
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .button-group {
+        flex-direction: row;
+    }
+
+    .confirm {
+        margin-bottom: 0;
+        margin-right: 12px;
+    }
+
+    .cancel {
+        margin-left: 12px;
+    }
 }
 </style>

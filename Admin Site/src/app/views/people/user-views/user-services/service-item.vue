@@ -1,25 +1,25 @@
 <template>
-    <marketplace-item :service-data="data" :marketplace="false" ref="service">
-        <span class="expand-icon centred material-icons" ref="toggler" v-on:click="onClick">expand_more</span>
+    <marketplace-item ref="service" :marketplace="false" :service-data="data">
+        <span ref="toggler" class="expand-icon centred material-icons" v-on:click="onClick">expand_more</span>
         <div class="data-row centred">
             <service-data-fields :service-name="data['service_name']"></service-data-fields>
         </div>
         <div class="button-row centred">
             <flat-button text="Open in marketplace" v-on:click="go"></flat-button>
-            <flat-button text="Remove" :style="`--button-bg: var(--red)`" v-on:click="removeService"></flat-button>
+            <flat-button :style="`--button-bg: var(--red)`" text="Remove" v-on:click="removeService"></flat-button>
         </div>
     </marketplace-item>
 </template>
 
 <script>
-import MarketplaceItem from "../../../marketplace/marketplace-item.vue";
-import FlatButton from "../../../../components/widgets/buttons/flat-button.vue";
 import {getName} from "../../../../../assets/scripts/util";
+import FlatButton from "../../../../components/widgets/buttons/flat-button.vue";
+import MarketplaceItem from "../../../marketplace/marketplace-item.vue";
 import ServiceDataFields from "./service-data-fields.vue";
 
 export default {
     name: "service-item",
-    components: {ServiceDataFields, FlatButton, MarketplaceItem},
+    components: { ServiceDataFields, FlatButton, MarketplaceItem },
     computed: {
         id() {
             return this.data["service_id"];
@@ -28,9 +28,9 @@ export default {
     data() {
         return {
             container: null,
-        }
+        };
     },
-    props: {data: Object},
+    props: { data: Object },
     methods: {
         onClick() {
             this.container.classList.toggle("expanded");
@@ -39,7 +39,7 @@ export default {
             return this.$refs.service.search(searchTerm);
         },
         go() {
-            this.$router.push({name: "marketplace", hash: `#${this.id}`});
+            this.$router.push({ name: "marketplace", hash: `#${this.id}` });
         },
         removeService() {
             if (confirm(`Are you sure you want to remove this service from ${getName()} account? They'll no longer have access to this service and you'll have to re-enter any required data should you want to assign this service to them again.`)) {
@@ -52,7 +52,7 @@ export default {
     mounted() {
         this.container = document.getElementById(this.id);
     }
-}
+};
 </script>
 
 <style>
