@@ -1,3 +1,4 @@
+import {toKebabCaseMap} from "../../assets/scripts/util";
 import api from "../../backend/api";
 import router from "../../router/router";
 
@@ -67,7 +68,7 @@ const actions = {
                 member.id,
                 serviceId
             );
-            if (apiResponse.success) {
+            if (!apiResponse.success) {
                 response.message = apiResponse.message;
                 response.success = false;
                 break;
@@ -76,13 +77,15 @@ const actions = {
     },
     async updateMember({ dispatch, commit, getters, rootGetters }, form) {
         const member = getters.activeMember;
-        for (let [key, field] of Object.entries(form)) {
+        for (const [key, field] of Object.entries(form)) {
             if (field === "") {
                 form[key] = member[key];
             }
         }
-        form.userID = form.id;
-        const response = await api.updateMember(form);
+        form = {...toKebabCaseMap(form)};
+        const response = await api.updateMember(getters["activeId"],
+            form["first-name"], form["last-name"], form["phone-number"],
+            form["prefix"], form["profile-picture"]);
         if (response.success) {
             commit("updateMember", form);
         } else {
@@ -116,6 +119,9 @@ const actions = {
                     person: name.replaceAll(" ", "-").toLowerCase(),
                 },
             });
+            const firstName = newMember["first-name"];
+            const words = response["registration-code"]
+            alert(`${name} was added to your circle. Inform ${firstName} to enter the code: "${words[0]} ${words[1]} ${words[2]}" to activate their Concierge app.`);
         } else {
             form.response = response.message;
         }
@@ -125,7 +131,7 @@ const actions = {
     },
     async updateMemberPic({ dispatch, commit, getters, rootGetters }, newPic) {
         const member = { ...getters.activeMember };
-        member["profile-picture"] = newPic;
+        member["profilePicture"] = newPic;
         await dispatch("updateMember", member);
     },
     async fetchMembers({ dispatch, commit, getters, rootGetters }, username) {
@@ -141,13 +147,11 @@ const actions = {
 const mutations = {
     setMembers(state, members) {
         state.members = Object.assign({}, members);
-        state.memberIds = [];
-        for (const strKey of Object.keys(members)) {
-            state.memberIds.push(parseInt(strKey));
-        }
+        state.memberIds = Object.keys(members);
     },
     setActiveId(state, id) {
         state.activeId = id;
+        state.activeMember = state["members"][id];
     },
     setHistory(state, history) {
         state.history = Object.assign({}, history);
@@ -159,6 +163,7 @@ const mutations = {
         const allMembers = { ...state.members };
         allMembers[member.id] = member;
         state.members = Object.assign({}, allMembers);
+        state.activeMember = state["members"][member.id];
     },
     removeMember(state, id) {
         const index = state.memberIds.indexOf(id);

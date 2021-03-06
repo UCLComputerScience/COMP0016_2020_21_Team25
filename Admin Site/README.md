@@ -54,6 +54,6 @@ To publish an update to the website, run the following command:
 
     npm run-script deploy
 
-A live version of the website can be found [here](https://fise-concierge.web.app/) should you not want to serve it locally
+A live version of the web app can be found [here](https://fise-concierge.web.app/) should you not want to serve it locally.
 
 -   Note that the backend server **must** still be manually started.

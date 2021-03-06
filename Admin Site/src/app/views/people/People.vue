@@ -26,6 +26,9 @@ import Sidebar from "./sidebar/sidebar.vue";
 export default {
     name: "People",
     components: { FooterLogo, Navbar, Sidebar, WelcomeCard, Page },
+    beforeCreate() {
+        this.$store.dispatch("admin/fetchAdmin", this.$route.params.username);
+    }
 };
 </script>
 
@@ -48,8 +51,9 @@ export default {
 .people {
     padding: 24px;
     width: 100%;
-    align-items: flex-start;
     overflow-y: auto;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 @media (max-width: 1024px) {

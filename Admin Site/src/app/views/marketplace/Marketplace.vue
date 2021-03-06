@@ -15,7 +15,10 @@ import WelcomeCard from "../welcome/welcome-card.vue";
 
 export default {
     name: "Marketplace",
-    components: { FooterLogo, Page, WelcomeCard }
+    components: { FooterLogo, Page, WelcomeCard },
+    beforeCreate() {
+        this.$store.dispatch("admin/fetchAdmin", this.$route.params.username);
+    }
 };
 </script>
 

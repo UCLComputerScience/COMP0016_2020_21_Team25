@@ -31,14 +31,13 @@ export default {
         },
     },
     methods: {
-        go(user, el) {
-            this.$store.dispatch("member/activeMember", user.id).then((r) => {
-                const person = user["first-name"] + " " + user["last-name"];
-                const param = person.replaceAll(" ", "-").toLowerCase();
-                this.$router.push({
-                    name: "user-details",
-                    params: { person: param },
-                });
+        async go(user, el) {
+            await this.$store.dispatch("member/activeMember", user.id);
+            const person = user["first-name"] + " " + user["last-name"];
+            const param = person.replaceAll(" ", "-").toLowerCase();
+            await this.$router.push({
+                name: "user-details",
+                params: { person: param },
             });
         },
         toggle() {
@@ -46,22 +45,18 @@ export default {
                 const elements = this.$refs.people.elements();
                 for (const el of elements) {
                     if (el === null || el === undefined) continue;
+                    el.deactivate();
                     if (
                         this.$route.params.person !== undefined &&
                         this.$route.name !== "people" &&
                         this.activeMember !== undefined &&
-                        el.user().id === this.activeMember.id
+                        el.user().id === this.$store.getters["member/activeId"]
                     ) {
                         el.activate();
-                    } else {
-                        el.deactivate();
                     }
                 }
             });
         },
-    },
-    mounted() {
-        this.toggle();
     },
 };
 </script>

@@ -1,3 +1,4 @@
+import {toKebabCaseMap} from "../../assets/scripts/util";
 import api from "../../backend/api";
 import router from "../../router/router";
 
@@ -25,11 +26,14 @@ const actions = {
                 form[key] = admin[key];
             }
         }
-        form.username = admin.username;
         if (form["profilePicture"] === undefined) {
             form["profilePicture"] = admin["profile-picture"];
         }
-        const response = await api.updateAdmin(form);
+        form.username = admin.username
+        form = {...toKebabCaseMap(form)};
+        const response = await api.updateAdmin(form.username,
+            form["first-name"], form["last-name"], form["email"], form["phone-number"],
+            form["password"], form["profile-picture"]);
         if (response.success) {
             commit("setAdmin", form);
         } else {

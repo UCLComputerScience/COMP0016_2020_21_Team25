@@ -75,6 +75,9 @@ export default {
             this.$store.dispatch("admin/updateAdminPic", this.picData.selected);
         }
     },
+    beforeCreate() {
+        this.$store.dispatch("admin/fetchAdmin", this.$route.params.username);
+    }
 };
 </script>
 

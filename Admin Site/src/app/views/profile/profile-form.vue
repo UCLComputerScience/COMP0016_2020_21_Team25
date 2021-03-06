@@ -162,9 +162,9 @@ export default {
                     alert("Update failed. " + profileData.response);
                     this.clearSensitiveInputs();
                 } else {
-                    alert("Update successful, " + profileData["firstName"]);
+                    alert("Update successful, " + profileData["firstName"] + ".");
                     this.profileData = { ...profileData };
-                    await this.$store.dispatch("admin/fetchAdmin");
+                    await this.$store.dispatch("admin/fetchAdmin", this.$route.params.username);
                     this.reset();
                 }
             } else {

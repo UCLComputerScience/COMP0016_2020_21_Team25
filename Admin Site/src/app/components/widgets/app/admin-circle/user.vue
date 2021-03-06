@@ -13,7 +13,7 @@ import {getProfileImage} from "../../../../../assets/scripts/util";
 export default {
     name: "user",
     props: {
-        userId: Number,
+        userId: String,
         fn: {
             type: Function,
             default: (user, el) => {
@@ -71,17 +71,19 @@ export default {
             }
         },
         user() {
-            return this.data;
+            return { id: this.userId, ...this.data };
         },
         onClick() {
             this.$refs.container.classList.toggle("active-user");
-            this.fn(this.data, this.$refs.container);
+            this.fn({ id: this.userId, ...this.data }, this.$refs.container);
         },
         activate() {
-            this.$refs.container.classList.add("active-user");
+            if (this.$refs.container !== undefined)
+                this.$refs.container.classList.add("active-user");
         },
         deactivate() {
-            this.$refs.container.classList.remove("active-user");
+            if (this.$refs.container !== undefined)
+                this.$refs.container.classList.remove("active-user");
         },
     },
 };

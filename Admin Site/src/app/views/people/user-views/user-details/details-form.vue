@@ -93,7 +93,7 @@ export default {
                         this.$refs.form.clear();
                     } else {
                         alert("Member data successfully updated.");
-                        this.updateDefault();
+                        this.form = Object.assign({}, form);
                         this.updateRoute();
                     }
                 });
@@ -115,8 +115,9 @@ export default {
             return form;
         },
         updateRoute() {
-            const name = this.member["first-name"] + " " + this.member["last-name"];
+            const name = this.form["firstName"] + " " + this.form["lastName"];
             const person = name.replaceAll(" ", "-").toLowerCase();
+            this.$router.go();
             this.$router.replace({
                 name: "user-details",
                 params: {

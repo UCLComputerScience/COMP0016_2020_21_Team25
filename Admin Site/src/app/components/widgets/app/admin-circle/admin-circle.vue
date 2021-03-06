@@ -34,6 +34,9 @@ export default {
             userRefs: [],
         };
     },
+    beforeCreate() {
+        this.$store.dispatch("member/fetchMembers", this.$route.params["username"]);
+    },
     beforeUpdate() {
         this.userRefs = [];
     },

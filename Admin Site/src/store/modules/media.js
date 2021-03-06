@@ -25,12 +25,16 @@ const fetchImages = async (folder, names) => {
 
 const state = () => ({
     profileImages: {},
+    profileIds: {},
     serviceImages: {},
 });
 
 const getters = {
     profileImages: (state) => {
         return state.profileImages;
+    },
+    profileIds: (state) => {
+        return state.profileIds
     },
     serviceIcons: (state) => {
         return state.serviceImages;
@@ -40,18 +44,19 @@ const getters = {
 const actions = {
     async setProfileImages({ dispatch, commit, getters, rootGetters }) {
         const imageNamesResponse = await api.profilePictures();
-        if (imageNamesResponse.success) {
+        if (!imageNamesResponse.success) {
             return;
         }
+        commit("setProfileIds", imageNamesResponse["profile-pictures"]);
         const imageNames = Object.values(
-            imageNamesResponse["profile_pictures"]
+            imageNamesResponse["profile-pictures"]
         );
         const profileImages = await fetchImages("profile-images", imageNames);
         commit("setProfileImages", profileImages);
     },
     async setServiceIcons({ dispatch, commit, getters, rootGetters }) {
         const namesResponse = await api.serviceCategories();
-        if (namesResponse.success) {
+        if (!namesResponse.success) {
             return;
         }
         const serviceImages = await fetchImages(
@@ -65,6 +70,9 @@ const actions = {
 const mutations = {
     setProfileImages(state, profileImages) {
         state.profileImages = profileImages;
+    },
+    setProfileIds(state, profileIds) {
+        state.profileIds = profileIds;
     },
     setServiceIcons(state, serviceImages) {
         state.serviceImages = serviceImages;

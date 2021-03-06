@@ -92,9 +92,9 @@ const api = {
             "user-id": userID, "service-id": serviceID,
         });
     },
-    async updateAdmin({ username, firstName, lastName, email, phoneNumber, password, profilePicture }) {
+    async updateAdmin(username, firstName, lastName, email, phoneNumber, password, profilePicture) {
         return await makeHttpRequest("update-admin", "POST", {
-            username: username,
+            username,
             "first-name": firstName,
             "last-name": lastName,
             email: email,
@@ -118,7 +118,7 @@ const api = {
             "user-id": userID,
         });
     },
-    async updateMember({ userID, firstName, lastName, phoneNumber, prefix, profilePicture }) {
+    async updateMember(userID, firstName, lastName, phoneNumber, prefix, profilePicture ) {
         return await makeHttpRequest("update-member", "POST", {
             "user-id": userID,
             "first-name": firstName,

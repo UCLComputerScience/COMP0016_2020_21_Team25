@@ -72,11 +72,12 @@ export default {
         edit() {
             this.$refs.chooser.show();
         },
-        updateProfilePic() {
-            this.$store.dispatch(
+        async updateProfilePic() {
+            await this.$store.dispatch(
                 "member/updateMemberPic",
                 this.picData.selected
             );
+            await this.$router.go();
         },
     },
 };

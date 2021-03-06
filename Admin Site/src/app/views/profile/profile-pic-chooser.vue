@@ -17,6 +17,7 @@
                         class="image centred"
                     >
                         <img
+                            :id="image.id"
                             :alt="image.name"
                             :src="image.image"
                             v-on:click="select"
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+import {getProfileImage} from "../../../assets/scripts/util";
 import FlatButton from "../../components/widgets/buttons/flat-button.vue";
 
 export default {
@@ -54,10 +56,11 @@ export default {
     },
     computed: {
         images() {
-            const imageObj = this.$store.getters["media/profileImages"];
             const images = [];
-            for (const [name, image] of Object.entries(imageObj)) {
-                images.push({ name, image });
+            const ids = this.$store.getters["media/profileIds"];
+            for (const [id, name] of Object.entries(ids)) {
+                const image = getProfileImage(id);
+                images.push({ id, name, image });
             }
             return images;
         },
@@ -120,7 +123,7 @@ export default {
         },
         select(e) {
             const element = e.target;
-            this.data.selected = element.alt;
+            this.data.selected = element.id;
             this.disablePrevious();
             element.parentElement.classList.add("selected");
         },
