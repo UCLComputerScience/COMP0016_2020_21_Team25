@@ -1,0 +1,55 @@
+{
+    "plugin": "concierge_app_navigation",
+    "entities": [
+        "app_destination"
+    ],
+    "lookups": [
+        {
+            "lookup_id": "app_destination",
+            "examples": [
+                "history",
+                "instructions",
+                "timers",
+                "reminders",
+                "alarms"
+            ]
+        }
+    ],
+    "intents": [
+        {
+            "intent_id": "request_app_destination",
+            "examples":[
+                "Go to the [history]{\"entity\":\"app_destination\"} page",
+                "Go to the [timers]{\"entity\":\"app_destination\"} page",
+                "Go to [instructions]{\"entity\":\"app_destination\"}",
+                "Go to [reminders]{\"entity\":\"app_destination\"}",
+                "Can you go to the [alarms]{\"entity\":\"app_destination\"} page",
+                "Go to [history]{\"entity\":\"app_destination\"}",
+                "Navigate to [instructions]{\"entity\":\"app_destination\"}",
+                "Navigate to [timers]{\"entity\":\"app_destination\"} app_destination",
+                "Please go to the [alarms]{\"entity\":\"app_destination\"} page",
+                "Please go to [history]{\"entity\":\"app_destination\"}",
+                "Please navigate to [reminders]{\"entity\":\"app_destination\"}",
+                "I would like to go to [instructions]{\"entity\":\"app_destination\"}",
+                "I would like to go to the [history]{\"entity\":\"app_destination\"} page ",
+                "I would like to go to [alrams]{\"entity\":\"app_destination\"}",
+                "I would like to go to the [timers]{\"entity\":\"app_destination\"} page",
+                "Can you please go to [instructions]{\"entity\":\"app_destination\"}",
+                "Can you please go to [reminders]{\"entity\":\"app_destination\"}"
+            ]
+
+        }
+    ],
+    "actions": [
+        "goto_app_destination"
+    ],
+    "skills": [
+        {
+            "description":"Ask Concierge to navigate to a page in the concierge app",
+            "intent": "request_app_destination",
+            "actions":[
+                "goto_app_destination"
+            ]
+        }
+    ]
+}
