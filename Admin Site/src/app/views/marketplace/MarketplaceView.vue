@@ -21,7 +21,7 @@
                                  :key="category" :ref="setRef" :category="category"
                                  :grid-data="gridData">
             </marketplace-section>
-            <search-results v-if="searchData.searchTerm.length >= 4" :columns="gridData.columns"
+            <search-results v-if="searchData.searchTerm.length >= 4" :grid-data="gridData"
                             :search-data="searchData"
                             :search-results="searchResults">
             </search-results>
