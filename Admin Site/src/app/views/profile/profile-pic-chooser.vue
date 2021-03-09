@@ -1,43 +1,17 @@
 <template>
-    <div
-        v-show="render"
-        ref="container"
-        class="profile-pic-chooser centred noselect"
-    >
+    <div v-show="render" ref="container" class="profile-pic-chooser centred noselect">
         <div class="content centred">
-            <span class="close-icon material-icons" v-on:click="close"
-            >close</span
-            >
-            <p class="extract">Select a new profile picture below.</p>
+            <span class="close-icon material-icons" v-on:click="close">close</span>
+            <p class="extract">Select a new profile picture below and click confirm to set your choice.</p>
             <div class="pic-grid centred">
-                <div v-for="row in chunks" class="row centred">
-                    <div
-                        v-for="image in row"
-                        :ref="setRef"
-                        class="image centred"
-                    >
-                        <img
-                            :id="image.id"
-                            :alt="image.name"
-                            :src="image.image"
-                            v-on:click="select"
-                        />
-                    </div>
+                <div class="image centred" :ref="setRef" v-for="image in images" :key="image">
+                    <img :id="image.id" :alt="image.name" :src="image.image" v-on:click="select"/>
                 </div>
             </div>
             <div class="button-group centred">
-                <flat-button
-                    class="confirm"
-                    text="Confirm"
-                    v-on:click="confirm"
-                >
-                </flat-button>
-                <flat-button
-                    class="cancel"
-                    style="--button-bg: var(--red)"
-                    text="Cancel"
-                    v-on:click="cancel"
-                ></flat-button>
+                <flat-button class="confirm" text="Confirm" v-on:click="confirm"></flat-button>
+                <flat-button class="cancel" style="--button-bg: var(--red)" text="Cancel"
+                             v-on:click="cancel"></flat-button>
             </div>
         </div>
     </div>
@@ -64,12 +38,6 @@ export default {
             }
             return images;
         },
-        chunks() {
-            const chunks = [];
-            for (let i = 0, j = this.images.length; i < j; i += this.columns)
-                chunks.push(this.images.slice(i, i + this.columns));
-            return chunks;
-        },
         render() {
             return this.display;
         },
@@ -77,7 +45,6 @@ export default {
     data() {
         return {
             picRefs: [],
-            columns: 3,
             display: false,
         };
     },
@@ -96,9 +63,7 @@ export default {
             window.scrollTo(0, parseInt(scrollY || "0") * -1);
         },
         disableScroll() {
-            const scrollY = document.documentElement.style.getPropertyValue(
-                "--scroll-y"
-            );
+            const scrollY = document.documentElement.style.getPropertyValue("--scroll-y");
             const body = document.body;
             body.style.position = "fixed";
             body.style.top = `-${scrollY}`;
@@ -128,18 +93,13 @@ export default {
             element.parentElement.classList.add("selected");
         },
         disablePrevious() {
-            const prev = document.querySelector(
-                ".profile-pic-chooser .selected"
-            );
+            const prev = document.querySelector(".profile-pic-chooser .selected");
             if (prev !== null) prev.classList.remove("selected");
         },
     },
     mounted() {
         window.addEventListener("scroll", () => {
-            document.documentElement.style.setProperty(
-                "--scroll-y",
-                `${window.scrollY}px`
-            );
+            document.documentElement.style.setProperty("--scroll-y", `${window.scrollY}px`);
         });
     },
     beforeUnmount() {
@@ -170,7 +130,7 @@ export default {
     max-height: 95%;
     overflow-y: auto;
     justify-content: flex-start;
-    width: max-content;
+    width: 90vw;
 }
 
 .profile-pic-chooser .close-icon {
@@ -197,34 +157,33 @@ export default {
 }
 
 .profile-pic-chooser .pic-grid {
+    margin-bottom: 16px;
+    width: 80%;
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 10fr));
+    grid-gap: 1rem;
+    place-items: center;
+}
+
+.profile-pic-chooser .button-group {
     flex-direction: column;
-    margin-bottom: 24px;
     width: 80%;
 }
 
-.profile-pic-chooser .confirm {
-    margin-right: 8px;
-}
-
-.profile-pic-chooser .cancel {
-    margin-left: 8px;
+.profile-pic-chooser .button-group .confirm {
+    margin-bottom: 12px;
 }
 
 .profile-pic-chooser .button-group > * {
     flex: 1;
-}
-
-.profile-pic-chooser .row:not(:last-child) {
-    margin-bottom: 16px;
-}
-
-.profile-pic-chooser .row .image:not(:last-child) {
-    margin-right: 16px;
+    width: 100%;
 }
 
 .profile-pic-chooser .image {
     border: 4px solid transparent;
     cursor: pointer;
+    width: 100%;
 }
 
 .profile-pic-chooser .image:hover {
@@ -232,8 +191,33 @@ export default {
     filter: brightness(70%);
 }
 
-.profile-pic-chooser .row .image.selected {
+.profile-pic-chooser .image.selected {
     border-color: var(--light-blue);
     pointer-events: none;
+}
+
+@media (min-width: 620px) {
+    .profile-pic-chooser .content {
+        width: 80vw;
+    }
+
+    .profile-pic-chooser .button-group {
+        flex-direction: row;
+    }
+
+    .profile-pic-chooser .button-group .confirm {
+        margin-bottom: 0;
+        margin-right: 8px;
+    }
+
+    .profile-pic-chooser .button-group .cancel {
+        margin-left: 8px;
+    }
+}
+
+@media (min-width: 820px) {
+    .profile-pic-chooser .content {
+        width: 66vw;
+    }
 }
 </style>

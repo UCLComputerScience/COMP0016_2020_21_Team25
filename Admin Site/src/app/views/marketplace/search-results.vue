@@ -1,10 +1,10 @@
 <template>
     <section id="search-results" ref="container"
-             :style="'--columns: ' + columns" class="marketplace-section">
+             :style="'--columns: ' + gridData.columns" class="marketplace-section">
         <h2 class="section-header">Search Results for "{{ searchData.searchTerm }}"</h2>
         <div class="section-content centred">
-            <div v-for="serviceRow in chunkedServices" class="row centred">
-                <marketplace-item v-for="service in serviceRow" :service-data="service">
+            <div v-for="serviceRow in chunkedServices" class="row centred" :key=serviceRow>
+                <marketplace-item v-for="service in serviceRow" :service-data="service" :key=service>
                 </marketplace-item>
             </div>
             <span v-show="chunkedServices.length === 0">No services found.</span>
@@ -21,13 +21,18 @@ export default {
     props: {
         searchData: Object,
         searchResults: Array,
-        columns: { type: Number, default: 3 },
+        gridData: {
+            type: Object,
+            default: {
+                columns: 3,
+            },
+        },
     },
     computed: {
         chunkedServices() {
             const chunks = [];
-            for (let i = 0, j = this.searchResults.length; i < j; i += this.columns) {
-                chunks.push(this.searchResults.slice(i, i + this.columns));
+            for (let i = 0, j = this.searchResults.length; i < j; i += this.gridData.columns) {
+                chunks.push(this.searchResults.slice(i, i + this.gridData.columns));
             }
             return chunks;
         },
@@ -72,9 +77,11 @@ export default {
 
 .section-content > .row > * {
     max-width: calc(100% / var(--columns) - 24px);
+    margin-left: 12px;
+    width: 100%;
 }
 
 .section-content > .row > *:not(:last-child) {
-    margin-right: 24px;
+    margin-right: 12px;
 }
 </style>

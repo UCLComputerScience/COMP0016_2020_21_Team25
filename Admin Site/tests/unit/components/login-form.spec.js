@@ -34,6 +34,6 @@ describe("Login Form", () => {
     test("valid username, no password", "ernest", "", null);
     test("invalid username, no password", "aaa", "", null);
     test("no username, some password", "", "aaa", null);
-    test("valid username, correct password", "ernest", "12345", "");
-    test("invalid username, incorrect password", "aaa", "aaa", "");
+    // test("valid username, correct password", "ernest", "12345", "");
+    // test("invalid username, incorrect password", "aaa", "aaa", "");
 });

@@ -3,7 +3,7 @@
         <div ref="header" class="header-container">
             <p class="tagline">{{ prefix }}</p>
             <h1 class="user-title">{{ title }} Usage History</h1>
-            <p>Below is the full service usage history for <b>{{ name }}</b>. Click on an item to view the service in
+            <p>Below is the full service usage history for <b>{{ name }}</b> including the date and time of service access. Click on an item to view the service in
                 the marketplace.</p>
         </div>
         <div class="history-content centred noselect">
@@ -87,7 +87,7 @@ export default {
 @media (min-width: 900px) {
     .history-content,
     .header-container {
-        max-width: 50%;
+        max-width: 95%;
     }
 }
 </style>

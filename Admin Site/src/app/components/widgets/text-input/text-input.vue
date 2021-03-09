@@ -4,10 +4,9 @@
         <div class="input-container centred">
             <span class="icon material-icons noselect">{{ icon }}</span>
             <input :id="id" ref="input" v-model="object[keyName]"
-                   :autocomplete="autocomplete" :maxlength="maxlength" :placeholder="placeholder"
-                   :type="type" v-on:input="toggleDelete"
-                   v-on:keydown="onKeyPress"
-                   v-on:keydown.space="onSpacePress" v-on:keyup.enter.prevent="onEnter">
+                   :autocomplete="autocomplete" :maxlength="maxlength" 
+                   :placeholder="placeholder" :type="type" v-on:input="toggleDelete"
+                   v-on:keydown="onKeyPress" v-on:keyup.enter.prevent="onEnter">
             <span ref="delete" class="delete-icon material-icons noselect"
                   v-on:click="clearInput">close</span>
         </div>
@@ -47,6 +46,11 @@ export default {
         keyName: { type: String },
         required: { type: Boolean, default: false }
     },
+    data() {
+        return {
+            ignoreKeys: [],
+        }
+    },
     methods: {
         focus() {
             this.$refs.input.focus();
@@ -64,19 +68,15 @@ export default {
             this.$refs.delete.classList.remove("delete-icon-visible");
         },
         onKeyPress(event) {
-            if (this.disallowedKeys.includes(event.key)) {
+            if (this.ignoreKeys.includes(event.key)) {
                 event.preventDefault();
             }
         },
-        onSpacePress(event) {
-            if (this.noSpaces) {
-                event.preventDefault();
-            }
-        }
     },
-    mounted() {
-        if (this.noSpaces) {
-            this.disallowedKeys.push(" ");
+    created() {
+        this.ignoreKeys = [...this.disallowedKeys];
+        if (this.noSpaces === true) {
+            this.ignoreKeys.push(" ");
         }
     }
 };
