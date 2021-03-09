@@ -1,5 +1,6 @@
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
+from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
 import askbob.plugin
@@ -74,7 +75,7 @@ class ActionConciergeFetchBook(Action):
 
         dispatcher.utter_message(json_message= data_package)
 
-        return []
+        return [SlotSet("book_link", r["metadata"]["text/html; charset=utf-8"])]
 
 @askbob.plugin.action("concierge_entertainment", "fetch_book_category")
 class ActionConciergeFetchBookCategory(Action):
@@ -98,4 +99,27 @@ class ActionConciergeFetchBookCategory(Action):
 
         dispatcher.utter_message(json_message= data_package)
 
-        return []
+        return [SlotSet("book_link", r["metadata"]["text/html; charset=utf-8"])]
+
+@askbob.plugin.action("concierge_entertainment", "fetch_read_book")
+class ActionConciergeFetchBookCategory(Action):
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        book_link=tracker.get_slot("book_link") 
+        if not book_link:
+            response="Sorry, I do not know which book you are referring to"
+        
+        else:
+            response=book_link
+        
+        data_package={
+                "Service_Type": "API_CALL",
+                "Service":"read_book",
+                "Response": response
+            }
+
+        dispatcher.utter_message(json_message= data_package)
+        return [SlotSet("book_link", None)]

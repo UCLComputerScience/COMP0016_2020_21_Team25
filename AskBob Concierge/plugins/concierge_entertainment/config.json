@@ -127,6 +127,25 @@
                 "Could you tell me about the novel [Peter Pan]{\"entity\":\"WORK_OF_ART\"}"
             ]
 
+        },
+        {
+            "intent_id": "ask_read_book",
+            "examples":[
+                "Read the book out",
+                "Read that book",
+                "Read the book",
+                "Give me the book",
+                "Give me that book",
+                "Open the book",
+                "Please let me read that book",
+                "Please open the book",
+                "Please read the book",
+                "Could I read the book",
+                "Could you read the book out",
+                "I want to read the book",
+                "I would like to read the book"
+            ]
+
         }
 
     ],
@@ -134,8 +153,17 @@
         "fetch_joke",
         "fetch_news",
         "fetch_book",
-        "fetch_book_category"
+        "fetch_book_category",
+        "fetch_read_book"
     ],
+
+    "slots":[
+        {
+            "slot_id":"book_link",
+            "type":"text"
+        }
+    ],
+
     "skills": [
         {
             "description": "Ask Concierge for a joke",
@@ -152,17 +180,24 @@
             ]
         },
         {
-            "description":"Ask Concierge to read or provide information about a book matching a given search term",
+            "description":"Ask Concierge to provide information about a book matching a given search term",
             "intent": "ask_book",
             "actions":[
                 "fetch_book"
             ]
         },
         {
-            "description":"Ask Concierge to read or provide a book within a given topic",
+            "description":"Ask Concierge to provide a book within a given topic",
             "intent": "ask_book_category",
             "actions":[
                 "fetch_book_category"
+            ]
+        },
+        {
+            "description":"Ask Concierge to read the last searched book",
+            "intent": "ask_read_book",
+            "actions":[
+                "fetch_read_book"
             ]
         }
     ]
