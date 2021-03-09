@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {getServiceIcon} from "../../../assets/scripts/util";
+import {getServiceIcon, similarity} from "../../../assets/scripts/util";
 
 export default {
     name: "marketplace-item",
@@ -33,10 +33,10 @@ export default {
             };
         },
         id() {
-            return this.getAttr("service_id");
+            return this.getAttr("service-id");
         },
         title() {
-            return this.getAttr("service_name");
+            return this.getAttr("name");
         },
         description() {
             return this.getAttr("description");
@@ -53,10 +53,12 @@ export default {
             const title = this.title.toLowerCase();
             const description = this.description.toLowerCase();
             if (
-                searchTerm.includes(title) ||
-                title.includes(searchTerm) ||
-                description.includes(searchTerm) ||
-                searchTerm.includes(description)
+                // searchTerm.includes(title) ||
+                // title.includes(searchTerm) ||
+                // description.includes(searchTerm) ||
+                // searchTerm.includes(description) ||
+                similarity(title, searchTerm) >= 0.75 ||
+                similarity(description, searchTerm) >= 0.75
             ) {
                 return this.serviceData;
             }
@@ -68,7 +70,7 @@ export default {
                 .then((_) => {
                     this.$router.push({
                         name: "service",
-                        query: { "service-id": this.serviceData["service_id"] },
+                        query: { "service-id": this.id },
                     });
                 });
         },
@@ -76,6 +78,9 @@ export default {
             return this.serviceData;
         },
     },
+    mounted() {
+        console.log(this.serviceData);
+    }
 };
 </script>
 
@@ -94,6 +99,7 @@ export default {
     overflow: hidden;
     height: 400px;
     background: var(--blue);
+    width: 100%;
 }
 
 .service:hover {

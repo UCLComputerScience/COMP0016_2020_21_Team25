@@ -3,6 +3,7 @@
         <div ref="header" class="header-container">
             <p class="tagline">{{ prefix }}</p>
             <h1 class="user-title">{{ title }} Details</h1>
+             <p>You can use the form below to edit basic information for <b>{{ firstName }}</b>. To edit {{ title }} profile picture, click their current one below. Service-specific information can be edited under the <i>"Services"</i> tab above.</p>
         </div>
         <div class="user-content noselect centred">
             <h2>Profile Picture</h2>
@@ -107,7 +108,7 @@ export default {
 }
 
 .user-title {
-    margin-top: 0;
+    margin: 0;
     width: 100%;
     font-size: 36px;
     text-transform: capitalize;
@@ -160,7 +161,7 @@ export default {
 @media (min-width: 900px) {
     .user-content,
     .header-container {
-        max-width: 50%;
+        max-width: 95%;
     }
 }
 </style>
