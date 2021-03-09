@@ -1,0 +1,145 @@
+{
+    "plugin": "concierge_food",
+    "entities": [
+        "recipe_search",
+        "recipe_ingredient"
+    ],
+    "regexes": [
+        {
+            "regex_id": "recipe_search_term",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        },
+        {
+            "regex_id": "recipe_ingredient",
+            "examples":[
+                "(?:[A-Za-z]+ ){0,2}[A-Za-z]+"
+            ]
+        }
+       
+    ],
+    "intents": [
+        {
+            "intent_id": "ask_recipe_by_search",
+            "examples":[
+                "Tell me a recipe for [Spaghetti Bolognese]{\"entity\":\"recipe_search_term\"}",
+                "Tell me a recipe for [Ramen]{\"entity\":\"recipe_search_term\"}",
+                "Tell me a recipe for [Fried Chicken]{\"entity\":\"recipe_search_term\"}",
+                "Give me a recipe for [Tacos]{\"entity\":\"recipe_search_term\"}",
+                "Give me recipes for [Soup]{\"entity\":\"recipe_search_term\"}",
+                "Give me a recipe for [Burgers]{\"entity\":\"recipe_search_term\"}",
+                "Could you give me a recipe for [Lasagna]{\"entity\":\"recipe_search_term\"}",
+                "Could you give me recipes for [Burritos]{\"entity\":\"recipe_search_term\"}",
+                "Could you give me a recipe for [Roast chicken]{\"entity\":\"recipe_search_term\"}",
+                "Please tell me a recipe for [Ravioli]{\"entity\":\"recipe_search_term\"}",
+                "Please give me a recipe for [Fish and chips]{\"entity\":\"recipe_search_term\"}",
+                "Please tell me recipes for [Shepherds pie]{\"entity\":\"recipe_search_term\"}",
+                "I want a recipe for [Bread]{\"entity\":\"recipe_search_term\"}",
+                "I want a recipe for [Carrot cake]{\"entity\":\"recipe_search_term\"}",
+                "I would like a recipe for [cookies]{\"entity\":\"recipe_search_term\"}"
+            ]
+
+        },
+        {
+            "intent_id": "ask_recipe_by_ingredient",
+            "examples":[
+                "Tell me a recipe using [tomatoes]{\"entity\":\"recipe_ingredient\"}",
+                "Tell me a recipe using the ingredient [cucumbers]{\"entity\":\"recipe_ingredient\"}",
+                "Tell me a recipe which uses [corn]{\"entity\":\"recipe_ingredient\"}",
+                "Give me a recipe utilising [fish]{\"entity\":\"recipe_ingredient\"}",
+                "Give me a recipe which utilises [pork]{\"entity\":\"recipe_ingredient\"}",
+                "Give me a recipe which utilises [chicken]{\"entity\":\"recipe_ingredient\"}",
+                "Could you give me a recipe using [pasta]{\"entity\":\"recipe_ingredient\"}",
+                "Could you give me recipe that uses [bread]{\"entity\":\"recipe_ingredient\"}",
+                "Could you give me a recipe using [mussels]{\"entity\":\"recipe_ingredient\"}",
+                "Please tell me a recipe that requires [beef]{\"entity\":\"recipe_ingredient\"}",
+                "Please give me a recipe that uses [noodles]{\"entity\":\"recipe_ingredient\"}",
+                "Please tell me recipes using [rice]{\"entity\":\"recipe_ingredient\"}",
+                "I want a recipe which requires [honey]{\"entity\":\"recipe_ingredient\"}",
+                "I want a recipe which needs [flour]{\"entity\":\"recipe_ingredient\"}",
+                "I would like a recipe using [chocolate]{\"entity\":\"recipe_ingredient\"}"
+            ]
+
+        },
+        {
+            "intent_id": "ask_random_recipe",
+            "examples":[
+                "Tell me a recipe",
+                "Tell me a random recipe",
+                "Tell me a good recipe",                
+                "Give me a recipe",
+                "Give me a random recipe",
+                "Give me a good recipe",
+                "Please tell me a recipe",
+                "Please give me an interesting recipe",
+                "Could you provide me with a recipe",
+                "Could you provide me with an exiting recipe",
+                "Could you give me a recipe for a random dish"
+            ]
+
+        },
+        {
+            "intent_id": "ask_read_recipe",
+            "examples":[
+                "Read the recipe",
+                "Read the recipe instructions out",
+                "Read the recipe out loud",
+                "Could you read the recipe",
+                "Could you read out the recipe instructions",
+                "Could you read out the last recipe",
+                "Please read the instructions to that recipe",
+                "Please read out the instructions to that recipe",
+                "Give me the recipe instructions",
+                "Give me the recipe for that dish",
+                "Read out the instructions",
+                "Read out the instructions for that dish",
+                "What are the instructions to make that dish"
+            ]
+
+        }
+    ],
+    "actions": [
+        "fetch_recipe_by_search",
+        "fetch_recipe_by_ingredient",
+        "fetch_random_recipe",
+        "fetch_read_recipe"
+    ],
+    "slots":[
+        {
+            "slot_id":"recipe_id",
+            "type":"text"
+        }
+    ],
+
+    "skills": [
+        {
+            "description":"Ask Concierge for a recipe using a given search term",
+            "intent": "ask_recipe_by_search",
+            "actions":[
+                "fetch_recipe_by_search"
+            ]
+        },
+        {
+            "description":"Ask Concierge for a recipe using a given ingredient",
+            "intent": "ask_recipe_by_ingredient",
+            "actions":[
+                "fetch_recipe_by_ingredient"
+            ]
+        },
+        {
+            "description":"Ask Concierge for a random recipe",
+            "intent": "ask_random_recipe",
+            "actions":[
+                "fetch_random_recipe"
+            ]
+        },
+        {
+            "description":"Ask Concierge to read out the instruction for a recipe",
+            "intent": "ask_read_recipe",
+            "actions":[
+                "fetch_read_recipe"
+            ]
+        }
+    ]
+}
