@@ -25,8 +25,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - working-directory: "./Admin Site"
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Build and run using Node.js ${{ matrix.node-version }}
+      run: |
+        npm ci
+        npm run build --if-present
+        npm test
+      working-directory: "./Admin Site"
+        
 
