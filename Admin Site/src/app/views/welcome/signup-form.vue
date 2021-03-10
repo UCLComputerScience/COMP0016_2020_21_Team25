@@ -38,7 +38,7 @@
                     icon="lock" key-name="password" label="Password"
                     placeholder="Password" type="password">
         </text-input>
-        <text-input id="signup-repeat" ref="repeat" :no-spaces="true" :object="signupData"
+        <text-input id="signup-repeat" ref="repeat-password" :no-spaces="true" :object="signupData"
                     :required="true" icon="repeat" key-name="repeatPassword"
                     label="Repeat Password" placeholder="Repeat Password" type="password">
         </text-input>
@@ -66,6 +66,7 @@ export default {
                 password: "",
                 repeatPassword: "",
                 response: null,
+                success: false,
             },
         };
     },
@@ -75,19 +76,17 @@ export default {
             this.$refs.username.focus();
         },
         clearInputs() {
-            this.signupData.response = null;
             this.$refs.username.clearInput();
             this.$refs["first-name"].clearInput();
             this.$refs["last-name"].clearInput();
             this.$refs.email.clearInput();
             this.$refs["phone-number"].clearInput();
             this.$refs.password.clearInput();
-            this.$refs.repeat.clearInput();
+            this.$refs["repeat-password"].clearInput();
         },
         clearSensitiveInputs() {
-            this.signupData.response = null;
             this.$refs.password.clearInput();
-            this.$refs.repeat.clearInput();
+            this.$refs["repeat-password"].clearInput();
         },
         validInputs() {
             for (let [key, field] of Object.entries(this.signupData)) {
@@ -98,9 +97,9 @@ export default {
                     };
                 }
             }
-            if (this.signupData.username.length < 5) {
+            if (this.signupData.username.length < 2) {
                 return {
-                    message: "Your username must be at least five characters long.",
+                    message: "Your username must be at least two characters long.",
                     ref: "username"
                 };
             }
@@ -124,19 +123,20 @@ export default {
             }
             return { message: "valid", ref: null };
         },
-        signup() {
+        async signup() {
             const messageAndField = this.validInputs();
             if (messageAndField["message"] === "valid") {
-                this.$store.dispatch('account/signup', this.signupData).then(r => {
-                    if (this.signupData.response !== null) {
-                        alert("Sign up failed. " + this.signupData.response);
-                        this.clearSensitiveInputs();
-                    }
-                });
+                await this.$store.dispatch('account/signup', this.signupData);
+                if (!this.signupData.success) {
+                    alert("Sign up failed. " + this.signupData.response);
+                    this.clearSensitiveInputs();
+                }
             } else {
                 alert("Sign up failed. " + messageAndField["message"]);
                 this.clearSensitiveInputs();
-                this.$refs[messageAndField["ref"]].clearInput();
+                await this.$nextTick(() => {
+                    this.$refs[messageAndField["ref"]].clearInput();
+                });
             }
         },
     }

@@ -18,19 +18,19 @@ const getters = {
 const actions = {
     async login({ dispatch, commit, getters, rootGetters }, form) {
         const response = await api.login(form.usernameOrEmail, form.password);
+        form.response = response.errors.message;
+        form.success = response.success;
         if (response.success) {
-            await dispatch("admin/fetchAdmin", form.usernameOrEmail, { root: true });
-        } else {
-            form.response = response.message;
+            await dispatch("admin/fetchAdmin", response.username, { root: true });
         }
     },
     async signup({ dispatch, commit }, form) {
         const response = await api.register(form);
+        form.response = response.errors.message;
+        form.success = response.success;
         if (response.success) {
             commit("newlyRegistered", true);
             dispatch("admin/fetchAdmin", form.username, { root: true });
-        } else {
-            form.response = response.message;
         }
     },
     async logout({ commit }) {
@@ -45,8 +45,8 @@ const actions = {
         commit("service/setServices", {}, { root: true });
         // END TODO;
         // NOTE - Reset these if profile pictures or service icons were added
-        commit("media/setProfileImages", {}, { root: true });
-        commit("media/setServiceIcons", {}, { root: true });
+        // commit("media/setProfileImages", {}, { root: true });
+        // commit("media/setServiceIcons", {}, { root: true });
         commit("entered", false);
         await router.push("/welcome");
     },

@@ -34,7 +34,7 @@ export default {
         async go(user, el) {
             await this.$store.dispatch("member/activeMember", user.id);
             const person = user["first-name"] + " " + user["last-name"];
-            const param = person.replaceAll(" ", "-").toLowerCase();
+            const param = person.replace(/[ ]/g, "-").toLowerCase();
             await this.$router.push({
                 name: "user-details",
                 params: { person: param },

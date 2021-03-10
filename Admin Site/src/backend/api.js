@@ -33,14 +33,13 @@ const MOCK_RESPONSE = {
 };
 
 const api = {
-    /**
-     * TODO - ping server to see if it is running and return true/false
-     */
     async ping() {
+        return await makeHttpRequest("", "GET", {});
     },
     async login(username, password) {
         return await makeHttpRequest("login", "GET", {
-            username, password,
+            "username-or-email": username,
+            password,
         });
     },
     async logout() {
@@ -58,7 +57,7 @@ const api = {
     },
     async admin(username) {
         return await makeHttpRequest("admin", "GET", {
-            username,
+            username: username,
         });
     },
     async members(username) {

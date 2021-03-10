@@ -105,7 +105,7 @@ public class Database {
             return 2;
         }
 
-        if (valid == false) {
+        if (!valid) {
             return 0;
         } else {
             return 1;

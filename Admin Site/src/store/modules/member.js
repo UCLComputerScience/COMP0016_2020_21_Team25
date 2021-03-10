@@ -116,7 +116,7 @@ const actions = {
             await router.push({
                 name: "user-details",
                 params: {
-                    person: name.replaceAll(" ", "-").toLowerCase(),
+                    person: name.replace(/[ ]/g, "-").toLowerCase(),
                 },
             });
             const firstName = newMember["first-name"];

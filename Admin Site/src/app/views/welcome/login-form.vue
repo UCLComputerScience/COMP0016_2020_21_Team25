@@ -9,8 +9,8 @@
             autocomplete="username"
             icon="person"
             key-name="usernameOrEmail"
-            label="Username"
-            placeholder="Username"
+            label="Username or email"
+            placeholder="Username or email"
             type="text"
         >
         </text-input>
@@ -46,6 +46,7 @@ export default {
                 usernameOrEmail: "",
                 password: "",
                 response: null,
+                success: false,
             },
         };
     },
@@ -55,12 +56,10 @@ export default {
             this.$refs.username.focus();
         },
         clearInputs() {
-            this.loginData.response = null;
             this.$refs.username.clearInput();
             this.$refs.password.clearInput();
         },
         clearSensitiveInputs() {
-            this.loginData.response = null;
             this.$refs.password.clearInput();
             this.$refs.username.focus();
         },
@@ -77,7 +76,7 @@ export default {
             const message = this.validInputs();
             if (message === "valid") {
                 await this.$store.dispatch("account/login", this.loginData);
-                if (this.loginData.response !== null) {
+                if (!this.loginData.success) {
                     alert("Login failed. " + this.loginData.response);
                     this.clearSensitiveInputs();
                 }

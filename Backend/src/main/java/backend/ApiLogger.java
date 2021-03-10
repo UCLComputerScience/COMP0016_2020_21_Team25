@@ -1,5 +1,6 @@
 package backend;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 /**
@@ -9,7 +10,10 @@ public class ApiLogger {
     public static boolean LOG_API_CALLS;
 
     public static void log(String message) {
-        System.out.println("[SYSTEM]: " + message);
+        if (!LOG_API_CALLS) {
+            String formattedDate = new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(System.currentTimeMillis());
+            System.out.println("[SYSTEM]: (" + formattedDate + ") " + message);
+        }
     }
 
     public static void welcome() {

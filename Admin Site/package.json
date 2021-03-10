@@ -7,15 +7,19 @@
   "private": true,
   "homepage": "https://fise-concierge.web.app",
   "scripts": {
-    "dev-build": "webpack --config webpack.dev.js",
+    "backend": "cd ../Backend; python3 tools/run.py",
+    "build:dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "dev-start": "set -e; webpack --config webpack.dev.js; open http://localhost:8081 & serve -s dist -p 8081 --no-clipboard",
-    "start": "set -e; webpack --config webpack.prod.js; open http://localhost:8081 & serve -s dist -p 8081 --no-clipboard",
-    "unused-modules": "npx depcheck",
-    "profile": "webpack --profile --json > stats.json",
-    "deploy": "set -e npm run-script build; firebase deploy",
-    "test": "jest",
-    "coverage": "jest; open coverage/lcov-report/index.html"
+    "browser": "open http://localhost:8081 & serve -s dist -p 8081 --no-clipboard",
+    "coverage": "npm test; open coverage/lcov-report/index.html",
+    "coverage:noserver": "npm run-script test:noserver; open coverage/lcov-report/index.html",
+    "deploy": "set -e; npm run-script build; firebase deploy",
+    "start": "set -e; npm run-script build; npm run-script browser",
+    "start:backend": "npm run-script backend & npm start",
+    "start:dev:backend": "npm run-script backend & npm run-script start:dev",
+    "start:dev": "set -e; npm run-script build:dev; npm run-script browser",
+    "test": "start-server-and-test backend http://localhost:8100 jest",
+    "test:noserver": "jest"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.18",
@@ -24,6 +28,7 @@
     "jest-fetch-mock": "^3.0.3",
     "preload-webpack-plugin": "^3.0.0-beta.4",
     "serve": "^11.3.2",
+    "start-server-and-test": "^1.12.0",
     "vue-router": "^4.0.0-rc.1",
     "webpack-merge": "^5.4.0"
   },

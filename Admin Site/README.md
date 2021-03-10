@@ -22,9 +22,13 @@ To install the necessary packages, run the following command:
 
 ## Deployment
 
-Before running the application, ensure the [server](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Backend) is running on `localhost` on port `8080`.
+Before running the application, ensure the [backend](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Backend) is running on `localhost` on port `8100`.
 
 -   Should you want to run the server on a different port, you must change the `PORT` value in the [`src/backend/api.js`](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Admin%20Site/src/backend/api.js#L3) script to match before running.
+
+The backend can also be started by running:
+
+    npm run-script backend
 
 To view the website in a development server run the following command:
 
@@ -44,9 +48,17 @@ The coverage report can be viewed in your default browser using:
 
     npm run-script coverage
 
-The [`tests/unit/components`](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Admin%20Site/tests/unit/components) directory contains tests for the `.vue` single file components with the working store and backend interaction, meaning the backend server **must** be running before running these tests.
+The report is the `index.html` file located in `coverage/lcov-report`.
+
+The [`tests/unit/components`](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Admin%20Site/tests/unit/components) directory contains tests for the `.vue` single file components with the working store and backend interaction.
 
 The [`tests/unit/store`](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Admin%20Site/tests/unit/components) directory contains tests to ensure the backend is functioning correctly, requiring no `.vue` components.
+
+Note that the testing suite will spawn a new instance of the backend server to use for testing and will shut it down once complete. Ensure no other service is using port `8100` prior to running these tests.
+
+However, this starts and shutdowns the backend every time the test suite is run. If you would like to run the tests without this, opting to run the server manually in the background:
+
+    npm run-script test:noserver
 
 ## Publish
 

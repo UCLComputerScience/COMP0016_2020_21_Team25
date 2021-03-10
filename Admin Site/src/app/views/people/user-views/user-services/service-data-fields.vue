@@ -37,7 +37,7 @@ export default {
             }
         },
         formatField(field) {
-            return field.replaceAll("_", " ").toLowerCase();
+            return field.replace(/[_]/g, " ").toLowerCase();
         },
         async setDefaultData() {
             this.fields = await this.$store.getters["service/dataFields"](this.serviceName);

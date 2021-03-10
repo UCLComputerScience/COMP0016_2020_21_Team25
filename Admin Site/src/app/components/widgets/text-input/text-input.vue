@@ -39,7 +39,9 @@ export default {
         },
         disallowedKeys: {
             type: Array,
-            default: [],
+            default: [";", "[", "]", "{", "}", "\"", "'",
+                "£", "$", "%", "^", "&", "*", "_", "+",
+                "=", "|", "\\", "~", "`", ":", "!", "±", "§"],
         },
         autocomplete: { type: String, default: "off" },
         object: { type: Object },

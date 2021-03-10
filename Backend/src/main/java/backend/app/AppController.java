@@ -2,12 +2,14 @@ package backend.app;
 
 import backend.models.Database;
 import backend.models.DatabaseFactory;
+import backend.web.responses.StandardResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /*
@@ -17,6 +19,19 @@ import java.util.ArrayList;
 @RestController
 public class AppController {
     private final Database database = DatabaseFactory.instance();
+
+    /**
+     * Ping the backend to see if it is responding
+     *
+     * @return the message, HTTP status code and a success
+     */
+    @GetMapping("/")
+    public StandardResponse ping() {
+        String formattedDate = new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(System.currentTimeMillis());
+        System.out.println("[PING] " + formattedDate);
+        System.out.println();
+        return new StandardResponse(true, "Ok", 200);
+    }
 
     /**
      * Return relevant information about the user's history

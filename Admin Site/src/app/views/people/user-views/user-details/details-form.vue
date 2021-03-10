@@ -116,7 +116,7 @@ export default {
         },
         updateRoute() {
             const name = this.form["firstName"] + " " + this.form["lastName"];
-            const person = name.replaceAll(" ", "-").toLowerCase();
+            const person = name.replace(/[ ]/g, "-").toLowerCase();
             this.$router.go();
             this.$router.replace({
                 name: "user-details",
