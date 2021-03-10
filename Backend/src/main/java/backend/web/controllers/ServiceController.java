@@ -59,15 +59,17 @@ public class ServiceController {
 
         ArrayList<Map<String, String>> services = new ArrayList<>();
 
-        String sqlStatement = "SELECT NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
+        String sqlStatement = "SELECT SERVICE_ID, NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
         ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category.toLowerCase()));
 
         try {
             while (result.next()) {
+                String serviceID=result.getString("SERVICE_ID");
                 String name = result.getString("NAME");
                 String icon = result.getString("ICON");
                 String description = result.getString("DESCRIPTION");
                 Map<String, String> service = new HashMap<>();
+                service.put("service_id",serviceID);
                 service.put("name", name);
                 service.put("category", category);
                 service.put("icon", icon);
@@ -100,13 +102,15 @@ public class ServiceController {
 
         try {
             while (result.next()) {
+                String serviceID=result.getString("SERVICE_ID");
                 String name = result.getString("NAME");
                 String category = result.getString("CATEGORY");
                 String icon = result.getString("ICON");
                 String description = result.getString("DESCRIPTION");
                 Map<String, String> service = new HashMap<>();
-                service.put("category", category);
+                service.put("service_id",serviceID);
                 service.put("name", name);
+                service.put("category", category);
                 service.put("icon", icon);
                 service.put("description", description);
                 services.add(service);
