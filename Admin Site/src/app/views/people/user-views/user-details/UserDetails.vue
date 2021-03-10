@@ -87,7 +87,7 @@ export default {
 <style scoped>
 .user-details {
     justify-content: flex-start;
-    padding: 32px;
+    padding: 16px;
     max-width: 100%;
     width: 100%;
 }
@@ -158,7 +158,17 @@ export default {
     border-radius: 50%;
 }
 
+@media (max-width: 320px) {
+    .user-content {
+        padding: 0;
+    }
+}
+
 @media (min-width: 900px) {
+    .user-content, .user-details {
+        padding: 32px;
+    }
+
     .user-content,
     .header-container {
         max-width: 95%;

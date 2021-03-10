@@ -69,9 +69,14 @@ const actions = {
                 serviceId
             );
             if (!apiResponse.success) {
-                response.message = apiResponse.message;
-                response.success = false;
-                break;
+                if (apiResponse.message === "Service is already assigned to user.") {
+                    const message = `This service is already assigned to ${member["first-name"]} ${member["last-name"]}. No changes were made for this user.` ;
+                    alert(message);
+                } else {
+                    response.message = apiResponse.message;
+                    response.success = false;
+                    break;
+                }
             }
         }
     },
@@ -154,10 +159,10 @@ const mutations = {
         state.activeMember = state["members"][id];
     },
     setHistory(state, history) {
-        state.history = Object.assign({}, history);
+        state.history = [...history];
     },
     setMemberServices(state, services) {
-        state.memberServices = Object.assign({}, services);
+        state.memberServices =[...services];
     },
     updateMember(state, member) {
         const allMembers = { ...state.members };

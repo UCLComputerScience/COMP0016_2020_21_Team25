@@ -10,7 +10,7 @@ public class ApiLogger {
     public static boolean LOG_API_CALLS;
 
     public static void log(String message) {
-        if (!LOG_API_CALLS) {
+        if (LOG_API_CALLS) {
             String formattedDate = new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(System.currentTimeMillis());
             System.out.println("[SYSTEM]: (" + formattedDate + ") " + message);
         }

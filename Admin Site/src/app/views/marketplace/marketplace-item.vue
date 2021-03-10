@@ -33,7 +33,7 @@ export default {
             };
         },
         id() {
-            return this.getAttr("service-id");
+            return this.getAttr("service_id");
         },
         title() {
             return this.getAttr("name");
@@ -78,9 +78,6 @@ export default {
             return this.serviceData;
         },
     },
-    mounted() {
-        console.log(this.serviceData);
-    }
 };
 </script>
 

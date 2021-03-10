@@ -1,8 +1,8 @@
 <template>
-    <marketplace-item ref="service" :marketplace="false" :service-data="data">
+    <marketplace-item ref="service" :marketplace="false" :service-data="data" :id="`${id}-service`">
         <span ref="toggler" class="expand-icon centred material-icons" v-on:click="onClick">expand_more</span>
         <div class="data-row centred">
-            <service-data-fields :service-name="data['service_name']"></service-data-fields>
+            <service-data-fields :service-name="data['service_id']"></service-data-fields>
         </div>
         <div class="button-row centred">
             <flat-button text="Open in marketplace" v-on:click="go"></flat-button>
@@ -50,7 +50,7 @@ export default {
         }
     },
     mounted() {
-        this.container = document.getElementById(this.id);
+        this.container = document.getElementById(this.id + "-service");
     }
 };
 </script>
@@ -59,11 +59,11 @@ export default {
 .services-content .service {
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basis: 25vw;
-    margin: 16px;
+    flex-basis: 33vw;
     overflow-y: scroll;
     cursor: default;
     position: relative;
+    width: 100%;
 }
 
 .services-content .service .data-row,

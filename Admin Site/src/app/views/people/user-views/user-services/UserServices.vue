@@ -14,6 +14,9 @@
                     placeholder="Search assigned services">
         </text-input>
         <div v-show="!searching" class="services-content centred noselect">
+            <span v-show="noServices" class="centred">No services added. Head over to the&nbsp;
+                <v-link :href="{name: 'marketplace', params: {'username': $route.params.username}}"
+                        text="Marketplace"></v-link> &nbsp;to add services to {{ title }} account.</span>
             <service-item v-for="service in services" :key="service" :ref="setRef" :data="service">
             </service-item>
         </div>
@@ -30,13 +33,17 @@
 
 <script>
 import {getName} from "../../../../../assets/scripts/util";
+import VLink from "../../../../components/widgets/buttons/v-link.vue";
 import TextInput from "../../../../components/widgets/text-input/text-input.vue";
 import ServiceItem from "./service-item.vue";
 
 export default {
     name: "UserServices",
-    components: { TextInput, ServiceItem },
+    components: { VLink, TextInput, ServiceItem },
     computed: {
+        noServices() {
+            return this.services.length === 0;
+        },
         searching() {
             return this.searchData.searchTerm.length >= 4;
         },
@@ -86,10 +93,9 @@ export default {
         setRef(el) {
             this.serviceRefs.push(el);
         },
-        updateServices() {
-            this.$store.dispatch("member/fetchMemberServices").then(_ => {
-                this.services = this.$store.getters["member/memberServices"];
-            });
+        async updateServices() {
+            await this.$store.dispatch("member/fetchMemberServices");
+            this.services = this.$store.getters["member/memberServices"];
         },
         search() {
             if (this.searchData.searchTerm.length < 4)
@@ -112,7 +118,7 @@ export default {
 <style scoped>
 .user-services {
     justify-content: flex-start;
-    padding: 32px;
+    padding: 16px;
     max-width: 100%;
     flex-direction: column;
 }
@@ -133,9 +139,33 @@ export default {
 }
 
 .services-content, .search-results {
-    padding: 32px;
+    padding: 16px;
     flex-wrap: wrap;
     align-items: flex-start;
+}
+
+.services-content {
+    margin-top: 16px;
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 10fr));
+    grid-gap: 1rem;
+}
+
+.services-content span {
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.services-content span a {
+    display: contents;
+    color: var(--blue);
+    font-weight: 900;
+}
+
+.services-content span a:hover {
+    filter: brightness(1.65);
 }
 
 .search-results {
@@ -156,7 +186,17 @@ export default {
     text-transform: capitalize;
 }
 
+@media (max-width: 320px) {
+    .services-content {
+        padding: 0;
+    }
+}
+
 @media (min-width: 900px) {
+    .user-services, .services-content {
+        padding: 32px;
+    }
+
     .services-content,
     .header-container {
         max-width: 95%;

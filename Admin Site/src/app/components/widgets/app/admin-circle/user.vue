@@ -55,16 +55,11 @@ export default {
     },
     methods: {
         async setHasService() {
-            await this.$store.dispatch(
-                "member/fetchMemberServices",
-                this.userId
-            );
-            const memberServices = [
-                ...this.$store.getters["member/memberServices"],
-            ];
-            const activeService = this.$route.params["service-id"];
-            for (const service of memberServices) {
-                if (service["service-id"] === activeService) {
+            await this.$store.dispatch("member/fetchMemberServices", this.userId);
+            const memberServices = this.$store.getters["member/memberServices"];
+            const activeServiceId = this.$route.params["service-id"];
+            for (const service of Object.values(memberServices)) {
+                if (service["service_id"] === activeServiceId) {
                     this.hasService = true;
                     break;
                 }

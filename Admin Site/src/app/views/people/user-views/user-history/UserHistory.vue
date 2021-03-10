@@ -3,10 +3,13 @@
         <div ref="header" class="header-container">
             <p class="tagline">{{ prefix }}</p>
             <h1 class="user-title">{{ title }} Usage History</h1>
-            <p>Below is the full service usage history for <b>{{ name }}</b> including the date and time of service access. Click on an item to view the service in
+            <p>Below is the full service usage history for <b>{{ name }}</b> including the date and time of service
+                access. Click on an item to view the service in
                 the marketplace.</p>
         </div>
         <div class="history-content centred noselect">
+            <span v-show="noHistory">No service usage history for {{ name }}. Come back after they've started using
+                the Concierge app; their usage history will appear here.</span>
             <history-item v-for="item of history" :key="item" :data="item"></history-item>
         </div>
     </div>
@@ -20,6 +23,9 @@ export default {
     name: "UserHistory",
     components: { HistoryItem },
     computed: {
+        noHistory() {
+            return this.history.length === 0;
+        },
         history() {
             return this.$store.getters["member/history"];
         },
@@ -53,7 +59,7 @@ export default {
 <style scoped>
 .user-history {
     justify-content: flex-start;
-    padding: 32px;
+    padding: 16px;
     max-width: 100%;
 }
 
@@ -74,7 +80,12 @@ export default {
 
 .history-content {
     align-items: flex-start;
-    padding: 32px;
+    padding: 16px;
+}
+
+.history-content span {
+    width: 100%;
+    text-align: center;
 }
 
 .user-title {
@@ -84,7 +95,17 @@ export default {
     text-transform: capitalize;
 }
 
+@media (max-width: 320px) {
+    .history-content {
+        padding: 0;
+    }
+}
+
 @media (min-width: 900px) {
+    .user-history, .history-content {
+        padding: 32px;
+    }
+
     .history-content,
     .header-container {
         max-width: 95%;

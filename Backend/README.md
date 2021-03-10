@@ -27,13 +27,14 @@ Required endpoints for the Concierge web app with required parameters and expect
 
 <tr>
 <td align="center">login</td>
-<td align="center"><pre>username<br>password</pre></td>
+<td align="center"><pre>username-or-email<br>password</pre></td>
 <td align="center"><pre>GET</pre></td>
 <td>
 <pre>
 {
  "success": boolean,
  "message": String,
+ "username" String
  "errors": {
      "field": String,
      "message": String,
@@ -320,7 +321,7 @@ Required endpoints for the Concierge web app with required parameters and expect
 
 <tr>
 <td align="center">member-service-data</td>
-<td align="center"><pre>user-id<br>service-name</pre></td>
+<td align="center"><pre>user-id<br>service-id</pre></td>
 <td align="center"><pre>GET</pre></td>
 <td>
 <pre>
@@ -340,7 +341,7 @@ Required endpoints for the Concierge web app with required parameters and expect
 
 <tr>
 <td align="center">update-member-service-data</td>
-<td align="center"><pre>user-id<br>service-name<br>fields (Map)</pre></td>
+<td align="center"><pre>user-id<br>service-id<br>fields (Map)</pre></td>
     <td align="center"><pre>POST</pre></td>
 <td>
 <pre>

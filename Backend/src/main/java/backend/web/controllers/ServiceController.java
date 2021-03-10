@@ -60,7 +60,7 @@ public class ServiceController {
         ArrayList<Map<String, String>> services = new ArrayList<>();
 
         String sqlStatement = "SELECT SERVICE_ID, NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
-        ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category.toLowerCase()));
+        ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category));
 
         try {
             while (result.next()) {
@@ -76,11 +76,10 @@ public class ServiceController {
                 service.put("description", description);
                 services.add(service);
             }
-            if (services.size() == 0) {
-                throw new RuntimeException("Could not find any services in the given category.");
+            if (services.size() > 1) {
+                services.sort(new MapComparator("name"));
             }
-            services.sort(new MapComparator("value"));
-        } catch (SQLException | RuntimeException e) {
+        } catch (SQLException e) {
             code = 500;
             message = e.getMessage();
             success = false;

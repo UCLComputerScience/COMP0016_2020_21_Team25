@@ -109,7 +109,7 @@ export default {
     top: var(--nav-height);
     left: -60%;
     width: 60%;
-    height: 100%;
+    height: calc(100% - var(--nav-height));
     background: #F4F5F7;
     z-index: 21;
     -webkit-transform: translate3d(0, 0, 0);
