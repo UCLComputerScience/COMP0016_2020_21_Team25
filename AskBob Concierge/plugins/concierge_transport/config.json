@@ -1,0 +1,94 @@
+{
+    "plugin": "concierge_transport",
+    "entities": [
+        "GPE",
+        "transport_type"
+    ],
+    
+    "lookups": [
+        {
+            "lookup_id": "transport_type",
+            "examples": [
+                "bus",
+                "bus stop",
+                "bus station",
+                "train station",
+                "train",
+                "train stop"
+            ]
+        }
+    ],
+    "intents": [
+        {
+            "intent_id": "ask_nearest_transport",
+            "examples":[
+                "Tell me where I can find the nearest [train station]{\"entity\":\"transport_type\"}",
+                "Tell me where the nearest [train station]{\"entity\":\"transport_type\"} is",
+                "Tell me the location of the closest [bus stop]{\"entity\":\"transport_type\"}",
+                "Give me the location of my closest [bus station]{\"entity\":\"transport_type\"}",
+                "Give me the location where I can find the closest [train station]{\"entity\":\"transport_type\"}",
+                "Give me the location where the nearest [bus]{\"entity\":\"transport_type\"} is" ,
+                "Show me where I can find the closest [train]{\"entity\":\"transport_type\"}",
+                "Show me where the [train station]{\"entity\":\"transport_type\"} is",
+                "Show me the location of the [bus station]{\"entity\":\"transport_type\"}",
+                "Could you show me where I can get the [bus]{\"entity\":\"transport_type\"}",
+                "Could you give me the location of the [train station]{\"entity\":\"transport_type\"}",
+                "I want the location of my [train station]{\"entity\":\"transport_type\"}",
+                "I want the location where I can find the closest [bus station]{\"entity\":\"transport_type\"} to me",
+                "I want the location where I can get the neartest [train]{\"entity\":\"transport_type\"} is" ,
+                "Please show me where I can get the [bus]{\"entity\":\"transport_type\"}",
+                "Please give me the location of the [train station]{\"entity\":\"transport_type\"}",
+                "I would like the location where I can find the [bus]{\"entity\":\"transport_type\"}",
+                "I would like the location of my closest [train station]{\"entity\":\"transport_type\"} is" 
+            ]
+
+        },
+        {
+            "intent_id": "ask_transport_by_search",
+            "examples":[
+                "Tell me where I can find [Euston]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"}",
+                "Tell me where [Camden]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"} is",
+                "Tell me the location of [Waterloo]{\"entity\":\"GPE\"} [bus stop]{\"entity\":\"transport_type\"}",
+                "Give me the location of [Canary Warf]{\"entity\":\"GPE\"} [bus station]{\"entity\":\"transport_type\"}",
+                "Give me the location where I can find [London]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"}",
+                "Give me the location where the [Clapham Junction]{\"entity\":\"GPE\"} [bus]{\"entity\":\"transport_type\"} is" ,
+                "Show me where I can find the [Vauxhall]{\"entity\":\"GPE\"} [train]{\"entity\":\"transport_type\"}",
+                "Show me where [Victoria]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"} is",
+                "Show me the location of [Wimbledon]{\"entity\":\"GPE\"} [bus station]{\"entity\":\"transport_type\"}",
+                "Could you show me where I can get the [Richmond]{\"entity\":\"GPE\"} [bus]{\"entity\":\"transport_type\"}",
+                "Could you give me the location of [Twickenham]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"}",
+                "I want the location of [Bloomsbury]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"}",
+                "I want the location where I can find [Totenham Court Road]{\"entity\":\"GPE\"} [bus station]{\"entity\":\"transport_type\"}",
+                "I want the location where I can get the [Holborn] {\"entity\":\"GPE\"} [train]{\"entity\":\"transport_type\"} is" ,
+                "Please show me where I can find [Kensingon]{\"entity\":\"GPE\"} [bus stop]{\"entity\":\"transport_type\"}",
+                "Please give me the location of [Covent Gardens]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"}",
+                "I would like the location where I can find the [Oxford Street]{\"entity\":\"GPE\"} [bus]{\"entity\":\"transport_type\"}",
+                "I would like the location where [Piccadily Circus]{\"entity\":\"GPE\"} [train station]{\"entity\":\"transport_type\"} is" 
+            ]
+
+        }
+       
+    ],
+    "actions": [
+        "fetch_nearest_transport",
+        "fetch_transport_by_search"
+    ],
+
+
+    "skills": [
+        {
+            "description":"Ask Concierge to get the nearest transport for that given transport option",
+            "intent": "ask_nearest_transport",
+            "actions":[
+                "fetch_nearest_transport"
+            ]
+        },
+        {
+            "description":"Ask Concierge to search for a transport option at a given location",
+            "intent": "ask_transport_by_search",
+            "actions":[
+                "fetch_transport_by_search"
+            ]
+        }
+    ]
+}
