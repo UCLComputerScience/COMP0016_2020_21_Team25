@@ -112,7 +112,8 @@ public class ServiceController {
                 services.add(service);
             }
             if (services.size() == 0) {
-                throw new RuntimeException("Could not find any services assigned to that given USER-ID");
+                message= "Could not find any services assigned to that given USER-ID";
+                
             }
         } catch (SQLException | RuntimeException e) {
             code = 500;

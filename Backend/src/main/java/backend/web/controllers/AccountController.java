@@ -336,7 +336,7 @@ public class AccountController {
                 history.add(serviceLog);
             }
             if (history.size() == 0) {
-                throw new RuntimeException("Could not find any history for this user");
+                message="Could not find any history for this user";
             }
             history.sort(new MapComparator("value"));
         } catch (SQLException | RuntimeException e) {
