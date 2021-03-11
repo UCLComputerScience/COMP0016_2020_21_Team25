@@ -30,6 +30,7 @@ async function makeHttpRequest(URL, method, params = {}) {
 const MOCK_RESPONSE = {
     message: "",
     code: 200,
+    success: true,
 };
 
 const api = {
@@ -132,7 +133,7 @@ const api = {
             "user-id": userID,
         });
     },
-    async memberServiceData(userID, serviceName) {
+    async memberServiceData(userID, serviceId) {
         const response = { ...MOCK_RESPONSE };
         const random = Math.random();
         if (random < 0.33) {
@@ -146,8 +147,9 @@ const api = {
         } else {
             response.fields = {};
         }
+        return response;
     },
-    async updateMemberServiceData(userID, serviceName, data) {
+    async updateMemberServiceData(userID, serviceId, data) {
         return MOCK_RESPONSE;
     }
 };

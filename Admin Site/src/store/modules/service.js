@@ -12,9 +12,9 @@ const getters = {
     allServices: (state) => {
         return state.services;
     },
-    dataFields: (state, getters, rootState, rootGetters) => async (serviceName) => {
+    dataFields: (state, getters, rootState, rootGetters) => async (serviceId) => {
         const userID = rootGetters["member/activeId"];
-        const response = await api.memberServiceData(userID, serviceName);
+        const response = await api.memberServiceData(userID, serviceId);
         if (response.success) {
             return response.fields;
         }
@@ -25,16 +25,14 @@ const getters = {
 
 const actions = {
     async updateDataFields({ dispatch, commit, getters, rootGetters }, form) {
-        const defaultData = getters["dataFields"];
+        const defaultData = await getters["dataFields"](form.serviceId);
         for (const [key, value] of Object.entries(form)) {
             if (value === "" || value === null) {
                 form[key] = defaultData[key];
             }
         }
         const userID = rootGetters["member/activeId"];
-        const name = form.serviceName;
-        delete form["serviceName"];
-        const response = await api.updateMemberServiceData(userID, name, form);
+        const response = await api.updateMemberServiceData(userID, form.serviceId, form);
         if (response.success) {
             alert("Service data successfully updated for the assigned member.");
         } else {

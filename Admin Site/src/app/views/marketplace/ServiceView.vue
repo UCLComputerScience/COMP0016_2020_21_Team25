@@ -6,7 +6,7 @@
         </div>
         <p class="service-description">{{ description }}</p>
         <p class="service-info">
-            Select the users to add this service to. Note that you will need to
+            Select the users to add this service to. Note that, if required, you will need to
             head over to <b>People</b> once the services are added and fill out
             the required details to complete the setup for this service.
         </p>
@@ -32,28 +32,32 @@ export default {
     components: { AdminCircle, FlatButton, Page, WelcomeCard },
     computed: {
         redirect() {
-            if (
-                this.$store.getters["service/activeService"]["service_name"] === undefined
-            ) {
+            if (this.title === undefined) {
                 this.$router.push("/404");
                 return false;
             }
             return true;
         },
+        service() {
+            return this.$store.getters["service/activeService"];
+        },
         title() {
-            return this["service_name"];
+            return this.service["name"];
+        },
+        description() {
+            return this.service["description"];
+        },
+        id() {
+            return this.service["service_id"];
+        },
+        icon() {
+            return this.service["icon"];
         }
     },
     data() {
         return {
             users: [],
         };
-    },
-    props: {
-        "service_id": Number,
-        "service_name": String,
-        description: String,
-        icon: String,
     },
     methods: {
         toggle(user, el) {
@@ -74,16 +78,14 @@ export default {
         async confirm() {
             const response = { message: "", success: true };
             await this.$store.dispatch("member/addServiceToMembers", {
-                serviceId: this["service_id"],
+                serviceId: this.id,
                 members: this.users,
-                response,
+                response: response,
             });
             if (response.success) {
                 alert(
                     "Services successfully added. The selected users will now have " +
-                    "access to " +
-                    this["service_name"] +
-                    "."
+                    "access to the " + this.title + " service."
                 );
                 this.toMarketplace();
             } else {
@@ -123,6 +125,7 @@ export default {
 
 .service-view .service-title {
     margin-top: 0;
+    text-transform: capitalize;
 }
 
 .service-view .service-description,

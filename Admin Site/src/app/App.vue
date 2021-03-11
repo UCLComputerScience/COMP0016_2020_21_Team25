@@ -30,9 +30,10 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch("service/setServices");
-        this.$store.dispatch("media/setProfileImages");
-        this.$store.dispatch("media/setServiceIcons");
+        this.$store.dispatch("service/setServices").then(() => {
+            this.$store.dispatch("media/setProfileImages");
+            this.$store.dispatch("media/setServiceIcons");
+        });
     },
 };
 </script>

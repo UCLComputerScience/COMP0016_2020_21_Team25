@@ -11,7 +11,7 @@ export default {
     name: "v-link",
     props: {
         href: {
-            type: String,
+            type: Object,
             default: ""
         },
         text: {

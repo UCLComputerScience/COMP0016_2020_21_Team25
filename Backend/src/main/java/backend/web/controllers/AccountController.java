@@ -159,7 +159,7 @@ public class AccountController {
         switch (database.checkExisting("USER_SERVICE", "SERVICE_ID USER_ID", "SERVICE_ID =" + "'" + service_id + "'" + " AND " + "USER_ID = " + "'" + user_id + "'")) {
             case 0:
                 success = false;
-                message = "User is already assigned this service";
+                message = "Service is already assigned to user.";
                 break;
             case 2:
                 success = false;
