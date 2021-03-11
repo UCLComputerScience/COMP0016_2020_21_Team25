@@ -358,9 +358,21 @@ public class AccountController {
         String picture_id="37";
         RegistrationCodeGenerator codeGenerate= new RegistrationCodeGenerator();
         ArrayList<String> codeWords = new ArrayList<>();
+        
 
         try{
-            codeWords=codeGenerate.generateCode();
+            while(true){
+                codeWords=codeGenerate.generateCode();
+                if (database.checkExisting("REGISTRATION_CODES","FIRST_WORD , SECOND_WORD ,LAST_WORD","FIRST_WORD='"+codeWords.get(0)+"' AND SECOND_WORD='"+codeWords.get(1)+"' AND LAST_WORD='"+codeWords.get(2)+"'")==1){
+                    break;
+                }
+                else if (database.checkExisting("REGISTRATION_CODES","FIRST_WORD , SECOND_WORD ,LAST_WORD","FIRST_WORD='"+codeWords.get(0)+"' AND SECOND_WORD='"+codeWords.get(1)+"' AND LAST_WORD='"+codeWords.get(2)+"'")==2){
+                    success=false;
+                    message="Server error";
+                    code=500;
+                    return new AddMemberResponse(success, message, user_id, codeWords, code);
+                }
+            }
         } catch (IOException e){
             code=500;
             success= false;
@@ -426,7 +438,6 @@ public class AccountController {
                 message="Server error";
                 code=500;
         }
-
         if (success){
             database.executeUpdate(sqlStatementUser);
             database.executeUpdate(sqlStatementAdminCircle);
