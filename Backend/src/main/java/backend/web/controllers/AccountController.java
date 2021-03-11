@@ -6,6 +6,7 @@ import backend.web.responses.account.ProfilePictureResponse;
 import backend.web.responses.account.MemberDataResponse;
 import backend.web.responses.account.MemberHistoryResponse;
 import backend.web.responses.account.AddMemberResponse;
+import backend.web.responses.account.EmergencyContactsResponse;
 import backend.web.util.MapComparator;
 import backend.web.util.RegistrationCodeGenerator;
 import backend.models.Database;
@@ -458,16 +459,121 @@ public class AccountController {
         String sqlStatementDeleteUser = "DELETE FROM USER WHERE USER_ID='{USER_ID}'";
         String sqlStatementDeleteAdminCircle = "DELETE FROM ADMIN_CIRCLE WHERE USER_ID='{USER_ID}'";
         String sqlStatementDeleteRegistrationCodes = "DELETE FROM REGISTRATION_CODES WHERE USER_ID='{USER_ID}'";
+        String sqlStatementDeleteEmergencyContacts = "DELETE FROM EMERGENCY_CONTACTS WHERE USER_ID='{USER_ID}'";
         sqlStatementDeleteUser = sqlStatementDeleteUser.replace("{USER_ID}", user_id);
         sqlStatementDeleteAdminCircle = sqlStatementDeleteAdminCircle.replace("{USER_ID}", user_id);
         sqlStatementDeleteRegistrationCodes = sqlStatementDeleteRegistrationCodes.replace("{USER_ID}", user_id);
+        sqlStatementDeleteEmergencyContacts = sqlStatementDeleteEmergencyContacts.replace("{USER_ID}", user_id);
         
         database.executeUpdate(sqlStatementDeleteUser);
         database.executeUpdate(sqlStatementDeleteAdminCircle);
         database.executeUpdate(sqlStatementDeleteRegistrationCodes);
+        database.executeUpdate(sqlStatementDeleteEmergencyContacts);
 
         return new StandardResponse(success, message, code);
     }
 
+    @PostMapping("add-emergency-contacts")
+    public StandardResponse postAddEmergencyContacts(@RequestParam String user_id, @RequestParam String gp_phone, @RequestParam String dentist_phone, @RequestParam String optometrist_phone ){
+        boolean success = true;
+        String message = "Ok";
+        int code = 200;
+        
+        String sqlStatement="INSERT INTO EMERGENCY_CONTACTS VALUES('{GP_PHONE}','{DENTIST_PHONE}','{OPTOMETRIST_PHONE}','{USER_ID}')";
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
+        sqlStatement = sqlStatement.replace("{GP_PHONE}", gp_phone);
+        sqlStatement = sqlStatement.replace("{DENTIST_PHONE}", dentist_phone);
+        sqlStatement = sqlStatement.replace("{OPTOMETRIST_PHONE}", optometrist_phone);
+
+        switch (database.checkExisting("USER", "USER_ID", "USER_ID=" + "'" + user_id + "'")) {
+            case 1:
+                success = true;
+                message = "Invalid USER_ID";
+                break;
+            case 2:
+                success = false;
+                message = "Server error";
+                code = 500;
+        }
+
+        switch (database.checkExisting("EMERGENCY_CONTACTS", "USER_ID", "USER_ID=" + "'" + user_id + "'")) {
+            case 0:
+                success = true;
+                message = "USER_ID already has assigned emergency contacts";
+                break;
+            case 2:
+                success = false;
+                message = "Server error";
+                code = 500;
+        }
+
+        if (message.equals("Ok")) {
+            database.executeUpdate(sqlStatement);
+        }
+
+        return new StandardResponse(success, message, code);
+
+    }
+    @PostMapping("update-emergency-contacts")
+    public StandardResponse postUpdateEmergencyContacts(@RequestParam String user_id, @RequestParam String gp_phone, @RequestParam String dentist_phone, @RequestParam String optometrist_phone ){
+        boolean success = true;
+        String message = "Ok";
+        int code = 200;
+        
+        String sqlStatement="UPDATE EMERGENCY_CONTACTS SET GP='{GP_PHONE}',DENTIST='{DENTIST_PHONE}',OPTOMETRIST='{OPTOMETRIST_PHONE}' WHERE USER_ID='{USER_ID}'";
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
+        sqlStatement = sqlStatement.replace("{GP_PHONE}", gp_phone);
+        sqlStatement = sqlStatement.replace("{DENTIST_PHONE}", dentist_phone);
+        sqlStatement = sqlStatement.replace("{OPTOMETRIST_PHONE}", optometrist_phone);
+
+        switch (database.checkExisting("EMERGENCY_CONTACTS", "USER_ID", "USER_ID=" + "'" + user_id + "'")) {
+            case 1:
+                success = true;
+                message = "USER_ID already has assigned emergency contacts";
+                break;
+            case 2:
+                success = false;
+                message = "Server error";
+                code = 500;
+        }
+
+        if (message.equals("Ok")) {
+            database.executeUpdate(sqlStatement);
+        }
+
+        return new StandardResponse(success, message, code);
+
+    }
+    
+    @GetMapping("get-emergency-contacts")
+    public EmergencyContactsResponse getEmergencyContacts(@RequestParam String user_id){
+        boolean success = true;
+        String message = "Ok";
+        int code = 200;
+
+        Map<String, String> emergencyContacts= new HashMap<>();
+
+        String sqlStatement = "SELECT GP, DENTIST, OPTOMETRIST FROM EMERGENCY_CONTACTS WHERE USER_ID='{USER_ID}'";
+        ResultSet result = database.query(sqlStatement.replace("{USER_ID}", user_id));
+
+        try {
+            while (result.next()) {
+                emergencyContacts.put("GP",result.getString("GP"));
+                emergencyContacts.put("Dentist", result.getString("DENTIST"));
+                emergencyContacts.put("Optometrist", result.getString("OPTOMETRIST"));
+            }
+            if (emergencyContacts.size() == 0) {
+                message= "Could not find any emergency contacts for that user";
+                
+            }
+        } catch (SQLException e) {
+            code = 500;
+            message = e.getMessage();
+            success = false;
+        }
+
+        return new EmergencyContactsResponse(success, message, emergencyContacts, code);
+
+    }
 
 }
