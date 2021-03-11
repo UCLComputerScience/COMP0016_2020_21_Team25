@@ -147,6 +147,30 @@ public class AppController {
         return new UserResponse(firstName, lastName, prefix, phoneNumber, code);
     }
 
+    @GetMapping("add-history")
+    public AddHistoryResponse addHistory(@RequestParam String service, @RequestParam String user_id){
+        int code=200;
+        String message="OK";
+        String sqlStatement="INSERT INTO SERVICE_LOG VALUES({SERVICE},{USER_ID},CURRENT_DATE,CURRENT_TIME)";
+        sqlStatement = sqlStatement.replace("{SERVICE}", service);
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
+
+        switch (database.checkExisting("USER","USER_ID","USER_ID ="+"'"+user_id+"'")){
+            case 1:
+                message="Invalid USER_ID";
+                break;
+            case 2:
+                message="Server error";
+                code=500;
+        }
+        if (message.equals("OK")){
+            database.executeUpdate(sqlStatement);
+        }
+
+        return new AddHistoryResponse(message,code);
+
+    }
+
     /*
      * { "history": [], "code": 200 }
      */
@@ -256,6 +280,24 @@ public class AppController {
 
         public String getPhoneNumber() {
             return phoneNumber;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
+    private static class AddHistoryResponse {
+        private final String message;
+        private final int code;
+
+        public AddHistoryResponse(String message, int code) {
+            this.message = message;
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
         }
 
         public int getCode() {
