@@ -35,8 +35,8 @@ export const routes = [
     },
     {
         path: "/sign-out",
-        redirect: () => {
-            store.dispatch("account/logout");
+        redirect: async () => {
+            await store.dispatch("account/logout");
             return "/welcome";
         },
     },
