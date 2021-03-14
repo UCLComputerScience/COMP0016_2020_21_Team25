@@ -558,7 +558,7 @@ public class AccountController {
 
         try {
             while (result.next()) {
-                emergencyContacts.put("GP",result.getString("GP"));
+                emergencyContacts.put("Gp",result.getString("GP"));
                 emergencyContacts.put("Dentist", result.getString("DENTIST"));
                 emergencyContacts.put("Optometrist", result.getString("OPTOMETRIST"));
             }

@@ -171,6 +171,34 @@ public class AppController {
 
     }
 
+    @GetMapping("login-user")
+    public LoginUserResponse loginUser(@RequestParam String first_word, @RequestParam String second_word, @RequestParam String last_word){
+        int code=200;
+        String message="OK";
+        String userId="";
+        String sqlStatement="SELECT USER_ID FROM REGISTRATION_CODES WHERE FIRST_WORD='{FIRST_WORD}' AND SECOND_WORD='{SECOND_WORD}' AND LAST_WORD='{LAST_WORD}' ";
+        sqlStatement = sqlStatement.replace("{FIRST_WORD}", first_word);
+        sqlStatement = sqlStatement.replace("{SECOND_WORD}", second_word);
+        sqlStatement = sqlStatement.replace("{LAST_WORD}", last_word);
+
+        ResultSet results = database.query(sqlStatement);
+
+        try {
+            if (results.next()) {
+                userId = results.getString("USER_ID");
+            }
+            else{
+                message="Invalid Registration Codes";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            code = 500;
+        }
+
+        return new LoginUserResponse(message,userId,code);
+
+    }
+
     /*
      * { "history": [], "code": 200 }
      */
@@ -298,6 +326,30 @@ public class AppController {
 
         public String getMessage() {
             return message;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
+    private static class LoginUserResponse {
+        private final String message;
+        private final String userId;
+        private final int code;
+
+        public LoginUserResponse(String message, String userId, int code) {
+            this.message = message;
+            this.userId=userId;
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+        
+        public String getUserId(){
+            return userId;
         }
 
         public int getCode() {
