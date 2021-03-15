@@ -148,11 +148,11 @@ public class AppController {
     }
 
     @GetMapping("add-history")
-    public AddHistoryResponse addHistory(@RequestParam String service_id, @RequestParam String user_id){
+    public AddHistoryResponse addHistory(@RequestParam String service_name, @RequestParam String user_id){
         int code=200;
         String message="OK";
-        String sqlStatement="INSERT INTO SERVICE_LOG VALUES({SERVICE_ID},{USER_ID},CURRENT_DATE,CURRENT_TIME)";
-        sqlStatement = sqlStatement.replace("{SERVICE_ID}", service_id);
+        String sqlStatement="INSERT INTO SERVICE_LOG VALUES((SELECT SERVICE_ID FROM SERVICE WHERE NAME='{SERVICE_NAME}'),'{USER_ID}',CURRENT_DATE,CURRENT_TIME)";
+        sqlStatement = sqlStatement.replace("{SERVICE_NAME}", service_name);
         sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
 
         switch (database.checkExisting("USER","USER_ID","USER_ID ="+"'"+user_id+"'")){
@@ -164,7 +164,7 @@ public class AppController {
                 code=500;
         }
 
-        switch (database.checkExisting("SERVICE","SERVICE_ID","SERVICE_ID ="+"'"+service_id+"'")){
+        switch (database.checkExisting("SERVICE","NAME","NAME ="+"'"+service_name+"'")){
             case 1:
                 message="Invalid SERVICE_ID";
                 break;
