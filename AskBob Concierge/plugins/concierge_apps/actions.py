@@ -19,8 +19,9 @@ class ActionConciergePlaceCall(Action):
             response="Sorry, I can't open this app"
        
         data_package={
-            "Service_Type": "OPEN_APP",
-            "Application": response.lower()
+            "Service_Type":"APP_SERVICE",
+            "Service": "Open App",
+            "Application": response.upper()
         }
 
         dispatcher.utter_message(json_message= data_package)

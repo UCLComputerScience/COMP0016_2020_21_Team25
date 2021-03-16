@@ -22,7 +22,7 @@ class ActionConciergeFetchWeather(Action):
         }).json()
         data_package={
             "Service_Type": "API_CALL",
-            "Service": "current_weather",
+            "Service": "Weather",
             "Response": r["message"]
         }
         dispatcher.utter_message(json_message= data_package)
@@ -38,13 +38,14 @@ class ActionConciergeFetchAirQuality(Action):
         
         city = next(tracker.get_latest_entity_values("GPE"), None)
         print(city)
+
         r = requests.get(url="http://localhost:8080/air-quality", params={
             "CITY_NAME": city,
         }).json()
         
         data_package={
             "Service_Type": "API_CALL",
-            "Service": "air-quality",
+            "Service": "Air Quality",
             "Response": r["message"]
         }
 
@@ -69,7 +70,7 @@ class ActionConciergeFetchDefinitions(Action):
         
         data_package={
             "Service_Type": "API_CALL",
-            "Service": "dictionary",
+            "Service": "Dictionary & Thesaurus",
             "Response": r["message"]
         }
 
@@ -93,7 +94,7 @@ class ActionConciergeFetchSynonyms(Action):
         
         data_package={
             "Service_Type": "API_CALL",
-            "Service": "dictionary",
+            "Service": "Dictionary & Thesaurus",
             "Response": r["message"]
         }
 

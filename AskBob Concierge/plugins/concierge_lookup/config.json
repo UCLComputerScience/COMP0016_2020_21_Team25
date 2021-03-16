@@ -13,15 +13,25 @@
             ]
         },
         {
-            "regex_id": "shop_term",
-            "examples":[
-                "[a-z]+"
-            ]
-        },
-        {
             "regex_id": "yell_search_term",
             "examples":[
                 "(?:[A-Za-z]+ ){0,4}[A-Za-z]+"
+            ]
+        }
+    ],
+    "lookups": [
+        {
+            "lookup_id": "shop_term",
+            "examples": [
+                "Amazon",
+                "Ebay",
+                "Argos",
+                "Morissons",
+                "Ebay",
+                "Waitrose",
+                "Tesco",
+                "Sainsburys",
+                "Gumtree"
             ]
         }
     ],

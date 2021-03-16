@@ -20,7 +20,7 @@ class ActionConciergeFetchJoke(Action):
         
         data_package={
             "Service_Type": "API_CALL",
-            "Service": "joke",
+            "Service": "Jokes",
             "Response": r["message"]
         }
 
@@ -45,7 +45,7 @@ class ActionConciergeFetchNews(Action):
         
         data_package={
             "Service_Type": "API_CALL",
-            "Service": "news",
+            "Service": "News",
             "Response": r["message"]
         }
 
@@ -62,20 +62,30 @@ class ActionConciergeFetchBook(Action):
 
         search_term = next(tracker.get_latest_entity_values("WORK_OF_ART"), None)
         print(search_term)
-        r = requests.get(url="http://localhost:8080/book", params={
-            "QUERY": search_term,
-            "LANGUAGES": "en"
-        }).json()
-        
-        data_package={
+        if not search_term:
+            data_package={
             "Service_Type": "API_CALL",
-            "Service": "book",
-            "Response": r["message"]
-        }
-
+            "Service": "Books",
+            "Response": "Sorry, I don't know that book"
+            }
+            dispatcher.utter_message(json_message= data_package)
+            return[]
+        else:
+            r = requests.get(url="http://localhost:8080/book", params={
+                "QUERY": search_term,
+                "LANGUAGES": "en"
+            }).json()
+            data_package={
+                "Service_Type": "API_CALL",
+                "Service": "Books",
+                "Response": r["message"]
+            }
         dispatcher.utter_message(json_message= data_package)
 
-        return [SlotSet("book_link", r["metadata"]["text/html; charset=utf-8"])]
+        if len(r["metadata"])!=0:
+            return [SlotSet("book_link", r["metadata"]["text/html; charset=utf-8"])]
+        else:
+            return[]
 
 @askbob.plugin.action("concierge_entertainment", "fetch_book_category")
 class ActionConciergeFetchBookCategory(Action):
@@ -85,21 +95,35 @@ class ActionConciergeFetchBookCategory(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         category = next(tracker.get_latest_entity_values("book_category"), None)
-        print(category)
-        r = requests.get(url="http://localhost:8080/book", params={
-            "TOPIC": category,
-            "LANGUAGES": "en"
-        }).json()
-        
-        data_package={
+
+
+        if not category:
+            data_package={
             "Service_Type": "API_CALL",
-            "Service": "book",
-            "Response": r["message"]
-        }
+            "Service": "Books",
+            "Response": "Sorry, I don't know that book"
+            }
+            dispatcher.utter_message(json_message= data_package)
 
-        dispatcher.utter_message(json_message= data_package)
+            return[]
+        else:
+            r = requests.get(url="http://localhost:8080/book", params={
+                "TOPIC": category,
+                "LANGUAGES": "en"
+            }).json()
+            
+            data_package={
+                "Service_Type": "API_CALL",
+                "Service": "Books",
+                "Response": r["message"]
+            }
 
-        return [SlotSet("book_link", r["metadata"]["text/html; charset=utf-8"])]
+            dispatcher.utter_message(json_message= data_package)
+
+        if len(r["metadata"])!=0:
+            return [SlotSet("book_link", r["metadata"]["text/html; charset=utf-8"])]
+        else:
+            return[]
 
 @askbob.plugin.action("concierge_entertainment", "fetch_read_book")
 class ActionConciergeFetchBookCategory(Action):
@@ -117,7 +141,7 @@ class ActionConciergeFetchBookCategory(Action):
         
         data_package={
                 "Service_Type": "API_CALL",
-                "Service":"read_book",
+                "Service":"Books",
                 "Response": response
             }
 

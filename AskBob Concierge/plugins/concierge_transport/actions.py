@@ -13,24 +13,39 @@ class ActionConciergePlaceCall(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         transport_type=next(tracker.get_latest_entity_values("transport_type"), None)
+        
 
         if not transport_type:
             data_package={
-                "Service_Type": "API_CALL",
-                "Service":"transport-by-search",
-                "Response": "Please specify the transport type and try again"
-        }
+            "Service_Type": "API_CALL",
+            "Service":"Transport",
+            "Response": "Please specify a valid transport type and try again"
+            }
+            dispatcher.utter_message(json_message= data_package)
+            return[]
+
         else:
             if transport_type.lower()=="bus" or transport_type.lower()=="bus stop" or transport_type.lower()=="bus station":
-                transport_type="bus_stop"
+                response="Finding nearest bus stop"
+                transport_key="bus_stop"
             elif transport_type.lower()=="train" or transport_type.lower()=="train station" or transport_type.lower()=="train stop":
-                transport_type="train_station"
-
-            data_package={
+                response="Finding nearest train station"
+                transport_key="train_station"
+            else:
+                data_package={
                 "Service_Type": "API_CALL",
-                "Service":"nearest-transport",
-                "Response": transport_type
-            }
+                "Service":"Transport",
+                "Response": "Please specify a valid transport type and try again"
+                }
+                dispatcher.utter_message(json_message= data_package)
+                return[]
+
+        data_package={
+            "Service_Type": "API_CALL",
+            "Service":"Transport",
+            "Response": response,
+            "Transport Type":transport_key
+        }
         dispatcher.utter_message(json_message= data_package)
         return []
 
@@ -50,24 +65,32 @@ class ActionConciergePlaceCall(Action):
         if transport_type==None or location==None:
             data_package={
             "Service_Type": "API_CALL",
-            "Service":"transport-by-search",
-            "Response": "Unable to to find that station or transport, please try again"
+            "Service":"Transport",
+            "Response": "Unable to to find that station or mode of transport, please try again"
         }
         else:
             if transport_type.lower()=="bus" or transport_type.lower()=="bus stop" or transport_type.lower()=="bus station":
                 transport_type="bus_stop"
             elif transport_type.lower()=="train" or transport_type.lower()=="train station" or transport_type.lower()=="train stop":
                 transport_type="train_station"
+            else:
+                data_package={
+                "Service_Type": "API_CALL",
+                "Service":"Transport",
+                "Response": "Unable to to find that station or mode of transport, please try again"
+                }
+                dispatcher.utter_message(json_message= data_package)
+                return[]
 
             r = requests.get(url="http://localhost:8080/transport-search", params={
                 "QUERY":location, "TRANSPORT": transport_type}).json()
 
             data_package={
                 "Service_Type": "API_CALL",
-                "Service":"transport-by-search",
+                "Service":"Transport",
                 "Response": {"Message":r["message"],
                             "Latitude":r["metadata"]["latitude"],
-                            "Longitude":r["metadata"]["latitude"]}
+                            "Longitude":r["metadata"]["longitude"]}
                 
             }
         dispatcher.utter_message(json_message= data_package)

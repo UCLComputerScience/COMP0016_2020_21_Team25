@@ -32,7 +32,7 @@
                 "Please navigate to [reminders]{\"entity\":\"app_destination\"}",
                 "I would like to go to [instructions]{\"entity\":\"app_destination\"}",
                 "I would like to go to the [history]{\"entity\":\"app_destination\"} page ",
-                "I would like to go to [alrams]{\"entity\":\"app_destination\"}",
+                "I would like to go to [alarms]{\"entity\":\"app_destination\"}",
                 "I would like to go to the [timers]{\"entity\":\"app_destination\"} page",
                 "Can you please go to [instructions]{\"entity\":\"app_destination\"}",
                 "Can you please go to [reminders]{\"entity\":\"app_destination\"}"

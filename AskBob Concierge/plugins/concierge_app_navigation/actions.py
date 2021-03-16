@@ -16,12 +16,17 @@ class ActionConciergePlaceCall(Action):
         application = next(tracker.get_latest_entity_values("app_destination"), None)
         response=application
         if not application:
-            response="Sorry, I don't know where that page is"
-       
-        data_package={
-            "Service_Type": "NAVIGATE_APP",
-            "Application": response.lower()
-        }
+            data_package={
+                "Service_Type":"APP_SERVICE",
+                "Service": "Navigate App",
+                "Page": "Sorry, I don't know where that page is"
+            }
+        else:
+            data_package={
+                "Service_Type":"APP_SERVICE",
+                "Service": "Navigate App",
+                "Page": response.lower()
+            }
 
         dispatcher.utter_message(json_message= data_package)
 
