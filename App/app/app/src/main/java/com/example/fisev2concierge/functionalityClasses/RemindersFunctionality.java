@@ -7,7 +7,7 @@ import com.example.fisev2concierge.model.RemindersDbHelper;
 
 public class RemindersFunctionality {
 
-    RemindersDbHelper dbHelper;
+    private RemindersDbHelper dbHelper;
 
     public RemindersFunctionality(Context context){
         this.dbHelper = new RemindersDbHelper(context);

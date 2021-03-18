@@ -40,18 +40,6 @@ public class SpeechRecognition{
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
 
-    public Integer getRecordAudioRequestCode(){
-        return RecordAudioRequestCode;
-    }
-
-    public SpeechRecognizer getmSpeechRecognizer(){
-        return mSpeechRecognizer;
-    }
-
-    public Intent getmSpeechRecognizerIntent(){
-        return mSpeechRecognizerIntent;
-    }
-
     private void createSpeechRecognizer(AppCompatActivity appCompatActivity){
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(appCompatActivity);
     }
@@ -98,11 +86,7 @@ public class SpeechRecognition{
 
                 if(matches!=null){
                     result[0] = (matches.get(0));
-//                    System.out.println("speechSynthesis: result[0]: " + result[0]);
-//                    speechSynthesis.runTts(result[0]);
                     mainController.handleUserRequest(result, speechSynthesis, appCompatActivity, context, activity, conciergeStatusText);
-//                    ready[0] = true;
-//                    conciergeStatusText.setText(matches.get(0));
                 }
             }
 
@@ -134,17 +118,12 @@ public class SpeechRecognition{
         }
     }
 
-
     public void startListening(){
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
     }
 
     public void stopListening(){
         mSpeechRecognizer.stopListening();
-    }
-
-    public void destroySpeech(){
-        mSpeechRecognizer.destroy();
     }
 
     public void config(AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis, Context context, Activity activity, TextView conciergeStatusText) {

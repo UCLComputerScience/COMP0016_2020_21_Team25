@@ -25,17 +25,10 @@ public class RemindersDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public Cursor getRecent(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM Reminders ORDER BY ID DESC LIMIT 1", null);
-        return data;
-    }
-
     public boolean addData(String message){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Message", message);
-        Log.d("RemindersDbHelper", "addData: Adding " + message + "to " + "Reminders");
 
         long result = db.insert("Reminders", null, contentValues);
 
@@ -50,27 +43,16 @@ public class RemindersDbHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery("SELECT * FROM Reminders", null);
         return data;
     }
-    //may have to change this
-    public Cursor getItemID(String getID){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + "ID " + "FROM " + "Reminders " + "WHERE ID = '" + getID  + "'";
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
 
     public void updateReminder(String reminder, int ID, String newReminder){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE Reminders SET Message ='" + newReminder + "' WHERE " + "ID = '" + ID + "'";
-        Log.d("RemindersDbHelper", "updateReminder: query " + query);
-        Log.d("RemindersDbHelper", "updateReminder: Setting reminder to " + newReminder);
         db.execSQL(query);
     }
 
     public void deleteReminder(int ID, String reminder){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM Reminders WHERE ID = '" + ID + "'";
-        Log.d("RemindersDbHelper", "deleteReminder query : " + query);
-        Log.d("RemindersDbHelper", "Deleting " + reminder + " from database");
         db.execSQL(query);
     }
 }

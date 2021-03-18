@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
@@ -30,8 +31,6 @@ import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRe
 
 public class GetLatLon{
 
-    private Double lat;
-    private Double lon;
     private Context context;
     private final int REQUEST_LOCATION = 6;
     private Activity activity;
@@ -55,17 +54,41 @@ public class GetLatLon{
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    System.out.println("fusedLocationProviderClient onSuccess");
+                    MainController mainController = new MainController();
                     if (location != null) {
-                        lat = location.getLatitude();
-                        lon = location.getLongitude();
-                        MainController mainController = new MainController();
-                        String postcode = mainController.getLocation(context, activity, lat, lon);
-                        askBobResponse.put("location", postcode);
-                        mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                        if (askBobResponse.get("Service").equals("Yell Search")) {
+                            String postcode = mainController.getLocation(context, activity, location.getLatitude(), location.getLongitude());
+                            askBobResponse.put("location", postcode);
+                            mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                            return;
+                        } else {
+                            String url = mainController.searchUrlLookup("maps_transport");
+                            url = url.replace("{lat}", String.valueOf(location.getLatitude()));
+                            url = url.replace("{lon}", String.valueOf(location.getLongitude()));
+                            TransportApiResponse transportApiResponse = new TransportApiResponse();
+                            url = transportApiResponse.searchForTransport(askBobResponse.get("Transport Type").toString() ,url);
+                            mainController.openUrl(appCompatActivity, url);
+                            mainController.backendServices("addHistory", askBobResponse.get("Service").toString() + "&user_id=" + mainController.getUserID(context));
+                        }
                     } else {
+                        if (askBobResponse.get("Service").equals("Yell Search")) {
+                            askBobResponse.put("location", "london");
+                            mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                            return;
+                        } else {
+                            Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if (askBobResponse.get("Service").equals("Yell Search")) {
                         askBobResponse.put("location", "london");
-                        System.out.println("location was null!!!");
+                        new MainController().askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                        return;
+                    } else {
+                        Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

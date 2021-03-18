@@ -13,8 +13,8 @@ import java.util.HashMap;
 
 public class OpenUrlFunctionality {
 
-    AppCompatActivity appCompatActivity;
-    MainController mainController = new MainController();
+    private AppCompatActivity appCompatActivity;
+    private MainController mainController = new MainController();
 
     public OpenUrlFunctionality(AppCompatActivity appCompatActivity){
         this.appCompatActivity = appCompatActivity;
@@ -22,7 +22,6 @@ public class OpenUrlFunctionality {
 
     public void openWeb(String websiteName){
         String url = mainController.websiteUrlLookup(websiteName);
-        System.out.println("WebsiteUrl: " + url);
         if (url == null){
             //url was not found, do google search
             websiteName = websiteName.replace(" ", "+");
@@ -47,7 +46,7 @@ public class OpenUrlFunctionality {
                     url = url + searchItem;
                     break;
                 case "yell":
-                    //require keywords and location, replace space with ?
+                    //require keywords and location
                     //have had to simply search urls such as remove 'searchSeed'
                     String location = (String) searchItems.get("location");
                     searchItem = searchItem.replace(" ", "+");
@@ -60,7 +59,6 @@ public class OpenUrlFunctionality {
                     url = url + searchItem;
                     break;
             }
-            System.out.println("finalSearchUrl: " + url);
         }
         openUrl(url);
     }

@@ -9,10 +9,6 @@ public class SpeechSynthesis {
 
     TextToSpeech tts;
 
-    public TextToSpeech getTts(){
-        return tts;
-    }
-
     public void configTts(AppCompatActivity appCompatActivity){
         tts = new TextToSpeech(appCompatActivity.getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -25,7 +21,6 @@ public class SpeechSynthesis {
     }
 
     public void runTts(String s){
-
         tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
     }
 }

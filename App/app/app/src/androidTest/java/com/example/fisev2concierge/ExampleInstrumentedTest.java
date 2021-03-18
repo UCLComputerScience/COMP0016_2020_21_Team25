@@ -3,7 +3,8 @@ package com.example.fisev2concierge;
 import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+//import androidx.test.ext.junit.runners.A;
+import androidx.test.runner.AndroidJUnit4;
 
 
 import org.junit.Test;

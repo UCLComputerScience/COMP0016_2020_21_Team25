@@ -8,10 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.askBobConnectivity.AskBob;
-import com.example.fisev2concierge.askBobConnectivity.AskBobRequest;
-import com.example.fisev2concierge.askBobConnectivity.AskBobResponseParser;
-import com.example.fisev2concierge.backendConnectivity.Backend;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBob;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobRequest;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseParser;
+import com.example.fisev2concierge.localApis.backendConnectivity.Backend;
 import com.example.fisev2concierge.functionalityClasses.AlarmsFunctionality;
 import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenActivity;
@@ -22,14 +22,19 @@ import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 import com.example.fisev2concierge.helperClasses.AppPackageNameLookup;
 import com.example.fisev2concierge.functionalityClasses.GetLatLon;
-import com.example.fisev2concierge.helperClasses.GetLocation;
+import com.example.fisev2concierge.localApis.GetLocation;
 import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
 import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
+import com.example.fisev2concierge.model.AdminDbHelper;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainController{
 
@@ -48,12 +53,46 @@ public class MainController{
         if (userRequest[0].length()>0) {
             conciergeStatusText.setText(userRequest[0]);
             HashMap askBobResponse = askBobRequest(userRequest[0]);
-            //add a check here, if we require searching a site then call getLatLon which in turn should add location to the hashmap and then call askBobController
-            if (askBobResponse.containsKey("Service_Type")){
-                if (askBobResponse.get("Service_Type").equals("YELL_SEARCH")){
+            //add a check here, if we require searching a site then call getLatLon which in turn should add location to the hashmap and then call askBobController itself
+            if (askBobResponse.containsKey("Service")){
+                if (askBobResponse.get("Service").equals("Yell Search")){
                     test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
                 } else {
-                    askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                    if (askBobResponse.get("Service_Type").equals("API_CALL")){
+                        String service = askBobResponse.get("Service").toString();
+                        System.out.println("service: " + service);
+                        if (hasUserID(context)) {
+                            ArrayList<String> services = backendServices("getServices", getUserID(context));
+//                            ArrayList<String> services = backendServices("getServices", "101");
+                            String json = services.get(0);
+                            try {
+                                JSONObject jsonObject = new JSONObject(json);
+                                JSONArray jsonArray = jsonObject.getJSONArray("services");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    System.out.println("service: " + jsonArray.get(i).toString());
+                                    if (jsonArray.get(i).toString().equals(service)){
+                                        if (askBobResponse.get("Service").equals("Transport")){
+                                            test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
+                                        } else {
+                                            askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                                            backendServices("addHistory", service + "&user_id=" + getUserID(context));
+                                        }
+                                        return;
+                                    }
+                                }
+                                Toast.makeText(context, "Service not authorised by admin", Toast.LENGTH_SHORT).show();
+                                speechSynthesis.runTts("Service " + service +  " not authorised by admin");
+                            } catch (Exception e){
+                                Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            System.out.println("no user id");
+                            askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                        }
+                    } else {
+                        askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                    }
                 }
             }
         } else {
@@ -103,6 +142,25 @@ public class MainController{
         Thread thread = new Thread(askBob);
         thread.start();
         return askBob.getResult();
+    }
+
+    public boolean addUserID(Context context, String id){
+        AdminDbHelper adminDbHelper = new AdminDbHelper(context);
+        return adminDbHelper.addID(id);
+    }
+
+    public String getUserID(Context context){
+        AdminDbHelper adminDbHelper = new AdminDbHelper(context);
+        Cursor cursor = adminDbHelper.getData();
+        cursor.moveToFirst();
+        return cursor.getString(1);
+    }
+
+    public boolean hasUserID(Context context){
+        AdminDbHelper adminDbHelper = new AdminDbHelper(context);
+        Cursor cursor = adminDbHelper.getData();
+        if (cursor.getCount() > 0) { return true;}
+        return false;
     }
 
     //Reminders
@@ -166,39 +224,32 @@ public class MainController{
         alarmsFunctionality.stopAlarm(appCompatActivity, context, id);
     }
 
-    //There should be a method for running speech recognition and synthesis here but this doesn't work so keep it on the main page
-
-    //Method for making calls
     public void makeCall(Context context, Activity activity, String number){
         CallFunctionality callFunctionality = new CallFunctionality(context, activity);
         callFunctionality.makePhoneCall(number);
     }
 
-    //Method for sending texts
     public void sendText(Context context, Activity activity, String number, String message){
         SmsFunctionality smsFunctionality = new SmsFunctionality(context, activity);
         smsFunctionality.sendSMS(number, message);
     }
 
-    //Method for opening apps
     public void openApp(AppCompatActivity appCompatActivity, Context context, String app){
         OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
         openAppFunctionality.openApp(app);
     }
 
-    public void openPackage(AppCompatActivity appCompatActivity, Context context, String appName, String packageName){
-        OpenAppFunctionality openAppFunctionality = new OpenAppFunctionality(appCompatActivity, context);
-        openAppFunctionality.openPackage(appName, packageName);
-    }
-
-    //Method for opening websites
     public void openWebsite(AppCompatActivity appCompatActivity, String website){
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
         openUrlFunctionality.openWeb(website);
     }
 
+    public void openUrl(AppCompatActivity appCompatActivity, String url){
+        OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
+        openUrlFunctionality.openUrl(url);
+    }
+
     public void searchSite(AppCompatActivity appCompatActivity, String website, HashMap searchItems){
-        System.out.println("Searching site: mainController");
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
         openUrlFunctionality.searchWeb(website, searchItems);
     }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".MainActivity">
+    tools:context=".UI.MainActivity">
     <!--    android:paddingTop="?attr/actionBarSize"-->
 
     <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
@@ -44,7 +44,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerBox"
-        app:layout_constraintVertical_bias="0.395">
+        app:layout_constraintVertical_bias="0.395"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
+        android:scrollbarSize="12dip"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,6 +63,16 @@
                 android:textSize="35sp"
                 app:backgroundTint="#0e62fe"
                 tools:text="Instructions" />
+
+            <Button
+                android:id="@+id/activity_register_button"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:layout_marginTop="10dp"
+                android:text="Register"
+                android:textSize="35sp"
+                app:backgroundTint="#0e62fe"
+                tools:text="Register" />
 
             <Button
                 android:id="@+id/alarms_view_button"

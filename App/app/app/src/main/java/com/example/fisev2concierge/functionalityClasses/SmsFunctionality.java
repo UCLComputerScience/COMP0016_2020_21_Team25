@@ -24,16 +24,11 @@ public class SmsFunctionality extends AppCompatActivity {
         this.activity = activity;
     }
 
-    public int getRequestMsg(){
-        return REQUEST_MSG;
-    }
-
     public void sendSMS(String number, String message){
         this.number = number;
         this.message = message;
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.SEND_SMS}, REQUEST_MSG);
-            sendSMS(number, message);
         } else {
             try {
                 SmsManager smsManager = SmsManager.getDefault();
@@ -44,5 +39,4 @@ public class SmsFunctionality extends AppCompatActivity {
             }
         }
     }
-
 }

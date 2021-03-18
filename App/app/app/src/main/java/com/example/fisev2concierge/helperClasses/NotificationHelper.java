@@ -20,8 +20,6 @@ public class NotificationHelper extends ContextWrapper {
 
     private NotificationManager notificationManager;
 
-
-
     public NotificationHelper(Context base) {
         super(base);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -62,10 +60,4 @@ public class NotificationHelper extends ContextWrapper {
                 .setSmallIcon(R.drawable.alarm_icon);
     }
 
-    public NotificationCompat.Builder getChannel2Notification(String title, String message){
-        return new NotificationCompat.Builder(getApplicationContext(), channel2ID)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.alarm_icon);
-    }
 }
