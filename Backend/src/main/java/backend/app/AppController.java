@@ -12,13 +12,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-
 /*
  * Endpoint logic for retrieving basic (app) user information.
  */
@@ -26,35 +19,6 @@ import java.util.ArrayList;
 @RestController
 public class AppController {
     private final Database database = DatabaseFactory.instance();
-	
-	@GetMapping("askbob")
-    public String askbob(@RequestParam String message) {
-        int code = 200;
-		String response = "";
-		try {
-            URL url = new URL("http://192.168.0.17:8000/query");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            message = message.replace("%20", " ");
-			String parameters = "message=\"" + message +"\"&sender=\"concierge\"";
-            try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream())) {
-                wr.write(parameters.getBytes());
-            }
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                response = inputLine;
-            }
-            in.close();
-            connection.disconnect();
-        } catch (Exception e){
-            e.printStackTrace();
-            code = 500;
-        }
-        return response;
-    }
-	
 	
     /**
      * Ping the backend to see if it is responding
