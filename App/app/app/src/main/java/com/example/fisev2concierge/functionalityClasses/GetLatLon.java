@@ -67,8 +67,11 @@ public class GetLatLon{
                             url = url.replace("{lon}", String.valueOf(location.getLongitude()));
                             TransportApiResponse transportApiResponse = new TransportApiResponse();
                             url = transportApiResponse.searchForTransport(askBobResponse.get("Transport Type").toString() ,url);
+                            speechSynthesis.runTts(askBobResponse.get("Response").toString());
                             mainController.openUrl(appCompatActivity, url);
-                            mainController.backendServices("addHistory", askBobResponse.get("Service").toString() + "&user_id=" + mainController.getUserID(context));
+                            if (mainController.hasUserID(context)) {
+                                mainController.backendServices("addHistory", askBobResponse.get("Service").toString() + "&user_id=" + mainController.getUserID(context));
+                            }
                         }
                     } else {
                         if (askBobResponse.get("Service").equals("Yell Search")) {

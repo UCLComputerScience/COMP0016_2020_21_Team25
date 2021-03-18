@@ -88,7 +88,15 @@ public class MainController{
                         }
                         else {
                             System.out.println("no user id");
-                            askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                            if (askBobResponse.containsKey("Service")) {
+                                if (askBobResponse.get("Service").equals("Transport")) {
+                                    test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
+                                } else {
+                                    askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                                }
+                            } else {
+                                askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                            }
                         }
                     } else {
                         askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
