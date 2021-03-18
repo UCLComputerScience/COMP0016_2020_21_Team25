@@ -71,7 +71,7 @@ public class MainController{
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     System.out.println("service: " + jsonArray.get(i).toString());
                                     if (jsonArray.get(i).toString().equals(service)){
-                                        if (askBobResponse.get("Service").equals("Transport")){
+                                        if (askBobResponse.get("Service").equals("Transport") && askBobResponse.containsKey("Transport Type")){
                                             test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
                                         } else {
                                             askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
@@ -89,7 +89,7 @@ public class MainController{
                         else {
                             System.out.println("no user id");
                             if (askBobResponse.containsKey("Service")) {
-                                if (askBobResponse.get("Service").equals("Transport")) {
+                                if (askBobResponse.get("Service").equals("Transport") && askBobResponse.containsKey("Transport Type")) {
                                     test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
                                 } else {
                                     askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);

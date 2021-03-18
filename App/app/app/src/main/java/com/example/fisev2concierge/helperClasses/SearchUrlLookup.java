@@ -13,6 +13,7 @@ public class SearchUrlLookup {
         searchUrls.put("playstoreOpenApp", "https://play.google.com/store/apps/details?id=");
         searchUrls.put("google", "https://www.google.com/search?q=");
         searchUrls.put("maps_transport", "https://www.google.com/maps/search/{query}/@{lat},{lon}");
+        searchUrls.put("maps_location", "https://www.google.com/maps/@{lat},{lon},14z");
     }
 
     public String search(String websiteName){

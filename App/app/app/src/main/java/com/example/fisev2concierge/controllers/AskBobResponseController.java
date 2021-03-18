@@ -20,7 +20,15 @@ public class AskBobResponseController {
 
         String service_type = (String) parsedResponse.get("Service_Type");
         if (service_type.equals("API_CALL")){
-            speechSynthesis.runTts((String) parsedResponse.get("Response"));
+            if (parsedResponse.get("Service").toString().equals("Transport")){
+                String url = mainController.searchUrlLookup("maps_location");
+                url = url.replace("{lat}", parsedResponse.get("lat").toString());
+                url = url.replace("{lon}", parsedResponse.get("lon").toString());
+                speechSynthesis.runTts((String) parsedResponse.get("Message"));
+                mainController.openUrl(appCompatActivity, url);
+            } else {
+                speechSynthesis.runTts((String) parsedResponse.get("Response"));
+            }
         } else {
             switch (parsedResponse.get("Service").toString()) {
                 case "Call Contact":

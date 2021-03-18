@@ -10,7 +10,6 @@ public class AskBobResponseParser {
 
         HashMap parsedResponse = new HashMap();
         try {
-            //take 500 into account
             String jsonString = response.get(0);
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray("messages");
@@ -21,7 +20,19 @@ public class AskBobResponseParser {
                 parsedResponse.put("Service", custom.getString("Service"));
                 parsedResponse.put("Response", custom.getString("Response"));
                 if (custom.getString("Service").equals("Transport")){
-                    parsedResponse.put("Transport Type", custom.getString("Transport Type"));
+                    if (parsedResponse.containsKey("Transport Type")) {
+                        parsedResponse.put("Transport Type", custom.getString("Transport Type"));
+                    } else {
+                        try {
+                            JSONObject responseObject = new JSONObject(custom.getString("Response"));
+                            String responseMessage = responseObject.getString("Message");
+                            parsedResponse.put("Message", responseMessage);
+                            parsedResponse.put("lat", responseObject.getString("Latitude"));
+                            parsedResponse.put("lon", responseObject.getString("Longitude"));
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
                 }
             } else {
                 switch (custom.getString("Service")) {
@@ -63,7 +74,6 @@ public class AskBobResponseParser {
                 parsedResponse.put("Service", "ERROR");
                 parsedResponse.put("text", text);
             } catch (Exception e1){
-                //add error catches for "500"
                 e1.printStackTrace();
             }
         }
