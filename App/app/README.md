@@ -23,14 +23,22 @@ Unit tests - these tests were written using the Robolectric framework and test t
 The app was designed to be developer friendly, allowing developers to add their own code and features to the app. This section outlines the design of the code and sections of code itself which will helper developers.
 
 1. Frameworks - there are two important frameworks to note. The first framework is the 'SQLiteOpenHelper' class which comes with Android. This class can be extended to allow access to the device's localised storage which is key for many of the features currently provided on the app such as Alarms. As the app's capabilities grow, it is likely that localised storage will be used more and more given the app's focus on user privacy. Our own code which uses this class can be found under 'model' package and can be used as a guide. The second framework, which is our own, is used for making Http requests. Under the 'localApis' package, you can find the 'GetRequestFramework' and the 'PostRequestFramework' classes. These two classes aim to abstract away the code needed to make requests and allow developers to create instances of these classes, set the 'baseUrl' through the constructor and then make a request using the makeRequest method. The baseUrl is exactly that - the base url of the API you are connecting to. For example https://www.example.com/. For the GetRequestFramework class, you can then set the endpoint along with the parameters by passing them to the makeRequest method. This could be endpoint?parameter=value, for example. For the PostRequestFramework class, you can set the endpoint and the body of the request through its makeRequest method. Both classes' makeRequest methods return an ArrayList<String> which contains the response from the API you connected to. See example code for both classes below. 
-Example code: 
-GetRequestFramework: 
+
+Example code:
+
+GetRequestFramework:
+
 GetRequestFramework getRequestFramework = new GetRequestFramework("https://www.example.com/");
+
 ArrayList<String> response = getRequestFramework.makeRequest("endpoint?parameter=value");
-PostRequestFramework:
-PostRequestFramework postRequestFramework = new PostRequestFramework("https://www.example.com/");
-ArrayList<String> response = postRequestFramework.request("endpoint", "parameter=\"value\"");
   
+PostRequestFramework:
+
+PostRequestFramework postRequestFramework = new PostRequestFramework("https://www.example.com/");
+
+ArrayList<String> response = postRequestFramework.request("endpoint", "parameter=\"value\"");
+
+
 2. App design - the app starts up on MainActivity. As new features are added, we recognise that some of these features may require their own activity as our Alarms feature does, for example. To facilitate this, we added a scrollable view to MainActivity where you can add a button linking to your activity without having to worry about how much space is left on MainActivity.
 
 3. Naming conventions - general good practise Android naming conventions are followed. For example, all XML files for activities are named using the activity_name convention. This ensures that those with existing Android development experience are able to easily and quickly understand what each files/class/piece of code is supposed to do and add on their own code.
