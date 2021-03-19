@@ -8,6 +8,8 @@ The app utilises our backend server and Ask Bob (Team 39) server both of which r
 
 The device running the app needs to have a speech recongizer installed and configured. Newer Android versions come preinstalled and configured with Google's speech recognizer. In the event that no speech recognizer is installed on the device, Google's speech recognizer can be downloaded here - https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox Once downloaded, you have to go into the device settings and search for 'Assist & voice input' (exact name may vary on Android versions but searching for 'voice' should bring up the correct setting). Then click on 'Assist & voice input' and under 'Assist app', select the Google app which you just installed (or whatever speech recognition engine you are using). Finally, you must go into Settings, Permissions, click on the Google app which you installed and grant all the permissions relating to speech recognition.
 
+To register/connect with the admin...
+
 Note: for features which utilise your location such as using the Transport service API to search for nearby train stations, location data must already exist on the device. You can ensure location data exists by going onto Google Maps and getting your current location.
 
 Note: the backend server and the Ask Bob server must be running to use the all of the apps features and functionalities.
