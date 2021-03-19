@@ -38,8 +38,8 @@ const actions = {
         commit("admin/setAdmin", {}, { root: true });
         commit("member/setMembers", {}, { root: true });
         commit("member/setActiveId", null, { root: true });
-        commit("member/setHistory", {}, { root: true });
-        commit("member/setMemberServices", {}, { root: true });
+        commit("member/setHistory", [], { root: true });
+        commit("member/setMemberServices", [], { root: true });
         commit("service/setService", {}, { root: true });
         // TODO - Debug only
         commit("service/setServices", {}, { root: true });

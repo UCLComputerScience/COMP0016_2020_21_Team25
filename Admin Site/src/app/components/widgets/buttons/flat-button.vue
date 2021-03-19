@@ -1,5 +1,5 @@
 <template>
-    <button ref="button" class="flat-button noselect centred">
+    <button ref="button" class="flat-button noselect centred" :type="type">
         <span>{{ text }}</span>
         <slot></slot>
     </button>

@@ -65,5 +65,8 @@ public class App implements ApplicationRunner {
         ApiLogger.start();
         // Connect to database
         DatabaseFactory.instance();
+        // Start broadcast
+        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
+        discoveryThread.start();
     }
 }

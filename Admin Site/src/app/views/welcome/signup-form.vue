@@ -103,7 +103,7 @@ export default {
                     ref: "username"
                 };
             }
-            if (this.signupData.phoneNumber.length < 11) {
+            if (this.signupData.phoneNumber.length !== 11) {
                 return {
                     message: "Your phone number is invalid.",
                     ref: "phone-number",

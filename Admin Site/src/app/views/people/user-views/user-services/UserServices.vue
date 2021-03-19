@@ -17,13 +17,13 @@
             <span v-show="noServices" class="centred">No services added. Head over to the&nbsp;
                 <v-link :href="{name: 'marketplace', params: {'username': $route.params.username}}"
                         text="Marketplace"></v-link> &nbsp;to add services to {{ title }} account.</span>
-            <service-item v-for="service in services" :key="service" :ref="setRef" :data="service">
+            <service-item v-for="service in services" :ref="setRef" :service-data="service">
             </service-item>
         </div>
         <div v-show="searching" class="search-results centred noselect">
             <h2 class="section-header">Search Results for "{{ searchData.searchTerm }}"</h2>
             <div class="services-content centred noselect">
-                <service-item v-for="service in searchResults" :key="service" :data="service">
+                <service-item v-for="service in searchResults" :key="service" :service-data="service">
                 </service-item>
             </div>
             <span v-show="searchResults.length === 0">No services found.</span>
@@ -98,15 +98,17 @@ export default {
             this.services = this.$store.getters["member/memberServices"];
         },
         search() {
-            if (this.searchData.searchTerm.length < 4)
-                return;
-            this.searchResults = [];
-            for (const service of this.serviceRefs) {
-                const resultSet = service.search(this.searchData.searchTerm.toLowerCase());
-                if (resultSet !== null) {
-                    this.searchResults = this.searchResults.concat(resultSet);
+            this.$nextTick(() => {
+                if (this.searchData.searchTerm.length < 4)
+                    return;
+                this.searchResults = [];
+                for (const service of this.serviceRefs) {
+                    const resultSet = service.search(this.searchData.searchTerm.toLowerCase());
+                    if (resultSet !== null) {
+                        this.searchResults.push(resultSet);
+                    }
                 }
-            }
+            });
         }
     },
     created() {

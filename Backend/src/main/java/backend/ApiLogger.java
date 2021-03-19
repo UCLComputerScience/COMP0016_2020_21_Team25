@@ -1,7 +1,6 @@
 package backend;
 
 import java.text.SimpleDateFormat;
-import java.util.Map;
 
 /**
  * Simple class to output logging info.
@@ -12,7 +11,7 @@ public class ApiLogger {
     public static void log(String message) {
         if (LOG_API_CALLS) {
             String formattedDate = new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(System.currentTimeMillis());
-            System.out.println("[SYSTEM]: (" + formattedDate + ") " + message);
+            System.out.println("[INFO] (" + formattedDate + ") " + message);
         }
     }
 
@@ -36,31 +35,8 @@ public class ApiLogger {
     }
 
     public static void start() {
-        System.out.println("\n[SYSTEM]: Backend API Started");
-        System.out.println("    > Listening on port " + App.PORT);
+        log("Backend API Started");
+        log("Listening on port " + App.PORT);
         System.out.println();
     }
-
-    public static void logApiRequest(String endpoint) {
-        if (LOG_API_CALLS) {
-            System.out.println("[SYSTEM]: Request received");
-            System.out.println("    at endpoint: " + endpoint);
-            System.out.println();
-        }
-    }
-
-    private static void outputMap(Map<String, String> map) {
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            System.out.println("        " + entry.getKey() + ": " + entry.getValue());
-        }
-    }
-
-    public static void logApiCall() {
-        if (LOG_API_CALLS) {
-            System.out.println("[SYSTEM]: Performing API Request");
-            System.out.println();
-            System.out.println();
-        }
-    }
-
 }

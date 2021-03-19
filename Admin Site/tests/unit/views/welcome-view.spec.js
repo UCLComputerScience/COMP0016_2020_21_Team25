@@ -1,11 +1,7 @@
 import {mount} from "@vue/test-utils";
 import Welcome from "../../../src/app/views/welcome/Welcome.vue";
 import {store} from "../../../src/store/store.js";
-
-const windowScroll = window.scrollTo;
-const mockRouter = {
-    push: jest.fn()
-};
+import {mockRouter} from "../util/constants.js";
 
 const loginTitle = "Sign In";
 const loginSubtitle = "Enter your username or email and password to sign into your account.";
@@ -47,14 +43,6 @@ const testRedirect = (description, url, expectedTitle, expectedSubtitle, expecte
 };
 
 describe("Welcome View", () => {
-    beforeAll(() => {
-        window.scrollTo = () => {
-        };
-    });
-
-    afterAll(() => {
-        window.scrollTo = windowScroll;
-    });
 
     it("Test tab switching", async (done) => {
         const wrapper = mount(Welcome, {

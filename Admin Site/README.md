@@ -1,12 +1,12 @@
 # Admin Site
 
 The companion web app to the **IBM FISE Concierge** allowing friends of (elderly)
-users to set up accounts and manage the details of all users in their circle. Admins have the ability to add and remove
-services from user accounts and view service usage history for each user.
+users to set up accounts and manage the details of all members in their circle. **Admins** have the ability to add and remove
+services from member accounts and view service usage history for each member.
 
 ## Prerequisites
 
-To get started with development, you will need a browser that runs JavaScript and some extra prerequisites:
+To get started with development, you will need a browser that runs `JavaScript` and some extra prerequisites:
 
 - [Node.js](https://nodejs.org) - Package manager
 - [npm](https://www.npmjs.com/get-npm) - This should come with your Node installation.
@@ -57,7 +57,7 @@ Note that this starts the backend without any logging information and also start
 
 ## Testing
 
-Testing, with a coverage report, can be performed using the following command:
+The tests can be run using the following command:
 
     npm test
 
@@ -65,13 +65,11 @@ The coverage report can be viewed in your default browser using:
 
     npm run-script coverage
 
-The report is the `index.html` file located in `coverage/lcov-report`.
+The report is the `index.html` file located in `coverage/lcov-report` if a browser window is not opened after all test
+suites have run.
 
-The [`tests/unit/components`](tests/unit/components) directory contains tests for the `.vue` single file components with
-the working store and backend interaction.
-
-The [`tests/unit/store`](tests/unit/components) directory contains tests to ensure the backend is functioning correctly,
-requiring no `.vue` components.
+The [`tests/unit/components`](tests/unit/components) directory contains integration tests for the `.vue` single file
+components with the working store and backend interaction.
 
 Note that the testing suite will spawn a new instance of the backend server to use for testing and will shut it down
 once complete. Ensure no other service is using port `8100` prior to running these tests.
@@ -95,3 +93,11 @@ A live version of the web app can be found [here](https://fise-concierge.web.app
 locally.
 
 - Note that the backend server **must** still be manually started.
+
+**Note that the web app does not work on Safari if not served locally (i.e., on `localhost` instead of
+at `fise-concierge.web.app`) due to cross-origin restrictions and the lack of a HTTPS certificate for the backend.**
+
+- Safari blocks API calls to `localhost` as the backend uses `HTTP` (instead of `HTTPS`) - it also does not allow
+  self-signed SSL certificates to be used to get around this.
+
+- Using self-signed certificates would prevent the web app from working entirely on Safari.

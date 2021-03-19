@@ -48,16 +48,15 @@ export default {
     watch: {
         $route(to, from) {
             const person = to.params.person;
-            if (
-                person !== undefined &&
-                person !== null &&
-                this.member !== undefined
-            ) {
+            if (person !== undefined && person !== null && this.member !== undefined) {
                 this.updateDefault();
             }
         },
     },
     methods: {
+        confirm() {
+
+        },
         updateDefault() {
             this.form = {
                 firstName: this.member["first-name"],
@@ -65,14 +64,13 @@ export default {
                 prefix: this.member.prefix,
                 phoneNumber: this.member["phone-number"],
             };
-            this.$nextTick(() => {
-                if (this.$refs.form !== null) {
-                    this.$refs.form.select(this.member.prefix);
-                }
-            });
+            if (this.$refs.form !== null) {
+                this.$refs.form.select(this.member.prefix);
+            }
         },
         checkForm(form) {
-            if (form.phoneNumber.length < 11) {
+            const length = form.phoneNumber.length;
+            if (length > 0 && length !== 11) {
                 return {
                     message: "The entered phone number is invalid.",
                     ref: "phone-number",
@@ -83,36 +81,37 @@ export default {
                 ref: null,
             };
         },
-        updateMember() {
+        async updateMember() {
             const form = this.setData();
             const messageAndField = this.checkForm(form);
             if (messageAndField["message"] === "valid") {
-                this.$store.dispatch("member/updateMember", form).then(() => {
-                    if (form.response !== null) {
-                        alert("Update failed. " + form.response);
-                        this.$refs.form.clear();
-                    } else {
-                        alert("Member data successfully updated.");
-                        this.form = Object.assign({}, form);
-                        this.updateRoute();
-                    }
-                });
+                await this.$store.dispatch("member/updateMember", form);
+                this.form.success = form.success;
+                this.form.response = form.response;
+                if (form.success) {
+                    alert("Member data successfully updated.");
+                    this.form = Object.assign({}, form);
+                    this.updateRoute();
+                } else {
+                    alert("Update failed. " + form.response);
+                    this.$refs.form.clear();
+                }
             } else {
+                this.form.success = false;
+                this.form.response = messageAndField["message"];
                 alert("Update failed. " + messageAndField["message"]);
                 if (messageAndField["ref"] !== null)
                     this.$refs.form.failed(messageAndField["ref"]);
             }
         },
         setData() {
-            const form = {
-                id: this.member.id,
+            return {
+                id: this.$store.getters["member/activeId"],
                 profilePicture: this.member["profile-picture"],
                 response: null,
+                success: false,
+                ...this.form
             };
-            for (let [key, value] of Object.entries(this.form)) {
-                form[key] = value === "" ? this.member[key] : value;
-            }
-            return form;
         },
         updateRoute() {
             const name = this.form["firstName"] + " " + this.form["lastName"];
@@ -125,17 +124,15 @@ export default {
                 },
             });
         },
-        removeMember() {
+        async removeMember() {
             const message = `Are you sure you want to remove ${this.fullName} from your circle? They will no longer have access to the Concierge app and all stored data will be purged. This action cannot be undone.`;
             if (confirm(message)) {
-                this.$store.dispatch("member/removeMember", this.userId);
+                await this.$store.dispatch("member/removeMember", this.userId);
             }
         },
     },
     mounted() {
-        this.$nextTick(() => {
-            this.updateDefault();
-        });
+        this.updateDefault();
     },
 };
 </script>

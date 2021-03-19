@@ -3,7 +3,7 @@
         <label v-if="label !== ''" :for="id">{{ label }} <b v-if="required">*</b></label>
         <div class="input-container centred">
             <span class="icon material-icons noselect">{{ icon }}</span>
-            <input :id="id" ref="input" v-model="object[keyName]"
+            <input :id="id" ref="input" v-model="object[keyName]" @focus="toggleDelete"
                    :autocomplete="autocomplete" :maxlength="maxlength" 
                    :placeholder="placeholder" :type="type" v-on:input="toggleDelete"
                    v-on:keydown="onKeyPress" v-on:keyup.enter.prevent="onEnter">
@@ -58,9 +58,12 @@ export default {
             this.$refs.input.focus();
         },
         toggleDelete() {
-            if (this.object[this.keyName] === "") {
+            const text = this.object[this.keyName];
+            if (text === "") {
                 this.$refs.delete.classList.remove("delete-icon-visible");
             } else {
+                for (const char of this.ignoreKeys)
+                    this.object[this.keyName] = text.replace(char, "");
                 this.$refs.delete.classList.add("delete-icon-visible");
             }
         },

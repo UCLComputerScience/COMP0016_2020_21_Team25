@@ -1,3 +1,4 @@
+import toKebabCase from "webpack-cli/lib/utils/to-kebab-case.js";
 import {toKebabCaseMap} from "../../assets/scripts/util";
 import api from "../../backend/api";
 import router from "../../router/router";
@@ -64,13 +65,10 @@ const actions = {
         { serviceId, members, response }
     ) {
         for (const member of members) {
-            const apiResponse = await api.addServiceToUser(
-                member.id,
-                serviceId
-            );
+            const apiResponse = await api.addServiceToUser(member.id, serviceId);
             if (!apiResponse.success) {
                 if (apiResponse.message === "Service is already assigned to user.") {
-                    const message = `This service is already assigned to ${member["first-name"]} ${member["last-name"]}. No changes were made for this user.` ;
+                    const message = `This service is already assigned to ${member["first-name"]} ${member["last-name"]}. No changes were made for this member.`;
                     alert(message);
                 } else {
                     response.message = apiResponse.message;
@@ -84,17 +82,19 @@ const actions = {
         const member = getters.activeMember;
         for (const [key, field] of Object.entries(form)) {
             if (field === "") {
-                form[key] = member[key];
+                form[key] = member[toKebabCase(key)];
             }
         }
-        form = {...toKebabCaseMap(form)};
+
+        const newData = { ...toKebabCaseMap(form) };
         const response = await api.updateMember(getters["activeId"],
-            form["first-name"], form["last-name"], form["phone-number"],
-            form["prefix"], form["profile-picture"]);
+            newData["first-name"], newData["last-name"], newData["phone-number"],
+            newData["prefix"], newData["profile-picture"]);
+        form.success = response.success;
+        form.response = response.message;
         if (response.success) {
-            commit("updateMember", form);
-        } else {
-            form.response = response.message;
+            newData.id = getters["activeId"];
+            commit("updateMember", newData);
         }
     },
     async removeMember({ dispatch, commit, getters, rootGetters }, userId) {
@@ -125,7 +125,7 @@ const actions = {
                 },
             });
             const firstName = newMember["first-name"];
-            const words = response["registration-code"]
+            const words = response["registration-code"];
             alert(`${name} was added to your circle. Inform ${firstName} to enter the code: "${words[0]} ${words[1]} ${words[2]}" to activate their Concierge app.`);
         } else {
             form.response = response.message;
@@ -136,7 +136,7 @@ const actions = {
     },
     async updateMemberPic({ dispatch, commit, getters, rootGetters }, newPic) {
         const member = { ...getters.activeMember };
-        member["profilePicture"] = newPic;
+        member["profile-picture"] = newPic;
         await dispatch("updateMember", member);
     },
     async fetchMembers({ dispatch, commit, getters, rootGetters }, username) {
@@ -162,7 +162,7 @@ const mutations = {
         state.history = [...history];
     },
     setMemberServices(state, services) {
-        state.memberServices =[...services];
+        state.memberServices = [...services];
     },
     updateMember(state, member) {
         const allMembers = { ...state.members };

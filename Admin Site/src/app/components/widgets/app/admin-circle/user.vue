@@ -68,9 +68,9 @@ export default {
         user() {
             return { id: this.userId, ...this.data };
         },
-        onClick() {
+        async onClick() {
             this.$refs.container.classList.toggle("active-user");
-            this.fn({ id: this.userId, ...this.data }, this.$refs.container);
+            await this.fn({ id: this.userId, ...this.data }, this.$refs.container);
         },
         activate() {
             if (this.$refs.container !== undefined)
