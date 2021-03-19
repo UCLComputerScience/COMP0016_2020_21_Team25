@@ -20,15 +20,31 @@ public class AskBobResponseParser {
                 parsedResponse.put("Service", custom.getString("Service"));
                 parsedResponse.put("Response", custom.getString("Response"));
                 if (custom.getString("Service").equals("Transport")){
-                    if (parsedResponse.containsKey("Transport Type")) {
+                    if (custom.has("Transport Type")) {
                         parsedResponse.put("Transport Type", custom.getString("Transport Type"));
                     } else {
                         try {
                             JSONObject responseObject = new JSONObject(custom.getString("Response"));
-                            String responseMessage = responseObject.getString("Message");
-                            parsedResponse.put("Message", responseMessage);
-                            parsedResponse.put("lat", responseObject.getString("Latitude"));
-                            parsedResponse.put("lon", responseObject.getString("Longitude"));
+                            if (responseObject.has("Message")) {
+                                String responseMessage = responseObject.getString("Message");
+                                parsedResponse.put("Message", responseMessage);
+                                parsedResponse.put("lat", responseObject.getString("Latitude"));
+                                parsedResponse.put("lon", responseObject.getString("Longitude"));
+                            }
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                } else if (custom.getString("Service").equals("Recipes")){
+                    if (custom.has("Steps")){
+                        try {
+                            JSONArray stepsArray = custom.getJSONArray("Steps");
+                            String steps = "";
+                            for (int i = 0; i < stepsArray.length(); i++){
+                                steps += stepsArray.getString(i);
+                            }
+                            System.out.println("steps: " + steps);
+                            parsedResponse.put("Steps", steps);
                         } catch (Exception e){
                             e.printStackTrace();
                         }

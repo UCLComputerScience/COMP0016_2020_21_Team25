@@ -42,12 +42,11 @@
         android:id="@+id/backButtonViewReminders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="35sp"
         app:backgroundTint="#0e62fe"
-        app:layout_constraintBottom_toTopOf="@+id/guideline66"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline69"
         app:layout_constraintStart_toStartOf="@+id/guideline70" />
 

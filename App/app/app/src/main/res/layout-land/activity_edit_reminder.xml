@@ -72,7 +72,7 @@
         android:id="@+id/backButtonEditReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="4dp"
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="35sp"
@@ -110,6 +110,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="264dp" />
+        app:layout_constraintGuide_begin="250dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

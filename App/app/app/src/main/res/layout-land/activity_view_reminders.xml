@@ -39,8 +39,9 @@
         android:textColor="@color/white"
         android:textSize="35sp"
         app:backgroundTint="#0e62fe"
-        app:layout_constraintBottom_toTopOf="@+id/guideline66"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -87,15 +88,15 @@
     <ListView
         android:id="@+id/remindersListView"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="80dp"
         android:layout_marginTop="8dp"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="12dip"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline67"
-        android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@drawable/scrollbar"
-        android:scrollbarSize="12dip"
-        android:scrollbarAlwaysDrawVerticalTrack="true"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline67" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

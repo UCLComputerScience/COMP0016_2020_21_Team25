@@ -15,45 +15,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/box" />
-    
+
     <Button
         android:id="@+id/startTimerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
-        app:backgroundTint="#0e62fe"
         android:textSize="35sp"
+        app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline56"
-        app:layout_constraintEnd_toStartOf="@+id/guideline61"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/guideline60" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <NumberPicker
         android:id="@+id/minutesNumberPicker"
         android:layout_width="78dp"
         android:layout_height="71dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline57"
-        app:layout_constraintEnd_toEndOf="@+id/secondsNumberPicker"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/hoursNumberPicker" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <NumberPicker
         android:id="@+id/secondsNumberPicker"
         android:layout_width="78dp"
         android:layout_height="71dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline57"
-        app:layout_constraintEnd_toStartOf="@+id/guideline61"
-        app:layout_constraintHorizontal_bias="0.993"
-        app:layout_constraintStart_toStartOf="@+id/hoursNumberPicker" />
+        app:layout_constraintStart_toEndOf="@+id/minutesNumberPicker" />
 
     <NumberPicker
         android:id="@+id/hoursNumberPicker"
         android:layout_width="78dp"
         android:layout_height="71dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline57"
-        app:layout_constraintEnd_toStartOf="@+id/guideline61"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline60" />
+        app:layout_constraintEnd_toStartOf="@+id/minutesNumberPicker" />
 
     <TextView
         android:id="@+id/timerViewTitle"
@@ -71,13 +69,13 @@
         android:id="@+id/backButtonTimers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="16dp"
         android:text="Back"
-        app:backgroundTint="#0e62fe"
         android:textSize="35sp"
+        app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -108,28 +106,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="184dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="239dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline61"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="479dp" />
+        app:layout_constraintGuide_begin="180dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:text="Minutes"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/minutesNumberPicker"
@@ -139,8 +123,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:text="Seconds"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/secondsNumberPicker"
@@ -150,10 +134,10 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:text="Hours"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/hoursNumberPicker"
-        app:layout_constraintStart_toStartOf="@+id/guideline60" />
+        app:layout_constraintEnd_toStartOf="@+id/minutesNumberPicker" />
 </androidx.constraintlayout.widget.ConstraintLayout>

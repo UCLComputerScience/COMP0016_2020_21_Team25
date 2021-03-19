@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseParser;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
+import org.json.JSONArray;
+
+import java.net.URL;
 import java.util.HashMap;
 
 public class AskBobResponseController {
@@ -20,12 +23,22 @@ public class AskBobResponseController {
 
         String service_type = (String) parsedResponse.get("Service_Type");
         if (service_type.equals("API_CALL")){
-            if (parsedResponse.get("Service").toString().equals("Transport")){
+            if (parsedResponse.get("Service").toString().equals("Transport") && parsedResponse.containsKey("Message")){
                 String url = mainController.searchUrlLookup("maps_location");
                 url = url.replace("{lat}", parsedResponse.get("lat").toString());
                 url = url.replace("{lon}", parsedResponse.get("lon").toString());
                 speechSynthesis.runTts((String) parsedResponse.get("Message"));
                 mainController.openUrl(appCompatActivity, url);
+            } else if (parsedResponse.get("Service").toString().equals("Recipes") && parsedResponse.containsKey("Steps")) {
+                speechSynthesis.runTts((String) parsedResponse.get("Response"));
+                speechSynthesis.runTts(parsedResponse.get("Steps").toString());
+            } else if (parsedResponse.get("Service").toString().equals("Books")) {
+                try {
+                    URL url = new URL(parsedResponse.get("Response").toString());
+                    mainController.openUrl(appCompatActivity, parsedResponse.get("Response").toString());
+                } catch (Exception e){
+                    speechSynthesis.runTts((String) parsedResponse.get("Response"));
+                }
             } else {
                 speechSynthesis.runTts((String) parsedResponse.get("Response"));
             }
