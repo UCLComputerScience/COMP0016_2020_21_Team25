@@ -1,7 +1,7 @@
 <template>
     <div v-show="render" ref="container" class="profile-pic-chooser centred noselect">
         <div class="content centred">
-            <span class="close-icon material-icons" v-on:click="close">close</span>
+            <span class="close-icon material-icons" v-on:click="cancel">close</span>
             <p class="extract">Select a new profile picture below and click confirm to set your choice.</p>
             <div class="pic-grid centred">
                 <div class="image centred" :ref="setRef" v-for="image in images" :key="image">
@@ -72,8 +72,8 @@ export default {
             this.display = true;
             this.disableScroll();
         },
-        confirm() {
-            this.fn();
+        async confirm() {
+            await this.fn();
             this.data.original = this.data.selected;
             this.close();
         },

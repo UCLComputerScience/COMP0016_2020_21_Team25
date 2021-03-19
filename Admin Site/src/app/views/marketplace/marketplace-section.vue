@@ -41,11 +41,7 @@ export default {
     computed: {
         chunks() {
             const chunks = [];
-            for (
-                let i = 0, j = this.services.length;
-                i < j;
-                i += this.gridData.columns
-            )
+            for (let i = 0, j = this.services.length; i < j; i += this.gridData.columns)
                 chunks.push(this.services.slice(i, i + this.gridData.columns));
             return chunks;
         },
@@ -81,6 +77,8 @@ export default {
                 }
             } else {
                 for (let service of this.serviceRefs) {
+                    if (service === null)
+                        continue;
                     const serviceData = service.search(searchTerm);
                     if (serviceData !== null) {
                         resultSet.push(serviceData);

@@ -1,8 +1,8 @@
 <template>
-    <marketplace-item ref="service" :marketplace="false" :service-data="data" :id="`${id}-service`">
+    <marketplace-item ref="service" :marketplace="false" :service-data="serviceData" :id="`${id}-service`">
         <span ref="toggler" class="expand-icon centred material-icons" v-on:click="onClick">expand_more</span>
         <div class="data-row centred">
-            <service-data-fields :service-name="data['service_id']"></service-data-fields>
+            <service-data-fields :service-id="id"></service-data-fields>
         </div>
         <div class="button-row centred">
             <flat-button text="Open in marketplace" v-on:click="go"></flat-button>
@@ -20,9 +20,10 @@ import ServiceDataFields from "./service-data-fields.vue";
 export default {
     name: "service-item",
     components: { ServiceDataFields, FlatButton, MarketplaceItem },
+    props: { serviceData: Object },
     computed: {
         id() {
-            return this.data["service_id"];
+            return this.serviceData["service_id"];
         },
     },
     data() {
@@ -30,7 +31,6 @@ export default {
             container: null,
         };
     },
-    props: { data: Object },
     methods: {
         onClick() {
             this.container.classList.toggle("expanded");
@@ -41,11 +41,10 @@ export default {
         go() {
             this.$router.push({ name: "marketplace", hash: `#${this.id}` });
         },
-        removeService() {
+        async removeService() {
             if (confirm(`Are you sure you want to remove this service from ${getName()} account? They'll no longer have access to this service and you'll have to re-enter any required data should you want to assign this service to them again.`)) {
-                this.$store.dispatch("member/removeServiceFromMember", this.id).then(_ => {
-                    this.$parent.updateServices();
-                });
+                await this.$store.dispatch("member/removeServiceFromMember", this.id);
+                await this.$parent.updateServices();
             }
         }
     },
@@ -92,6 +91,7 @@ export default {
     border-radius: 50%;
     background: var(--blue);
     cursor: pointer;
+    box-shadow: 0 0 8px 6px rgba(255, 255, 255, .44);
 }
 
 .services-content .service .expand-icon:hover {

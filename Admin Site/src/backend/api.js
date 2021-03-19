@@ -13,6 +13,7 @@ async function makeHttpRequest(URL, method, params = {}) {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
+            "Access-Control-Allow-Origin": "*",
         },
         params: formattedParams,
     };
@@ -24,6 +25,7 @@ async function makeHttpRequest(URL, method, params = {}) {
     return {
         status: response.status,
         statusText: response.statusText,
+        success: false
     };
 }
 

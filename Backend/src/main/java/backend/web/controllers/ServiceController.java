@@ -63,12 +63,12 @@ public class ServiceController {
 
         try {
             while (result.next()) {
-                String serviceID=result.getString("SERVICE_ID");
+                String serviceID = result.getString("SERVICE_ID");
                 String name = result.getString("NAME");
                 String icon = result.getString("ICON");
                 String description = result.getString("DESCRIPTION");
                 Map<String, String> service = new HashMap<>();
-                service.put("service_id",serviceID);
+                service.put("service_id", serviceID);
                 service.put("name", name);
                 service.put("category", category);
                 service.put("icon", icon);
@@ -97,13 +97,13 @@ public class ServiceController {
 
         try {
             while (result.next()) {
-                String serviceID=result.getString("SERVICE_ID");
+                String serviceID = result.getString("SERVICE_ID");
                 String name = result.getString("NAME");
                 String category = result.getString("CATEGORY");
                 String icon = result.getString("ICON");
                 String description = result.getString("DESCRIPTION");
                 Map<String, String> service = new HashMap<>();
-                service.put("service_id",serviceID);
+                service.put("service_id", serviceID);
                 service.put("name", name);
                 service.put("category", category);
                 service.put("icon", icon);
@@ -111,8 +111,8 @@ public class ServiceController {
                 services.add(service);
             }
             if (services.size() == 0) {
-                message= "Could not find any services assigned to that given USER-ID";
-                
+                message = "Could not find any services assigned to that given USER-ID";
+
             }
         } catch (SQLException | RuntimeException e) {
             code = 500;

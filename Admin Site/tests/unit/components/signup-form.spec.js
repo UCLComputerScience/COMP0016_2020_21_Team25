@@ -1,20 +1,20 @@
 import {mount} from "@vue/test-utils";
 import SignupForm from "../../../src/app/views/welcome/signup-form.vue";
 import {store} from "../../../src/store/store";
+import {admin, testLoginEmail, testLoginPhoneNumber, testLoginUsername} from "../util/constants.js";
 
 describe("Signup Form", () => {
+    beforeAll(async () => {
+        // Ensure admin data is reset
+        store.commit("admin/setAdmin", admin);
+        await store.dispatch("admin/profile", admin);
+    });
     const test = (description, username,
                   firstName, lastName,
                   email, phoneNumber,
                   password, repeatPassword,
-                  success, message, furtherAssertions = () => {
-        }) => {
+                  success, message) => {
         it(description, async (done) => {
-            // Jest test browser does not include window.alert method
-            const jsDomAlert = window.alert;  // remember the jsdom alert
-            window.alert = () => {
-            };
-
             await store.commit("account/entered", false);
             await store.commit("admin/setAdmin", {});
 
@@ -58,8 +58,7 @@ describe("Signup Form", () => {
             if (!success) {
                 expect(wrapper.vm.signupData.response).toEqual(message);
             }
-            furtherAssertions();
-            window.alert = jsDomAlert;
+            wrapper.unmount();
             done();
         });
     };
@@ -70,57 +69,57 @@ describe("Signup Form", () => {
     test("no data entered", "", "", "",
         "", "", "", "", false, null);
 
-    test("no username entered", "", "ernest", "badu",
+    test("no username entered", "", "testuser", "badu",
         "email@mail.co.uk", "11111111111", "12345", "12345", false, null);
 
     test("no first name entered", "username", "", "badu",
         "email@mail.co.uk", "11111111111", "12345", "12345", false, null);
 
-    test("no last name entered", "username", "ernest", "",
+    test("no last name entered", "username", "testuser", "",
         "email@mail.co.uk", "11111111111", "12345", "12345", false, null);
 
-    test("no email entered", "username", "ernest", "badu",
+    test("no email entered", "username", "testuser", "badu",
         "", "11111111111", "12345", "12345", false, null);
 
-    test("no phone number entered",  "username", "ernest", "badu",
+    test("no phone number entered", "username", "testuser", "badu",
         "email@mail.co.uk", "", "12345", "12345", false, null);
 
-    test("no password entered",  "username", "ernest", "badu",
+    test("no password entered", "username", "testuser", "badu",
         "email@mail.co.uk", "11111111111", "", "12345", false, null);
 
-    test("no repeat password entered",  "username", "ernest", "badu",
+    test("no repeat password entered", "username", "testuser", "badu",
         "email@mail.co.uk", "11111111111", "12345", "", false, null);
 
     /**
      * Invalid data
      */
-    test("short username (< 2 chars)", "a", "ernest", "badu",
+    test("short username (< 2 chars)", "a", "testuser", "badu",
         "email@mail.co.uk", "11111111111", "12345", "12345", false, null);
 
-    test("short phone number (< 11 chars)", "username", "ernest", "badu",
+    test("short phone number (< 11 chars)", "username", "testuser", "badu",
         "email@mail.co.uk", "11", "12345", "12345", false, null);
 
-    test("short password (< 5 chars)", "username", "ernest", "badu",
+    test("short password (< 5 chars)", "username", "testuser", "badu",
         "email@mail.co.uk", "11111111111", "1234", "1234", false, null);
 
-    test("non-matching password repeat", "username", "ernest", "badu",
+    test("non-matching password repeat", "username", "testuser", "badu",
         "email@mail.co.uk", "11111111111", "12345", "123456", false, null);
 
     /**
      * Taken data
      */
 
-    test("taken username", "ernest", "ernest", "badu",
-        "email@mail.co.uk", "11111111111", "12345", "12345", false,
-        "The username ernest is already in use. Did you mean to log in?");
+    test("taken username", testLoginUsername, "Test", "User",
+        "anemail@mail.co.uk", "11111111107", "12345", "12345", false,
+        `The username ${testLoginUsername} is already in use. Did you mean to log in?`);
 
-    test("taken phone number", "user", "ernest", "badu",
-        "unused@mail.co.uk", "07111111112", "12345", "12345", false,
-        "The phone number 07111111112 is already associated with another account.");
+    test("taken phone number", "nottaken", "Test", "User",
+        "anemail@mail.co.uk", testLoginPhoneNumber, "12345", "12345", false,
+        `The phone number ${testLoginPhoneNumber} is already associated with another account.`);
 
-    test("taken email", "user", "ernest", "badu",
-        "test@mail.co.uk", "07111111111", "12345", "12345", false,
-        "The email address test@mail.co.uk is already associated with another account. Did you mean to log in?");
+    test("taken email", "nottaken", "Test", "User",
+        testLoginEmail, "11111111107", "12345", "12345", false,
+        `The email address ${testLoginEmail} is already associated with another account. Did you mean to log in?`);
 
     /**
      * Valid data

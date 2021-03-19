@@ -16,6 +16,7 @@ module.exports = {
         ".*\\.(js)$": "babel-jest",
     },
     transformIgnorePatterns: patterns(),
-    collectCoverage: true,
+    // collectCoverage: true,
     collectCoverageFrom: ["src/**/*.js", "src/**/*.vue"],
+    setupFilesAfterEnv: ["<rootDir>/tests/unit/setup.js"]
 };

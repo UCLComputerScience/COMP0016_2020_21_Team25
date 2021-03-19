@@ -130,6 +130,7 @@ h1 {
     margin-top: 16px;
     color: var(--text-color);
     text-align: center;
+    text-shadow: -1px -1px 0 var(--page-bg-color), 1px -1px 0 var(--page-bg-color), -1px 1px 0 var(--page-bg-color), 1px 1px 0 var(--page-bg-color);
 }
 
 @media (min-width: 640px) {

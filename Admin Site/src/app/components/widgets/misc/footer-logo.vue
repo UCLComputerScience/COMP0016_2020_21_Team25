@@ -23,6 +23,8 @@ export default {
     margin-top: auto;
     padding-top: 28px;
     flex-direction: column;
+    cursor: default;
+    z-index: 1;
 }
 
 .logo-container .icon {
@@ -46,6 +48,10 @@ export default {
     font-size: 12px;
     text-align: center;
     margin-top: 8px;
+}
+
+.logo-container span {
+    text-shadow: -1px -1px 0 var(--page-bg-color), 1px -1px 0 var(--page-bg-color), -1px 1px 0 var(--page-bg-color), 1px 1px 0 var(--page-bg-color);
 }
 
 .logo-container .collaborators {

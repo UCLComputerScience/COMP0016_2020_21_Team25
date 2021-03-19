@@ -25,7 +25,7 @@ public class LoginController {
     @GetMapping("login")
     public LoginResponse getLoginData(@RequestParam String username_or_email, @RequestParam String password) {
         boolean success = true;
-        boolean isEmail = false;
+        boolean userEnteredEmail = false;
         String message = "Ok";
         int code = 200;
 
@@ -42,7 +42,7 @@ public class LoginController {
             if (result.next()) {
                 databaseUsername = result.getString("USERNAME");
                 databasePassword = result.getString("PASSWORD");
-                isEmail = true;
+                userEnteredEmail = true;
             }
         } catch (SQLException e) {
             code = 500;
@@ -50,7 +50,7 @@ public class LoginController {
             success = false;
         }
 
-        if (!isEmail) {
+        if (!userEnteredEmail) {
             String sqlStatement = "SELECT USERNAME, PASSWORD FROM ADMIN WHERE USERNAME='{USER}'";
             sqlStatement = sqlStatement.replace("{USER}", username_or_email);
             ResultSet results = database.query(sqlStatement);
@@ -68,12 +68,17 @@ public class LoginController {
             }
         }
 
-        if (!isEmail && !username_or_email.equals(databaseUsername)) {
-            success = false;
-            message = "Incorrect Credentials";
-            errors.put("field", "username");
-            errors.put("message", "The username " + username_or_email + " does not exist, did you mean to sign up?");
-        } else if (username_or_email.equals(databaseUsername) && !password.equals(databasePassword)) {
+        if (!userEnteredEmail) {
+            if (!username_or_email.equals(databaseUsername)) {
+                success = false;
+                message = "Incorrect Credentials";
+                errors.put("field", "usernameOrEmail");
+                errors.put("message", "The username or email address '" + username_or_email + "' does not exist, did you mean to sign up?");
+                return new LoginResponse(success, message, databaseUsername, errors, code);
+            }
+        }
+
+        if (!password.equals(databasePassword)) {
             success = false;
             message = "Incorrect Credentials";
             errors.put("field", "password");

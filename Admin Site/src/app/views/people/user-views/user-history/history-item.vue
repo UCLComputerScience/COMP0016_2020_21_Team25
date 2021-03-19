@@ -16,7 +16,10 @@ export default {
     props: { data: Object },
     computed: {
         dateObject() {
-            return new Date(this.data.timestamp * 1000);
+            const dateTime = this.data.timestamp.split(" ");
+            const date = dateTime[0].split("-");
+            const time = dateTime[1].split(":");
+            return new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2], 0);
         },
         date() {
             return this.dateObject.toLocaleDateString();

@@ -13,11 +13,7 @@
         <div class="people-container centred">
             <admin-circle :fn="toggle"></admin-circle>
         </div>
-        <flat-button
-            ref="button"
-            text="Confirm"
-            v-on:click="confirm"
-        ></flat-button>
+        <flat-button ref="button" text="Confirm" @click="confirm"></flat-button>
     </div>
 </template>
 
@@ -106,6 +102,10 @@ export default {
         },
     },
     mounted() {
+        window.scrollTo({
+            top: 0,
+            behaviour: "smooth",
+        });
         this.$refs.button.disable();
     },
 };
