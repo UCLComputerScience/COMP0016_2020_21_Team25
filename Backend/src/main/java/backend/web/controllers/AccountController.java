@@ -345,13 +345,7 @@ public class AccountController {
             if (history.size() == 0) {
                 message = "Could not find any history for this user";
             }
-<<<<<<< HEAD
         } catch (SQLException e) {
-=======
-            history.sort(new MapComparator("timestamp"));
-            Collections.reverse(history);
-        } catch (SQLException | RuntimeException e) {
->>>>>>> e4bb6dcb8586c2a29167bcfc4b6da2449d00888d
             code = 500;
             message = e.getMessage();
             success = false;
