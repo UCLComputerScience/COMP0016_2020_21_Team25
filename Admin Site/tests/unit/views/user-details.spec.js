@@ -22,6 +22,7 @@ const defaultData = {
 
 describe("User Details View", () => {
     beforeAll(async () => {
+        store.commit("admin/setAdmin", adminWithMembers);
         await store.dispatch("admin/profile", adminWithMembers);
         await store.dispatch("member/fetchMembers", testMembersUsername);
     });
@@ -84,13 +85,7 @@ describe("User Details View", () => {
         await lastNameInput.setValue(lastName);
         await phoneNumberInput.setValue(phoneNumber);
 
-        // prefixInput.vm.toggle();
-        // const children = wrapper.findAll(".dropdown-item");
-        // const child = children[0];
-        // await child.trigger("click");
         await prefixInput.vm.selectByText(prefix);
-        // await form.vm.$nextTick();
-        // await flushPromises();
 
         expect(form.vm.form.firstName).toEqual(firstName);
         expect(form.vm.form.lastName).toEqual(lastName);

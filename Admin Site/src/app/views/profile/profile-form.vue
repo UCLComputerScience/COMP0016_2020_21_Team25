@@ -111,7 +111,7 @@ export default {
         },
         validInputs() {
             const length = this.profileData.phoneNumber.length;
-            if (length !== 0 && length !== 11 ) {
+            if (length !== 0 && length !== 11) {
                 return {
                     message: "Your phone number is invalid",
                     ref: "phone-number",

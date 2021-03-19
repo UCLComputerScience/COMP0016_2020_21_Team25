@@ -5,6 +5,7 @@ import {adminWithMembers, app, mockRouter, testMembersUsername, userIdWithServic
 
 describe("User History View", () => {
     beforeAll(async () => {
+        store.commit("admin/setAdmin", adminWithMembers);
         await store.dispatch("admin/fetchAdmin", testMembersUsername);
         await store.dispatch("admin/profile", adminWithMembers);
     });

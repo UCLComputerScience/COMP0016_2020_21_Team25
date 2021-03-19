@@ -74,20 +74,23 @@ export default {
             return items;
         },
         firstName() {
-            if (this.form["firstName"] !== undefined) {
-                return this.form["firstName"];
+            const firstName = this.form["firstName"];
+            if (firstName !== undefined && firstName !== "") {
+                return firstName;
             }
             return "John";
         },
         lastName() {
-            if (this.form["lastName"] !== undefined) {
-                return this.form["lastName"];
+            const lastName = this.form["lastName"];
+            if (lastName !== undefined && lastName !== "") {
+                return lastName;
             }
             return "Doe";
         },
         phoneNumber() {
-            if (this.form["phoneNumber"] !== undefined) {
-                return this.form["phoneNumber"];
+            const phoneNumber = this.form["phoneNumber"];
+            if (phoneNumber !== undefined && phoneNumber !== "") {
+                return phoneNumber;
             }
             return "07...";
         }
@@ -143,8 +146,8 @@ export default {
             }
             this.$refs["first-name"].focus();
         },
-        submit() {
-            this.$parent.confirm();
+        async submit() {
+           await this.$parent.confirm();
         },
         failed(ref) {
             this.$refs[ref].clearInput();

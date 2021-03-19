@@ -17,6 +17,7 @@ const userIdWithNoServices = '104';
 
 describe("User Services View", () => {
     beforeAll(async () => {
+        store.commit("admin/setAdmin", adminWithMembers);
         await store.dispatch("admin/fetchAdmin", testMembersUsername);
         await store.dispatch("admin/profile", adminWithMembers);
     });

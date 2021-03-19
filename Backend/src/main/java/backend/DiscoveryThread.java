@@ -21,7 +21,7 @@ public class DiscoveryThread implements Runnable {
             socket.setBroadcast(true);
 
             while (true) {
-                ApiLogger.log("Backend is ready to receive broadcast packets!");
+                ApiLogger.log("Backend is ready to receive broadcast packets");
 
                 //Receive a packet
                 byte[] recvBuf = new byte[15000];

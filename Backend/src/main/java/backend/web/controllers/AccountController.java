@@ -3,11 +3,6 @@ package backend.web.controllers;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
 import backend.web.responses.StandardResponse;
-import backend.web.responses.account.ProfilePictureResponse;
-import backend.web.responses.account.MemberDataResponse;
-import backend.web.responses.account.MemberHistoryResponse;
-import backend.web.responses.account.AddMemberResponse;
-import backend.web.responses.account.EmergencyContactsResponse;
 import backend.web.responses.account.*;
 import backend.web.util.RegistrationCodeGenerator;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +11,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -230,7 +224,7 @@ public class AccountController {
                 message = "Server error";
                 code = 500;
         }
-        switch (database.checkExisting("ADMIN","EMAIL","EMAIL ="+"'"+email+"'"+ " AND NOT USERNAME="+"'"+username+"'")){
+        switch (database.checkExisting("ADMIN", "EMAIL", "EMAIL =" + "'" + email + "'" + " AND NOT USERNAME=" + "'" + username + "'")) {
             case 0:
                 success = false;
                 message = "The email address, " + email + " is already associated with another account.";
@@ -241,7 +235,7 @@ public class AccountController {
                 message = "Server error";
                 code = 500;
         }
-        switch (database.checkExisting("ADMIN","PHONE_NUMBER","PHONE_NUMBER ="+"'"+phone_number+"'"+ " AND NOT USERNAME="+"'"+username+"'")){
+        switch (database.checkExisting("ADMIN", "PHONE_NUMBER", "PHONE_NUMBER =" + "'" + phone_number + "'" + " AND NOT USERNAME=" + "'" + username + "'")) {
             case 0:
                 success = false;
                 message = "The phone number, " + phone_number + " is already associated with another account.";
@@ -389,8 +383,8 @@ public class AccountController {
         ResultSet result = database.query(sqlStatementUserID);
         try {
             if (result.next()) {
-                String prevUserId = result.getString("USER_ID");
-                user_id = String.valueOf(Integer.parseInt(prevUserId) + 1);
+                int prevUserId = result.getInt("USER_ID");
+                user_id = String.valueOf(prevUserId + 1);
             }
         } catch (SQLException e) {
             code = 500;
@@ -407,16 +401,21 @@ public class AccountController {
         sqlStatementUser = sqlStatementUser.replace("{PREFIX}", prefix);
         sqlStatementUser = sqlStatementUser.replace("{PICTURE_ID}", picture_id);
 
-        String sqlStatementAdminCircle = "INSERT INTO ADMIN_CIRCLE VALUES ('{USERNAME}','{USER_ID}')";
+        String sqlStatementAdminCircle = "INSERT INTO ADMIN_CIRCLE (USERNAME, USER_ID) VALUES ('{USERNAME}',{USER_ID})";
         sqlStatementAdminCircle = sqlStatementAdminCircle.replace("{USERNAME}", username);
         sqlStatementAdminCircle = sqlStatementAdminCircle.replace("{USER_ID}", user_id);
 
-        String sqlStatementRegistration = "INSERT INTO REGISTRATION_CODES VALUES('{FIRST_WORD}','{SECOND_WORD}','{LAST_WORD}','{USERNAME}','{USER_ID}')";
+        String sqlStatementRegistration = "INSERT INTO REGISTRATION_CODES VALUES('{FIRST_WORD}','{SECOND_WORD}','{LAST_WORD}','{USERNAME}',{USER_ID})";
         sqlStatementRegistration = sqlStatementRegistration.replace("{FIRST_WORD}", codeWords.get(0));
         sqlStatementRegistration = sqlStatementRegistration.replace("{SECOND_WORD}", codeWords.get(1));
         sqlStatementRegistration = sqlStatementRegistration.replace("{LAST_WORD}", codeWords.get(2));
         sqlStatementRegistration = sqlStatementRegistration.replace("{USERNAME}", username);
         sqlStatementRegistration = sqlStatementRegistration.replace("{USER_ID}", user_id);
+
+        String restartUserIdOrdering = "ALTER TABLE USER         \n" +
+                "  ALTER COLUMN USER_ID         \n" +
+                "  RESTART WITH {MAX_ID}";
+        restartUserIdOrdering = restartUserIdOrdering.replace("{MAX_ID}", user_id);
 
         switch (database.checkExisting("ADMIN", "USERNAME", "USERNAME=" + "'" + username + "'")) {
             case 1:
@@ -433,7 +432,7 @@ public class AccountController {
         switch (database.checkExisting("USER", "PHONE_NUMBER", "PHONE_NUMBER =" + "'" + phone_number + "'")) {
             case 0:
                 success = false;
-                message = "Invalid Input (Data may already be in use by another account)";
+                message = "The phone number " + phone_number + " is already associated with another account.";
                 //errors.put("PHONE_NUMBER", "Phone number is already being utilised");
                 break;
             case 2:
@@ -441,11 +440,28 @@ public class AccountController {
                 message = "Server error";
                 code = 500;
         }
+
+        switch (database.checkExisting("ADMIN", "PHONE_NUMBER", "PHONE_NUMBER =" + "'" + phone_number + "'")) {
+            case 0:
+                success = false;
+                message = "The phone number " + phone_number + " is already associated with another account.";
+                //errors.put("PHONE_NUMBER", "Phone number is already being utilised");
+                break;
+            case 2:
+                success = false;
+                message = "Server error";
+                code = 500;
+        }
+
         if (success) {
+            database.executeUpdate(restartUserIdOrdering);
             database.executeUpdate(sqlStatementUser);
             database.executeUpdate(sqlStatementAdminCircle);
             database.executeUpdate(sqlStatementRegistration);
 
+        } else {
+            codeWords = new ArrayList<>();
+            user_id = "";
         }
 
 
@@ -458,19 +474,42 @@ public class AccountController {
         String message = "Ok";
         int code = 200;
 
-        String sqlStatementDeleteUser = "DELETE FROM USER WHERE USER_ID='{USER_ID}'";
-        String sqlStatementDeleteAdminCircle = "DELETE FROM ADMIN_CIRCLE WHERE USER_ID='{USER_ID}'";
-        String sqlStatementDeleteRegistrationCodes = "DELETE FROM REGISTRATION_CODES WHERE USER_ID='{USER_ID}'";
-        String sqlStatementDeleteEmergencyContacts = "DELETE FROM EMERGENCY_CONTACTS WHERE USER_ID='{USER_ID}'";
+        String sqlStatementDeleteUser = "DELETE FROM USER WHERE USER_ID={USER_ID}";
+        String restartUserIdOrdering = "ALTER TABLE USER         \n" +
+                "  ALTER COLUMN USER_ID         \n" +
+                "  RESTART WITH {MAX_ID}";
+
+        String sqlStatementDeleteAdminCircle = "DELETE FROM ADMIN_CIRCLE WHERE USER_ID={USER_ID}";
+        String sqlStatementDeleteRegistrationCodes = "DELETE FROM REGISTRATION_CODES WHERE USER_ID={USER_ID}";
+        String sqlStatementDeleteEmergencyContacts = "DELETE FROM EMERGENCY_CONTACTS WHERE USER_ID={USER_ID}";
         sqlStatementDeleteUser = sqlStatementDeleteUser.replace("{USER_ID}", user_id);
         sqlStatementDeleteAdminCircle = sqlStatementDeleteAdminCircle.replace("{USER_ID}", user_id);
         sqlStatementDeleteRegistrationCodes = sqlStatementDeleteRegistrationCodes.replace("{USER_ID}", user_id);
         sqlStatementDeleteEmergencyContacts = sqlStatementDeleteEmergencyContacts.replace("{USER_ID}", user_id);
 
-        database.executeUpdate(sqlStatementDeleteUser);
         database.executeUpdate(sqlStatementDeleteAdminCircle);
         database.executeUpdate(sqlStatementDeleteRegistrationCodes);
         database.executeUpdate(sqlStatementDeleteEmergencyContacts);
+        database.executeUpdate(sqlStatementDeleteUser);
+
+        String sqlStatementUserID = "SELECT USER_ID FROM USER ORDER BY USER_ID DESC LIMIT 1";
+        ResultSet result = database.query(sqlStatementUserID);
+        int maxId;
+        try {
+            if (result.next()) {
+                maxId = result.getInt("USER_ID");
+            } else {
+                maxId = 1;
+            }
+        } catch (SQLException e) {
+            code = 500;
+            message = e.getMessage();
+            success = false;
+            return new StandardResponse(success, message, code);
+        }
+
+        restartUserIdOrdering = restartUserIdOrdering.replace("{MAX_ID}", Integer.toString(maxId));
+        database.executeUpdate(restartUserIdOrdering);
 
         return new StandardResponse(success, message, code);
     }
@@ -561,7 +600,7 @@ public class AccountController {
 
         try {
             while (result.next()) {
-                emergencyContacts.put("Gp",result.getString("GP"));
+                emergencyContacts.put("Gp", result.getString("GP"));
                 emergencyContacts.put("Dentist", result.getString("DENTIST"));
                 emergencyContacts.put("Optometrist", result.getString("OPTOMETRIST"));
             }

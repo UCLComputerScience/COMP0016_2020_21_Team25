@@ -1,4 +1,5 @@
 import toKebabCase from "webpack-cli/lib/utils/to-kebab-case.js";
+import {members} from "../../../tests/unit/util/constants.js";
 import {toKebabCaseMap} from "../../assets/scripts/util";
 import api from "../../backend/api";
 import router from "../../router/router";
@@ -104,16 +105,20 @@ const actions = {
             alert("Member successfully removed from your circle.");
             await router.push({
                 name: "people",
+                username: rootGetters["admin/username"]
             });
         } else {
             alert(response.message);
         }
     },
     async addMember({ dispatch, commit, getters, rootGetters }, form) {
-        form.username = rootGetters["admin/username"];
-        const response = await api.addMember(form);
+        const username = rootGetters["admin/username"];
+        const newData = { username, ...form };
+        const response = await api.addMember(newData);
+        form.response = response.message;
+        form.success = response.success;
         if (response.success) {
-            await dispatch("fetchMembers", form.username);
+            await dispatch("fetchMembers", username);
             const newId = response["user-id"];
             const newMember = getters.members[newId];
             await dispatch("activeMember", newId);
@@ -121,14 +126,13 @@ const actions = {
             await router.push({
                 name: "user-details",
                 params: {
+                    username,
                     person: name.replace(/[ ]/g, "-").toLowerCase(),
                 },
             });
             const firstName = newMember["first-name"];
             const words = response["registration-code"];
             alert(`${name} was added to your circle. Inform ${firstName} to enter the code: "${words[0]} ${words[1]} ${words[2]}" to activate their Concierge app.`);
-        } else {
-            form.response = response.message;
         }
     },
     activeMember({ dispatch, commit, getters, rootGetters }, id) {
