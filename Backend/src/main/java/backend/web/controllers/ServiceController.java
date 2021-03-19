@@ -5,7 +5,6 @@ import backend.models.DatabaseFactory;
 import backend.web.responses.service.CategoryResponse;
 import backend.web.responses.service.MemberServicesResponse;
 import backend.web.responses.service.ServicesInCategoryResponse;
-import backend.web.util.MapComparator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,7 +58,7 @@ public class ServiceController {
 
         ArrayList<Map<String, String>> services = new ArrayList<>();
 
-        String sqlStatement = "SELECT SERVICE_ID, NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
+        String sqlStatement = "SELECT SERVICE_ID, NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}' ORDER BY NAME";
         ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category));
 
         try {
@@ -75,9 +74,6 @@ public class ServiceController {
                 service.put("icon", icon);
                 service.put("description", description);
                 services.add(service);
-            }
-            if (services.size() > 1) {
-                services.sort(new MapComparator("name"));
             }
         } catch (SQLException e) {
             code = 500;

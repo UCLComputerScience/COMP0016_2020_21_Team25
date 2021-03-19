@@ -7,7 +7,6 @@ import backend.web.responses.account.MemberDataResponse;
 import backend.web.responses.account.MemberHistoryResponse;
 import backend.web.responses.account.AddMemberResponse;
 import backend.web.responses.account.EmergencyContactsResponse;
-import backend.web.util.MapComparator;
 import backend.web.util.RegistrationCodeGenerator;
 import backend.models.Database;
 import backend.models.DatabaseFactory;
@@ -322,7 +321,7 @@ public class AccountController {
 
         ArrayList<Map<String, String>> history = new ArrayList<>();
 
-        String sqlStatement = "SELECT SERVICE.NAME,  SERVICE_LOG.* FROM SERVICE_LOG INNER JOIN SERVICE ON SERVICE_LOG.SERVICE_ID=SERVICE.SERVICE_ID WHERE USER_ID='{USER_ID}'";
+        String sqlStatement = "SELECT SERVICE.NAME,  SERVICE_LOG.* FROM SERVICE_LOG INNER JOIN SERVICE ON SERVICE_LOG.SERVICE_ID=SERVICE.SERVICE_ID WHERE SERVICE_LOG.USER_ID='{USER_ID}'";
         ResultSet result = database.query(sqlStatement.replace("{USER_ID}", user_id));
         try {
             while (result.next()) {
@@ -339,8 +338,7 @@ public class AccountController {
             if (history.size() == 0) {
                 message="Could not find any history for this user";
             }
-            history.sort(new MapComparator("value"));
-        } catch (SQLException | RuntimeException e) {
+        } catch (SQLException e) {
             code = 500;
             message = e.getMessage();
             success = false;

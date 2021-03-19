@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * Endpoint logic for retrieving basic (app) user information.
@@ -39,22 +41,33 @@ public class AppController {
      * @param id the user ID.
      * @return HistoryResponse a JSON object representing the data defined above.
      */
-    @GetMapping("history")
-    public HistoryResponse history(@RequestParam String id) {
+    @GetMapping("app-history")
+    public AppHistoryResponse appHistory(@RequestParam String id) {
         int code = 200;
-        ArrayList<String> history = new ArrayList<>();
-        String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID}";
-        query = query.replace("{ID}", id);
-        ResultSet results = database.query(query);
+
+        ArrayList<Map<String, String>> history = new ArrayList<>();
+
+        String sqlStatement = "SELECT SERVICE.NAME,  SERVICE_LOG.* FROM SERVICE_LOG INNER JOIN SERVICE ON SERVICE_LOG.SERVICE_ID=SERVICE.SERVICE_ID AND SERVICE_LOG.USER_ID='{USER_ID}' WHERE SERVICE_LOG.LOG_DATE BETWEEN CURRENT_DATE-7 AND CURRENT_DATE ORDER BY SERVICE_LOG.LOG_DATE, SERVICE_LOG.LOG_TIME";
+        ResultSet result = database.query(sqlStatement.replace("{USER_ID}", id));
         try {
-            while (results.next()) {
-                history.add(results.getString("NAME"));
+            while (result.next()) {
+                String service_id = result.getString("SERVICE_ID");
+                String service_name = result.getString("NAME");
+                String date= result.getString("LOG_DATE");
+                String time= result.getString("LOG_TIME");
+                Map<String, String> serviceLog = new HashMap<>();
+                serviceLog.put("service_id", service_id);
+                serviceLog.put("service_name", service_name);
+                serviceLog.put("timestamp", date+" "+time);
+                history.add(serviceLog);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } catch (SQLException | RuntimeException e) {
             code = 500;
         }
-        return new HistoryResponse(history, code);
+
+
+        return new AppHistoryResponse(history, code);
     }
 
     /**
@@ -212,16 +225,16 @@ public class AppController {
     /*
      * { "history": [], "code": 200 }
      */
-    private static class HistoryResponse {
-        private final ArrayList<String> history;
+    private static class AppHistoryResponse {
+        private final ArrayList<Map<String, String>> history;
         private final int code;
 
-        public HistoryResponse(ArrayList<String> history, int code) {
+        public AppHistoryResponse(ArrayList<Map<String, String>> history, int code) {
             this.history = history;
             this.code = code;
         }
 
-        public ArrayList<String> getHistory() {
+        public ArrayList<Map<String, String>> getHistory() {
             return history;
         }
 
