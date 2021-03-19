@@ -10,6 +10,8 @@ The device running the app needs to have a speech recongizer installed and confi
 
 Note: for features which utilise your location such as using the Transport service API to search for nearby train stations, location data must already exist on the device. You can ensure location data exists by going onto Google Maps and getting your current location.
 
+Note: the backend server and the Ask Bob server must be running to use the all of the apps features and functionalities.
+
 ## Testing
 The repository contains a regression test suite developed through TDD which you can use to ensure there is no functionality breakage and to which you can add your own tests for your code. The tests under androidTest package are instrumented tests which run on a device/emulator. The tests under test package are unit tests which run on the JVM. See important notes for both below.
 
