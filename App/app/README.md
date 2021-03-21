@@ -2,9 +2,7 @@
 This README provides details about how to deploy the app, how to test it and how to add your own code and features.
 
 ## Deployment
-The app requires a minimum of Android API level 16 (Jelly Bean 4.1.x) on the device to work. 
-
-The app utilises our backend server and Ask Bob (Team 39) server both of which run on localhost. This means the IP address in the code has to be changed to match the IP address of the machine running these servers. The IP has to be changed in the 'AskBobFramework' file in the 'askBobConnectivity' package on line 16 and in the 'BackendFramework' file in the 'backendConnectivity' package on line 15. Both the aforementioned packages can be found under the 'localApis' package.
+Download the APK file and run it on your device and that's it! However, make sure you have the backend and AskBob servers installed and running on a machine on the same network. You can simply run a dockerfile to do all of this for you (including downloading all the code required). A guide to doing this can be found here: ... The app does require a minimum of Android API level 16 (Jelly Bean 4.1.x) on the device to work. 
 
 The device running the app needs to have a speech recongizer installed and configured. Newer Android versions come preinstalled and configured with Google's speech recognizer. In the event that no speech recognizer is installed on the device, Google's speech recognizer can be downloaded here - https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox Once downloaded, you have to go into the device settings and search for 'Assist & voice input' (exact name may vary on Android versions but searching for 'voice' should bring up the correct setting). Then click on 'Assist & voice input' and under 'Assist app', select the Google app which you just installed (or whatever speech recognition engine you are using). Finally, you must go into Settings, Permissions, click on the Google app which you installed and grant all the permissions relating to speech recognition.
 
@@ -12,7 +10,7 @@ To register/connect with the admin...
 
 Note: for features which utilise your location such as using the Transport service API to search for nearby train stations, location data must already exist on the device. You can ensure location data exists by going onto Google Maps and getting your current location.
 
-Note: the backend server and the Ask Bob server must be running to use the all of the apps features and functionalities.
+Note: despite the backend and AskBob server running locally on a machine on the same network, no input is required from the user to connect to these servers - this is all done automatically for you! However, the backend server and Ask Bob server must be running on the same machine.
 
 ## Testing
 The repository contains a regression test suite developed through TDD which you can use to ensure there is no functionality breakage and to which you can add your own tests for your code. The tests under androidTest package are instrumented tests which run on a device/emulator. The tests under test package are unit tests which run on the JVM. See important notes for both below.
