@@ -38,7 +38,7 @@
         android:id="@+id/buttonsScrollView"
         android:layout_width="wrap_content"
         android:layout_height="450dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/stroke_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,13 +112,22 @@
                 app:backgroundTint="#0e62fe"
                 tools:text="history" />
 
+            <Button
+                android:id="@+id/about_activity_button"
+                android:layout_width="match_parent"
+                android:layout_height="118dp"
+                android:layout_marginTop="20dp"
+                android:text="About"
+                android:textSize="60sp"
+                app:backgroundTint="#0e62fe" />
+
         </LinearLayout>
     </ScrollView>
 
     <ImageView
         android:id="@+id/headerBox"
-        android:layout_width="1274dp"
-        android:layout_height="310dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
         android:contentDescription="@string/header_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -130,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:text="Concierge is off"
+        android:text="Give Concierge a command"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="60sp"
@@ -147,9 +156,9 @@
         android:id="@+id/holdToUseText"
         android:layout_width="308dp"
         android:layout_height="203dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="Hold to use Concierge"
         android:textColor="@color/white"
         android:textSize="60sp"
@@ -159,7 +168,7 @@
     <ImageView
         android:id="@+id/ibmLogo"
         android:layout_width="93dp"
-        android:layout_height="59dp"
+        android:layout_height="49dp"
         android:contentDescription="@string/ibm_logo_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,17 +186,17 @@
 
     <ImageView
         android:id="@+id/tapToStartConciergeIcon"
-        android:layout_width="260dp"
-        android:layout_height="203dp"
+        android:layout_width="210dp"
+        android:layout_height="205dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
         android:contentDescription="@string/start_concierge_icon_description"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/miciconoffwithbg" />
+        app:srcCompat="@drawable/miciconoff" />
 
     <TextView
         android:id="@+id/scrollToViewButtons"

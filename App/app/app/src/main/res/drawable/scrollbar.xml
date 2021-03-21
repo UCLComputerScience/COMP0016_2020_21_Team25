@@ -6,6 +6,6 @@
         android:centerColor="@color/black"
         android:endColor="@color/black"
         android:startColor="@color/black"
-        android:scrollbarSize="12dip"/>
+        android:scrollbarSize="12dip" />
 
 </shape>

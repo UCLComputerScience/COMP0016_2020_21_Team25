@@ -81,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/assistant"
                 android:text="Connect with your admin by entering your three registration codes on the 'Register' page. You will then be able to see your history and call your Gp, Dentist and Optometrist. For more help, see some of the commands you can use below."
                 android:textColor="@color/black"
                 android:textSize="60sp" />
@@ -90,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/assistant"
                 android:text="Command: Call Bob. Description: This command will automatically search your contacts for someone called 'Bob' and will place a call to them if this contact exists."
                 android:textColor="@color/black"
                 android:textSize="60sp" />
@@ -99,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
                 android:text="Command: What will the weather in London be like tomorrow? Description: This command will  tell you the weather. You can ask for the weather of any city"
                 android:textColor="@color/black"
                 android:textSize="60sp" />
@@ -108,6 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/assistant"
                 android:text="Command: Open Candy Crush. Description:  This command will open Candy Crush for you.  You can ask for any app but if it is not installed, you will be taken to the Play Store where you can download it."
                 android:textColor="@color/black"
                 android:textSize="60sp" />
@@ -117,6 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/assistant"
                 android:text="Commad: Search Amazon for baked beans. Description: This command will search Amazon for 'baked beans' and take you to the results page."
                 android:textColor="@color/black"
                 android:textSize="60sp" />

@@ -22,7 +22,7 @@ public class AddAlarmActivityTest {
     @Test
     public void backButton() {
         AddAlarmActivity activity = Robolectric.setupActivity(AddAlarmActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonAddAlarm).performClick();
         Intent expectedIntent = new Intent(activity, ViewAlarmsActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

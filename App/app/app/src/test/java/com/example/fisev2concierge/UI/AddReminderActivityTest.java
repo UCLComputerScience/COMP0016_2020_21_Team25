@@ -22,7 +22,7 @@ public class AddReminderActivityTest {
     @Test
     public void backButton() {
         AddReminderActivity activity = Robolectric.setupActivity(AddReminderActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonAddReminder).performClick();
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

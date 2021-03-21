@@ -6,8 +6,6 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fisev2concierge.controllers.MainController;
-import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
-import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
 
 import java.util.HashMap;
 
@@ -35,31 +33,50 @@ public class OpenUrlFunctionality {
         String searchItem = (String) searchItems.get("Application");
         if (url == null){
             //search url was not found, do google search
-            websiteName = websiteName.replace(" ", "+");
-            searchItem = searchItem.replace(" ", "+");
-            url = mainController.searchUrlLookup("google") + websiteName + "+" + searchItem;
+            unknownSearchWebsite(websiteName, searchItem);
         } else {
             switch (websiteName){
                 case "amazon":
                     //only require keywords
-                    searchItem = searchItem.replace(" ", "+");
-                    url = url + searchItem;
+                    searchAmazon(url, searchItem);
                     break;
                 case "yell":
-                    //require keywords and location
-                    //have had to simply search urls such as remove 'searchSeed'
-                    String location = (String) searchItems.get("location");
-                    searchItem = searchItem.replace(" ", "+");
-                    location = location.replace(" ", "+");
-                    url = url.replace("{keywords}", searchItem);
-                    url = url.replace("{location}", location);
+                    searchYell(url, searchItem, searchItems);
                     break;
                 case "google":
-                    searchItem = searchItem.replace(" ", "+");
-                    url = url + searchItem;
+                    searchGoogle(url, searchItem);
                     break;
             }
         }
+    }
+
+    private void unknownSearchWebsite(String websiteName, String searchItem){
+        websiteName = websiteName.replace(" ", "+");
+        searchItem = searchItem.replace(" ", "+");
+        String url = mainController.searchUrlLookup("google") + websiteName + "+" + searchItem;
+        openUrl(url);
+    }
+
+    private void searchAmazon(String url, String searchItem){
+        searchItem = searchItem.replace(" ", "+");
+        url = url + searchItem;
+        openUrl(url);
+    }
+
+    private void searchYell(String url, String searchItem, HashMap searchItems){
+        //require keywords and location
+        //have had to simply search urls such as remove 'searchSeed'
+        String location = (String) searchItems.get("location");
+        searchItem = searchItem.replace(" ", "+");
+        location = location.replace(" ", "+");
+        url = url.replace("{keywords}", searchItem);
+        url = url.replace("{location}", location);
+        openUrl(url);
+    }
+
+    private void searchGoogle(String url, String searchItem){
+        searchItem = searchItem.replace(" ", "+");
+        url = url + searchItem;
         openUrl(url);
     }
 

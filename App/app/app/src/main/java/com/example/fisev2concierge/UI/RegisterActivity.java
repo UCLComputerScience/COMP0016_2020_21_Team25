@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String parameter = code1+"&second_word="+code2+"&last_word="+code3;
                 if (!code1.isEmpty() && !code2.isEmpty() && !code3.isEmpty()){
                     MainController mainController = new MainController();
-                    ArrayList<String> result = mainController.backendServices("register", parameter);
+                    ArrayList<String> result = mainController.backendServices("register", parameter, RegisterActivity.this);
                     String json = result.get(0);
                     try {
                         JSONObject jsonObject = new JSONObject(json);

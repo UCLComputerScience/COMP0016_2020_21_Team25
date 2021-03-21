@@ -8,8 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fisev2concierge.localApis.FindServerIpAddress;
 import com.example.fisev2concierge.localApis.askBobConnectivity.AskBob;
 import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobRequest;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseHandler;
 import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseParser;
 import com.example.fisev2concierge.localApis.backendConnectivity.Backend;
 import com.example.fisev2concierge.functionalityClasses.AlarmsFunctionality;
@@ -52,61 +54,17 @@ public class MainController{
     public void handleUserRequest(String[] userRequest, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity, Context context, Activity activity, TextView conciergeStatusText){
         if (userRequest[0].length()>0) {
             conciergeStatusText.setText(userRequest[0]);
-            HashMap askBobResponse = askBobRequest(userRequest[0]);
-            //add a check here, if we require searching a site then call getLatLon which in turn should add location to the hashmap and then call askBobController itself
-            if (askBobResponse.containsKey("Service")){
-                if (askBobResponse.get("Service").equals("Yell Search")){
-                    test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
-                } else {
-                    if (askBobResponse.get("Service_Type").equals("API_CALL")){
-                        String service = askBobResponse.get("Service").toString();
-                        System.out.println("service: " + service);
-                        if (hasUserID(context)) {
-                            ArrayList<String> services = backendServices("getServices", getUserID(context));
-//                            ArrayList<String> services = backendServices("getServices", "101");
-                            String json = services.get(0);
-                            try {
-                                JSONObject jsonObject = new JSONObject(json);
-                                JSONArray jsonArray = jsonObject.getJSONArray("services");
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    System.out.println("service: " + jsonArray.get(i).toString());
-                                    if (jsonArray.get(i).toString().equals(service)){
-                                        if (askBobResponse.get("Service").equals("Transport") && askBobResponse.containsKey("Transport Type")){
-                                            test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
-                                        } else {
-                                            askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                                            backendServices("addHistory", service + "&user_id=" + getUserID(context));
-                                        }
-                                        return;
-                                    }
-                                }
-                                Toast.makeText(context, "Service not authorised by admin", Toast.LENGTH_SHORT).show();
-                                speechSynthesis.runTts("Service " + service +  " not authorised by admin");
-                            } catch (Exception e){
-                                Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else {
-                            System.out.println("no user id");
-                            if (askBobResponse.containsKey("Service")) {
-                                if (askBobResponse.get("Service").equals("Transport") && askBobResponse.containsKey("Transport Type")) {
-                                    test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
-                                } else {
-                                    askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                                }
-                            } else {
-                                askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                            }
-                        }
-                    } else {
-                        askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                    }
-                }
-            }
+            HashMap askBobResponse = askBobRequest(userRequest[0], appCompatActivity);
+            handleAskBobResponse(askBobResponse, appCompatActivity, context, activity, speechSynthesis);
         } else {
             conciergeStatusText.setText("Concierge is off");
             Toast.makeText(context, "Empty input", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void handleAskBobResponse(HashMap askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+        AskBobResponseHandler askBobResponseHandler = new AskBobResponseHandler(askBobResponse, appCompatActivity, context, activity, speechSynthesis);
+        askBobResponseHandler.handleResponse();
     }
 
     public String getLocation(Context context, Activity activity, Double lat, Double lon){
@@ -121,9 +79,9 @@ public class MainController{
         return searchContacts.searchContacts(name);
     }
 
-    public HashMap askBobRequest(String sTT){
+    public HashMap askBobRequest(String sTT, AppCompatActivity appCompatActivity){
         AskBobRequest askBobRequest = new AskBobRequest();
-        return askBobRequest.makeRequest(sTT);
+        return askBobRequest.makeRequest(sTT, appCompatActivity);
     }
 
     public HashMap parseAskBobResponse(ArrayList<String> response){
@@ -137,19 +95,26 @@ public class MainController{
     }
 
     //BackendServices
-    public ArrayList<String> backendServices(String method, String parameter){
-        Backend backend = new Backend(method, parameter);
+    public ArrayList<String> backendServices(String method, String parameter, AppCompatActivity appCompatActivity){
+        Backend backend = new Backend(method, parameter, appCompatActivity);
         Thread thread = new Thread(backend);
         thread.start();
         return backend.getResult();
     }
 
     //AskBob Services
-    public ArrayList<String> askBobServices(String method, String parameters){
-        AskBob askBob = new AskBob(method, parameters);
+    public ArrayList<String> askBobServices(String method, String parameters, AppCompatActivity appCompatActivity){
+        AskBob askBob = new AskBob(method, parameters, appCompatActivity);
         Thread thread = new Thread(askBob);
         thread.start();
         return askBob.getResult();
+    }
+
+    public String findServerIp(){
+        FindServerIpAddress findServerIpAddress = new FindServerIpAddress();
+        Thread thread = new Thread(findServerIpAddress);
+        thread.start();
+        return findServerIpAddress.getIp();
     }
 
     public boolean addUserID(Context context, String id){

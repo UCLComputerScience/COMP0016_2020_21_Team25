@@ -1,5 +1,7 @@
 package com.example.fisev2concierge.localApis.askBobConnectivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -9,15 +11,16 @@ import java.util.ArrayList;
 
 public class AskBob implements Runnable{
 
-    private AskBobFramework askBobFramework = new AskBobFramework();
+    private AskBobFramework askBobFramework;
     private String method;
     private String parameters;
     private volatile ArrayList<String> response;
     private volatile boolean ready = false;
 
-    public AskBob(String method, String parameters){
+    public AskBob(String method, String parameters, AppCompatActivity appCompatActivity){
         this.method = method;
         this.parameters = parameters;
+        askBobFramework = new AskBobFramework(appCompatActivity);
     }
 
     public synchronized ArrayList<String> getResult() {

@@ -20,7 +20,7 @@ public class HistoryActivityTest {
     @Test
     public void backButton() {
         HistoryActivity activity = Robolectric.setupActivity(HistoryActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonHistory).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

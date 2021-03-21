@@ -112,6 +112,15 @@
                 app:backgroundTint="#0e62fe"
                 tools:text="history" />
 
+            <Button
+                android:id="@+id/about_activity_button"
+                android:layout_width="match_parent"
+                android:layout_height="118dp"
+                android:layout_marginTop="20dp"
+                android:text="About"
+                android:textSize="60sp"
+                app:backgroundTint="#0e62fe" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -130,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:text="Concierge is off"
+        android:text="Give Concierge a command"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="60sp"
@@ -177,7 +186,7 @@
 
     <ImageView
         android:id="@+id/tapToStartConciergeIcon"
-        android:layout_width="260dp"
+        android:layout_width="210dp"
         android:layout_height="203dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
@@ -187,7 +196,7 @@
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/miciconoffwithbg" />
+        app:srcCompat="@drawable/miciconoff" />
 
     <TextView
         android:id="@+id/scrollToViewButtons"

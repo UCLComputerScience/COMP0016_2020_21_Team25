@@ -43,10 +43,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="Select time"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
-        app:layout_constraintBottom_toTopOf="@+id/guideline29"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
     <Button
         android:id="@+id/selectDateButton"
@@ -55,10 +55,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="Select date"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
-        app:layout_constraintBottom_toTopOf="@+id/guideline28"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <TextView
         android:id="@+id/dateSelectedText"
@@ -66,23 +66,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="52dp"
         android:text="Date: "
-        app:layout_constraintBottom_toTopOf="@+id/guideline28"
-        app:layout_constraintStart_toEndOf="@+id/selectDateButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <TextView
         android:id="@+id/timeSelectedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="52dp"
         android:text="No time set"
-        app:layout_constraintBottom_toTopOf="@+id/guideline29"
-        app:layout_constraintStart_toEndOf="@+id/alarmTimeButton"
-        app:layout_constraintTop_toTopOf="@+id/remindersViewTitle"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
     <Button
         android:id="@+id/saveAlarmButton"
@@ -91,7 +89,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Save"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -103,7 +101,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Delete"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintEnd_toStartOf="@+id/saveAlarmButton" />
@@ -112,9 +110,9 @@
         android:id="@+id/backButtonEditAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="16dp"
         android:text="Back"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,27 +140,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="267dp" />
+        app:layout_constraintGuide_begin="167dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="331dp" />
+        app:layout_constraintGuide_begin="238dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="399dp" />
+        app:layout_constraintGuide_begin="309dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="467dp" />
+        app:layout_constraintGuide_begin="365dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

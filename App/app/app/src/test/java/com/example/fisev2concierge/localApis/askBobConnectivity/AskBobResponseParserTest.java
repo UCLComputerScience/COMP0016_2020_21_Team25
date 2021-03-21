@@ -13,33 +13,69 @@ import static org.junit.Assert.*;
 public class AskBobResponseParserTest {
 
     @Test
+    public void parseTransportNearestStationApiCommandTest(){
+        AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
+        ArrayList<String> mockResponse = new ArrayList<>();
+        mockResponse.add("{\"query\":\"\\\"\\\"tell me where the nearest train station is\\\"\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"API_CALL\",\"Service\":\"Transport\",\"Response\":\"Finding nearest train station\",\"Transport Type\":\"train_station\"}}]}");
+        HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
+        assertEquals("API_CALL", parsedResponse.get("Service_Type"));
+        assertEquals("Transport", parsedResponse.get("Service"));
+        assertEquals("Finding nearest train station", parsedResponse.get("Response"));
+        assertEquals("train_station", parsedResponse.get("Transport Type"));
+    }
+
+    @Test
+    public void parseTransportSpecificStationApiCommandTest(){
+        AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
+        ArrayList<String> mockResponse = new ArrayList<>();
+        mockResponse.add("{\"query\":\"tell me where euston train station is\",\"messages\":[{\"custom\":{\"Service_Type\":\"API_CALL\",\"Service\":\"Transport\",\"Response\":{\"Message\":\"Here's what I've found about euston.\",\"Latitude\":51.528135,\"Longitude\":-0.133924}}}]}");
+        HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
+        assertEquals("API_CALL", parsedResponse.get("Service_Type"));
+        assertEquals("Transport", parsedResponse.get("Service"));
+        assertEquals("51.528135", parsedResponse.get("lat"));
+        assertEquals("-0.133924", parsedResponse.get("lon"));
+    }
+
+    @Test
+    public void parseRecipesWithStepsApiCommandTest(){
+        AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
+        ArrayList<String> mockResponse = new ArrayList<>();
+        mockResponse.add("{\"query\":\"read that recipe\",\"messages\":[{\"custom\":{\"Service_Type\":\"API_CALL\",\"Service\":\"Recipes\",\"Response\":\"Here's the recipe information.\",\"Steps\":[\"Step 1: Chop the mushrooms in half and place into a large bowl with all the ingredients for the marinade. Stir so everything is coated, then cover and place in the fridge for 1 hour, or up to overnight.\"]}}]}");
+        HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
+        assertEquals("API_CALL", parsedResponse.get("Service_Type"));
+        assertEquals("Recipes", parsedResponse.get("Service"));
+        assertEquals("Step 1: Chop the mushrooms in half and place into a large bowl with all the ingredients for the marinade. Stir so everything is coated, then cover and place in the fridge for 1 hour, or up to overnight.", parsedResponse.get("Steps"));
+    }
+
+    @Test
     public void parseServiceApiCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"whats the weather like\",\"messages\":[{\"custom\":{\"Service_Type\":\"API_CALL\",\"Service\":\"current_weather\",\"Response\":\"The weather in London today is broken clouds with the temperature being 9 degrees celsius but will probably feel like 6 degrees celsius. The high will be 10 degrees celsius and the low, 8 degrees celsius. Don't forget to dress warm today!\"}}]}");
+        mockResponse.add("{\"query\":\"tell me a joke\",\"messages\":[{\"custom\":{\"Service_Type\":\"API_CALL\",\"Service\":\"Jokes\",\"Response\":\"what do you call a dog that can do magic tricks? a labracadabrador\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
         assertEquals("API_CALL", parsedResponse.get("Service_Type"));
-        assertEquals("current_weather", parsedResponse.get("Service"));
-        assertEquals("The weather in London today is broken clouds with the temperature being 9 degrees celsius but will probably feel like 6 degrees celsius. The high will be 10 degrees celsius and the low, 8 degrees celsius. Don't forget to dress warm today!", parsedResponse.get("Response"));
+        assertEquals("Jokes", parsedResponse.get("Service"));
+        assertEquals("what do you call a dog that can do magic tricks? a labracadabrador", parsedResponse.get("Response"));
     }
 
     @Test
     public void parseOpenAppCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"open snapchat\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"OPEN_APP\",\"Application\":\"open snapchat\"}}]}");
+        mockResponse.add("{\"query\":\"open snapchat\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Open App\",\"Application\":\"SNAPCHAT\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-        assertEquals("OPEN_APP", parsedResponse.get("Service_Type"));
-        assertEquals("open snapchat", parsedResponse.get("Application"));
+        assertEquals("Open App", parsedResponse.get("Service"));
+        assertEquals("snapchat", parsedResponse.get("Application"));
     }
 
     @Test
     public void parseCallCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"call bob\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"CALL_CONTACT\",\"Contact\":\"bob\"}}]}");
+        mockResponse.add("{\"query\":\"call bob\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Call Contact\",\"Response\":\"Calling bob\",\"Contact\":\"bob\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-        assertEquals("CALL_CONTACT", parsedResponse.get("Service_Type"));
+        assertEquals("Call Contact", parsedResponse.get("Service"));
+        assertEquals("Calling bob", parsedResponse.get("Response"));
         assertEquals("bob", parsedResponse.get("Contact"));
     }
 
@@ -47,9 +83,10 @@ public class AskBobResponseParserTest {
     public void parseMessageCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"message bob\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"SMS_CONTACT\",\"Contact\":\"bob\"}}]}");
+        mockResponse.add("{\"query\":\"message bob\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"SMS Contact\",\"Response\":\"Messaging bob\",\"Contact\":\"bob\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-        assertEquals("SMS_CONTACT", parsedResponse.get("Service_Type"));
+        assertEquals("SMS Contact", parsedResponse.get("Service"));
+        assertEquals("Messaging bob", parsedResponse.get("Response"));
         assertEquals("bob", parsedResponse.get("Contact"));
     }
 
@@ -57,20 +94,22 @@ public class AskBobResponseParserTest {
     public void parseShopCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"search amazon for cars\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"SHOP_SEARCH\",\"Status\":\"ok\",\"Service\":\"Amazon\",\"Application\":\"search amazon for cars\"}}]}");
+        mockResponse.add("{\"query\":\"search amazon for baked beans\",\"messages\":[{\"custom\":{\"Service_Type\":\"LOOKUP\",\"Service\":\"Shop Search\",\"Response\":\"Searching AMAZON for BAKED BEANS\",\"Shop\":\"AMAZON\",\"Search Term\":\"BAKED BEANS\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-        assertEquals("SHOP_SEARCH", parsedResponse.get("Service_Type"));
-        assertEquals("Amazon", parsedResponse.get("Service"));
-        assertEquals("search amazon for cars", parsedResponse.get("Application"));
+        assertEquals("Shop Search", parsedResponse.get("Service"));
+        assertEquals("Searching AMAZON for BAKED BEANS", parsedResponse.get("Response"));
+        assertEquals("amazon", parsedResponse.get("Shop"));
+        assertEquals("baked beans", parsedResponse.get("Application"));
     }
 
     @Test
     public void parseYellCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"find me a plumber\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"YELL_SEARCH\",\"Status\":\"ok\",\"Application\":\"plumber\"}}]}");
+        mockResponse.add("{\"query\":\"find me a plumber\",\"messages\":[{\"custom\":{\"Service_Type\":\"LOOKUP\",\"Service\":\"Yell Search\",\"Response\":\"Searching YELL for PLUMBER\",\"Search Term\":\"PLUMBER\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-        assertEquals("YELL_SEARCH", parsedResponse.get("Service_Type"));
+        assertEquals("Yell Search", parsedResponse.get("Service"));
+        assertEquals("Searching YELL for PLUMBER", parsedResponse.get("Response"));
         assertEquals("plumber", parsedResponse.get("Application"));
     }
 
@@ -78,10 +117,10 @@ public class AskBobResponseParserTest {
     public void parseNavigateAppCommand(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"go to reminders\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"NAVIGATE_APP\",\"Application\":\"reminders\"}}]}");
+        mockResponse.add("{\"query\":\"go to the history page\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Navigate App\",\"Page\":\"history\"}}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-        assertEquals("NAVIGATE_APP", parsedResponse.get("Service_Type"));
-        assertEquals("reminders", parsedResponse.get("Application"));
+        assertEquals("Navigate App", parsedResponse.get("Service"));
+        assertEquals("history", parsedResponse.get("Application"));
     }
 
     @Test
@@ -91,7 +130,16 @@ public class AskBobResponseParserTest {
         mockResponse.add("{\"query\":\"\\\"random\\\"\",\"messages\":[{\"text\":\"I didn't quite catch that! Please could you rephrase?\"}]}");
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
         assertEquals("ERROR", parsedResponse.get("Service_Type"));
+        assertEquals("ERROR", parsedResponse.get("Service"));
         assertEquals("I didn't quite catch that! Please could you rephrase?", parsedResponse.get("text"));
+    }
+
+    @Test
+    public void parseSecondError(){
+        AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
+        ArrayList<String> mockResponse = new ArrayList<>();
+        HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
+
     }
 
 

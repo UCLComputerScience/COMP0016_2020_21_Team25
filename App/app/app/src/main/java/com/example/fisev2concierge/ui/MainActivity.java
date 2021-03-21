@@ -2,7 +2,9 @@ package com.example.fisev2concierge.UI;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +15,10 @@ import androidx.core.app.ActivityCompat;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fisev2concierge.R;
+import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.speech.SpeechRecognition;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
@@ -27,6 +31,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 10);
+
+        //check session to see if we have ip of server
+        //if not make request
+        SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+        if (!sharedpreferences.contains("server_ip")){
+            String ip = new MainController().findServerIp();
+            if (ip.startsWith("/")) {
+                ip = ip.substring(1);
+            }
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("server_ip", ip);
+            editor.apply();
+            Toast.makeText(MainActivity.this, "Connected to server!", Toast.LENGTH_SHORT).show();
+        }
 
         TextView conciergeStatusText = findViewById(R.id.conciergeStatusText);
 
@@ -46,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_UP:
                         speechRecognition.stopListening();
-                        mic.setImageResource(R.drawable.miciconoffwithbg);
-                        conciergeStatusText.setHint("Concierge is off");
+                        mic.setImageResource(R.drawable.miciconoff);
+                        conciergeStatusText.setHint("Give Concierge a command");
                         break;
                     case MotionEvent.ACTION_DOWN:
                         speechRecognition.startListening();
-                        mic.setImageResource(R.drawable.micicononwithbg);
+                        mic.setImageResource(R.drawable.miciconon);
                         conciergeStatusText.setText("");
                         conciergeStatusText.setHint("Concierge is listening");
                         break;
@@ -110,6 +128,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, InstructionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button about_activity_button = findViewById(R.id.about_activity_button);
+        about_activity_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent);
             }
         });

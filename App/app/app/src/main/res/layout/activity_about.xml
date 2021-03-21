@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/headerBox"
-        android:layout_width="800dp"
-        android:layout_height="90dp"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
         android:contentDescription="@string/header_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,46 +16,35 @@
         app:srcCompat="@drawable/box" />
 
     <TextView
-        android:id="@+id/viewRemindersView"
+        android:id="@+id/aboutActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reminders"
-        android:textSize="60sp"
+        android:layout_marginTop="4dp"
+        android:text="About"
         android:textColor="@color/white"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/backButtonViewReminders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:text="Back"
-        android:textColor="@color/white"
-        android:textSize="60sp"
-        app:backgroundTint="#0e62fe"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/addNewReminder"
-        android:layout_width="wrap_content"
+    <TextView
+        android:fontFamily="@font/assistant"
+        android:id="@+id/aboutText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Add New Reminder"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        app:backgroundTint="#0e62fe"
+        android:textSize="35sp"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Fise Concierge 2021 \nCreated by Calin Hadarean, Ernest Nkansah-Badu and Mohammad Ali Syed for IBM and UCL. "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerBox" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="90dp"
-        android:layout_height="39dp"
+        android:layout_width="83dp"
+        android:layout_height="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ibm_logo" />
@@ -70,14 +57,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ucl_logo" />
 
-    <ListView
-        android:id="@+id/remindersListView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="44dp"
+    <Button
+        android:id="@+id/backButtonAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="Back"
+        android:textSize="35sp"
+        app:backgroundTint="#0e62fe"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addNewReminder" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

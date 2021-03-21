@@ -22,13 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reminders"
-        android:textColor="@color/white"
         android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/addNewReminder"
-        app:layout_constraintEnd_toEndOf="@+id/headerBox"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/backButtonViewReminders"
@@ -82,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="222dp" />
+        app:layout_constraintGuide_begin="201dp" />
 
     <ListView
         android:id="@+id/remindersListView"

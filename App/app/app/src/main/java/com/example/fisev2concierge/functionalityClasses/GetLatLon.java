@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,20 +13,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.fisev2concierge.controllers.MainController;
+import com.example.fisev2concierge.helperClasses.TransportApiResponse;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
-
-import static com.example.fisev2concierge.speech.SpeechRecognition.RecordAudioRequestCode;
 
 public class GetLatLon{
 
@@ -54,47 +47,65 @@ public class GetLatLon{
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    MainController mainController = new MainController();
-                    if (location != null) {
-                        if (askBobResponse.get("Service").equals("Yell Search")) {
-                            String postcode = mainController.getLocation(context, activity, location.getLatitude(), location.getLongitude());
-                            askBobResponse.put("location", postcode);
-                            mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                            return;
-                        } else {
-                            String url = mainController.searchUrlLookup("maps_transport");
-                            url = url.replace("{lat}", String.valueOf(location.getLatitude()));
-                            url = url.replace("{lon}", String.valueOf(location.getLongitude()));
-                            TransportApiResponse transportApiResponse = new TransportApiResponse();
-                            url = transportApiResponse.searchForTransport(askBobResponse.get("Transport Type").toString() ,url);
-                            speechSynthesis.runTts(askBobResponse.get("Response").toString());
-                            mainController.openUrl(appCompatActivity, url);
-                            if (mainController.hasUserID(context)) {
-                                mainController.backendServices("addHistory", askBobResponse.get("Service").toString() + "&user_id=" + mainController.getUserID(context));
-                            }
-                        }
-                    } else {
-                        if (askBobResponse.get("Service").equals("Yell Search")) {
-                            askBobResponse.put("location", "london");
-                            mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                            return;
-                        } else {
-                            Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                    handleLocationSuccess(location);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    if (askBobResponse.get("Service").equals("Yell Search")) {
-                        askBobResponse.put("location", "london");
-                        new MainController().askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                        return;
-                    } else {
-                        Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
-                    }
+                    handleLocationFailure();
                 }
             });
+        }
+    }
+
+    private void handleLocationSuccess(Location location){
+        MainController mainController = new MainController();
+        if (location != null) {
+            if (askBobResponse.get("Service").equals("Yell Search")) {
+                handleYellSearchWithLocation(location.getLatitude(), location.getLongitude());
+                return;
+            } else {
+                handleTransportApiWithLocation(location.getLatitude(), location.getLongitude());
+            }
+        } else {
+            if (askBobResponse.get("Service").equals("Yell Search")) {
+                askBobResponse.put("location", "london");
+                mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+                return;
+            } else {
+                Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void handleLocationFailure(){
+        if (askBobResponse.get("Service").equals("Yell Search")) {
+            askBobResponse.put("location", "london");
+            new MainController().askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+            return;
+        } else {
+            Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handleYellSearchWithLocation(Double lat, Double lon){
+        MainController mainController = new MainController();
+        String postcode = mainController.getLocation(context, activity, lat, lon);
+        askBobResponse.put("location", postcode);
+        mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
+    }
+
+    private void handleTransportApiWithLocation(Double lat, Double lon){
+        MainController mainController = new MainController();
+        String url = mainController.searchUrlLookup("maps_transport");
+        url = url.replace("{lat}", String.valueOf(lat));
+        url = url.replace("{lon}", String.valueOf(lon));
+        TransportApiResponse transportApiResponse = new TransportApiResponse();
+        url = transportApiResponse.searchForTransport(askBobResponse.get("Transport Type").toString() ,url);
+        speechSynthesis.runTts(askBobResponse.get("Response").toString());
+        mainController.openUrl(appCompatActivity, url);
+        if (mainController.hasUserID(context)) {
+            mainController.backendServices("addHistory", askBobResponse.get("Service").toString() + "&user_id=" + mainController.getUserID(context), appCompatActivity);
         }
     }
 }

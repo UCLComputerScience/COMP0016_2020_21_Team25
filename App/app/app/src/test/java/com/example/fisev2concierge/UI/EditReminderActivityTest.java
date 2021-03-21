@@ -19,7 +19,7 @@ public class EditReminderActivityTest {
     @Test
     public void backButton() {
         EditReminderActivity activity = Robolectric.setupActivity(EditReminderActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonEditReminder).performClick();
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

@@ -2,19 +2,22 @@ package com.example.fisev2concierge.localApis.backendConnectivity;
 
 import android.renderscript.ScriptIntrinsicYuvToRGB;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 public class Backend implements Runnable{
 
-    private BackendFramework backendFramework = new BackendFramework();
+    private BackendFramework backendFramework;
     private String method;
     private String parameter;
     private volatile ArrayList<String> result;
     private volatile boolean ready = false;
 
-    public Backend(String method, String parameter){
+    public Backend(String method, String parameter, AppCompatActivity appCompatActivity){
         this.method = method;
         this.parameter = parameter;
+        backendFramework =  new BackendFramework(appCompatActivity);
     }
 
     public synchronized ArrayList<String> getResult() {
@@ -72,7 +75,7 @@ public class Backend implements Runnable{
 
     //which getHistory response do we want to use and why is addHistory not in the same file as memberHistory?
     public ArrayList<String> getHistory(String id){
-        return backendFramework.request("member-history?user_id="+id);
+        return backendFramework.request("app-history?id="+id);
     }
 
     public ArrayList<String> addHistory(String id){

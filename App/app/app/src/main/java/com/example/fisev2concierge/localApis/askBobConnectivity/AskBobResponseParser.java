@@ -7,74 +7,37 @@ import org.json.*;
 public class AskBobResponseParser {
 
     public HashMap parse(ArrayList<String> response){
-
         HashMap parsedResponse = new HashMap();
         try {
             String jsonString = response.get(0);
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray("messages");
             JSONObject custom = (JSONObject) jsonArray.getJSONObject(0).get("custom");
-            parsedResponse.put("Service_Type", custom.getString("Service_Type"));
-            parsedResponse.put("Service", custom.getString("Service"));
-            if (custom.getString("Service_Type").equals("API_CALL")){
-                parsedResponse.put("Service", custom.getString("Service"));
-                parsedResponse.put("Response", custom.getString("Response"));
-                if (custom.getString("Service").equals("Transport")){
-                    if (custom.has("Transport Type")) {
-                        parsedResponse.put("Transport Type", custom.getString("Transport Type"));
-                    } else {
-                        try {
-                            JSONObject responseObject = new JSONObject(custom.getString("Response"));
-                            if (responseObject.has("Message")) {
-                                String responseMessage = responseObject.getString("Message");
-                                parsedResponse.put("Message", responseMessage);
-                                parsedResponse.put("lat", responseObject.getString("Latitude"));
-                                parsedResponse.put("lon", responseObject.getString("Longitude"));
-                            }
-                        } catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                } else if (custom.getString("Service").equals("Recipes")){
-                    if (custom.has("Steps")){
-                        try {
-                            JSONArray stepsArray = custom.getJSONArray("Steps");
-                            String steps = "";
-                            for (int i = 0; i < stepsArray.length(); i++){
-                                steps += stepsArray.getString(i);
-                            }
-                            System.out.println("steps: " + steps);
-                            parsedResponse.put("Steps", steps);
-                        } catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
+            String service_type = custom.getString("Service_Type");
+            String service = custom.getString("Service");
+            parsedResponse.put("Service_Type", service_type);
+            parsedResponse.put("Service", service);
+            if (service_type.equals("API_CALL")){
+                parseApiResponse(parsedResponse, custom);
             } else {
                 switch (custom.getString("Service")) {
                     case "Call Contact":
-                        parsedResponse.put("Contact", custom.getString("Contact"));
-                        parsedResponse.put("Response", custom.getString("Response"));
+                        parseCallResponse(parsedResponse, custom);
                         break;
                     case "SMS Contact":
-                        parsedResponse.put("Contact", custom.getString("Contact"));
-                        parsedResponse.put("Response", custom.getString("Response"));
-                        //add message
+                        parseSmsResponse(parsedResponse, custom);
                         break;
                     case "Open App":
-                        parsedResponse.put("Application", custom.getString("Application").toLowerCase());
+                        parseOpenAppResponse(parsedResponse, custom);
                         break;
                     case "Shop Search":
-                        parsedResponse.put("Shop", custom.getString("Shop").toLowerCase());
-                        parsedResponse.put("Application", custom.getString("Search Term").toLowerCase());
-                        parsedResponse.put("Response", custom.getString("Response"));
+                        parseShopSearchResponse(parsedResponse, custom);
                         break;
                     case "Yell Search":
-                        parsedResponse.put("Application", custom.getString("Search Term").toLowerCase());
-                        parsedResponse.put("Response", custom.getString("Response"));
+                        parseYellSearchResponse(parsedResponse, custom);
                         break;
                     case "Navigate App":
-                        parsedResponse.put("Application", custom.getString("Page").toLowerCase());
+                        parseNavigateAppResponse(parsedResponse, custom);
                         break;
                 }
             }
@@ -84,15 +47,84 @@ public class AskBobResponseParser {
                 //Command may not be recognised
                 String jsonString = response.get(0);
                 JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("messages");
-                String text = jsonArray.getJSONObject(0).getString("text");
-                parsedResponse.put("Service_Type", "ERROR");
-                parsedResponse.put("Service", "ERROR");
-                parsedResponse.put("text", text);
+                parseErrorResponse(parsedResponse, jsonObject);
             } catch (Exception e1){
                 e1.printStackTrace();
             }
         }
         return parsedResponse;
+    }
+
+    private void parseApiResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Service", custom.getString("Service"));
+        parsedResponse.put("Response", custom.getString("Response"));
+        if (custom.getString("Service").equals("Transport")) {
+            parseTransportApiResponse(parsedResponse, custom);
+        } else if (custom.getString("Service").equals("Recipes")) {
+            parseRecipesApiResponse(parsedResponse, custom);
+        }
+    }
+
+    private void parseTransportApiResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        if (custom.has("Transport Type")) {
+            parsedResponse.put("Transport Type", custom.getString("Transport Type"));
+        } else {
+            JSONObject responseObject = new JSONObject(custom.getString("Response"));
+            if (responseObject.has("Message")) {
+                String responseMessage = responseObject.getString("Message");
+                parsedResponse.put("Message", responseMessage);
+                parsedResponse.put("lat", responseObject.getString("Latitude"));
+                parsedResponse.put("lon", responseObject.getString("Longitude"));
+            }
+        }
+    }
+
+    private void parseRecipesApiResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        if (custom.has("Steps")) {
+            JSONArray stepsArray = custom.getJSONArray("Steps");
+            String steps = "";
+            for (int i = 0; i < stepsArray.length(); i++) {
+                steps += stepsArray.getString(i);
+            }
+            parsedResponse.put("Steps", steps);
+        }
+    }
+
+    private void parseCallResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Contact", custom.getString("Contact"));
+        parsedResponse.put("Response", custom.getString("Response"));
+    }
+
+    private void parseSmsResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Contact", custom.getString("Contact"));
+        parsedResponse.put("Response", custom.getString("Response"));
+        //add message once nlp can extract it
+    }
+
+    private void parseShopSearchResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Shop", custom.getString("Shop").toLowerCase());
+        parsedResponse.put("Application", custom.getString("Search Term").toLowerCase());
+        parsedResponse.put("Response", custom.getString("Response"));
+    }
+
+    private void parseYellSearchResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Application", custom.getString("Search Term").toLowerCase());
+        parsedResponse.put("Response", custom.getString("Response"));
+    }
+
+    private void parseOpenAppResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Application", custom.getString("Application").toLowerCase());
+    }
+
+    private void parseNavigateAppResponse(HashMap parsedResponse, JSONObject custom) throws Exception{
+        parsedResponse.put("Application", custom.getString("Page").toLowerCase());
+    }
+
+    private void parseErrorResponse(HashMap parsedResponse, JSONObject jsonObject) throws Exception{
+        JSONArray jsonArray = jsonObject.getJSONArray("messages");
+        String text = jsonArray.getJSONObject(0).getString("text");
+        parsedResponse.put("Service_Type", "ERROR");
+        parsedResponse.put("Service", "ERROR");
+        parsedResponse.put("text", text);
     }
 }

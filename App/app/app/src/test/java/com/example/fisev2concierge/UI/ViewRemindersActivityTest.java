@@ -30,7 +30,7 @@ public class ViewRemindersActivityTest {
     @Test
     public void clickingBackButton_shouldStartMainActivity() {
         ViewRemindersActivity activity = Robolectric.setupActivity(ViewRemindersActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonViewReminders).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

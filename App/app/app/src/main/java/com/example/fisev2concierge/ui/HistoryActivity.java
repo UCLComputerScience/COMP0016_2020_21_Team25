@@ -1,12 +1,15 @@
 package com.example.fisev2concierge.UI;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,17 +40,17 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        Button temp = findViewById(R.id.askBobOpenApp);
-        temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mainController.hasUserID(HistoryActivity.this)){
-                    mainController.addUserID(HistoryActivity.this, "101");
-                }
-                String number = mainController.searchContact("Gp", HistoryActivity.this, HistoryActivity.this, HistoryActivity.this);
-                System.out.println("number: " + number);
-            }
-        });
+//        Button temp = findViewById(R.id.askBobOpenApp);
+//        temp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!mainController.hasUserID(HistoryActivity.this)){
+//                    mainController.addUserID(HistoryActivity.this, "101");
+//                }
+////                String number = mainController.searchContact("Gp", HistoryActivity.this, HistoryActivity.this, HistoryActivity.this);
+////                System.out.println("number: " + number);
+//            }
+//        });
 
         historyListView = findViewById(R.id.historyListView);
         populateListView();
@@ -56,9 +59,8 @@ public class HistoryActivity extends AppCompatActivity {
     private void populateListView(){
         ArrayList<String> listData = new ArrayList<>();
         if (mainController.hasUserID(HistoryActivity.this)) {
-            ArrayList<String> history = mainController.backendServices("getHistory", mainController.getUserID(HistoryActivity.this));
+            ArrayList<String> history = mainController.backendServices("getHistory", mainController.getUserID(HistoryActivity.this), HistoryActivity.this);
             String json = history.get(0);
-            //need to add case for no history
             try {
                 JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = jsonObject.getJSONArray("history");
@@ -75,7 +77,6 @@ public class HistoryActivity extends AppCompatActivity {
             } catch (Exception e){
                 Toast.makeText(HistoryActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
         } else {
             listData.add("Not connected to an admin - no history to display");
         }

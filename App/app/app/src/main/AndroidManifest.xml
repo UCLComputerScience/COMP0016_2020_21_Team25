@@ -20,6 +20,10 @@
         android:theme="@style/Theme.FISEV2Concierge" >
         <receiver android:name=".helperClasses.AlertReceiver"/>
         <activity
+            android:name=".UI.AboutActivity"
+            android:label="About" >
+        </activity>
+        <activity
             android:name=".UI.RegisterActivity"
             android:label="Register" >
         </activity>
@@ -72,6 +76,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ public class RegisterActivityTest {
     @Test
     public void backButton() {
         RegisterActivity activity = Robolectric.setupActivity(RegisterActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonRegister).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

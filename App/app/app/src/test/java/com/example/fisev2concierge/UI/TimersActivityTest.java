@@ -21,7 +21,7 @@ public class TimersActivityTest {
     @Test
     public void clickingBackButton_shouldStartMainActivity() {
         TimersActivity activity = Robolectric.setupActivity(TimersActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonTimers).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());

@@ -35,10 +35,11 @@ public class MainControllerTest {
     public void parseAskBobResponse() {
         MainController mainController = new MainController();
         ArrayList<String> mockResponse = new ArrayList<>();
-        mockResponse.add("{\"query\":\"\\\"open snapchat\\\"\",\"messages\":[{\"custom\":{\"Service_Type\":\"OPEN_APP\",\"Application\":\"open snapchat\"}}]}");
+        mockResponse.add("{\"query\":\"open snapchat\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Open App\",\"Application\":\"SNAPCHAT\"}}]}");
         HashMap parsedResponse = mainController.parseAskBobResponse(mockResponse);
-        assertEquals("OPEN_APP", parsedResponse.get("Service_Type"));
-        assertEquals("open snapchat", parsedResponse.get("Application"));
+        assertEquals("APP_SERVICE", parsedResponse.get("Service_Type"));
+        assertEquals("Open App", parsedResponse.get("Service"));
+        assertEquals("snapchat", parsedResponse.get("Application"));
     }
 
     @Test
@@ -55,7 +56,8 @@ public class MainControllerTest {
         MainController mainController = new MainController();
         MainActivity activity = Robolectric.setupActivity(MainActivity.class);
         HashMap hashMap = new HashMap();
-        hashMap.put("Service_Type", "OPEN_APP");
+        hashMap.put("Service_Type", "APP_SERVICE");
+        hashMap.put("Service", "Open App");
         hashMap.put("Application", "snapchat");
         mainController.askBobController(hashMap, activity, activity, activity, null);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://play.google.com/store/apps/details?id=com.snapchat.android"));

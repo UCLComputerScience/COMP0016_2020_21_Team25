@@ -20,7 +20,7 @@ public class InstructionsViewTest {
     @Test
     public void backButton() {
         InstructionActivity activity = Robolectric.setupActivity(InstructionActivity.class);
-        activity.findViewById(R.id.backButton).performClick();
+        activity.findViewById(R.id.backButtonInstructions).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
