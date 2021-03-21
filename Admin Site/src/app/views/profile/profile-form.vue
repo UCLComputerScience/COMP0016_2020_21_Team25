@@ -133,10 +133,7 @@ export default {
                         ref: "new-password",
                     };
                 }
-                if (
-                    this.profileData.newPassword !==
-                    this.profileData.repeatPassword
-                ) {
+                if (this.profileData.newPassword !== this.profileData.repeatPassword) {
                     return {
                         message: "The two entered passwords do not match.",
                         ref: "new-password",
