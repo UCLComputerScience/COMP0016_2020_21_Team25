@@ -83,7 +83,11 @@ export default {
     },
     methods: {
         fetchCategories() {
-            this.categories = Object.keys(this.$store.getters["service/allServices"]);
+            this.$store.dispatch("service/setServices").then(_ => {
+                this.$store.dispatch("media/setProfileImages");
+                this.$store.dispatch("media/setServiceIcons");
+                this.categories = Object.keys(this.$store.getters["service/allServices"]);
+            });
         },
         setRef(el) {
             this.sections.push(el);

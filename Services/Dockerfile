@@ -2,6 +2,7 @@ FROM maven:3.6-jdk-11
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+
 RUN apt-get update \
     && apt-get -y install --no-install-recommends python3 2>&1 \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
@@ -10,15 +11,19 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . /services
+WORKDIR /Services
 
-RUN chmod u+x /services/services
-RUN chmod u+x /services/tools/test
-RUN chmod u+x /services/tools/coverage
-RUN chmod u+x /services/tools/analysis
+COPY . .
 
-RUN cd /services && mvn package -DskipTests
+RUN chmod u+x services
+RUN chmod u+x tools/test
+RUN chmod u+x tools/coverage
+RUN chmod u+x tools/analysis
+
+RUN mvn package -DskipTests
 
 ENV DEBIAN_FRONTEND=
+
+ENTRYPOINT services
 
 EXPOSE 8080

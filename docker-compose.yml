@@ -1,15 +1,14 @@
 version: "3.9"
 services:
-  concierge:
-    build: .
-    image: concierge
+  backend:
+    build: ./Backend
+    ports:
+      - 8100
+  services:
+    build: ./Services
     ports:
       - 8080
-      - 8100
   askbob:
-    build: 
-      context: .
-      dockerfile: askbob.Dockerfile
-    image: askbob
+    build: ./AskBob Concierge
     ports:
       - 8000
