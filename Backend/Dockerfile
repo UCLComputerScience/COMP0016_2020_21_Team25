@@ -19,8 +19,8 @@ RUN chmod u+x backend
 
 RUN mvn package -DskipTests
 
-ENV DEBIAN_FRONTEND=
+#ENV DEBIAN_FRONTEND=
 
-ENTRYPOINT backend
+ENTRYPOINT /Backend/backend
 
 EXPOSE 8100

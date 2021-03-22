@@ -3,12 +3,12 @@ services:
   backend:
     build: ./Backend
     ports:
-      - 8100
+      - "8100:8100"
   services:
     build: ./Services
     ports:
-      - 8080
+      - "8080:8080"
   askbob:
     build: ./AskBob Concierge
     ports:
-      - 8000
+      - "8000:8000"

@@ -22,8 +22,8 @@ RUN chmod u+x tools/analysis
 
 RUN mvn package -DskipTests
 
-ENV DEBIAN_FRONTEND=
+#ENV DEBIAN_FRONTEND=
 
-ENTRYPOINT services
+ENTRYPOINT /Services/services
 
 EXPOSE 8080
