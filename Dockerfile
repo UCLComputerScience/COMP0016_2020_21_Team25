@@ -14,6 +14,8 @@ RUN apt-get update \
 COPY ./Backend Backend
 COPY ./services services
 
+COPY ./concierge concierge
+
 # Build Concierge Backend
 RUN cd /Backend && mvn package -DskipTests
 
