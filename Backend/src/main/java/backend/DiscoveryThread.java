@@ -11,17 +11,28 @@ import java.util.logging.Logger;
  * Broadcast server IP address over the local network using UDP
  */
 public class DiscoveryThread implements Runnable {
+    private boolean running = false;
     DatagramSocket socket;
+
+    public void stop() {
+        this.running = false;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
 
     @Override
     public void run() {
+        running = true;
         try {
             //Keep a socket open to listen to all the UDP traffic that is destined for this port
             socket = new DatagramSocket(Integer.parseInt(App.PORT), InetAddress.getByName("0.0.0.0"));
             socket.setBroadcast(true);
 
-            while (true) {
-                ApiLogger.log("Backend is ready to receive broadcast packets");
+            while (isRunning()) {
+                ApiLogger.log("Backend ready to receive broadcast packets @ " + InetAddress.getLocalHost().getHostAddress());
+                System.out.println();
 
                 //Receive a packet
                 byte[] recvBuf = new byte[15000];

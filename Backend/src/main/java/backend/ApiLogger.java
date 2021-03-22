@@ -37,6 +37,5 @@ public class ApiLogger {
     public static void start() {
         log("Backend API Started");
         log("Listening on port " + App.PORT);
-        System.out.println();
     }
 }

@@ -5,6 +5,7 @@ import backend.ApiLogger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /*
  * Wrapper class to abstract database operation from the rest of the backend.
@@ -13,6 +14,9 @@ public class Database {
     private final String urlPrefix = "jdbc:db2:";
     private Connection connection;
     private List<Statement> statements;
+    private final int MAX_CONCURRENT_STATEMENTS = 50;
+    private final int STATEMENTS_TO_CLOSE = (int) (MAX_CONCURRENT_STATEMENTS * 0.75);
+    private int ERRORS = 0;
 
     public Database() {
         try {
@@ -22,10 +26,12 @@ public class Database {
             System.err.println("Could not load JDBC driver");
             System.err.println("Exception: " + e);
             e.printStackTrace();
+            ERRORS += 1;
         } catch (SQLException e) {
             System.err.println("Could not connect to database");
             System.err.println("Exception: " + e);
             e.printStackTrace();
+            ERRORS += 1;
         }
     }
 
@@ -47,7 +53,7 @@ public class Database {
     }
 
     /**
-     * Run SQL query - no different to execute, just provides better semantics.
+     * Run SQL query - no different to executeUpdate, just provides better semantics.
      */
     public ResultSet query(String query) {
         return executeStatement(query, true);
@@ -66,6 +72,7 @@ public class Database {
      * @return ResultSet the result of the SQL operation.
      */
     private ResultSet executeStatement(String command, boolean query) {
+        closeStatements();
         try {
             Statement statement = connection.createStatement();
             statements.add(statement);
@@ -78,16 +85,43 @@ public class Database {
                 return null;
             }
         } catch (SQLException ex) {
-            System.err.println("SQLException information");
-            while (ex != null) {
-                System.err.println("Error msg: " + ex.getMessage());
-                System.err.println("SQLSTATE: " + ex.getSQLState());
-                System.err.println("Error code: " + ex.getErrorCode());
-                ex.printStackTrace();
-                ex = ex.getNextException(); // For drivers that support chained exceptions
-            }
+            outputSQLException(ex);
         }
         return null;
+    }
+
+    /**
+     * Close SQL connection statements if too many are open at the same time.
+     */
+    private void closeStatements() {
+        List<Statement> copy = new ArrayList<>(statements);
+        copy.removeIf(Objects::isNull);
+        if (copy.size() >= MAX_CONCURRENT_STATEMENTS) {
+            ApiLogger.log("Maximum number of concurrent statements open (" + MAX_CONCURRENT_STATEMENTS + "), closing " + STATEMENTS_TO_CLOSE + " statements");
+            for (int i = 0; i < STATEMENTS_TO_CLOSE; i++) {
+                try {
+                    Statement statement = copy.get(i);
+                    statement.close();
+                    copy.set(i, null);
+                } catch (SQLException ex) {
+                    outputSQLException(ex);
+                }
+            }
+            copy.removeIf(Objects::isNull);
+        }
+        statements = copy;
+    }
+
+    private void outputSQLException(SQLException ex) {
+        System.err.println("SQLException information");
+        while (ex != null) {
+            ERRORS += 1;
+            System.err.println("Error msg: " + ex.getMessage());
+            System.err.println("SQLSTATE: " + ex.getSQLState());
+            System.err.println("Error code: " + ex.getErrorCode());
+            ex.printStackTrace();
+            ex = ex.getNextException(); // For drivers that support chained exceptions
+        }
     }
 
     public int checkExisting(String table, String column, String condition) {
@@ -102,6 +136,7 @@ public class Database {
                 valid = true;
             }
         } catch (SQLException e) {
+            ERRORS += 1;
             return 2;
         }
 
@@ -113,15 +148,19 @@ public class Database {
     }
 
     public void close() {
+        ApiLogger.log("Shutting down");
         try {
             for (Statement statement : statements) {
                 statement.close();
             }
-            if (!connection.isClosed())
+            if (connection != null && !connection.isClosed())
                 connection.close();
-        } catch (SQLException ignored) {
-
+        } catch (SQLException ex) {
+            outputSQLException(ex);
         }
+        ApiLogger.log("Database connection successfully shutdown");
+        ApiLogger.log("Backend ran into " + ERRORS + " exceptions during execution.");
+        System.out.println("Goodbye");
     }
 
 }
