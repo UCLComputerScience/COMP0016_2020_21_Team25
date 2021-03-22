@@ -10,53 +10,50 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.robolectric.Shadows.shadowOf;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class RemindersDbHelperTest {
 
     @Test
     public void getDataTest(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         Cursor cursor = remindersDbHelper.getData();
-        assertFalse(cursor == null);
+        assertNotNull(cursor);
     }
 
     @Test
-    public void addAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void addReminderTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         remindersDbHelper.addData("test");
-        assertTrue(remindersDbHelper.getData().getCount() == 1);
+        assertEquals(1, remindersDbHelper.getData().getCount());
     }
 
     @Test
-    public void updateAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void updateReminderTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         remindersDbHelper.addData("test");
         remindersDbHelper.updateReminder("test", 1, "new alarm");
         Cursor cursor = remindersDbHelper.getData();
         cursor.moveToFirst();
-        assertEquals(cursor.getString(1), "new alarm");
+        assertEquals("new alarm", cursor.getString(1));
     }
 
     @Test
-    public void deleteAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void deleteReminderTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         remindersDbHelper.addData("test");
         remindersDbHelper.deleteReminder(1, "test");
-        assertEquals(remindersDbHelper.getData().getCount(), 0);
+        assertEquals(0, remindersDbHelper.getData().getCount());
     }
 
     @Test
-    public void onUpgrade(){
-        //no way to test this
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void onUpgradeTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         remindersDbHelper.onUpgrade(remindersDbHelper.getWritableDatabase(), 2, 3);
     }

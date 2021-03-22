@@ -2,26 +2,21 @@ package com.example.fisev2concierge.controllers;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
 
 import com.example.fisev2concierge.UI.HistoryActivity;
 import com.example.fisev2concierge.UI.MainActivity;
-import com.example.fisev2concierge.UI.ViewRemindersActivity;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
+import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowToast;
 
 import java.util.HashMap;
-import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.robolectric.RuntimeEnvironment.application;
-import static org.robolectric.Shadows.shadowOf;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 public class AskBobResponseControllerTest {
@@ -29,8 +24,8 @@ public class AskBobResponseControllerTest {
     @Test
     public void handleApiResponseTest(){
         //no way to test if this actually works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "API_CALL");
         parsedResponse.put("Service", "Weather");
         parsedResponse.put("Response", "this is a test");
@@ -42,9 +37,8 @@ public class AskBobResponseControllerTest {
 
     @Test
     public void handleTransportApiResponseTest(){
-        //no way to test if this actually works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "API_CALL");
         parsedResponse.put("Service", "Transport");
         parsedResponse.put("Response", "this is a test");
@@ -56,15 +50,16 @@ public class AskBobResponseControllerTest {
         AskBobResponseController askBobResponseController = new AskBobResponseController();
         askBobResponseController.responseController(parsedResponse, activity, activity, activity, speechSynthesis);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/@51.501009,-0.141588,14z"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
     public void handleRecipesApiResponseTest(){
         //no way to test if this actually works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "API_CALL");
         parsedResponse.put("Service", "Recipes");
         parsedResponse.put("Response", "this is a test");
@@ -78,8 +73,8 @@ public class AskBobResponseControllerTest {
     @Test
     public void handleBooksInfoApiResponseTest(){
         //no way to test if this actually works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "API_CALL");
         parsedResponse.put("Service", "Books");
         parsedResponse.put("Response", "this is a test");
@@ -91,9 +86,8 @@ public class AskBobResponseControllerTest {
 
     @Test
     public void handleBooksOpenApiResponseTest(){
-        //no way to test if this actually works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "API_CALL");
         parsedResponse.put("Service", "Books");
         parsedResponse.put("Response", "https://www.gutenberg.org/");
@@ -102,15 +96,16 @@ public class AskBobResponseControllerTest {
         AskBobResponseController askBobResponseController = new AskBobResponseController();
         askBobResponseController.responseController(parsedResponse, activity, activity, activity, speechSynthesis);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gutenberg.org/"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void handleCallResponse(){
+    public void handleCallResponseTest(){
         //no way to test if this works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "APP_SERVICE");
         parsedResponse.put("Service", "Call Contact");
         parsedResponse.put("Response", "this is a test");
@@ -122,10 +117,10 @@ public class AskBobResponseControllerTest {
     }
 
     @Test
-    public void handleMessageResponse(){
+    public void handleMessageResponseTest(){
         //no way to test if this works
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "APP_SERVICE");
         parsedResponse.put("Service", "SMS Contact");
         parsedResponse.put("Response", "this is a test");
@@ -137,9 +132,9 @@ public class AskBobResponseControllerTest {
     }
 
     @Test
-    public void handleOpenAppResponse(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+    public void handleOpenAppResponseTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "APP_SERVICE");
         parsedResponse.put("Service", "Open App");
         parsedResponse.put("Application", "snapchat");
@@ -147,14 +142,15 @@ public class AskBobResponseControllerTest {
         askBobResponseController.responseController(parsedResponse, activity, activity, activity, null);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW);
         expectedIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + "com.snapchat.android"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void handleShopSearchResponse(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+    public void handleShopSearchResponseTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "LOOKUP");
         parsedResponse.put("Service", "Shop Search");
         parsedResponse.put("Response", "Searching AMAZON for BAKED BEANS");
@@ -165,14 +161,15 @@ public class AskBobResponseControllerTest {
         AskBobResponseController askBobResponseController = new AskBobResponseController();
         askBobResponseController.responseController(parsedResponse, activity, activity, activity, speechSynthesis);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.co.uk/s?k=ipad"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void handleYellSearchResponse(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+    public void handleYellSearchResponseTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "LOOKUP");
         parsedResponse.put("Service", "Yell Search");
         parsedResponse.put("Response", "Searching YELL for PLUMBER");
@@ -183,28 +180,30 @@ public class AskBobResponseControllerTest {
         AskBobResponseController askBobResponseController = new AskBobResponseController();
         askBobResponseController.responseController(parsedResponse, activity, activity, activity, speechSynthesis);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yell.com/ucs/UcsSearchAction.do?keywords=plumber&location=london"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void handleNavigateAppResponse(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+    public void handleNavigateAppResponseTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "APP_SERVICE");
         parsedResponse.put("Service", "Navigate App");
         parsedResponse.put("Application", "history");
         AskBobResponseController askBobResponseController = new AskBobResponseController();
         askBobResponseController.responseController(parsedResponse, activity, activity, activity, null);
-        Intent expectedIntent = new Intent(activity, HistoryActivity.class);;
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        Intent expectedIntent = new Intent(activity, HistoryActivity.class);
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void handleErrorResponse(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+    public void handleErrorResponseTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "ERROR");
         parsedResponse.put("Service", "ERROR");
         parsedResponse.put("text", "error");
@@ -217,8 +216,8 @@ public class AskBobResponseControllerTest {
 
     @Test
     public void defaultTest(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        HashMap parsedResponse = new HashMap();
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        HashMap<String, String> parsedResponse = new HashMap<>();
         parsedResponse.put("Service_Type", "RANDOM");
         parsedResponse.put("Service", "RANDOM");
         AskBobResponseController askBobResponseController = new AskBobResponseController();

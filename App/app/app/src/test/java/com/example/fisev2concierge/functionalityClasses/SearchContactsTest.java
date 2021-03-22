@@ -10,35 +10,40 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowToast;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class SearchContactsTest {
-    //Adding tests for buttons on MainActivity
 
     @Test
-    public void getContactNotFoundCase() {
-//        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void getContactNotFoundCaseTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         ShadowActivity shadowActivity = shadowOf(activity);
-        SearchContacts searchContacts = new SearchContacts(activity, activity, activity);
-        searchContacts.searchContacts("Bob");
         shadowActivity.grantPermissions(Manifest.permission.READ_CONTACTS);
+        SearchContacts searchContacts = new SearchContacts(activity, activity, activity);
         String contact = searchContacts.searchContacts("Bob");
-        assertTrue(contact.equals("-1"));
+        assertEquals("-1", contact);
     }
 
     @Test
-    public void queryContactBackend() {
-//        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void searchBackendForContactNoUserIdTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         ShadowActivity shadowActivity = shadowOf(activity);
         shadowActivity.grantPermissions(Manifest.permission.READ_CONTACTS);
         SearchContacts searchContacts = new SearchContacts(activity, activity, activity);
         searchContacts.searchContacts("Gp");
+        assertEquals("Not connected to an admin", ShadowToast.getTextOfLatestToast());
+    }
+
+    @Test
+    public void searchBackendForContactWithUserIdTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        ShadowActivity shadowActivity = shadowOf(activity);
+        shadowActivity.grantPermissions(Manifest.permission.READ_CONTACTS);
+        SearchContacts searchContacts = new SearchContacts(activity, activity, activity);
         MainController mainController = new MainController();
         mainController.addUserID(activity, "101");
         String number = searchContacts.searchContacts("Gp");

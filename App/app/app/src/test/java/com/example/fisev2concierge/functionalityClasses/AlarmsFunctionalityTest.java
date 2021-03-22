@@ -19,55 +19,55 @@ public class AlarmsFunctionalityTest {
 
     @Test
     public void getAlarmsTest(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         Cursor cursor = alarmsFunctionality.getAlarms();
-        assertFalse(cursor == null);
+        assertNotNull(cursor);
     }
 
     @Test
-    public void addAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void addAlarmTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         alarmsFunctionality.addAlarm("test", "date");
-        assertTrue(alarmsFunctionality.getAlarms().getCount() == 1);
+        assertEquals(1, alarmsFunctionality.getAlarms().getCount());
     }
 
     @Test
-    public void updateAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void updateAlarmTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         alarmsFunctionality.addAlarm("test", "date");
         alarmsFunctionality.updateAlarm("test", 1, "new alarm", "new date");
         Cursor cursor = alarmsFunctionality.getAlarms();
         cursor.moveToFirst();
-        assertEquals(cursor.getString(1), "new alarm");
+        assertEquals("new alarm", cursor.getString(1));
     }
 
     @Test
-    public void deleteAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void deleteAlarmTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         alarmsFunctionality.addAlarm("test", "date");
         alarmsFunctionality.deleteAlarm(1, "test");
-        assertEquals(alarmsFunctionality.getAlarms().getCount(), 0);
+        assertEquals(0, alarmsFunctionality.getAlarms().getCount());
     }
 
     @Test
-    public void getRecentAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void getRecentAlarmTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         alarmsFunctionality.addAlarm("alarm 1", "date 1");
         alarmsFunctionality.addAlarm("alarm 2", "date 2");
         Cursor cursor = alarmsFunctionality.getRecent();
         cursor.moveToFirst();
-        assertEquals(cursor.getString(1), "alarm 2");
+        assertEquals("alarm 2", cursor.getString(1));
     }
 
     @Test
-    public void startAlarm(){
+    public void startAlarmTest(){
         //no way to check if this is working
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 1);
@@ -82,8 +82,8 @@ public class AlarmsFunctionalityTest {
     }
 
     @Test
-    public void stopAlarm(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void stopAlarmTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 1);
@@ -95,7 +95,7 @@ public class AlarmsFunctionalityTest {
         alarmsFunctionality.startAlarm(activity, activity, "0", c);
         alarmsFunctionality.stopAlarm(activity, activity, 0);
         NotificationHelper notificationHelper = new NotificationHelper(activity);
-        assertEquals(notificationHelper.getManager().getActiveNotifications().length, 0);
+        assertEquals(0, notificationHelper.getManager().getActiveNotifications().length);
     }
 
 }

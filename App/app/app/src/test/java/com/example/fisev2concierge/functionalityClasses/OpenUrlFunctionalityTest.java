@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.shadows.ShadowActivity;
 
 import java.util.HashMap;
 
@@ -18,75 +19,80 @@ import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class OpenUrlFunctionalityTest {
-    //Adding tests for buttons on MainActivity
 
     @Test
-    public void openWeb() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void openWebTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(activity);
         openUrlFunctionality.openWeb("amazon");
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.co.uk/"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void openWebNotFound() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void openWebNotFoundTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(activity);
         openUrlFunctionality.openWeb("ebay");
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=ebay"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void searchWebAmazon() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void searchWebAmazonTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(activity);
-        HashMap hashMap = new HashMap();
+        HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Application", "ipad");
         openUrlFunctionality.searchWeb("amazon", hashMap);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.co.uk/s?k=ipad"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void searchWebYell() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void searchWebYellTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(activity);
-        HashMap hashMap = new HashMap();
+        HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Application", "plumber");
         hashMap.put("location", "london");
         openUrlFunctionality.searchWeb("yell", hashMap);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yell.com/ucs/UcsSearchAction.do?keywords=plumber&location=london"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void searchWebGoogle() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void searchWebGoogleTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(activity);
-        HashMap hashMap = new HashMap();
+        HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Application", "ipad");
         openUrlFunctionality.searchWeb("google", hashMap);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=ipad"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
     @Test
-    public void searchWebNotFound() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void searchWebNotFoundTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(activity);
-        HashMap hashMap = new HashMap();
+        HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Application", "ipad");
         openUrlFunctionality.searchWeb("ebay", hashMap);
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=ebay+ipad"));
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        ShadowActivity shadowActivity = new ShadowActivity();
+        Intent actual = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedIntent.getData(), actual.getData());
     }
 
 }

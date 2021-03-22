@@ -48,7 +48,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseServiceApiCommand(){
+    public void parseServiceApiCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"tell me a joke\",\"messages\":[{\"custom\":{\"Service_Type\":\"API_CALL\",\"Service\":\"Jokes\",\"Response\":\"what do you call a dog that can do magic tricks? a labracadabrador\"}}]}");
@@ -59,7 +59,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseOpenAppCommand(){
+    public void parseOpenAppCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"open snapchat\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Open App\",\"Application\":\"SNAPCHAT\"}}]}");
@@ -69,7 +69,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseCallCommand(){
+    public void parseCallCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"call bob\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Call Contact\",\"Response\":\"Calling bob\",\"Contact\":\"bob\"}}]}");
@@ -80,7 +80,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseMessageCommand(){
+    public void parseMessageCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"message bob\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"SMS Contact\",\"Response\":\"Messaging bob\",\"Contact\":\"bob\"}}]}");
@@ -91,7 +91,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseShopCommand(){
+    public void parseShopCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"search amazon for baked beans\",\"messages\":[{\"custom\":{\"Service_Type\":\"LOOKUP\",\"Service\":\"Shop Search\",\"Response\":\"Searching AMAZON for BAKED BEANS\",\"Shop\":\"AMAZON\",\"Search Term\":\"BAKED BEANS\"}}]}");
@@ -103,7 +103,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseYellCommand(){
+    public void parseYellCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"find me a plumber\",\"messages\":[{\"custom\":{\"Service_Type\":\"LOOKUP\",\"Service\":\"Yell Search\",\"Response\":\"Searching YELL for PLUMBER\",\"Search Term\":\"PLUMBER\"}}]}");
@@ -114,7 +114,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseNavigateAppCommand(){
+    public void parseNavigateAppCommandTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"go to the history page\",\"messages\":[{\"custom\":{\"Service_Type\":\"APP_SERVICE\",\"Service\":\"Navigate App\",\"Page\":\"history\"}}]}");
@@ -124,7 +124,7 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseError(){
+    public void parseErrorTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         mockResponse.add("{\"query\":\"\\\"random\\\"\",\"messages\":[{\"text\":\"I didn't quite catch that! Please could you rephrase?\"}]}");
@@ -135,11 +135,10 @@ public class AskBobResponseParserTest {
     }
 
     @Test
-    public void parseSecondError(){
+    public void parseSecondErrorTest(){
         AskBobResponseParser askBobResponseParser = new AskBobResponseParser();
         ArrayList<String> mockResponse = new ArrayList<>();
         HashMap parsedResponse = askBobResponseParser.parse(mockResponse);
-
     }
 
 

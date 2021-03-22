@@ -108,7 +108,7 @@ public class EditReminderActivityBackButtonTest {
         pressBack();
 
         ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.backButton), withText("Back"),
+                allOf(withId(R.id.backButtonEditReminder), withText("Back"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

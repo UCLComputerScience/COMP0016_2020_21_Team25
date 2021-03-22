@@ -16,26 +16,30 @@ import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class TimersActivityTest {
-    //Adding tests for buttons on ViewRemindersActivity
 
     @Test
-    public void clickingBackButton_shouldStartMainActivity() {
-        TimersActivity activity = Robolectric.setupActivity(TimersActivity.class);
+    public void backButtonTest() {
+        TimersActivity activity = Robolectric.buildActivity(TimersActivity.class).create().get();
         activity.findViewById(R.id.backButtonTimers).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void startTimer() {
-        //unable to check if correct output is produced
-        TimersActivity activity = Robolectric.setupActivity(TimersActivity.class);
+    public void startTimerButtonTest() {
+        TimersActivity activity = Robolectric.buildActivity(TimersActivity.class).create().get();
+        NumberPicker hourPicker = activity.findViewById(R.id.hoursNumberPicker);
+        hourPicker.setValue(1);
+        activity.findViewById(R.id.startTimerButton).performClick();
+    }
+
+    @Test
+    public void pauseTimerButtonTest() {
+        TimersActivity activity = Robolectric.buildActivity(TimersActivity.class).create().get();
         NumberPicker hourPicker = activity.findViewById(R.id.hoursNumberPicker);
         hourPicker.setValue(1);
         activity.findViewById(R.id.startTimerButton).performClick();
         activity.findViewById(R.id.startTimerButton).performClick();
     }
-
-
 }

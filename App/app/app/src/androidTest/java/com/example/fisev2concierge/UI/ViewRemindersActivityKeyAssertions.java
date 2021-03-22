@@ -68,7 +68,7 @@ public class ViewRemindersActivityKeyAssertions {
         button.check(matches(isDisplayed()));
 
         ViewInteraction button2 = onView(
-                allOf(withId(R.id.backButton), withText("BACK"),
+                allOf(withId(R.id.backButtonViewReminders), withText("BACK"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button2.check(matches(isDisplayed()));

@@ -69,7 +69,7 @@ public class HistoryActivityKeyAssertions {
         listView.check(matches(isDisplayed()));
 
         ViewInteraction button = onView(
-                allOf(withId(R.id.backButton), withText("BACK"),
+                allOf(withId(R.id.backButtonHistory), withText("BACK"),
                         withParent(allOf(withId(R.id.container),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));

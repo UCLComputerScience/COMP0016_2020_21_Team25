@@ -13,10 +13,9 @@ import static org.junit.Assert.*;
 public class NumberPickerFragmentTest {
 
     @Test
-    public void getNumberPickerFragment(){
-        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
+    public void getNumberPickerFragmentTest(){
+        MainActivity mainActivity = Robolectric.buildActivity(MainActivity.class).get();
         NumberPickerFragment numberPickerFragment = new NumberPickerFragment(mainActivity);
         assertNotNull(numberPickerFragment);
-        assertEquals(NumberPickerFragment.class, numberPickerFragment.getClass());
     }
 }

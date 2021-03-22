@@ -24,18 +24,22 @@ public class BackendFramework {
         this.appCompatActivity = appCompatActivity;
     }
 
+    private String getIp(SharedPreferences sharedpreferences){
+        String ip = new MainController().findServerIp();
+        if (ip.startsWith("/")) {
+            ip = ip.substring(1);
+        }
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("server_ip", ip);
+        editor.apply();
+        return ip;
+    }
+
     public ArrayList<String> request(String path){
         String baseUrl = "";
         SharedPreferences sharedpreferences = appCompatActivity.getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         if (!sharedpreferences.contains("server_ip")){
-            String ip = new MainController().findServerIp();
-            if (ip.startsWith("/")) {
-                ip = ip.substring(1);
-                baseUrl = ip;
-            }
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString("server_ip", ip);
-            editor.apply();
+            baseUrl = getIp(sharedpreferences);
         } else {
             baseUrl = sharedpreferences.getString("server_ip", "");
         }

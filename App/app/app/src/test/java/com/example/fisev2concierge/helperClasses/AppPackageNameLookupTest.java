@@ -12,11 +12,10 @@ import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class AppPackageNameLookupTest {
-    //Adding tests for buttons on MainActivity
 
     @Test
-    public void search() {
-        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
+    public void searchTest() {
+        MainActivity mainActivity = Robolectric.buildActivity(MainActivity.class).get();
         AppPackageNameLookup appPackageNameLookup = new AppPackageNameLookup(mainActivity);
         assertEquals("com.google.android.youtube", appPackageNameLookup.search("youtube"));
     }

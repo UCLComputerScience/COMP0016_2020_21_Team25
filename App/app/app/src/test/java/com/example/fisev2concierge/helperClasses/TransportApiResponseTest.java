@@ -1,14 +1,10 @@
-package com.example.fisev2concierge.functionalityClasses;
-
-import com.example.fisev2concierge.helperClasses.TransportApiResponse;
+package com.example.fisev2concierge.helperClasses;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class TransportApiResponseTest {

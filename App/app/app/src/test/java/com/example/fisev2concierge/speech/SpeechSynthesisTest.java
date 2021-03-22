@@ -7,16 +7,19 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.robolectric.Shadows.shadowOf;
-
 @RunWith(RobolectricTestRunner.class)
 public class SpeechSynthesisTest {
-    //Adding tests for buttons on ViewRemindersActivity
 
     @Test
-    public void backButton() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void configTest() {
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        SpeechSynthesis speechSynthesis = new SpeechSynthesis();
+        speechSynthesis.configTts(activity);
+    }
+
+    @Test
+    public void runTtsTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
         speechSynthesis.configTts(activity);
         speechSynthesis.runTts("test");

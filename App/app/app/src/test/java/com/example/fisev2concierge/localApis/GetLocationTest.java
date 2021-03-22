@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class GetLocationTest {
 
     @Test
-    public void testApiCall(){
+    public void getPostcodeTest(){
         GetLocation getLocation = new GetLocation(null, null, 51.501009, -0.141588);
         Thread thread = new Thread(getLocation);
         thread.start();

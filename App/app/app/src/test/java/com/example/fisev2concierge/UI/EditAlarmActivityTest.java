@@ -9,65 +9,54 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.ShadowActivity;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.robolectric.Shadows.shadowOf;
-import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 @RunWith(RobolectricTestRunner.class)
 public class EditAlarmActivityTest {
-    //Adding tests for buttons on ViewRemindersActivity
 
     @Test
-    public void backButton() {
-        EditAlarmActivity activity = Robolectric.setupActivity(EditAlarmActivity.class);
+    public void backButtonTest() {
+        EditAlarmActivity activity = Robolectric.buildActivity(EditAlarmActivity.class).create().get();
         activity.findViewById(R.id.backButtonEditAlarm).performClick();
         Intent expectedIntent = new Intent(activity, ViewAlarmsActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void saveAlarmButton() {
-        //can't check if value is actually updated since it doesn't actually exist within database
-        Intent intent = new Intent(Robolectric.setupActivity(ViewAlarmsActivity.class), ViewAlarmsActivity.class);
+    public void saveAlarmButtonTest() {
+        Intent intent = new Intent(Robolectric.buildActivity(ViewAlarmsActivity.class).create().get(), ViewAlarmsActivity.class);
         intent.putExtra("ID", 0);
         intent.putExtra("Alarm", "alarm");
-        EditAlarmActivity activity = Robolectric.buildActivity(EditAlarmActivity.class, intent).create().start().resume().get();
-        EditText alarm = activity.findViewById(R.id.alarmText);
+        EditAlarmActivity activity = Robolectric.buildActivity(EditAlarmActivity.class).create().get();
+        EditText alarm = activity.findViewById(R.id.editAlarmText);
         alarm.setText("new alarm");
         activity.findViewById(R.id.saveAlarmButton).performClick();
         Intent expectedIntent = new Intent(activity, ViewAlarmsActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void deleteAlarmButton() {
-        EditAlarmActivity activity = Robolectric.setupActivity(EditAlarmActivity.class);
+    public void deleteAlarmButtonTest() {
+        EditAlarmActivity activity = Robolectric.buildActivity(EditAlarmActivity.class).create().get();
         activity.findViewById(R.id.deleteAlarmButton).performClick();
         Intent expectedIntent = new Intent(activity, ViewAlarmsActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void datePickerFragment() {
-        //unable to check if correct output is produced
-        EditAlarmActivity activity = Robolectric.setupActivity(EditAlarmActivity.class);
-        ShadowActivity shadowActivity = shadowOf(activity);
+    public void datePickerFragmentTest() {
+        EditAlarmActivity activity = Robolectric.buildActivity(EditAlarmActivity.class).create().get();
         activity.findViewById(R.id.selectDateButton).performClick();
     }
 
     @Test
     public void timePickerFragment() {
-        //unable to check if correct output is produced
-        EditAlarmActivity activity = Robolectric.setupActivity(EditAlarmActivity.class);
+        EditAlarmActivity activity = Robolectric.buildActivity(EditAlarmActivity.class).create().get();
         activity.findViewById(R.id.alarmTimeButton).performClick();
     }
 }

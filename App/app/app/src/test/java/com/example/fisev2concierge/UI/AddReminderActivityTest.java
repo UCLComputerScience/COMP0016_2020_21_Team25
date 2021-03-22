@@ -10,33 +10,31 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import static org.junit.Assert.assertEquals;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class AddReminderActivityTest {
-    //Adding tests for buttons on ViewRemindersActivity
 
     @Test
-    public void backButton() {
-        AddReminderActivity activity = Robolectric.setupActivity(AddReminderActivity.class);
+    public void backButtonTest() {
+        AddReminderActivity activity = Robolectric.buildActivity(AddReminderActivity.class).create().get();
         activity.findViewById(R.id.backButtonAddReminder).performClick();
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void addReminderButton() {
-        AddReminderActivity activity = Robolectric.setupActivity(AddReminderActivity.class);
+    public void addReminderButtonTest() {
+        AddReminderActivity activity = Robolectric.buildActivity(AddReminderActivity.class).create().get();
         EditText editText = activity.findViewById(R.id.reminderText);
         editText.setText("new reminder");
         activity.findViewById(R.id.addReminderButton).performClick();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
         assertEquals(1, remindersDbHelper.getData().getCount());
     }

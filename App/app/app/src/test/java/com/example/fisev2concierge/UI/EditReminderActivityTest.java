@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import static org.junit.Assert.assertEquals;
 import static org.robolectric.Shadows.shadowOf;
@@ -17,33 +16,32 @@ import static org.robolectric.Shadows.shadowOf;
 public class EditReminderActivityTest {
 
     @Test
-    public void backButton() {
-        EditReminderActivity activity = Robolectric.setupActivity(EditReminderActivity.class);
+    public void backButtonTest() {
+        EditReminderActivity activity = Robolectric.buildActivity(EditReminderActivity.class).create().get();
         activity.findViewById(R.id.backButtonEditReminder).performClick();
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
-    public void saveReminderButton() {
-        Intent intent = new Intent(Robolectric.setupActivity(ViewRemindersActivity.class), ViewRemindersActivity.class);
+    public void saveReminderButtonTest() {
+        Intent intent = new Intent(Robolectric.buildActivity(ViewRemindersActivity.class).create().get(), ViewRemindersActivity.class);
         intent.putExtra("ID", 0);
         intent.putExtra("Reminder", "new reminder");
         EditReminderActivity activity = Robolectric.buildActivity(EditReminderActivity.class, intent).create().start().resume().get();
         activity.findViewById(R.id.saveReminderButton).performClick();
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
-        //intent is only launched if value of remindersText is not empty
     }
 
     @Test
-    public void deleteReminderButton() {
-        EditReminderActivity activity = Robolectric.setupActivity(EditReminderActivity.class);
+    public void deleteReminderButtonTest() {
+        EditReminderActivity activity = Robolectric.buildActivity(EditReminderActivity.class).create().get();
         activity.findViewById(R.id.deleteReminderButton).performClick();
         Intent expectedIntent = new Intent(activity, ViewRemindersActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 }

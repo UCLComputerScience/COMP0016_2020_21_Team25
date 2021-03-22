@@ -14,15 +14,14 @@ import static org.junit.Assert.assertEquals;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-public class InstructionsViewTest {
-    //Adding tests for buttons on MainActivity
+public class InstructionActivityTest {
 
     @Test
-    public void backButton() {
-        InstructionActivity activity = Robolectric.setupActivity(InstructionActivity.class);
+    public void backButtonTest() {
+        InstructionActivity activity = Robolectric.buildActivity(InstructionActivity.class).create().get();
         activity.findViewById(R.id.backButtonInstructions).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 

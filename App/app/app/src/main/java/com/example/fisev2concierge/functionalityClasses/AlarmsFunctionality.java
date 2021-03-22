@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class AlarmsFunctionality {
 
-    AlarmsDbHelper dbHelper;
+    private AlarmsDbHelper dbHelper;
 
     public AlarmsFunctionality(Context context){
         this.dbHelper = new AlarmsDbHelper(context);

@@ -63,7 +63,7 @@ public class TimersActivityBackButtonTest {
         pressBack();
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.backButton), withText("Back"),
+                allOf(withId(R.id.backButtonTimers), withText("Back"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

@@ -60,7 +60,7 @@ public class ViewRemindersActivityBackButton {
         materialButton.perform(scrollTo(), click());
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.backButton), withText("Back"),
+                allOf(withId(R.id.backButtonViewReminders), withText("Back"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

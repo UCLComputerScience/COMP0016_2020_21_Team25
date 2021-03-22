@@ -110,7 +110,7 @@ public class EditAlarmActivityBackButtonTest {
         pressBack();
 
         ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.backButton), withText("Back"),
+                allOf(withId(R.id.backButtonEditAlarm), withText("Back"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

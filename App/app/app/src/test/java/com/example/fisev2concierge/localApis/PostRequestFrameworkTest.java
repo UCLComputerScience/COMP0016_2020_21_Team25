@@ -12,10 +12,16 @@ import static org.junit.Assert.*;
 public class PostRequestFrameworkTest {
 
     @Test
-    public void testApiCall(){
-        PostRequestFramework postRequestFramework = new PostRequestFramework("http://192.168.0.17:8000/");
+    public void requestTest(){
+        PostRequestFramework postRequestFramework = new PostRequestFramework("http://localhost:8000/");
         ArrayList<String> responeArrayList = postRequestFramework.request("query", "message=\"" + "open snapchat" +"\"&sender=\"concierge\"");
         assertTrue(responeArrayList.size()>0);
+    }
+
+    @Test
+    public void errorRequestTest(){
+        PostRequestFramework postRequestFramework = new PostRequestFramework("localhost:8000/");
+        assertTrue(postRequestFramework.request("random", "random").isEmpty());
     }
 
 }

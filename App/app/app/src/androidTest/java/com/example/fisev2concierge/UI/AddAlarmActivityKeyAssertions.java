@@ -99,7 +99,7 @@ public class AddAlarmActivityKeyAssertions {
         button3.check(matches(isDisplayed()));
 
         ViewInteraction button4 = onView(
-                allOf(withId(R.id.backButton), withText("BACK"),
+                allOf(withId(R.id.backButtonAddAlarm), withText("BACK"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button4.check(matches(isDisplayed()));

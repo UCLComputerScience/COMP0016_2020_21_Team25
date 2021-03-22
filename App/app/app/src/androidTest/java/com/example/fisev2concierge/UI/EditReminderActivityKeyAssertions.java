@@ -125,7 +125,7 @@ public class EditReminderActivityKeyAssertions {
         button2.check(matches(isDisplayed()));
 
         ViewInteraction button3 = onView(
-                allOf(withId(R.id.backButton), withText("BACK"),
+                allOf(withId(R.id.backButtonEditReminder), withText("BACK"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button3.check(matches(isDisplayed()));

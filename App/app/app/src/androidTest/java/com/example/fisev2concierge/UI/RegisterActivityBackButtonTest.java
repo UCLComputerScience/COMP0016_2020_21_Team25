@@ -63,7 +63,7 @@ public class RegisterActivityBackButtonTest {
         pressBack();
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.backButton), withText("Back"),
+                allOf(withId(R.id.backButtonRegister), withText("Back"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowToast;
 
 import static org.junit.Assert.assertEquals;
@@ -19,20 +18,19 @@ import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class RegisterActivityTest {
-    //Adding tests for buttons on MainActivity
 
     @Test
-    public void backButton() {
-        RegisterActivity activity = Robolectric.setupActivity(RegisterActivity.class);
+    public void backButtonTest() {
+        RegisterActivity activity = Robolectric.buildActivity(RegisterActivity.class).create().get();
         activity.findViewById(R.id.backButtonRegister).performClick();
         Intent expectedIntent = new Intent(activity, MainActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Intent actual = shadowOf(activity).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
     public void correctValidationCodeTest() {
-        RegisterActivity activity = Robolectric.setupActivity(RegisterActivity.class);
+        RegisterActivity activity = Robolectric.buildActivity(RegisterActivity.class).create().get();
         TextInputEditText code1Input = activity.findViewById(R.id.registrationCodeText1);
         TextInputEditText code2Input = activity.findViewById(R.id.registrationCodeText2);
         TextInputEditText code3Input = activity.findViewById(R.id.registrationCodeText3);
@@ -47,7 +45,7 @@ public class RegisterActivityTest {
 
     @Test
     public void incorrectValidationCodeTest() {
-        RegisterActivity activity = Robolectric.setupActivity(RegisterActivity.class);
+        RegisterActivity activity = Robolectric.buildActivity(RegisterActivity.class).create().get();
         TextInputEditText code1Input = activity.findViewById(R.id.registrationCodeText1);
         TextInputEditText code2Input = activity.findViewById(R.id.registrationCodeText2);
         TextInputEditText code3Input = activity.findViewById(R.id.registrationCodeText3);
@@ -60,7 +58,7 @@ public class RegisterActivityTest {
 
     @Test
     public void emptyValidationCodeTest() {
-        RegisterActivity activity = Robolectric.setupActivity(RegisterActivity.class);
+        RegisterActivity activity = Robolectric.buildActivity(RegisterActivity.class).create().get();
         activity.findViewById(R.id.submitRegistrationCode).performClick();
         assertEquals("Validation codes cannot be empty", ShadowToast.getTextOfLatestToast());
     }

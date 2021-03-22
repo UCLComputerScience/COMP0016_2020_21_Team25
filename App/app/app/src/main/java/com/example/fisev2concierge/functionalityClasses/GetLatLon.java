@@ -63,7 +63,6 @@ public class GetLatLon{
         if (location != null) {
             if (askBobResponse.get("Service").equals("Yell Search")) {
                 handleYellSearchWithLocation(location.getLatitude(), location.getLongitude());
-                return;
             } else {
                 handleTransportApiWithLocation(location.getLatitude(), location.getLongitude());
             }
@@ -71,7 +70,6 @@ public class GetLatLon{
             if (askBobResponse.get("Service").equals("Yell Search")) {
                 askBobResponse.put("location", "london");
                 mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-                return;
             } else {
                 Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
             }
@@ -82,7 +80,6 @@ public class GetLatLon{
         if (askBobResponse.get("Service").equals("Yell Search")) {
             askBobResponse.put("location", "london");
             new MainController().askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
-            return;
         } else {
             Toast.makeText(context, "Location unavailable", Toast.LENGTH_SHORT).show();
         }

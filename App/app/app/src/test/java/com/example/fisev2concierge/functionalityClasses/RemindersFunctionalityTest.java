@@ -16,38 +16,38 @@ public class RemindersFunctionalityTest {
 
     @Test
     public void getRemindersTest(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(activity);
         Cursor cursor = remindersFunctionality.getReminders();
-        assertFalse(cursor == null);
+        assertNotNull(cursor);
     }
 
     @Test
-    public void addReminder(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void addReminderTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(activity);
         remindersFunctionality.addReminder("test");
-        assertTrue(remindersFunctionality.getReminders().getCount() == 1);
+        assertEquals(1, remindersFunctionality.getReminders().getCount());
     }
 
     @Test
-    public void updateReminder(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void updateReminderTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(activity);
         remindersFunctionality.addReminder("old reminder");
         remindersFunctionality.updateReminder("old reminder", 1, "new reminder");
         Cursor cursor = remindersFunctionality.getReminders();
         cursor.moveToFirst();
-        assertEquals(cursor.getString(1), "new reminder");
+        assertEquals("new reminder", cursor.getString(1));
     }
 
     @Test
-    public void deleteReminder(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+    public void deleteReminderTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(activity);
         remindersFunctionality.addReminder("reminder");
         remindersFunctionality.deleteReminder(1, "reminder");
-        assertEquals(remindersFunctionality.getReminders().getCount(), 0);
+        assertEquals(0, remindersFunctionality.getReminders().getCount());
     }
 
 }

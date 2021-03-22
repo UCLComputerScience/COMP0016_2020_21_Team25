@@ -49,26 +49,26 @@ public class AskBob implements Runnable{
     }
 
     public ArrayList<String> query(String parameters){
-//        return askBobFramework.request("query", parameters);
-        parameters = parameters.replace(" ", "%20");
-        ArrayList<String> result = new ArrayList<>();
-        try {
-            URL url = new URL("http://192.168.0.17:8100/askbob?"+parameters);
-            System.out.println("fullUrl: " + url);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine = "";
-            while ((inputLine = in.readLine()) != null) {
-                result.add(inputLine);
-            }
-            in.close();
-            connection.disconnect();
-        } catch (Exception e) {
-            result.add("500");
-        }
-        System.out.println("result: " + result);
-        return result;
+        return askBobFramework.request("query", parameters);
+//        parameters = parameters.replace(" ", "%20");
+//        ArrayList<String> result = new ArrayList<>();
+//        try {
+//            URL url = new URL("http://192.168.0.17:8100/askbob?"+parameters);
+//            System.out.println("fullUrl: " + url);
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestMethod("GET");
+//            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//            String inputLine = "";
+//            while ((inputLine = in.readLine()) != null) {
+//                result.add(inputLine);
+//            }
+//            in.close();
+//            connection.disconnect();
+//        } catch (Exception e) {
+//            result.add("500");
+//        }
+//        System.out.println("result: " + result);
+//        return result;
     }
 
     @Override

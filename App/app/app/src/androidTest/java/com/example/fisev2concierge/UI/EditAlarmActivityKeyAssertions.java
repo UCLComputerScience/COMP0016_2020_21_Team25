@@ -140,13 +140,13 @@ public class EditAlarmActivityKeyAssertions {
         button4.check(matches(isDisplayed()));
 
         ViewInteraction button5 = onView(
-                allOf(withId(R.id.backButton), withText("BACK"),
+                allOf(withId(R.id.backButtonEditAlarm), withText("BACK"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button5.check(matches(isDisplayed()));
 
         ViewInteraction button6 = onView(
-                allOf(withId(R.id.backButton), withText("BACK"),
+                allOf(withId(R.id.backButtonEditAlarm), withText("BACK"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button6.check(matches(isDisplayed()));

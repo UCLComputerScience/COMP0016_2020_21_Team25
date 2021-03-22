@@ -12,10 +12,16 @@ import static org.junit.Assert.*;
 public class GetRequestFrameworkTest {
 
     @Test
-    public void testApiCall(){
+    public void makeRequestTest(){
         GetRequestFramework getRequestFramework = new GetRequestFramework("https://api.postcodes.io/");
-        ArrayList<String> responeArrayList = getRequestFramework.makeRequest("postcodes?lon=-0.141588&lat=51.501009");
-        assertTrue(responeArrayList.size()>0);
+        ArrayList<String> responseArrayList = getRequestFramework.makeRequest("postcodes?lon=-0.141588&lat=51.501009");
+        assertTrue(responseArrayList.size()>0);
+    }
+
+    @Test
+    public void errorMakeRequestTest(){
+        GetRequestFramework getRequestFramework = new GetRequestFramework("api.postcodes.io/");
+        assertTrue(getRequestFramework.makeRequest("postcodes?lon=-0.141588&lat=51.501009").isEmpty());
     }
 
 }

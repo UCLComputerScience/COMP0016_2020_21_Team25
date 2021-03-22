@@ -5,11 +5,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class WebsiteUrlLookupTest {
-    //Adding tests for buttons on MainActivity
 
     @Test
     public void search() {
