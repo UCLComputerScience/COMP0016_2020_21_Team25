@@ -79,7 +79,7 @@ public class AddAlarmActivity extends AppCompatActivity implements TimePickerDia
                 if (newEntry.length() != 0){
                     AddData(newEntry, date);
                     alarmText.setText("");
-                    startAlarm(c);
+                    startAlarm(c, newEntry);
                     Intent intent = new Intent(AddAlarmActivity.this, ViewAlarmsActivity.class);
                     startActivity(intent);
                 } else {
@@ -122,8 +122,8 @@ public class AddAlarmActivity extends AppCompatActivity implements TimePickerDia
         timeSelectedText.setText(timeText);
     }
 
-    private void startAlarm(Calendar c){
-        mainController.startAlarm(AddAlarmActivity.this, AddAlarmActivity.this, newID, c);
+    private void startAlarm(Calendar c, String message){
+        mainController.startAlarm(AddAlarmActivity.this, AddAlarmActivity.this, newID, c, message);
     }
 
     @Override

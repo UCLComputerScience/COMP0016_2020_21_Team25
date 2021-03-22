@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class AlertReceiverTest {
 
     @Test
-    public void alertReceiverOnReceieveTest() {
+    public void alertReceiverOnReceiveTest() {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         NotificationHelper notificationHelper = new NotificationHelper(activity);
         AlertReceiver alertReceiver = new AlertReceiver();

@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline56"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +69,8 @@
         android:id="@+id/backButtonTimers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="Back"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="255dp" />
+        app:layout_constraintGuide_begin="239dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline57"

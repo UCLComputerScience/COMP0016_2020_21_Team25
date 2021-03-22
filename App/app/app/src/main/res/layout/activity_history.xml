@@ -43,7 +43,7 @@
         android:id="@+id/backButtonHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="16dp"
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="35sp"
@@ -73,7 +73,7 @@
         android:id="@+id/historyListView"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:fadeScrollbars="false"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarSize="12dip"
@@ -81,7 +81,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBox"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/headerBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

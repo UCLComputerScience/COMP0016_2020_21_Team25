@@ -46,9 +46,9 @@ public class AlarmsFunctionality {
         return cursor;
     }
 
-    public void startAlarm(AppCompatActivity appCompatActivity, Context context, String id, Calendar c){
+    public void startAlarm(AppCompatActivity appCompatActivity, Context context, String id, Calendar c, String message){
         AlarmManager alarmManager = (AlarmManager) appCompatActivity.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlertReceiver.class);
+        Intent intent = new Intent(context, AlertReceiver.class).putExtra("message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(id), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);

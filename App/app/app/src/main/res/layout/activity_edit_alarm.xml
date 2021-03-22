@@ -34,7 +34,7 @@
         android:hint="New Alarm Message"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
         tools:layout_editor_absoluteX="29dp"
-        android:textSize="35sp"/>
+        android:textSize="25sp"/>
 
     <Button
         android:id="@+id/alarmTimeButton"
@@ -110,7 +110,7 @@
         android:id="@+id/backButtonEditAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:text="Back"
         android:textSize="25sp"
         app:backgroundTint="#0e62fe"
@@ -140,27 +140,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="167dp" />
+        app:layout_constraintGuide_begin="150dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="238dp" />
+        app:layout_constraintGuide_begin="221dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="309dp" />
+        app:layout_constraintGuide_begin="292dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="365dp" />
+        app:layout_constraintGuide_begin="348dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,13 +7,6 @@
     android:layout_height="match_parent">
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline70"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="86dp" />
-
     <ImageView
         android:id="@+id/headerBox"
         android:layout_width="match_parent"
@@ -29,14 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reminders"
-        android:textSize="50sp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/addNewReminder"
-        app:layout_constraintEnd_toStartOf="@+id/guideline69"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/guideline70"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/backButtonViewReminders"
@@ -44,11 +34,11 @@
         android:layout_height="wrap_content"
         android:text="Back"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="20sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline69"
-        app:layout_constraintStart_toStartOf="@+id/guideline70" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addNewReminder"
@@ -89,27 +79,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="163dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline69"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="324dp" />
+        app:layout_constraintGuide_begin="132dp" />
 
     <ListView
         android:id="@+id/remindersListView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="12dip"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline67"
-        android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@drawable/scrollbar"
-        android:scrollbarSize="12dip"
-        android:scrollbarAlwaysDrawVerticalTrack="true"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline67" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

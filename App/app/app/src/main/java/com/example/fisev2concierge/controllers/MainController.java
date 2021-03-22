@@ -187,9 +187,9 @@ public class MainController{
         return cursor;
     }
 
-    public void startAlarm(AppCompatActivity appCompatActivity, Context context, String id, Calendar c){
+    public void startAlarm(AppCompatActivity appCompatActivity, Context context, String id, Calendar c, String message){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
-        alarmsFunctionality.startAlarm(appCompatActivity, context, id, c);
+        alarmsFunctionality.startAlarm(appCompatActivity, context, id, c, message);
     }
 
     public void stopAlarm(AppCompatActivity appCompatActivity, Context context, int id){

@@ -31,7 +31,6 @@
         android:id="@+id/backButtonInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
         android:text="Back"
         app:backgroundTint="#0e62fe"
         android:textSize="60sp"

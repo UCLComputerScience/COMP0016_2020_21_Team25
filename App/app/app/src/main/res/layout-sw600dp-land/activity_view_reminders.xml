@@ -80,20 +80,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="201dp" />
+        app:layout_constraintGuide_begin="173dp" />
 
     <ListView
         android:id="@+id/remindersListView"
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="12dip"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline67"
-        android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@drawable/scrollbar"
-        android:scrollbarSize="12dip"
-        android:scrollbarAlwaysDrawVerticalTrack="true"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline67" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

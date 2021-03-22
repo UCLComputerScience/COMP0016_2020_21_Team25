@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerBox"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registrationCodeText1"
@@ -84,7 +84,7 @@
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textInputLayout3"
-        android:textSize="35sp"
+        android:textSize="25sp"
         android:textColor="@color/white"
         android:background="#0e62fe"
         android:backgroundTint="#0e62fe"/>
@@ -93,10 +93,10 @@
         android:id="@+id/backButtonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:text="Back"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

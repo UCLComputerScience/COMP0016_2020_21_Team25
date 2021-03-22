@@ -30,7 +30,7 @@ public class AdminDbHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("userID", id);
         long result = db.insert("Admin", null, contentValues);
-        if (result == -1){
+        if (result == -1) {
             return false;
         }
         return true;

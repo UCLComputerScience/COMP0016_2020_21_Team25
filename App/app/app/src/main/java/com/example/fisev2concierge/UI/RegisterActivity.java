@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.fisev2concierge.R;
 import com.example.fisev2concierge.controllers.MainController;
+import com.example.fisev2concierge.speech.SpeechSynthesis;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
@@ -24,6 +25,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        SpeechSynthesis speechSynthesis = new SpeechSynthesis();
+        speechSynthesis.configTts(this);
 
         TextInputEditText code1Input = findViewById(R.id.registrationCodeText1);
         TextInputEditText code2Input = findViewById(R.id.registrationCodeText2);
@@ -48,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
                         if (message.equals("OK")){
                             String userID = jsonObject.getString("userId");
                             mainController.addUserID(RegisterActivity.this, userID);
-                            System.out.println("UserID: " + mainController.getUserID(RegisterActivity.this));
                             Toast.makeText(RegisterActivity.this, "Successfully connected to admin!", Toast.LENGTH_SHORT).show();
+                            speechSynthesis.runTts("Successfully connected to admin!");
                         } else {
                             Toast.makeText(RegisterActivity.this, "Incorrect validation codes", Toast.LENGTH_SHORT).show();
                         }

@@ -318,7 +318,7 @@ public class MainControllerTest {
         c.set(Calendar.YEAR, 2021);
         c.set(Calendar.MONTH, 1);
         c.set(Calendar.DAY_OF_MONTH, 1);
-        mainController.startAlarm(activity, activity, "0", c);
+        mainController.startAlarm(activity, activity, "0", c, "message");
 //        NotificationHelper notificationHelper = new NotificationHelper(activity);
 //        assertEquals(notificationHelper.getManager().getActiveNotifications().length, 1);
     }
@@ -334,7 +334,7 @@ public class MainControllerTest {
         c.set(Calendar.YEAR, 2021);
         c.set(Calendar.MONTH, 1);
         c.set(Calendar.DAY_OF_MONTH, 1);
-        mainController.startAlarm(activity, activity, "0", c);
+        mainController.startAlarm(activity, activity, "0", c, "message");
         mainController.stopAlarm(activity, activity, 0);
         NotificationHelper notificationHelper = new NotificationHelper(activity);
         assertEquals(0, notificationHelper.getManager().getActiveNotifications().length);

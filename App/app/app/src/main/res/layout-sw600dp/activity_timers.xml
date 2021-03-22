@@ -70,7 +70,6 @@
         android:id="@+id/backButtonTimers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
         android:text="Back"
         app:backgroundTint="#0e62fe"
         android:textSize="60sp"
@@ -100,14 +99,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="547dp" />
+        app:layout_constraintGuide_begin="432dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline57"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="420dp" />
+        app:layout_constraintGuide_begin="320dp" />
 
     <TextView
         android:id="@+id/textView"

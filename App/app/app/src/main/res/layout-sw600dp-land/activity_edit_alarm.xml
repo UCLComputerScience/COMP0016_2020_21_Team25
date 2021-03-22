@@ -76,9 +76,9 @@
         android:id="@+id/timeSelectedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="28dp"
         android:text="No time set"
         android:textSize="35sp"
         app:layout_constraintStart_toEndOf="@+id/alarmTimeButton"
@@ -143,27 +143,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="194dp" />
+        app:layout_constraintGuide_begin="171dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="282dp" />
+        app:layout_constraintGuide_begin="241dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="369dp" />
+        app:layout_constraintGuide_begin="316dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="464dp" />
+        app:layout_constraintGuide_begin="400dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

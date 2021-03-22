@@ -71,7 +71,7 @@
         android:id="@+id/backButtonEditReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="16dp"
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="35sp"
@@ -102,13 +102,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="307dp" />
+        app:layout_constraintGuide_begin="216dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="393dp" />
+        app:layout_constraintGuide_begin="297dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

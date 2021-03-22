@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/headerBox"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="79dp"
         android:contentDescription="@string/header_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,12 +24,9 @@
         android:text="Reminders"
         android:textColor="@color/white"
         android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/addNewReminder"
-        app:layout_constraintEnd_toEndOf="@+id/headerBox"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="@+id/headerBox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.278" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/backButtonViewReminders"
@@ -37,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="Back"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="20sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add New Reminder"
-        android:textSize="35sp"
+        android:textSize="20sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline67"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="182dp" />
+        app:layout_constraintGuide_begin="134dp" />
 
     <ListView
         android:id="@+id/remindersListView"

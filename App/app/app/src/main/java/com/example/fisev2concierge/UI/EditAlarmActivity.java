@@ -84,7 +84,7 @@ public class EditAlarmActivity extends AppCompatActivity implements TimePickerDi
                 String date = newDate + " " + newTime;
                 if (!item.equals("")){
                     mainController.updateAlarm(EditAlarmActivity.this, selectedAlarm, selectedID, item, date);
-                    setNewAlarm(selectedID);
+                    setNewAlarm(selectedID, item);
                     Intent intent = new Intent(EditAlarmActivity.this, ViewAlarmsActivity.class);
                     startActivity(intent);
                 }
@@ -126,9 +126,9 @@ public class EditAlarmActivity extends AppCompatActivity implements TimePickerDi
         dateSelectedText.setText(dateSelected);
     }
 
-    private void setNewAlarm(int id){
+    private void setNewAlarm(int id, String message){
         deleteAlarm(id);
-        mainController.startAlarm(EditAlarmActivity.this, EditAlarmActivity.this, id + "", c);
+        mainController.startAlarm(EditAlarmActivity.this, EditAlarmActivity.this, id + "", c, message);
     }
 
     private void deleteAlarm(int id){

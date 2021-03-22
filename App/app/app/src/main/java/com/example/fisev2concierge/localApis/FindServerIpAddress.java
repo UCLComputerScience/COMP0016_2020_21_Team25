@@ -27,52 +27,44 @@ public class FindServerIpAddress implements Runnable{
     private void findIp(){
         try {
             //Open a random port to send the package
-            DatagramSocket c = new DatagramSocket();
-            c.setBroadcast(true);
+            DatagramSocket port = new DatagramSocket();
+            port.setBroadcast(true);
 
             byte[] sendData = "DISCOVER_FUIFSERVER_REQUEST".getBytes();
 
             //Try the 255.255.255.255 first
-            try {
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 8100);
-                c.send(sendPacket);
-            } catch (Exception e) {
-            }
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 8100);
+            port.send(sendPacket);
 
             // Broadcast the message over all the network interfaces
             Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
                 NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
                 if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-                    continue; // Don't want to broadcast to the loopback interface
+                    continue;
+                    // Don't want to broadcast to the loopback interface
                 }
                 for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-                    InetAddress broadcast = interfaceAddress.getBroadcast();
-                    if (broadcast == null) {
+                    InetAddress inetAddress = interfaceAddress.getBroadcast();
+                    if (inetAddress == null) {
                         continue;
                     }
                     // Send the broadcast package!
-                    try {
-                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, 8100);
-                        c.send(sendPacket);
-                    } catch (Exception e) {
-                    }
+                    DatagramPacket sendNewPacket = new DatagramPacket(sendData, sendData.length, inetAddress, 8100);
+                    port.send(sendNewPacket);
                 }
             }
-
             //Wait for a response
-            byte[] recvBuf = new byte[15000];
-            DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
-            c.receive(receivePacket);
-            //We have a response
-            //Check if the message is correct
+            byte[] responseByteArray = new byte[15000];
+            DatagramPacket receivePacket = new DatagramPacket(responseByteArray, responseByteArray.length);
+            port.receive(receivePacket);
+            //We have a response, check if the message is correct
             String message = new String(receivePacket.getData()).trim();
             if (message.equals("DISCOVER_FUIFSERVER_RESPONSE")) {
-                //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
                 ip = receivePacket.getAddress().toString();
             }
-            //Close the port!
-            c.close();
+            //Close the port
+            port.close();
             ready = true;
         } catch (IOException e) {
             e.printStackTrace();

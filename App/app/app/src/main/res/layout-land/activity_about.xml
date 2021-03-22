@@ -31,13 +31,14 @@
         android:id="@+id/aboutText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textSize="35sp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/assistant"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:text="Fise Concierge 2021 \nCreated by Calin Hadarean, Ernest Nkansah-Badu and Mohammad Ali Syed for IBM and UCL. "
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerBox" />
 
@@ -45,14 +46,14 @@
         android:id="@+id/backButtonAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="4dp"
         android:text="Back"
+        android:textColor="@color/white"
         android:textSize="35sp"
         app:backgroundTint="#0e62fe"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView

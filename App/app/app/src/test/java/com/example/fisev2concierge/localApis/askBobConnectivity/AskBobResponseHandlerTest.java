@@ -64,7 +64,7 @@ public class AskBobResponseHandlerTest {
         hashMap.put("Response", "test");
         AskBobResponseHandler askBobResponseHandler = new AskBobResponseHandler(hashMap, activity, activity, activity, speechSynthesis);
         askBobResponseHandler.handleResponse();
-        assertEquals("Service not authorised by admin", ShadowToast.getTextOfLatestToast());
+        assertEquals("Service not added by admin", ShadowToast.getTextOfLatestToast());
     }
 
     @Test

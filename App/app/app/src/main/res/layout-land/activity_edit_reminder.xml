@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New Reminder Message"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:layout_marginRight="16dp"
         android:text="Save"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
         android:layout_marginRight="20dp"
         android:text="Delete"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/saveReminderButton"
@@ -75,7 +75,7 @@
         android:layout_marginBottom="4dp"
         android:text="Back"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:backgroundTint="#0e62fe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,13 +103,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="174dp" />
+        app:layout_constraintGuide_begin="157dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="250dp" />
+        app:layout_constraintGuide_begin="214dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

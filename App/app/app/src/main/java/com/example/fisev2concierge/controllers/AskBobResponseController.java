@@ -103,7 +103,7 @@ public class AskBobResponseController {
         String smsNumber = mainController.searchContact(smsContact, appCompatActivity, context, activity);
         if (!smsNumber.equals("-1")) {
             speechSynthesis.runTts((String) parsedResponse.get("Response"));
-            mainController.sendText(context, activity, smsNumber, "test");
+            mainController.sendText(context, activity, smsNumber, "Hello");
 //            mainController.openApp(appCompatActivity, context, "messaging");
         } else {
             speechSynthesis.runTts("No such contact found");

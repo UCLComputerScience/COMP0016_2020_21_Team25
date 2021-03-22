@@ -31,7 +31,6 @@
         android:id="@+id/backButtonInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
         android:text="Back"
         app:backgroundTint="#0e62fe"
         android:textSize="35sp"
@@ -61,7 +60,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:fadeScrollbars="false"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarSize="6dip"
@@ -91,40 +90,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
                 android:text="Command: Call Bob. Description: This command will automatically search your contacts for someone called 'Bob' and will place a call to them if this contact exists."
                 android:textColor="@color/black"
-                android:textSize="35sp"
-                android:fontFamily="@font/assistant"/>
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/helpText2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
                 android:text="Command: What will the weather in London be like tomorrow? Description: This command will  tell you the weather. You can ask for the weather of any city"
                 android:textColor="@color/black"
-                android:textSize="35sp"
-                android:fontFamily="@font/assistant"/>
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/helpText3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
                 android:text="Command: Open Candy Crush. Description:  This command will open Candy Crush for you.  You can ask for any app but if it is not installed, you will be taken to the Play Store where you can download it."
                 android:textColor="@color/black"
-                android:textSize="35sp"
-                android:fontFamily="@font/assistant"/>
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/helpText4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
                 android:text="Commad: Search Amazon for baked beans. Description: This command will search Amazon for 'baked beans' and take you to the results page."
                 android:textColor="@color/black"
-                android:textSize="35sp"
-                android:fontFamily="@font/assistant"/>
+                android:textSize="35sp" />
         </LinearLayout>
     </ScrollView>
 

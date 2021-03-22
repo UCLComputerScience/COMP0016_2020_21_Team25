@@ -61,7 +61,7 @@
         android:id="@+id/backButtonAddReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="16dp"
         android:text="Back"
         android:textSize="60sp"
         app:backgroundTint="#0e62fe"

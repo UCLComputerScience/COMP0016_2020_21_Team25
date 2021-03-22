@@ -70,8 +70,8 @@ public class AskBobResponseHandler {
                     return;
                 }
             }
-            Toast.makeText(context, "Service not authorised by admin", Toast.LENGTH_SHORT).show();
-            speechSynthesis.runTts("Service " + service +  " not authorised by admin");
+            Toast.makeText(context, "Service not added by admin", Toast.LENGTH_SHORT).show();
+            speechSynthesis.runTts("Service " + service +  " not added by admin");
         } catch (Exception e) {
             Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }

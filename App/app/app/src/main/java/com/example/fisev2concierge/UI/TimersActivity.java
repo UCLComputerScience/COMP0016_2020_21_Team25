@@ -41,6 +41,10 @@ public class TimersActivity extends AppCompatActivity {
         secondsNumberPicker.setMinValue(0);
         secondsNumberPicker.setMaxValue(59);
 
+        hoursNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        minutesNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        secondsNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="384dp" />
+        app:layout_constraintGuide_begin="339dp" />
 
     <ImageView
         android:id="@+id/headerBox"
@@ -61,7 +61,7 @@
         android:id="@+id/backButtonAddReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="16dp"
         android:text="Back"
         android:textSize="60sp"
         app:backgroundTint="#0e62fe"
@@ -90,6 +90,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="247dp" />
+        app:layout_constraintGuide_begin="227dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
