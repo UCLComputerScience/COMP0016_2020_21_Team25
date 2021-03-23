@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class OpenUrlFunctionality {
 
-    private AppCompatActivity appCompatActivity;
-    private MainController mainController = new MainController();
+    private final AppCompatActivity appCompatActivity;
+    private final MainController mainController = new MainController();
 
     public OpenUrlFunctionality(AppCompatActivity appCompatActivity){
         this.appCompatActivity = appCompatActivity;
@@ -28,7 +28,7 @@ public class OpenUrlFunctionality {
         openUrl(url);
     }
 
-    public void searchWeb(String websiteName, HashMap searchItems){
+    public void searchWeb(String websiteName, HashMap<String, String> searchItems){
         String url = mainController.searchUrlLookup(websiteName);
         String searchItem = (String) searchItems.get("Application");
         if (url == null){
@@ -63,11 +63,12 @@ public class OpenUrlFunctionality {
         openUrl(url);
     }
 
-    private void searchYell(String url, String searchItem, HashMap searchItems){
+    private void searchYell(String url, String searchItem, HashMap<String, String> searchItems){
         //require keywords and location
         //have had to simply search urls such as remove 'searchSeed'
         String location = (String) searchItems.get("location");
         searchItem = searchItem.replace(" ", "+");
+        assert location != null;
         location = location.replace(" ", "+");
         url = url.replace("{keywords}", searchItem);
         url = url.replace("{location}", location);

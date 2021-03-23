@@ -11,7 +11,7 @@ public class GetLocationTest {
 
     @Test
     public void getPostcodeTest(){
-        GetLocation getLocation = new GetLocation(null, null, 51.501009, -0.141588);
+        GetLocation getLocation = new GetLocation(51.501009, -0.141588);
         Thread thread = new Thread(getLocation);
         thread.start();
         String postcode = getLocation.getPostcode();

@@ -37,7 +37,7 @@ public class FindServerIpAddress implements Runnable{
             port.send(sendPacket);
 
             // Broadcast the message over all the network interfaces
-            Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
                 NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
                 if (networkInterface.isLoopback() || !networkInterface.isUp()) {

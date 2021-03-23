@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AskBobResponseHandler {
-    HashMap askBobResponse;
-    AppCompatActivity appCompatActivity;
-    Context context;
-    Activity activity;
-    SpeechSynthesis speechSynthesis;
-    MainController mainController = new MainController();
+    private final HashMap<String, String> askBobResponse;
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
+    private final Activity activity;
+    private final SpeechSynthesis speechSynthesis;
+    private final MainController mainController = new MainController();
 
-    public AskBobResponseHandler(HashMap askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+    public AskBobResponseHandler(HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         this.askBobResponse = askBobResponse;
         this.appCompatActivity = appCompatActivity;
         this.context = context;
@@ -33,7 +33,7 @@ public class AskBobResponseHandler {
 
     public void handleResponse(){
         if (askBobResponse.get("Service").equals("Yell Search")){
-            mainController.test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
+            mainController.getLatLon(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
         } else {
             if (askBobResponse.get("Service_Type").equals("API_CALL")) {
                 handleApiResponse(askBobResponse, appCompatActivity, context, activity, speechSynthesis);
@@ -43,7 +43,7 @@ public class AskBobResponseHandler {
         }
     }
 
-    private void handleApiResponse(HashMap askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+    private void handleApiResponse(HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         if (mainController.hasUserID(context)) {
             handleApiResponseIfUserIdExist(askBobResponse, appCompatActivity, context, activity, speechSynthesis);
         } else {
@@ -51,8 +51,8 @@ public class AskBobResponseHandler {
         }
     }
 
-    private void handleApiResponseIfUserIdExist(HashMap askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
-        String service = askBobResponse.get("Service").toString();
+    private void handleApiResponseIfUserIdExist(HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+        String service = askBobResponse.get("Service");
         ArrayList<String> services = mainController.backendServices("getServices", mainController.getUserID(context), appCompatActivity);
 //                            ArrayList<String> services = backendServices("getServices", "101");
         String json = services.get(0);
@@ -62,7 +62,7 @@ public class AskBobResponseHandler {
             for (int i = 0; i < jsonArray.length(); i++) {
                 if (jsonArray.get(i).toString().equals(service)){
                     if (askBobResponse.get("Service").equals("Transport") && askBobResponse.containsKey("Transport Type")){
-                        mainController.test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
+                        mainController.getLatLon(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
                     } else {
                         mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
                         mainController.backendServices("addHistory", service + "&user_id=" + mainController.getUserID(context), appCompatActivity);
@@ -77,9 +77,9 @@ public class AskBobResponseHandler {
         }
     }
 
-    private void handleApiResponseIfNoUserIdExists(HashMap askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+    private void handleApiResponseIfNoUserIdExists(HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         if (askBobResponse.get("Service").equals("Transport") && askBobResponse.containsKey("Transport Type")) {
-            mainController.test(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
+            mainController.getLatLon(context, activity, askBobResponse, appCompatActivity, speechSynthesis);
         } else {
             mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
         }

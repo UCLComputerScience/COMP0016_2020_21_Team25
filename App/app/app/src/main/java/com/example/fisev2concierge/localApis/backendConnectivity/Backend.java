@@ -1,16 +1,14 @@
 package com.example.fisev2concierge.localApis.backendConnectivity;
 
-import android.renderscript.ScriptIntrinsicYuvToRGB;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class Backend implements Runnable{
 
-    private BackendFramework backendFramework;
-    private String method;
-    private String parameter;
+    private final BackendFramework backendFramework;
+    private final String method;
+    private final String parameter;
     private volatile ArrayList<String> result;
     private volatile boolean ready = false;
 

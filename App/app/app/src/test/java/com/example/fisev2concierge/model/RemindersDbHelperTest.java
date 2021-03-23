@@ -2,7 +2,7 @@ package com.example.fisev2concierge.model;
 
 import android.database.Cursor;
 
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.MainActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class RemindersDbHelperTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         remindersDbHelper.addData("test");
-        remindersDbHelper.updateReminder("test", 1, "new alarm");
+        remindersDbHelper.updateReminder(1, "new alarm");
         Cursor cursor = remindersDbHelper.getData();
         cursor.moveToFirst();
         assertEquals("new alarm", cursor.getString(1));
@@ -47,7 +47,7 @@ public class RemindersDbHelperTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersDbHelper remindersDbHelper = new RemindersDbHelper(activity);
         remindersDbHelper.addData("test");
-        remindersDbHelper.deleteReminder(1, "test");
+        remindersDbHelper.deleteReminder(1);
         assertEquals(0, remindersDbHelper.getData().getCount());
     }
 

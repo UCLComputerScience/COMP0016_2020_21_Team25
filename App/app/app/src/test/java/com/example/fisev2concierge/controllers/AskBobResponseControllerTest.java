@@ -3,8 +3,8 @@ package com.example.fisev2concierge.controllers;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.example.fisev2concierge.UI.HistoryActivity;
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.HistoryActivity;
+import com.example.fisev2concierge.views.MainActivity;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 
 import org.junit.Test;

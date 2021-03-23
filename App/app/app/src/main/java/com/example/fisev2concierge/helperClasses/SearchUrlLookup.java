@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class SearchUrlLookup {
 
-    private HashMap searchUrls = new HashMap();
+    private final HashMap<String, String> searchUrls = new HashMap<>();
 
     public SearchUrlLookup(){
         searchUrls.put("amazon", "https://www.amazon.co.uk/s?k=");

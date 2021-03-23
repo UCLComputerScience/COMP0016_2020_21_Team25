@@ -4,14 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.example.fisev2concierge.UI.HistoryActivity;
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.HistoryActivity;
+import com.example.fisev2concierge.views.MainActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowActivity;
 
 import static org.junit.Assert.assertEquals;

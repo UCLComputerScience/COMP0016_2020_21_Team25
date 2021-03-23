@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -16,9 +14,8 @@ import androidx.core.content.ContextCompat;
 public class CallFunctionality extends AppCompatActivity {
 
     private static final int REQUEST_CALL = 3;
-    private Activity activity;
-    private Context context;
-    private String number;
+    private final Activity activity;
+    private final Context context;
 
     public CallFunctionality(Context context, Activity activity){
         this.context = context;
@@ -30,7 +27,6 @@ public class CallFunctionality extends AppCompatActivity {
     }
 
     public void makePhoneCall(String number){
-        this.number = number;
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
         } else {

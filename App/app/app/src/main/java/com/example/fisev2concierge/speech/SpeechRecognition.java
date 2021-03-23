@@ -1,11 +1,7 @@
 package com.example.fisev2concierge.speech;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,12 +10,13 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.fisev2concierge.controllers.MainController;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import org.w3c.dom.Text;
+import com.example.fisev2concierge.controllers.MainController;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,8 +31,8 @@ public class SpeechRecognition{
     private AppCompatActivity appCompatActivity;
     private Context context;
     private Activity activity;
-    private MainController mainController = new MainController();
-    private volatile String[] result = new String[]{""};
+    private final MainController mainController = new MainController();
+    private final String[] result = new String[]{""};
 
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;

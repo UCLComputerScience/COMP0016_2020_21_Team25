@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class RemindersDbHelper extends SQLiteOpenHelper {
 
@@ -32,25 +31,21 @@ public class RemindersDbHelper extends SQLiteOpenHelper {
 
         long result = db.insert("Reminders", null, contentValues);
 
-        if (result == -1){
-            return false;
-        }
-        return true;
+        return result != -1;
     }
 
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM Reminders", null);
-        return data;
+        return db.rawQuery("SELECT * FROM Reminders", null);
     }
 
-    public void updateReminder(String reminder, int ID, String newReminder){
+    public void updateReminder(int ID, String newReminder){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE Reminders SET Message ='" + newReminder + "' WHERE " + "ID = '" + ID + "'";
         db.execSQL(query);
     }
 
-    public void deleteReminder(int ID, String reminder){
+    public void deleteReminder(int ID){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM Reminders WHERE ID = '" + ID + "'";
         db.execSQL(query);

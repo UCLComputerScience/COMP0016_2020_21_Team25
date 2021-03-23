@@ -11,9 +11,9 @@ import com.example.fisev2concierge.controllers.MainController;
 
 public class OpenAppFunctionality {
 
-    private AppCompatActivity appCompatActivity;
-    private Context context;
-    private MainController mainController = new MainController();
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
+    private final MainController mainController = new MainController();
 
     public OpenAppFunctionality(AppCompatActivity appCompatActivity, Context context){
         this.appCompatActivity = appCompatActivity;

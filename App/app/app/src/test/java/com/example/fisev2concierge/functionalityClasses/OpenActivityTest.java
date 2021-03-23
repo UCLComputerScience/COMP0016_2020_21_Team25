@@ -2,12 +2,12 @@ package com.example.fisev2concierge.functionalityClasses;
 
 import android.content.Intent;
 
-import com.example.fisev2concierge.UI.HistoryActivity;
-import com.example.fisev2concierge.UI.InstructionActivity;
-import com.example.fisev2concierge.UI.MainActivity;
-import com.example.fisev2concierge.UI.TimersActivity;
-import com.example.fisev2concierge.UI.ViewAlarmsActivity;
-import com.example.fisev2concierge.UI.ViewRemindersActivity;
+import com.example.fisev2concierge.views.HistoryActivity;
+import com.example.fisev2concierge.views.InstructionActivity;
+import com.example.fisev2concierge.views.MainActivity;
+import com.example.fisev2concierge.views.TimersActivity;
+import com.example.fisev2concierge.views.ViewAlarmsActivity;
+import com.example.fisev2concierge.views.ViewRemindersActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

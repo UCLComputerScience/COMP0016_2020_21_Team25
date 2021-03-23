@@ -2,7 +2,7 @@ package com.example.fisev2concierge.functionalityClasses;
 
 import android.Manifest;
 
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.MainActivity;
 import com.example.fisev2concierge.controllers.MainController;
 
 import org.junit.Test;

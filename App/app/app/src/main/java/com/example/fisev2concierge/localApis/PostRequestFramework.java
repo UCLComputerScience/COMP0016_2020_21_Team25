@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PostRequestFramework {
 
-    private String baseUrl;
+    private final String baseUrl;
 
     public PostRequestFramework(String baseUrl){
         this.baseUrl = baseUrl;

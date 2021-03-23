@@ -7,8 +7,8 @@ import android.net.Uri;
 import android.widget.TextView;
 
 import com.example.fisev2concierge.R;
-import com.example.fisev2concierge.UI.MainActivity;
-import com.example.fisev2concierge.UI.ViewRemindersActivity;
+import com.example.fisev2concierge.views.MainActivity;
+import com.example.fisev2concierge.views.ViewRemindersActivity;
 import com.example.fisev2concierge.helperClasses.NotificationHelper;
 
 import org.junit.Test;
@@ -153,14 +153,14 @@ public class MainControllerTest {
     public void testTest(){
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         MainController mainController = new MainController();
-        mainController.test(activity, activity, null , activity, null);
+        mainController.getLatLon(activity, activity, null , activity, null);
     }
 
     @Test
     public void getLocationTest() {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         MainController mainController = new MainController();
-        String postcode = mainController.getLocation(activity, activity, 51.501009, -0.141588);
+        String postcode = mainController.getLocation(51.501009, -0.141588);
         assertEquals("SW1A 1AA", postcode);
     }
 
@@ -244,7 +244,7 @@ public class MainControllerTest {
         MainController mainController = new MainController();
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         mainController.addReminder(activity, "old reminder");
-        mainController.updateReminder(activity, "old reminder", 1, "new reminder");
+        mainController.updateReminder(activity, 1, "new reminder");
         Cursor cursor = mainController.getReminders(activity);
         cursor.moveToFirst();
         assertEquals("new reminder", cursor.getString(1));
@@ -255,7 +255,7 @@ public class MainControllerTest {
         MainController mainController = new MainController();
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         mainController.addReminder(activity, "reminder");
-        mainController.deleteReminder(activity, 1, "reminder");
+        mainController.deleteReminder(activity, 1);
         assertEquals(0, mainController.getReminders(activity).getCount());
     }
 
@@ -280,7 +280,7 @@ public class MainControllerTest {
         MainController mainController = new MainController();
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         mainController.addAlarm(activity, "test", "date");
-        mainController.updateAlarm(activity, "test", 1, "new alarm", "new date");
+        mainController.updateAlarm(activity, 1, "new alarm", "new date");
         Cursor cursor = mainController.getAlarm(activity);
         cursor.moveToFirst();
         assertEquals("new alarm", cursor.getString(1));
@@ -291,7 +291,7 @@ public class MainControllerTest {
         MainController mainController = new MainController();
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         mainController.addAlarm(activity, "test", "date");
-        mainController.deleteAlarm(activity, 1, "test");
+        mainController.deleteAlarm(activity, 1);
         assertEquals(0, mainController.getAlarm(activity).getCount());
     }
 

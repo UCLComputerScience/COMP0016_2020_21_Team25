@@ -7,8 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class GetRequestFramework {
-    private String baseUrl;
-    HttpURLConnection test;
+    private final String baseUrl;
 
     public GetRequestFramework(String baseUrl){
         this.baseUrl = baseUrl;
@@ -22,7 +21,7 @@ public class GetRequestFramework {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine = "";
+            String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 result.add(inputLine);
             }

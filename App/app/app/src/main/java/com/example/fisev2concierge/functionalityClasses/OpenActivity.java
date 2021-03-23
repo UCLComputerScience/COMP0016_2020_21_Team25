@@ -5,16 +5,16 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.UI.InstructionActivity;
-import com.example.fisev2concierge.UI.HistoryActivity;
-import com.example.fisev2concierge.UI.MainActivity;
-import com.example.fisev2concierge.UI.TimersActivity;
-import com.example.fisev2concierge.UI.ViewAlarmsActivity;
-import com.example.fisev2concierge.UI.ViewRemindersActivity;
+import com.example.fisev2concierge.views.InstructionActivity;
+import com.example.fisev2concierge.views.HistoryActivity;
+import com.example.fisev2concierge.views.MainActivity;
+import com.example.fisev2concierge.views.TimersActivity;
+import com.example.fisev2concierge.views.ViewAlarmsActivity;
+import com.example.fisev2concierge.views.ViewRemindersActivity;
 
 public class OpenActivity {
-    private AppCompatActivity appCompatActivity;
-    private Context context;
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
 
     public OpenActivity(AppCompatActivity appCompatActivity, Context context){
         this.appCompatActivity = appCompatActivity;

@@ -9,12 +9,11 @@ import java.util.HashMap;
 
 public class AskBobRequest {
 
-    private MainController mainController = new MainController();
+    private final MainController mainController = new MainController();
 
-    public HashMap makeRequest(String sTT, AppCompatActivity appCompatActivity){
+    public HashMap<String, String> makeRequest(String sTT, AppCompatActivity appCompatActivity){
         String parameters = "message=\"" + sTT +"\"&sender=\"concierge\"";
         ArrayList<String> response = mainController.askBobServices("query", parameters, appCompatActivity);
-        HashMap parsedResponse = mainController.parseAskBobResponse(response);
-        return parsedResponse;
+        return mainController.parseAskBobResponse(response);
     }
 }
