@@ -1,14 +1,22 @@
-version: "3.9"
+version: "3"
 services:
   backend:
-    build: ./Backend
+    build: 
+      context: ./Backend
+      network: host
     ports:
       - "8100:8100"
-  services:
-    build: ./Services
+  serviceapis:
+    build: 
+      context: ./Services
+      network: host
     ports:
       - "8080:8080"
   askbob:
-    build: ./AskBob Concierge
+    build: 
+      context: ./AskBob Concierge
+      network: host
     ports:
       - "8000:8000"
+    links:
+      - serviceapis
