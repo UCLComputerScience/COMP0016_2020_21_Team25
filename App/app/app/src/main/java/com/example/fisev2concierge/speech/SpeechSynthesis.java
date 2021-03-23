@@ -8,7 +8,7 @@ import java.util.Locale;
 
 public class SpeechSynthesis {
 
-    TextToSpeech tts;
+    private TextToSpeech tts;
 
     public void configTts(AppCompatActivity appCompatActivity){
         tts = new TextToSpeech(appCompatActivity.getApplicationContext(), status -> {

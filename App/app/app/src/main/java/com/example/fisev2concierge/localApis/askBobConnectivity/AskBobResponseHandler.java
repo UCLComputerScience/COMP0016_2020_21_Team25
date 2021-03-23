@@ -54,7 +54,6 @@ public class AskBobResponseHandler {
     private void handleApiResponseIfUserIdExist(HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         String service = askBobResponse.get("Service");
         ArrayList<String> services = mainController.backendServices("getServices", mainController.getUserID(context), appCompatActivity);
-//                            ArrayList<String> services = backendServices("getServices", "101");
         String json = services.get(0);
         try {
             JSONObject jsonObject = new JSONObject(json);

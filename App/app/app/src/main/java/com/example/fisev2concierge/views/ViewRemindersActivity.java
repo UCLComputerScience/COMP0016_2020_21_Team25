@@ -43,17 +43,20 @@ public class ViewRemindersActivity extends AppCompatActivity {
         populateListView();
     }
 
-    private void populateListView(){
+    private void populateListView() {
         Cursor data = mainController.getReminders(ViewRemindersActivity.this);
         ArrayList<String> listData = new ArrayList<>();
-        while (data.moveToNext()){
+        while (data.moveToNext()) {
             remindersDbIds.add(data.getString(0));
             listData.add(data.getString(1));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, R.layout.listview_config, listData);
         listView.setAdapter(adapter);
+        configListView();
+    }
 
+    private void configListView(){
         listView.setOnItemClickListener((parent, view, position, id) -> {
             String reminder = parent.getItemAtPosition(position).toString();
             int itemID = -1;

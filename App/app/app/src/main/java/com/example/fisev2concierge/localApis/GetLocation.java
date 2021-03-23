@@ -1,5 +1,7 @@
 package com.example.fisev2concierge.localApis;
 
+import android.widget.ArrayAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -39,24 +41,27 @@ public class GetLocation implements Runnable{
         ready = true;
     }
 
-    public String makeApiRequest(Double lat, Double lon){
+    private String makeApiRequest(Double lat, Double lon){
         String baseUrl = "https://api.postcodes.io/";
         String path = "postcodes?lon={lon}&lat={lat}";
         path = path.replace("{lat}", lat.toString());
         path = path.replace("{lon}", lon.toString());
         GetRequestFramework getRequestFramework = new GetRequestFramework(baseUrl);
         ArrayList<String> result = getRequestFramework.makeRequest(path);
-//        GetRequestFramework getRequestFrameworkTest = new GetRequestFramework("https://127.0.0.1:8080/");
-//        ArrayList<String> resultTest = getRequestFramework.makeRequest("endpoint?parameter=value");
         if (!result.isEmpty()) {
-            String jsonString = result.get(0);
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("result");
-                return jsonArray.getJSONObject(0).getString("postcode");
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+            return parseApiResponse(result);
+        }
+        return "london";
+    }
+
+    private String parseApiResponse(ArrayList<String> result){
+        String jsonString = result.get(0);
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("result");
+            return jsonArray.getJSONObject(0).getString("postcode");
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return "london";
     }

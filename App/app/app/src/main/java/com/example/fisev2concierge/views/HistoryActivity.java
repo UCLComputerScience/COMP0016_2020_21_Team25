@@ -27,6 +27,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
         Button backButton = findViewById(R.id.backButtonHistory);
         backButton.setOnClickListener(v -> {
             Intent intent = new Intent(HistoryActivity.this, MainActivity.class);

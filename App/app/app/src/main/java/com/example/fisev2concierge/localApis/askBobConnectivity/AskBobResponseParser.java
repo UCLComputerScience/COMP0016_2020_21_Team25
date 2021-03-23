@@ -44,7 +44,6 @@ public class AskBobResponseParser {
         } catch (Exception e){
             e.printStackTrace();
             try{
-                //Command may not be recognised
                 String jsonString = response.get(0);
                 JSONObject jsonObject = new JSONObject(jsonString);
                 parseErrorResponse(parsedResponse, jsonObject);

@@ -43,7 +43,6 @@ public class EditAlarmActivity extends AppCompatActivity implements TimePickerDi
         Button backButton = findViewById(R.id.backButtonEditAlarm);
 
         Intent receivedIntent = getIntent();
-
         selectedID = receivedIntent.getIntExtra("ID", -1);
         String selectedAlarm = receivedIntent.getStringExtra("Alarm");
         alarmText.setText(selectedAlarm);

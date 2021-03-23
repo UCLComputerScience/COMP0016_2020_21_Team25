@@ -28,9 +28,7 @@ public class RemindersDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Message", message);
-
         long result = db.insert("Reminders", null, contentValues);
-
         return result != -1;
     }
 

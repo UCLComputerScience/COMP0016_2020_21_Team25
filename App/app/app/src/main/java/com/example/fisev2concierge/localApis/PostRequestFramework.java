@@ -16,7 +16,6 @@ public class PostRequestFramework {
     }
 
     public ArrayList<String> request(String path, String parameters){
-        //configured for POST Requests which take parameters through body
         ArrayList<String> response = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + path);

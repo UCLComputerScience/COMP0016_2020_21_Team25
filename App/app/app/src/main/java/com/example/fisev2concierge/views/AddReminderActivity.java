@@ -33,7 +33,7 @@ public class AddReminderActivity extends AppCompatActivity {
         addReminderButton.setOnClickListener(v -> {
             String newEntry = reminderText.getText().toString();
             if (newEntry.length() != 0){
-                AddData(newEntry);
+                addData(newEntry);
                 reminderText.setText("");
                 Intent intent = new Intent(AddReminderActivity.this, ViewRemindersActivity.class);
                 startActivity(intent);
@@ -44,7 +44,7 @@ public class AddReminderActivity extends AppCompatActivity {
         });
     }
 
-    public void AddData(String newEntry){
+    public void addData(String newEntry){
         boolean insertData = mainController.addReminder(AddReminderActivity.this, newEntry);
         if (insertData){
             toastMessage("Data entered successfully");

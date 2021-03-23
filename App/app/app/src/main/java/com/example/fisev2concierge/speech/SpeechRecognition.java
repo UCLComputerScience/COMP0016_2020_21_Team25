@@ -25,7 +25,6 @@ public class SpeechRecognition{
 
     public static final Integer RecordAudioRequestCode = 1;
 
-    //new variables that we need until solution to instruction reordering can be found
     private TextView conciergeStatusText;
     private SpeechSynthesis speechSynthesis;
     private AppCompatActivity appCompatActivity;
@@ -80,7 +79,6 @@ public class SpeechRecognition{
             @Override
             public synchronized void onResults(Bundle results) {
                 ArrayList<String> matches= results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
                 if(matches!=null){
                     result[0] = (matches.get(0));
                     mainController.handleUserRequest(result, speechSynthesis, appCompatActivity, context, activity, conciergeStatusText);
@@ -100,7 +98,6 @@ public class SpeechRecognition{
         });
     }
 
-
     private void configSpeechRecognizerIntent(){
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
@@ -110,7 +107,6 @@ public class SpeechRecognition{
         if (!(ContextCompat.checkSelfPermission(appCompatActivity, Manifest.permission.RECORD_AUDIO)== PackageManager.PERMISSION_GRANTED)){
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
                 ActivityCompat.requestPermissions(appCompatActivity,new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
-
             }
         }
     }

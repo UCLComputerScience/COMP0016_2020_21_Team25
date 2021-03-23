@@ -34,9 +34,7 @@ public class AlarmsDbHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("Message", message);
         contentValues.put("Date", date);
-
         long result = db.insert("Alarms", null, contentValues);
-
         return result != -1;
     }
 

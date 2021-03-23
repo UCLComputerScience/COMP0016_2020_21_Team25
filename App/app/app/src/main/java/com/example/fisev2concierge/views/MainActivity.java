@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 10);
 
-        //check session to see if we have ip of server
-        //if not make request
         SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         if (!sharedpreferences.contains("server_ip")){
             String ip = new MainController().findServerIp();
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //Speech Synthesis must be defined in MainActivity
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
         speechSynthesis.configTts(this);
-        //note that speech recognition software must be installed and configured on target device
+
         SpeechRecognition speechRecognition = new SpeechRecognition();
         speechRecognition.checkPermission(this);
         speechRecognition.config(this, speechSynthesis, this, this, conciergeStatusText);
@@ -107,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button help_view_button = findViewById(R.id.instructions_view_button);
-        help_view_button.setOnClickListener(v -> {
+        Button instructions_view_button = findViewById(R.id.instructions_view_button);
+        instructions_view_button.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, InstructionActivity.class);
             startActivity(intent);
         });

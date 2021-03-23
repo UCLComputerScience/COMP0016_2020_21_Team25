@@ -17,7 +17,6 @@ public class GetRequestFramework {
         ArrayList<String> result = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + path);
-            System.out.println("fullUrl: " + url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fisev2concierge.controllers.MainController;
-import com.example.fisev2concierge.localApis.GetRequestFramework;
+import com.example.fisev2concierge.localApis.PostRequestFramework;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class AskBobFramework{
         return ip;
     }
 
-    public ArrayList<String> request(String path){
+    public ArrayList<String> request(String path, String parameters){
         String baseUrl;
         SharedPreferences sharedpreferences = appCompatActivity.getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         if (!sharedpreferences.contains("server_ip")){
@@ -40,7 +40,7 @@ public class AskBobFramework{
             baseUrl = sharedpreferences.getString("server_ip", "");
         }
         baseUrl = "http://" + baseUrl + ":8000/";
-        GetRequestFramework getRequestFramework = new GetRequestFramework(baseUrl);
-        return getRequestFramework.makeRequest(path);
+        PostRequestFramework postRequestFramework = new PostRequestFramework(baseUrl);
+        return postRequestFramework.request(path, parameters);
     }
 }

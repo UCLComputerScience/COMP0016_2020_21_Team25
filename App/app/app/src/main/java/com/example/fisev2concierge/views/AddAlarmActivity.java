@@ -64,7 +64,7 @@ public class AddAlarmActivity extends AppCompatActivity implements TimePickerDia
             String newTime = timeSelectedText.getText().toString();
             String date = newDate + " " + newTime;
             if (newEntry.length() != 0){
-                AddData(newEntry, date);
+                addData(newEntry, date);
                 alarmText.setText("");
                 startAlarm(c, newEntry);
                 Intent intent = new Intent(AddAlarmActivity.this, ViewAlarmsActivity.class);
@@ -75,8 +75,8 @@ public class AddAlarmActivity extends AppCompatActivity implements TimePickerDia
         });
     }
 
-    String newID = "";
-    public void AddData(String newEntry, String date){
+    private String newID = "";
+    public void addData(String newEntry, String date){
         boolean insertData = mainController.addAlarm(AddAlarmActivity.this, newEntry, date);
         if (insertData){
             toastMessage("Data entered successfully");
@@ -98,7 +98,6 @@ public class AddAlarmActivity extends AppCompatActivity implements TimePickerDia
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
-
         updateTimeText(c);
     }
 

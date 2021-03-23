@@ -21,7 +21,6 @@ public class OpenUrlFunctionality {
     public void openWeb(String websiteName){
         String url = mainController.websiteUrlLookup(websiteName);
         if (url == null){
-            //url was not found, do google search
             websiteName = websiteName.replace(" ", "+");
             url = mainController.searchUrlLookup("google") + websiteName;
         }
@@ -32,12 +31,10 @@ public class OpenUrlFunctionality {
         String url = mainController.searchUrlLookup(websiteName);
         String searchItem = (String) searchItems.get("Application");
         if (url == null){
-            //search url was not found, do google search
             unknownSearchWebsite(websiteName, searchItem);
         } else {
             switch (websiteName){
                 case "amazon":
-                    //only require keywords
                     searchAmazon(url, searchItem);
                     break;
                 case "yell":
@@ -64,8 +61,6 @@ public class OpenUrlFunctionality {
     }
 
     private void searchYell(String url, String searchItem, HashMap<String, String> searchItems){
-        //require keywords and location
-        //have had to simply search urls such as remove 'searchSeed'
         String location = (String) searchItems.get("location");
         searchItem = searchItem.replace(" ", "+");
         assert location != null;

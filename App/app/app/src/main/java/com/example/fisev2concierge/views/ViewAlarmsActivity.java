@@ -45,18 +45,19 @@ public class ViewAlarmsActivity extends AppCompatActivity {
     }
 
     private void populateListView(){
-
         Cursor data = mainController.getAlarm(ViewAlarmsActivity.this);
         ArrayList<String> listData = new ArrayList<>();
-        while (data.moveToNext()){
+        while (data.moveToNext()) {
             alarmsDbIds.add(data.getString(0));
             alarmsDbMessages.add(data.getString(1));
-            listData.add(data.getString(1)+ " - Date and Time: " + data.getString(2));
+            listData.add(data.getString(1) + " - Date and Time: " + data.getString(2));
         }
-
         ListAdapter adapter = new ArrayAdapter<>(this, R.layout.listview_config, listData);
         listView.setAdapter(adapter);
+        configListView();
+    }
 
+    private void configListView(){
         listView.setOnItemClickListener((parent, view, position, id) -> {
             String alarm = alarmsDbMessages.get(position);
             int itemID = -1;
