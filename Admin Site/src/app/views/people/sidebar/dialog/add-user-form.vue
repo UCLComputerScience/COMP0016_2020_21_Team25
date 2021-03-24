@@ -1,33 +1,33 @@
 <template>
     <form class="add-user-form centred" v-on:submit.prevent="submit">
         <text-input
-            id="profile-first-name"
+            id="member-first-name"
             ref="first-name"
             :object="form"
             autocomplete="given-name"
             icon="perm_identity"
             key-name="firstName"
             label="First Name"
-            placeholder="John"
+            :placeholder="firstName"
             type="text"
         >
         </text-input>
 
         <text-input
-            id="profile-last-name"
+            id="member-last-name"
             ref="last-name"
             :object="form"
             autocomplete="family-name"
             icon="people"
             key-name="lastName"
             label="Last Name"
-            placeholder="Doe"
+            :placeholder="lastName"
             type="text"
         >
         </text-input>
 
         <text-input
-            id="profile-phone-number"
+            id="member-phone-number"
             ref="phone-number"
             :maxlength="11"
             :no-spaces="true"
@@ -36,7 +36,7 @@
             icon="phone"
             key-name="phoneNumber"
             label="Phone Number"
-            placeholder="07..."
+            :placeholder="phoneNumber"
             type="text"
         >
         </text-input>
@@ -73,6 +73,27 @@ export default {
             }
             return items;
         },
+        firstName() {
+            const firstName = this.form["firstName"];
+            if (firstName !== undefined && firstName !== "") {
+                return firstName;
+            }
+            return "John";
+        },
+        lastName() {
+            const lastName = this.form["lastName"];
+            if (lastName !== undefined && lastName !== "") {
+                return lastName;
+            }
+            return "Doe";
+        },
+        phoneNumber() {
+            const phoneNumber = this.form["phoneNumber"];
+            if (phoneNumber !== undefined && phoneNumber !== "") {
+                return phoneNumber;
+            }
+            return "07...";
+        }
     },
     methods: {
         checkForm() {
@@ -101,7 +122,7 @@ export default {
                 };
             }
 
-            if (this.form.phoneNumber.length < 11) {
+            if (this.form.phoneNumber.length !== 11) {
                 return {
                     message: "The entered phone number is invalid.",
                     ref: "phone-number",
@@ -120,21 +141,19 @@ export default {
             };
         },
         clear() {
-            for (let element of this.$refs) {
+            for (const element of Object.values(this.$refs)) {
                 element.clearInput();
             }
             this.$refs["first-name"].focus();
         },
-        submit() {
-            this.$parent.confirm();
+        async submit() {
+           await this.$parent.confirm();
         },
         failed(ref) {
             this.$refs[ref].clearInput();
         },
         select(text) {
-            this.$nextTick(() => {
-                this.$refs.dropdown.selectByText(text);
-            });
+            this.$refs.dropdown.selectByText(text);
         },
     },
 };

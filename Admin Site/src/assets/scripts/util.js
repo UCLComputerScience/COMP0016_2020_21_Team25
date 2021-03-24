@@ -28,8 +28,8 @@ export function toSnakeCaseMap(map) {
 }
 
 export const toSnakeCase = (str) => {
-    const formatted = str.replaceAll(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
-    return formatted.replaceAll("-", "_");
+    const formatted = str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    return formatted.replace(/[-]/g, "_");
 };
 
 export const toKebabCase = (str) => {
@@ -43,7 +43,7 @@ export const toKebabCase = (str) => {
             }
             return letter;
         })
-        .join("").replaceAll("_", "").replaceAll("--", "-");
+        .join("").replace(/[_]/g, "").replace(/--/g, "-");
 };
 
 export function getName() {

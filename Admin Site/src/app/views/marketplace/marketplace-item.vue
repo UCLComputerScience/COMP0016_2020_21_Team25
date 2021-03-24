@@ -33,7 +33,7 @@ export default {
             };
         },
         id() {
-            return this.getAttr("service-id");
+            return this.getAttr("service_id");
         },
         title() {
             return this.getAttr("name");
@@ -53,10 +53,10 @@ export default {
             const title = this.title.toLowerCase();
             const description = this.description.toLowerCase();
             if (
-                // searchTerm.includes(title) ||
-                // title.includes(searchTerm) ||
-                // description.includes(searchTerm) ||
-                // searchTerm.includes(description) ||
+                searchTerm.includes(title) ||
+                title.includes(searchTerm) ||
+                description.includes(searchTerm) ||
+                searchTerm.includes(description) ||
                 similarity(title, searchTerm) >= 0.75 ||
                 similarity(description, searchTerm) >= 0.75
             ) {
@@ -78,9 +78,6 @@ export default {
             return this.serviceData;
         },
     },
-    mounted() {
-        console.log(this.serviceData);
-    }
 };
 </script>
 

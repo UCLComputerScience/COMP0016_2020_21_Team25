@@ -1,19 +1,21 @@
 <template>
-    <modal-dialog ref="dialog">
-        <h2 class="header">Add new user</h2>
-        <p class="description">Fill out the details below to add a
-            new user to your circle. You can edit these details at any time.</p>
-        <flat-button class="profile-pic-button"
-                     text="Select Profile Picture" v-on:click="openProfilePicture"></flat-button>
-        <add-user-form ref="form" :form="form">
-        </add-user-form>
-        <div class="button-group centred">
-            <flat-button class="confirm" text="Confirm" v-on:click="confirm">
-            </flat-button>
-            <flat-button class="cancel" style="--button-bg: var(--red)"
-                         text="Cancel" v-on:click="cancel"></flat-button>
-        </div>
-    </modal-dialog>
+    <div class="add-user-dialog">
+        <modal-dialog ref="dialog">
+            <h2 class="header">Add new user</h2>
+            <p class="description">Fill out the details below to add a
+                new user to your circle. You can edit these details at any time.</p>
+            <flat-button class="profile-pic-button"
+                         text="Select Profile Picture" v-on:click="openProfilePicture"></flat-button>
+            <add-user-form ref="form" :form="form">
+            </add-user-form>
+            <div class="button-group centred">
+                <flat-button class="confirm" text="Confirm" v-on:click="confirm">
+                </flat-button>
+                <flat-button class="cancel" style="--button-bg: var(--red)"
+                             text="Cancel" v-on:click="cancel"></flat-button>
+            </div>
+        </modal-dialog>
+    </div>
     <profile-pic-chooser ref="chooser" :data="form" :fn="setProfilePicture"></profile-pic-chooser>
 </template>
 
@@ -38,6 +40,7 @@ export default {
                 profilePicture: null,
                 original: null,
                 response: null,
+                success: false
             }
         };
     },
@@ -57,18 +60,19 @@ export default {
         checkForm() {
             return this.$refs.form.checkForm();
         },
-        confirm() {
+        async confirm() {
             const messageAndField = this.checkForm();
             if (messageAndField["message"] === "valid") {
-                this.$store.dispatch("member/addMember", this.form).then(() => {
-                    if (this.form.response !== null) {
-                        alert("Creation failed. " + this.form.response);
-                        this.$refs.form.clear();
-                    } else {
-                        this.$refs.dialog.confirm();
-                    }
-                });
+                await this.$store.dispatch("member/addMember", this.form);
+                if (this.form.success) {
+                    this.$refs.dialog.confirm();
+                } else {
+                    alert("Creation failed. " + this.form.response);
+                    this.$refs.form.clear();
+                }
             } else {
+                this.form.success = false;
+                this.form.response = messageAndField["message"];
                 alert("Creation failed. " + messageAndField["message"]);
                 if (messageAndField["ref"] !== null)
                     this.$refs.form.failed(messageAndField["ref"]);
@@ -87,6 +91,7 @@ export default {
                 profilePicture: null,
                 original: null,
                 response: null,
+                success: false,
             };
         }
     },

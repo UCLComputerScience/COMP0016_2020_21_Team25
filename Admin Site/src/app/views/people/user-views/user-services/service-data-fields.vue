@@ -13,7 +13,7 @@ import TextInput from "../../../../components/widgets/text-input/text-input.vue"
 export default {
     name: "service-data-fields",
     components: { FlatButton, TextInput },
-    props: { serviceName: String },
+    props: { serviceId: String },
     data() {
         return {
             serviceData: {},
@@ -37,17 +37,17 @@ export default {
             }
         },
         formatField(field) {
-            return field.replaceAll("_", " ").toLowerCase();
+            return field.replace(/[_]/g, " ").toLowerCase();
         },
         async setDefaultData() {
-            this.fields = await this.$store.getters["service/dataFields"](this.serviceName);
+            this.fields = await this.$store.getters["service/dataFields"](this.serviceId);
             for (const key of Object.keys(this.fields)) {
                 this.serviceData[key] = null;
             }
         },
         async updateServiceData() {
             const form = {
-                serviceName: this.serviceName,
+                serviceId: this.serviceId,
                 ...this.serviceData
             };
             await this.$store.dispatch("service/updateDataFields", form);

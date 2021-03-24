@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SERVICES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+SERVICES_JAR="$SERVICES_ROOT/target/Services-1.0-SNAPSHOT.jar"
+
+if [ ! -f "$SERVICES_JAR" ]; then
+    echo Services API is not built && exit 1
+fi
+
+java -jar "$SERVICES_JAR" "$@"

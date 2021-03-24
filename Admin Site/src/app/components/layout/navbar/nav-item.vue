@@ -39,7 +39,7 @@ export default {
 }
 
 .nav-item:not(:last-child) {
-    margin-right: 16px;
+    margin-right: 10px;
 }
 
 .active-nav-item {

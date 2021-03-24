@@ -73,6 +73,8 @@ export default {
                 currentPassword: "",
                 newPassword: "",
                 repeatPassword: "",
+                response: "",
+                success: false
             },
         };
     },
@@ -81,22 +83,19 @@ export default {
     },
     methods: {
         reset() {
-            this.profileData = {
-                firstName: this.user["first-name"],
-                lastName: this.user["last-name"],
-                email: this.user.email,
-                phoneNumber: this.user["phone-number"],
-                currentPassword: "",
-                newPassword: "",
-                repeatPassword: "",
-            };
+            this.profileData.firstName = this.user["first-name"];
+            this.profileData.lastName = this.user["last-name"];
+            this.profileData.email = this.user.email;
+            this.profileData.phoneNumber = this.user["phone-number"];
+            this.profileData.currentPassword = "";
+            this.profileData.newPassword = "";
+            this.profileData.repeatPassword = "";
         },
         activate() {
             this.clearInputs();
             this.$refs["first-name"].focus();
         },
         clearInputs() {
-            this.profileData.response = null;
             this.$refs["first-name"].clearInput();
             this.$refs["last-name"].clearInput();
             this.$refs.email.clearInput();
@@ -106,13 +105,13 @@ export default {
             this.$refs.repeat.clearInput();
         },
         clearSensitiveInputs() {
-            this.profileData.response = null;
             this.$refs["current-password"].clearInput();
             this.$refs["new-password"].clearInput();
             this.$refs.repeat.clearInput();
         },
         validInputs() {
-            if (this.profileData.phoneNumber.length < 11) {
+            const length = this.profileData.phoneNumber.length;
+            if (length !== 0 && length !== 11) {
                 return {
                     message: "Your phone number is invalid",
                     ref: "phone-number",
@@ -123,7 +122,7 @@ export default {
                     return {
                         message:
                             "To change your password, please enter your password" +
-                            "in the 'Current Password' field.",
+                            " in the 'Current Password' field.",
                         ref: "current-password",
                     };
                 }
@@ -134,13 +133,16 @@ export default {
                         ref: "new-password",
                     };
                 }
-                if (
-                    this.profileData.newPassword !==
-                    this.profileData.repeatPassword
-                ) {
+                if (this.profileData.newPassword !== this.profileData.repeatPassword) {
                     return {
                         message: "The two entered passwords do not match.",
                         ref: "new-password",
+                    };
+                }
+                if (this.profileData.currentPassword !== this.currentPassword) {
+                    return {
+                        message: "Your password is incorrect. To change your password, you must correctly enter your current password.",
+                        ref: "current-password",
                     };
                 }
             }
@@ -148,6 +150,7 @@ export default {
         },
         async update() {
             const messageAndField = this.validInputs();
+            this.profileData.success = false;
             const profileData = {
                 firstName: this.profileData.firstName,
                 lastName: this.profileData.lastName,
@@ -155,19 +158,24 @@ export default {
                 phoneNumber: this.profileData.phoneNumber,
                 password: this.profileData.newPassword,
                 response: null,
+                success: false
             };
             if (messageAndField["message"] === "valid") {
                 await this.$store.dispatch("admin/profile", profileData);
-                if (profileData.response !== null) {
-                    alert("Update failed. " + profileData.response);
-                    this.clearSensitiveInputs();
-                } else {
+                this.profileData.success = profileData.success;
+                this.profileData.response = profileData.response
+                if (profileData.success) {
                     alert("Update successful, " + profileData["firstName"] + ".");
                     this.profileData = { ...profileData };
                     await this.$store.dispatch("admin/fetchAdmin", this.$route.params.username);
                     this.reset();
+                } else {
+                    alert("Update failed. " + profileData.response);
+                    this.clearSensitiveInputs();
                 }
             } else {
+                this.profileData.success = false;
+                this.profileData.response = messageAndField["message"];
                 alert("Update failed. " + messageAndField["message"]);
                 this.clearSensitiveInputs();
                 this.$refs[messageAndField["ref"]].clearInput();

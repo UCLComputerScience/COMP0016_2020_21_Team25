@@ -47,6 +47,7 @@ export default {
             for (let item of this.items) {
                 if (item.text === text) {
                     this.activeItem = item;
+                    item.fn();
                     break;
                 }
             }
@@ -73,9 +74,14 @@ export default {
             this.isActive = false;
             document.getElementById('app').removeEventListener('click', this.toggle, false);
         },
+        clearInput() {
+
+        }
     },
     beforeUnmount() {
-        document.getElementById('app').removeEventListener('click', this.toggle, false);
+        const app = document.getElementById('app');
+        if (app !== null)
+            app.removeEventListener('click', this.toggle, false);
     }
 };
 </script>
@@ -94,6 +100,7 @@ export default {
     margin-bottom: 8px;
     color: #555;
     line-height: 90%;
+    cursor: default;
 }
 
 .dropdown-button {

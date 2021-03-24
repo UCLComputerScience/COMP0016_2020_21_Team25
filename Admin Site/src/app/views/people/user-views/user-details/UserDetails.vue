@@ -3,16 +3,14 @@
         <div ref="header" class="header-container">
             <p class="tagline">{{ prefix }}</p>
             <h1 class="user-title">{{ title }} Details</h1>
-             <p>You can use the form below to edit basic information for <b>{{ firstName }}</b>. To edit {{ title }} profile picture, click their current one below. Service-specific information can be edited under the <i>"Services"</i> tab above.</p>
+            <p>You can use the form below to edit basic information for <b>{{ firstName }}</b>. To edit {{ title }}
+                profile picture, click their current one below. Service-specific information can be edited under the <i>"Services"</i>
+                tab above.</p>
         </div>
         <div class="user-content noselect centred">
             <h2>Profile Picture</h2>
             <div class="user-picture-container image" v-on:click="edit">
-                <img
-                    :alt="firstName"
-                    :src="currentPicture"
-                    class="user-picture centred"
-                />
+                <img :alt="firstName" :src="currentPicture" class="user-picture centred"/>
                 <span class="edit-icon centred material-icons">edit</span>
             </div>
             <details-form></details-form>
@@ -74,10 +72,7 @@ export default {
             this.$refs.chooser.show();
         },
         async updateProfilePic() {
-            await this.$store.dispatch(
-                "member/updateMemberPic",
-                this.picData.selected
-            );
+            await this.$store.dispatch("member/updateMemberPic", this.picData.selected);
             await this.$router.go();
         },
     },
@@ -87,7 +82,7 @@ export default {
 <style scoped>
 .user-details {
     justify-content: flex-start;
-    padding: 32px;
+    padding: 16px;
     max-width: 100%;
     width: 100%;
 }
@@ -158,7 +153,17 @@ export default {
     border-radius: 50%;
 }
 
+@media (max-width: 320px) {
+    .user-content {
+        padding: 0;
+    }
+}
+
 @media (min-width: 900px) {
+    .user-content, .user-details {
+        padding: 32px;
+    }
+
     .user-content,
     .header-container {
         max-width: 95%;

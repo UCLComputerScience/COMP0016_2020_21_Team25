@@ -55,13 +55,19 @@ const actions = {
         commit("setProfileImages", profileImages);
     },
     async setServiceIcons({ dispatch, commit, getters, rootGetters }) {
-        const namesResponse = await api.serviceCategories();
-        if (!namesResponse.success) {
-            return;
+        const services = rootGetters["service/allServices"];
+        const imageNames = [];
+
+        for (const [category, servicesInCategory] of Object.entries(services)) {
+            for (const service of servicesInCategory) {
+                if (!imageNames.includes(service.icon)) {
+                    imageNames.push(service.icon)
+                }
+            }
         }
         const serviceImages = await fetchImages(
             "service-icons",
-            namesResponse.categories
+            imageNames
         );
         commit("setServiceIcons", serviceImages);
     },

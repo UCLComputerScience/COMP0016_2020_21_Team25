@@ -1,6 +1,6 @@
 <template>
-    <div class="nav-logo centred">
-        <span class="logo-icon noselect material-icons">face</span>
+    <div class="nav-logo noselect centred">
+        <span class="logo-icon material-icons">face</span>
         <h1 class="logo-header">Concierge</h1>
     </div>
 </template>
@@ -15,14 +15,10 @@ export default {
 .nav-logo {
     border-radius: 5px;
     padding: 8px;
-    cursor: pointer;
     height: 55%;
+    cursor: default;
     position: absolute;
     left: 16px;
-}
-
-.nav-logo:hover {
-    background: var(--light-blue);
 }
 
 .logo-icon, .logo-header {
@@ -34,6 +30,7 @@ export default {
 .logo-header {
     display: none;
     text-transform: uppercase;
+    letter-spacing: .25rem;
 }
 
 @media (min-width: 720px) {

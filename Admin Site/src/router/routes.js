@@ -35,8 +35,8 @@ export const routes = [
     },
     {
         path: "/sign-out",
-        redirect: () => {
-            store.dispatch("account/logout");
+        redirect: async () => {
+            await store.dispatch("account/logout");
             return "/welcome";
         },
     },
@@ -73,13 +73,20 @@ export const routes = [
                 meta: {
                     title: (route) => {
                         const title =
-                            store.getters["service/activeService"]["service_name"];
+                            store.getters["service/activeService"]["name"];
                         if (title === undefined) {
                             return "";
                         }
                         return title;
                     },
-                    description: "",
+                    description: (route) => {
+                        const description =
+                            store.getters["service/activeService"]["description"];
+                        if (description === undefined) {
+                            return "";
+                        }
+                        return description;
+                    },
                     requiresAuth: true,
                 },
                 props: () => {

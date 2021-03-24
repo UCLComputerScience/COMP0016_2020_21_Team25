@@ -5,16 +5,16 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.HelpView;
-import com.example.fisev2concierge.HistoryView;
-import com.example.fisev2concierge.MainActivity;
-import com.example.fisev2concierge.TimersView;
-import com.example.fisev2concierge.ViewAlarmsView;
-import com.example.fisev2concierge.ViewRemindersView;
+import com.example.fisev2concierge.views.InstructionActivity;
+import com.example.fisev2concierge.views.HistoryActivity;
+import com.example.fisev2concierge.views.MainActivity;
+import com.example.fisev2concierge.views.TimersActivity;
+import com.example.fisev2concierge.views.ViewAlarmsActivity;
+import com.example.fisev2concierge.views.ViewRemindersActivity;
 
 public class OpenActivity {
-    AppCompatActivity appCompatActivity;
-    Context context;
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
 
     public OpenActivity(AppCompatActivity appCompatActivity, Context context){
         this.appCompatActivity = appCompatActivity;
@@ -22,23 +22,25 @@ public class OpenActivity {
     }
 
     public void openActivity(String activityName){
-        Intent intent = null;
+        Intent intent;
         switch (activityName){
             case "reminders":
-                intent = new Intent(context, ViewRemindersView.class);
+                intent = new Intent(context, ViewRemindersActivity.class);
                 break;
             case "alarms":
-                intent = new Intent(context, ViewAlarmsView.class);
+                intent = new Intent(context, ViewAlarmsActivity.class);
                 break;
             case "timers":
-                intent = new Intent(context, TimersView.class);
+                intent = new Intent(context, TimersActivity.class);
                 break;
             case "instructions":
-                intent = new Intent(context, HelpView.class);
+                intent = new Intent(context, InstructionActivity.class);
                 break;
             case "history":
-                intent = new Intent(context, HistoryView.class);
+                intent = new Intent(context, HistoryActivity.class);
                 break;
+            default:
+                intent = new Intent(context, MainActivity.class);
         }
         appCompatActivity.startActivity(intent);
     }

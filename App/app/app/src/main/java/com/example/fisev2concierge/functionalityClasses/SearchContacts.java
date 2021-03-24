@@ -13,51 +13,62 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.fisev2concierge.controllers.MainController;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class SearchContacts {
 
-    AppCompatActivity appCompatActivity;
-    Context context;
-    Activity activity;
-    private static final int REQUEST_CONTACTS = 5;
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
 
     public SearchContacts(AppCompatActivity appCompatActivity, Context context, Activity activity){
         this.appCompatActivity = appCompatActivity;
         this.context = context;
-        this.activity = activity;
     }
 
     public String searchContacts(String searchName){
-        //search first and last name?
-        //what happens if two contacts have the same name?
-        //add case for searching contacts that may be provided through admin site
-        //what if no match is found?
-        if (searchName.equals("gp")){
-            //query backend
+        searchName = searchName.toLowerCase();
+        searchName = searchName.substring(0, 1).toUpperCase() + searchName.substring(1);
+        if (searchName.equals("Gp") || searchName.equals("Dentist") || searchName.equals("Optometrist")){
+            return searchBackendForContact(searchName);
         } else {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.READ_CONTACTS}, REQUEST_CONTACTS);
-                searchContacts(searchName);
-            } else {
-                Cursor cursor = appCompatActivity.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE}, "DISPLAY_NAME = '" + searchName + "'", null, null);
-                if (cursor.getCount() > 0) {
-                    cursor.moveToFirst();
-                    String number = cursor.getString(0);
-                    System.out.println("Contact: " + searchName + " Number: " + number);
-                    return number;
-                } else {
-                    System.out.println("No such contact");
-                    Toast.makeText(context, "No such contact: " + searchName, Toast.LENGTH_SHORT).show();
-                }
+            return searchDeviceForContact(searchName);
+        }
+    }
+
+    private String searchBackendForContact(String searchName){
+        MainController mainController = new MainController();
+        if (!mainController.hasUserID(context)){
+            Toast.makeText(context, "Not connected to an admin", Toast.LENGTH_SHORT).show();
+        } else {
+            String userID = mainController.getUserID(context);
+            ArrayList<String> queryResult = mainController.backendServices("getEmergencyContacts", userID, appCompatActivity);
+            String json = queryResult.get(0);
+            try {
+                JSONObject jsonObject = new JSONObject(json);
+                JSONObject newJsonObject = jsonObject.getJSONObject("emergency_contacts");
+                return newJsonObject.getString(searchName);
+            } catch (Exception e){
+                Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
         return "-1";
     }
 
-    public void addContacts(String name, String number){
-        Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
-        intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-        intent.putExtra(ContactsContract.Intents.Insert.NAME, name);
-        intent.putExtra(ContactsContract.Intents.Insert.PHONE, number);
-        appCompatActivity.startActivity(intent);
+    private String searchDeviceForContact(String searchName){
+        try (Cursor cursor = appCompatActivity.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE}, "DISPLAY_NAME = '" + searchName + "'", null, null)) {
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                return cursor.getString(0);
+            } else {
+                Toast.makeText(context, "No such contact: " + searchName, Toast.LENGTH_SHORT).show();
+            }
+        }
+        return "-1";
     }
+
 }

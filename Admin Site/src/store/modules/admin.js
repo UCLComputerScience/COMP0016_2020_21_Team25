@@ -1,4 +1,4 @@
-import {toKebabCaseMap} from "../../assets/scripts/util";
+import {toKebabCase, toKebabCaseMap} from "../../assets/scripts/util";
 import api from "../../backend/api";
 import router from "../../router/router";
 
@@ -23,21 +23,23 @@ const actions = {
         const admin = { ...getters.admin };
         for (const [key, field] of Object.entries(form)) {
             if (field === "") {
-                form[key] = admin[key];
+                form[key] = admin[toKebabCase(key)];
             }
         }
-        if (form["profilePicture"] === undefined) {
-            form["profilePicture"] = admin["profile-picture"];
+        if (form["profilePicture"] === undefined &&
+            form["profile-picture"] === undefined) {
+            form["profile-picture"] = admin["profile-picture"];
         }
-        form.username = admin.username
-        form = {...toKebabCaseMap(form)};
-        const response = await api.updateAdmin(form.username,
-            form["first-name"], form["last-name"], form["email"], form["phone-number"],
-            form["password"], form["profile-picture"]);
+        const newData = { ...toKebabCaseMap(form) };
+        newData.username = admin.username;
+        const response = await api.updateAdmin(newData.username,
+            newData["first-name"], newData["last-name"], newData["email"],
+            newData["phone-number"], newData["password"],
+            newData["profile-picture"]);
+        form.response = response.message;
+        form.success = response.success;
         if (response.success) {
-            commit("setAdmin", form);
-        } else {
-            form.response = response.message;
+            commit("setAdmin", newData);
         }
     },
     async fetchAdmin(
@@ -66,7 +68,7 @@ const actions = {
     },
     async updateAdminPic({ dispatch, commit, getters, rootGetters }, newPic) {
         const form = { ...getters.admin };
-        form.profilePicture = newPic;
+        form["profile-picture"] = newPic;
         await dispatch("profile", form);
     },
 };

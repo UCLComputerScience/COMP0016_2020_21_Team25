@@ -26,7 +26,7 @@ export default {
     components: { SidebarHeader, SidebarContent, AddUserDialog },
     computed: {
         showAddButton() {
-            return this.users.length < 5;
+            return this.users.length < 30;
         },
         users() {
             return this.$store.getters["member/memberIds"];

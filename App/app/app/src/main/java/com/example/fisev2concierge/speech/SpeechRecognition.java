@@ -1,11 +1,7 @@
 package com.example.fisev2concierge.speech;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,12 +10,13 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.fisev2concierge.controllers.MainController;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import org.w3c.dom.Text;
+import com.example.fisev2concierge.controllers.MainController;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -28,29 +25,16 @@ public class SpeechRecognition{
 
     public static final Integer RecordAudioRequestCode = 1;
 
-    //new variables that we need until solution to instruction reordering can be found
     private TextView conciergeStatusText;
     private SpeechSynthesis speechSynthesis;
     private AppCompatActivity appCompatActivity;
     private Context context;
     private Activity activity;
-    private MainController mainController = new MainController();
-    private volatile String[] result = new String[]{""};
+    private final MainController mainController = new MainController();
+    private final String[] result = new String[]{""};
 
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
-
-    public Integer getRecordAudioRequestCode(){
-        return RecordAudioRequestCode;
-    }
-
-    public SpeechRecognizer getmSpeechRecognizer(){
-        return mSpeechRecognizer;
-    }
-
-    public Intent getmSpeechRecognizerIntent(){
-        return mSpeechRecognizerIntent;
-    }
 
     private void createSpeechRecognizer(AppCompatActivity appCompatActivity){
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(appCompatActivity);
@@ -95,14 +79,9 @@ public class SpeechRecognition{
             @Override
             public synchronized void onResults(Bundle results) {
                 ArrayList<String> matches= results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
                 if(matches!=null){
                     result[0] = (matches.get(0));
-//                    System.out.println("speechSynthesis: result[0]: " + result[0]);
-//                    speechSynthesis.runTts(result[0]);
                     mainController.handleUserRequest(result, speechSynthesis, appCompatActivity, context, activity, conciergeStatusText);
-//                    ready[0] = true;
-//                    conciergeStatusText.setText(matches.get(0));
                 }
             }
 
@@ -119,7 +98,6 @@ public class SpeechRecognition{
         });
     }
 
-
     private void configSpeechRecognizerIntent(){
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
@@ -129,11 +107,9 @@ public class SpeechRecognition{
         if (!(ContextCompat.checkSelfPermission(appCompatActivity, Manifest.permission.RECORD_AUDIO)== PackageManager.PERMISSION_GRANTED)){
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
                 ActivityCompat.requestPermissions(appCompatActivity,new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
-
             }
         }
     }
-
 
     public void startListening(){
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
@@ -141,10 +117,6 @@ public class SpeechRecognition{
 
     public void stopListening(){
         mSpeechRecognizer.stopListening();
-    }
-
-    public void destroySpeech(){
-        mSpeechRecognizer.destroy();
     }
 
     public void config(AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis, Context context, Activity activity, TextView conciergeStatusText) {

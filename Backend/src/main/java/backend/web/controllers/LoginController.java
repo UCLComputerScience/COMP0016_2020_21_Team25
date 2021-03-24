@@ -23,8 +23,9 @@ public class LoginController {
     private final Database database = DatabaseFactory.instance();
 
     @GetMapping("login")
-    public LoginResponse getLoginData(@RequestParam String username, @RequestParam String password) {
+    public LoginResponse getLoginData(@RequestParam String username_or_email, @RequestParam String password) {
         boolean success = true;
+        boolean userEnteredEmail = false;
         String message = "Ok";
         int code = 200;
 
@@ -32,34 +33,60 @@ public class LoginController {
         String databaseUsername = "";
         String databasePassword = "";
 
-        String sqlStatement = "SELECT USERNAME, PASSWORD FROM ADMIN WHERE USERNAME='{USER}'";
-        sqlStatement = sqlStatement.replace("{USER}", username);
-        ResultSet results = database.query(sqlStatement);
+        // Check if param is actually email address
+        String query = "SELECT USERNAME, PASSWORD FROM ADMIN WHERE EMAIL='{EMAIL}'";
+        query = query.replace("{EMAIL}", username_or_email);
+        ResultSet result = database.query(query);
 
         try {
-            if (results.next()) {
-                databaseUsername = results.getString("USERNAME");
-                databasePassword = results.getString("PASSWORD");
+            if (result.next()) {
+                databaseUsername = result.getString("USERNAME");
+                databasePassword = result.getString("PASSWORD");
+                userEnteredEmail = true;
             }
-
         } catch (SQLException e) {
             code = 500;
             message = e.getMessage();
             success = false;
         }
 
-        if (!username.equals(databaseUsername)) {
+        if (!userEnteredEmail) {
+            String sqlStatement = "SELECT USERNAME, PASSWORD FROM ADMIN WHERE USERNAME='{USER}'";
+            sqlStatement = sqlStatement.replace("{USER}", username_or_email);
+            ResultSet results = database.query(sqlStatement);
+
+            try {
+                if (results.next()) {
+                    databaseUsername = results.getString("USERNAME");
+                    databasePassword = results.getString("PASSWORD");
+                }
+
+            } catch (SQLException e) {
+                code = 500;
+                message = e.getMessage();
+                success = false;
+            }
+        }
+
+        if (!userEnteredEmail) {
+            if (!username_or_email.equals(databaseUsername)) {
+                success = false;
+                message = "Incorrect Credentials";
+                errors.put("field", "usernameOrEmail");
+                errors.put("message", "The username or email address '" + username_or_email + "' does not exist, did you mean to sign up?");
+                return new LoginResponse(success, message, databaseUsername, errors, code);
+            }
+        }
+
+        if (!password.equals(databasePassword)) {
             success = false;
             message = "Incorrect Credentials";
-            errors.put("USERNAME", "Username does not exist");
-        } else if (username.equals(databaseUsername) && !password.equals(databasePassword)) {
-            success = false;
-            message = "Incorrect Credentials";
-            errors.put("PASSWORD", "Incorrect Password");
+            errors.put("field", "password");
+            errors.put("message", "Your password was incorrect, please try again.");
         }
 
 
-        return new LoginResponse(success, message, errors, code);
+        return new LoginResponse(success, message, databaseUsername, errors, code);
     }
 
     @PostMapping("register")
@@ -85,29 +112,8 @@ public class LoginController {
             case 0:
                 success = false;
                 message = "Error";
-                errors.put("USER", "Username is already taken");
-                break;
-            case 2:
-                success = false;
-                message = "Server error";
-                code = 500;
-        }
-        switch (database.checkExisting("ADMIN", "EMAIL", "EMAIL =" + "'" + email + "'")) {
-            case 0:
-                success = false;
-                message = "Error";
-                errors.put("EMAIL", "Email is already being utilised");
-                break;
-            case 2:
-                success = false;
-                message = "Server error";
-                code = 500;
-        }
-        switch (database.checkExisting("ADMIN", "PHONE_NUMBER", "PHONE_NUMBER =" + "'" + phone_number + "'")) {
-            case 0:
-                success = false;
-                message = "Error";
-                errors.put("PHONE_NUMBER", "Phone number is already being utilised");
+                errors.put("field", "username");
+                errors.put("message", "The username " + username + " is already in use. Did you mean to log in?");
                 break;
             case 2:
                 success = false;
@@ -115,7 +121,37 @@ public class LoginController {
                 code = 500;
         }
 
-        if (!message.equals("fail")) {
+        if (!message.equals("Error")) {
+            switch (database.checkExisting("ADMIN", "EMAIL", "EMAIL =" + "'" + email + "'")) {
+                case 0:
+                    success = false;
+                    message = "Error";
+                    errors.put("field", "email");
+                    errors.put("message", "The email address " + email + " is already associated with another account. Did you mean to log in?");
+                    break;
+                case 2:
+                    success = false;
+                    message = "Server error";
+                    code = 500;
+            }
+        }
+
+        if (!message.equals("Error")) {
+            switch (database.checkExisting("ADMIN", "PHONE_NUMBER", "PHONE_NUMBER =" + "'" + phone_number + "'")) {
+                case 0:
+                    success = false;
+                    message = "Error";
+                    errors.put("field", "phone_number");
+                    errors.put("message", "The phone number " + phone_number + " is already associated with another account.");
+                    break;
+                case 2:
+                    success = false;
+                    message = "Server error";
+                    code = 500;
+            }
+        }
+
+        if (!message.equals("Error")) {
             database.executeUpdate(sqlStatement);
         }
 

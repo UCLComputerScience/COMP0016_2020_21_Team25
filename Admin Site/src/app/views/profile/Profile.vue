@@ -71,8 +71,8 @@ export default {
         edit() {
             this.$refs.chooser.show();
         },
-        updateProfilePic() {
-            this.$store.dispatch("admin/updateAdminPic", this.picData.selected);
+        async updateProfilePic() {
+           await this.$store.dispatch("admin/updateAdminPic", this.picData.selected);
         }
     },
     beforeCreate() {
@@ -140,6 +140,12 @@ export default {
 @media (min-width: 900px) {
     .profile-content, .profile .header-container, .profile-subtitle {
         max-width: 66%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .profile-content, .profile .header-container, .profile-subtitle {
+        max-width: 50%;
     }
 }
 </style>

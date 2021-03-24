@@ -2,13 +2,17 @@ package backend.app;
 
 import backend.models.Database;
 import backend.models.DatabaseFactory;
+import backend.web.responses.StandardResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * Endpoint logic for retrieving basic (app) user information.
@@ -17,6 +21,19 @@ import java.util.ArrayList;
 @RestController
 public class AppController {
     private final Database database = DatabaseFactory.instance();
+	
+    /**
+     * Ping the backend to see if it is responding
+     *
+     * @return the message, HTTP status code and a success
+     */
+    @GetMapping("/")
+    public StandardResponse ping() {
+        String formattedDate = new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(System.currentTimeMillis());
+        System.out.println("[PING] " + formattedDate);
+        System.out.println();
+        return new StandardResponse(true, "Ok", 200);
+    }
 
     /**
      * Return relevant information about the user's history
@@ -24,22 +41,33 @@ public class AppController {
      * @param id the user ID.
      * @return HistoryResponse a JSON object representing the data defined above.
      */
-    @GetMapping("history")
-    public HistoryResponse history(@RequestParam String id) {
+    @GetMapping("app-history")
+    public AppHistoryResponse appHistory(@RequestParam String id) {
         int code = 200;
-        ArrayList<String> history = new ArrayList<>();
-        String query = "SELECT * FROM SERVICE_LOG WHERE USER_ID={ID}";
-        query = query.replace("{ID}", id);
-        ResultSet results = database.query(query);
+
+        ArrayList<Map<String, String>> history = new ArrayList<>();
+
+        String sqlStatement = "SELECT SERVICE.NAME,  SERVICE_LOG.* FROM SERVICE_LOG INNER JOIN SERVICE ON SERVICE_LOG.SERVICE_ID=SERVICE.SERVICE_ID AND SERVICE_LOG.USER_ID='{USER_ID}' WHERE SERVICE_LOG.LOG_DATE BETWEEN CURRENT_DATE-7 AND CURRENT_DATE ORDER BY SERVICE_LOG.LOG_DATE, SERVICE_LOG.LOG_TIME";
+        ResultSet result = database.query(sqlStatement.replace("{USER_ID}", id));
         try {
-            while (results.next()) {
-                history.add(results.getString("NAME"));
+            while (result.next()) {
+                String service_id = result.getString("SERVICE_ID");
+                String service_name = result.getString("NAME");
+                String date= result.getString("LOG_DATE");
+                String time= result.getString("LOG_TIME");
+                Map<String, String> serviceLog = new HashMap<>();
+                serviceLog.put("service_id", service_id);
+                serviceLog.put("service_name", service_name);
+                serviceLog.put("timestamp", date+" "+time);
+                history.add(serviceLog);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } catch (SQLException | RuntimeException e) {
             code = 500;
         }
-        return new HistoryResponse(history, code);
+
+
+        return new AppHistoryResponse(history, code);
     }
 
     /**
@@ -132,19 +160,81 @@ public class AppController {
         return new UserResponse(firstName, lastName, prefix, phoneNumber, code);
     }
 
+    @GetMapping("add-history")
+    public AddHistoryResponse addHistory(@RequestParam String service_name, @RequestParam String user_id){
+        int code=200;
+        String message="OK";
+        String sqlStatement="INSERT INTO SERVICE_LOG VALUES((SELECT SERVICE_ID FROM SERVICE WHERE NAME='{SERVICE_NAME}'),'{USER_ID}',CURRENT_DATE,CURRENT_TIME)";
+        sqlStatement = sqlStatement.replace("{SERVICE_NAME}", service_name);
+        sqlStatement = sqlStatement.replace("{USER_ID}", user_id);
+
+        switch (database.checkExisting("USER","USER_ID","USER_ID ="+"'"+user_id+"'")){
+            case 1:
+                message="Invalid USER_ID";
+                break;
+            case 2:
+                message="Server error";
+                code=500;
+        }
+
+        switch (database.checkExisting("SERVICE","NAME","NAME ="+"'"+service_name+"'")){
+            case 1:
+                message="Invalid SERVICE_ID";
+                break;
+            case 2:
+                message="Server error";
+                code=500;
+        }
+
+        if (message.equals("OK")){
+            database.executeUpdate(sqlStatement);
+        }
+
+        return new AddHistoryResponse(message,code);
+
+    }
+
+    @GetMapping("login-user")
+    public LoginUserResponse loginUser(@RequestParam String first_word, @RequestParam String second_word, @RequestParam String last_word){
+        int code=200;
+        String message="OK";
+        String userId="";
+        String sqlStatement="SELECT USER_ID FROM REGISTRATION_CODES WHERE FIRST_WORD='{FIRST_WORD}' AND SECOND_WORD='{SECOND_WORD}' AND LAST_WORD='{LAST_WORD}' ";
+        sqlStatement = sqlStatement.replace("{FIRST_WORD}", first_word);
+        sqlStatement = sqlStatement.replace("{SECOND_WORD}", second_word);
+        sqlStatement = sqlStatement.replace("{LAST_WORD}", last_word);
+
+        ResultSet results = database.query(sqlStatement);
+
+        try {
+            if (results.next()) {
+                userId = results.getString("USER_ID");
+            }
+            else{
+                message="Invalid Registration Codes";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            code = 500;
+        }
+
+        return new LoginUserResponse(message,userId,code);
+
+    }
+
     /*
      * { "history": [], "code": 200 }
      */
-    private static class HistoryResponse {
-        private final ArrayList<String> history;
+    private static class AppHistoryResponse {
+        private final ArrayList<Map<String, String>> history;
         private final int code;
 
-        public HistoryResponse(ArrayList<String> history, int code) {
+        public AppHistoryResponse(ArrayList<Map<String, String>> history, int code) {
             this.history = history;
             this.code = code;
         }
 
-        public ArrayList<String> getHistory() {
+        public ArrayList<Map<String, String>> getHistory() {
             return history;
         }
 
@@ -241,6 +331,48 @@ public class AppController {
 
         public String getPhoneNumber() {
             return phoneNumber;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
+    private static class AddHistoryResponse {
+        private final String message;
+        private final int code;
+
+        public AddHistoryResponse(String message, int code) {
+            this.message = message;
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
+    private static class LoginUserResponse {
+        private final String message;
+        private final String userId;
+        private final int code;
+
+        public LoginUserResponse(String message, String userId, int code) {
+            this.message = message;
+            this.userId=userId;
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+        
+        public String getUserId(){
+            return userId;
         }
 
         public int getCode() {

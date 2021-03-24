@@ -1,5 +1,6 @@
 package backend;
 
+import backend.models.Database;
 import backend.models.DatabaseFactory;
 import org.apache.commons.cli.*;
 import org.springframework.boot.ApplicationArguments;
@@ -64,6 +65,15 @@ public class App implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         ApiLogger.start();
         // Connect to database
-        DatabaseFactory.instance();
+        Database database = DatabaseFactory.instance();
+        // Start broadcast
+        DiscoveryThread broadcaster = DiscoveryThread.getInstance();
+        Thread discoveryThread = new Thread(broadcaster);
+        discoveryThread.start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            broadcaster.stop();
+            database.close();
+        }));
     }
 }

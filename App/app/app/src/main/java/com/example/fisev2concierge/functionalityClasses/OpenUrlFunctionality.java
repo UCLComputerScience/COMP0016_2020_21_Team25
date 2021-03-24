@@ -6,15 +6,13 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fisev2concierge.controllers.MainController;
-import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
-import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
 
 import java.util.HashMap;
 
 public class OpenUrlFunctionality {
 
-    AppCompatActivity appCompatActivity;
-    MainController mainController = new MainController();
+    private final AppCompatActivity appCompatActivity;
+    private final MainController mainController = new MainController();
 
     public OpenUrlFunctionality(AppCompatActivity appCompatActivity){
         this.appCompatActivity = appCompatActivity;
@@ -22,46 +20,59 @@ public class OpenUrlFunctionality {
 
     public void openWeb(String websiteName){
         String url = mainController.websiteUrlLookup(websiteName);
-        System.out.println("WebsiteUrl: " + url);
         if (url == null){
-            //url was not found, do google search
             websiteName = websiteName.replace(" ", "+");
             url = mainController.searchUrlLookup("google") + websiteName;
         }
         openUrl(url);
     }
 
-    public void searchWeb(String websiteName, HashMap searchItems){
+    public void searchWeb(String websiteName, HashMap<String, String> searchItems){
         String url = mainController.searchUrlLookup(websiteName);
         String searchItem = (String) searchItems.get("Application");
         if (url == null){
-            //search url was not found, do google search
-            websiteName = websiteName.replace(" ", "+");
-            searchItem = searchItem.replace(" ", "+");
-            url = mainController.searchUrlLookup("google") + websiteName + "+" + searchItem;
+            unknownSearchWebsite(websiteName, searchItem);
         } else {
             switch (websiteName){
                 case "amazon":
-                    //only require keywords
-                    searchItem = searchItem.replace(" ", "+");
-                    url = url + searchItem;
+                    searchAmazon(url, searchItem);
                     break;
                 case "yell":
-                    //require keywords and location, replace space with ?
-                    //have had to simply search urls such as remove 'searchSeed'
-                    String location = (String) searchItems.get("location");
-                    searchItem = searchItem.replace(" ", "+");
-                    location = location.replace(" ", "+");
-                    url = url.replace("{keywords}", searchItem);
-                    url = url.replace("{location}", location);
+                    searchYell(url, searchItem, searchItems);
                     break;
                 case "google":
-                    searchItem = searchItem.replace(" ", "+");
-                    url = url + searchItem;
+                    searchGoogle(url, searchItem);
                     break;
             }
-            System.out.println("finalSearchUrl: " + url);
         }
+    }
+
+    private void unknownSearchWebsite(String websiteName, String searchItem){
+        websiteName = websiteName.replace(" ", "+");
+        searchItem = searchItem.replace(" ", "+");
+        String url = mainController.searchUrlLookup("google") + websiteName + "+" + searchItem;
+        openUrl(url);
+    }
+
+    private void searchAmazon(String url, String searchItem){
+        searchItem = searchItem.replace(" ", "+");
+        url = url + searchItem;
+        openUrl(url);
+    }
+
+    private void searchYell(String url, String searchItem, HashMap<String, String> searchItems){
+        String location = (String) searchItems.get("location");
+        searchItem = searchItem.replace(" ", "+");
+        assert location != null;
+        location = location.replace(" ", "+");
+        url = url.replace("{keywords}", searchItem);
+        url = url.replace("{location}", location);
+        openUrl(url);
+    }
+
+    private void searchGoogle(String url, String searchItem){
+        searchItem = searchItem.replace(" ", "+");
+        url = url + searchItem;
         openUrl(url);
     }
 

@@ -73,8 +73,10 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.$refs.people.deactivate();
-            this.$refs.marketplace.deactivate();
+            if (this.$refs.people !== null)
+                this.$refs.people.deactivate();
+            if (this.$refs.marketplace !== null)
+                this.$refs.marketplace.deactivate();
             if (this.$route.name !== "profile") {
                 if (this.$route.path.includes("/people"))
                     this.$refs.people.activate();

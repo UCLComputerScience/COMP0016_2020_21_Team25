@@ -13,6 +13,7 @@ async function makeHttpRequest(URL, method, params = {}) {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
+            "Access-Control-Allow-Origin": "*",
         },
         params: formattedParams,
     };
@@ -24,23 +25,24 @@ async function makeHttpRequest(URL, method, params = {}) {
     return {
         status: response.status,
         statusText: response.statusText,
+        success: false
     };
 }
 
 const MOCK_RESPONSE = {
     message: "",
     code: 200,
+    success: true,
 };
 
 const api = {
-    /**
-     * TODO - ping server to see if it is running and return true/false
-     */
     async ping() {
+        return await makeHttpRequest("", "GET", {});
     },
     async login(username, password) {
         return await makeHttpRequest("login", "GET", {
-            username, password,
+            "username-or-email": username,
+            password,
         });
     },
     async logout() {
@@ -58,7 +60,7 @@ const api = {
     },
     async admin(username) {
         return await makeHttpRequest("admin", "GET", {
-            username,
+            username: username,
         });
     },
     async members(username) {
@@ -133,22 +135,33 @@ const api = {
             "user-id": userID,
         });
     },
-    async memberServiceData(userID, serviceName) {
+    async memberServiceData(userID, serviceId) {
+        // return await makeHttpRequest("member-service-data", "GET", {
+        //     "user-id": userID,
+        //     "service-id": serviceId
+        // });
         const response = { ...MOCK_RESPONSE };
-        const random = Math.random();
-        if (random < 0.33) {
-            response.fields = {
-                "ACCOUNT_NUMBER": 123456789101112, "SORT_CODE": 123456
-            };
-        } else if (random >= 0.33 && random < 0.67) {
-            response.fields = {
-                "GP_PHONE_NUMBER": "07111111111",
-            };
-        } else {
-            response.fields = {};
-        }
+        // const random = Math.random();
+        // if (random < 0.33) {
+        //     response.fields = {
+        //         "ACCOUNT_NUMBER": 123456789101112, "SORT_CODE": 123456
+        //     };
+        // } else if (random >= 0.33 && random < 0.67) {
+        //     response.fields = {
+        //         "GP_PHONE_NUMBER": "07111111111",
+        //     };
+        // } else {
+        //     response.fields = {};
+        // }
+        response.fields = {};
+        return response;
     },
-    async updateMemberServiceData(userID, serviceName, data) {
+    async updateMemberServiceData(userID, serviceId, data) {
+        // return await makeHttpRequest("update-member-service-data", "POST", {
+        //     "user-id": userID,
+        //     "service-id": serviceId,
+        //     data
+        // });
         return MOCK_RESPONSE;
     }
 };

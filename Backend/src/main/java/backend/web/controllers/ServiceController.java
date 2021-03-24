@@ -5,7 +5,6 @@ import backend.models.DatabaseFactory;
 import backend.web.responses.service.CategoryResponse;
 import backend.web.responses.service.MemberServicesResponse;
 import backend.web.responses.service.ServicesInCategoryResponse;
-import backend.web.util.MapComparator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,26 +58,24 @@ public class ServiceController {
 
         ArrayList<Map<String, String>> services = new ArrayList<>();
 
-        String sqlStatement = "SELECT NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}'";
-        ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category.toLowerCase()));
+        String sqlStatement = "SELECT SERVICE_ID, NAME, ICON, DESCRIPTION FROM SERVICE WHERE CATEGORY='{CATEGORY}' ORDER BY NAME";
+        ResultSet result = database.query(sqlStatement.replace("{CATEGORY}", category));
 
         try {
             while (result.next()) {
+                String serviceID = result.getString("SERVICE_ID");
                 String name = result.getString("NAME");
                 String icon = result.getString("ICON");
                 String description = result.getString("DESCRIPTION");
                 Map<String, String> service = new HashMap<>();
+                service.put("service_id", serviceID);
                 service.put("name", name);
                 service.put("category", category);
                 service.put("icon", icon);
                 service.put("description", description);
                 services.add(service);
             }
-            if (services.size() == 0) {
-                throw new RuntimeException("Could not find any services in the given category.");
-            }
-            services.sort(new MapComparator("value"));
-        } catch (SQLException | RuntimeException e) {
+        } catch (SQLException e) {
             code = 500;
             message = e.getMessage();
             success = false;
@@ -100,19 +97,22 @@ public class ServiceController {
 
         try {
             while (result.next()) {
+                String serviceID = result.getString("SERVICE_ID");
                 String name = result.getString("NAME");
                 String category = result.getString("CATEGORY");
                 String icon = result.getString("ICON");
                 String description = result.getString("DESCRIPTION");
                 Map<String, String> service = new HashMap<>();
-                service.put("category", category);
+                service.put("service_id", serviceID);
                 service.put("name", name);
+                service.put("category", category);
                 service.put("icon", icon);
                 service.put("description", description);
                 services.add(service);
             }
             if (services.size() == 0) {
-                throw new RuntimeException("Could not find any services assigned to that given USER-ID");
+                message = "Could not find any services assigned to that given USER-ID";
+
             }
         } catch (SQLException | RuntimeException e) {
             code = 500;

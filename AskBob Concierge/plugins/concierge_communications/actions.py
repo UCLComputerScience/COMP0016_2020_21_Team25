@@ -14,14 +14,19 @@ class ActionConciergePlaceCall(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         person = next(tracker.get_latest_entity_values("PERSON"), None)
-        response=person
         if not person:
-            response="Sorry, I can't call this person"
-       
-        data_package={
-            "Service_Type": "CALL_CONTACT",
-            "Contact": response
-        }
+            data_package={
+                "Service_Type":"APP_SERVICE",
+                "Service": "Call Contact",
+                "Response":"Sorry, I don't know who that is, please try again"
+            }
+        else:
+            data_package={
+                "Service_Type":"APP_SERVICE",
+                "Service": "Call Contact",
+                "Response":"Calling "+person,
+                "Contact": person
+            }
 
         dispatcher.utter_message(json_message= data_package)
 
@@ -37,16 +42,19 @@ class ActionConciergePlaceMessage(Action):
 
         person = next(tracker.get_latest_entity_values("PERSON"), None)
 
-        response=person
         if not person:
-            response="Sorry, I can't call this person"
-
-       
-        data_package={
-            "Service_Type": "SMS_CONTACT",
-            "Contact": response
-        }
-
+            data_package={
+                "Service_Type":"APP_SERVICE",
+                "Service": "SMS Contact",
+                "Response":"Sorry, I don't know who that is, please try again"
+            }
+        else:
+            data_package={
+                "Service_Type":"APP_SERVICE",
+                "Service": "SMS Contact",
+                "Response":"Messaging "+person,
+                "Contact": person
+            }
         dispatcher.utter_message(json_message= data_package)
 
 

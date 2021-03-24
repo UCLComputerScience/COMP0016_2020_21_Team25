@@ -6,6 +6,8 @@ from rasa_sdk.events import SlotSet
 import askbob.plugin
 import requests
 
+host="serviceapis"
+port="8080"
 
 @askbob.plugin.action("concierge_food", "fetch_recipe_by_search")
 class ActionConciergePlaceCall(Action):
@@ -16,21 +18,36 @@ class ActionConciergePlaceCall(Action):
 
         recipe_search = next(tracker.get_latest_entity_values("recipe_search_term"), None)
         
-        r = requests.get(url="http://localhost:8080/recipe", params={
-            "QUERY":recipe_search}).json()
-
-
-        data_package={
+        if not recipe_search:
+            data_package={
             "Service_Type": "API_CALL",
-            "Service":"recipe-by-search",
-            "Response": r["message"]
-        }
-        print(r["metadata"]["recipe-id"])
-        print(recipe_search)
-        dispatcher.utter_message(json_message= data_package)
+            "Service": "Recipes",
+            "Response": "Sorry, I don't know that food"
+            }
+            dispatcher.utter_message(json_message= data_package)
+
+            return[]
+
+        else:
+
+            r = requests.get(url="http://"+host+":"+port+"/recipe", params={
+                "QUERY":recipe_search}).json()
 
 
-        return [SlotSet("recipe_id", r["metadata"]["recipe-id"])]
+            data_package={
+                "Service_Type": "API_CALL",
+                "Service":"Recipes",
+                "Response": r["message"]
+            }
+        
+            dispatcher.utter_message(json_message= data_package)
+
+
+        if len(r["metadata"])!=0:
+            return [SlotSet("recipe_id", r["metadata"]["recipe-id"])]
+        else:
+            return[]
+
 
 @askbob.plugin.action("concierge_food", "fetch_recipe_by_ingredient")
 class ActionConciergePlaceCall(Action):
@@ -40,22 +57,37 @@ class ActionConciergePlaceCall(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         recipe_ingredient = next(tracker.get_latest_entity_values("recipe_ingredient"), None)
-        
-        r = requests.get(url="http://localhost:8080/ingredient", params={
-            "INGREDIENTS":recipe_ingredient}).json()
 
-
-        data_package={
+        if not recipe_ingredient:
+            data_package={
             "Service_Type": "API_CALL",
-            "Service":"recipe-by-ingredient",
-            "Response": r["message"]
-        }
-        print(r["metadata"]["recipe-id"])
-        print(recipe_ingredient)
+            "Service": "Recipes",
+            "Response": "Sorry, I don't know that ingredient"
+            }
+            dispatcher.utter_message(json_message= data_package)
+
+            return[]
+
+
+        else:
+            r = requests.get(url="http://"+host+":"+port+"/ingredient", params={
+                "INGREDIENTS":recipe_ingredient}).json()
+
+
+            data_package={
+                "Service_Type": "API_CALL",
+                "Service":"Recipes",
+                "Response": r["message"]
+            }
+        
+
         dispatcher.utter_message(json_message= data_package)
 
 
-        return [SlotSet("recipe_id", r["metadata"]["image"])]
+        if len(r["metadata"])!=0:
+            return [SlotSet("recipe_id", r["metadata"]["recipe-id"])]
+        else:
+            return[]
 
 @askbob.plugin.action("concierge_food", "fetch_random_recipe")
 class ActionConciergePlaceCall(Action):
@@ -64,15 +96,14 @@ class ActionConciergePlaceCall(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        r = requests.get(url="http://localhost:8080/random-recipe").json()
+        r = requests.get(url="http://"+host+":"+port+"/random-recipe").json()
 
 
         data_package={
             "Service_Type": "API_CALL",
-            "Service":"random_recipe",
+            "Service":"Recipes",
             "Response": r["message"]
         }
-        print(r["metadata"]["recipe-id"])
 
         dispatcher.utter_message(json_message= data_package)
 
@@ -91,18 +122,18 @@ class ActionConciergePlaceCall(Action):
 
             data_package={
                 "Service_Type": "API_CALL",
-                "Service":"random_recipe",
+                "Service":"Recipes",
                 "Response": "I do not know which recipe you are referring to",
                 "Steps":[]
             }
 
         else:
-            r = requests.get(url="http://localhost:8080/recipe-instructions",params={
+            r = requests.get(url="http://"+host+":"+port+"/recipe-instructions",params={
             "ID":recipe_id}).json()
 
             data_package={
                 "Service_Type": "API_CALL",
-                "Service":"random_recipe",
+                "Service":"Recipes",
                 "Response": r["message"],
                 "Steps":r["metadata"]["steps"]
             }
