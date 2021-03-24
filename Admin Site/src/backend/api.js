@@ -136,22 +136,32 @@ const api = {
         });
     },
     async memberServiceData(userID, serviceId) {
+        // return await makeHttpRequest("member-service-data", "GET", {
+        //     "user-id": userID,
+        //     "service-id": serviceId
+        // });
         const response = { ...MOCK_RESPONSE };
-        const random = Math.random();
-        if (random < 0.33) {
-            response.fields = {
-                "ACCOUNT_NUMBER": 123456789101112, "SORT_CODE": 123456
-            };
-        } else if (random >= 0.33 && random < 0.67) {
-            response.fields = {
-                "GP_PHONE_NUMBER": "07111111111",
-            };
-        } else {
-            response.fields = {};
-        }
+        // const random = Math.random();
+        // if (random < 0.33) {
+        //     response.fields = {
+        //         "ACCOUNT_NUMBER": 123456789101112, "SORT_CODE": 123456
+        //     };
+        // } else if (random >= 0.33 && random < 0.67) {
+        //     response.fields = {
+        //         "GP_PHONE_NUMBER": "07111111111",
+        //     };
+        // } else {
+        //     response.fields = {};
+        // }
+        response.fields = {};
         return response;
     },
     async updateMemberServiceData(userID, serviceId, data) {
+        // return await makeHttpRequest("update-member-service-data", "POST", {
+        //     "user-id": userID,
+        //     "service-id": serviceId,
+        //     data
+        // });
         return MOCK_RESPONSE;
     }
 };

@@ -21,6 +21,6 @@ jobs:
       with:
         java-version: 11.0.10
     - name: Build Services API with Maven
-      run: mvn -B package --file services/pom.xml
+      run: mvn -B package --file Services/pom.xml
     - name: Build Backend API with Maven
       run: mvn -B package --file Backend/pom.xml

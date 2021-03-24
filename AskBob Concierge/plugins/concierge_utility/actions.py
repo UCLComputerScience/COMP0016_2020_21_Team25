@@ -5,6 +5,9 @@ from rasa_sdk.executor import CollectingDispatcher
 import askbob.plugin
 import requests
 
+host="serviceapis"
+port="8080"
+
 
 @askbob.plugin.action("concierge_utility", "fetch_weather")
 class ActionConciergeFetchWeather(Action):
@@ -16,7 +19,7 @@ class ActionConciergeFetchWeather(Action):
         city = next(tracker.get_latest_entity_values("GPE"), None)
 
         print(city)
-        r = requests.get(url="http://serviceapis:8080/current-weather", params={
+        r = requests.get(url="http://"+host+":"+port+"/current-weather", params={
             "CITY_NAME": city,
         
         }).json()
@@ -39,7 +42,7 @@ class ActionConciergeFetchAirQuality(Action):
         city = next(tracker.get_latest_entity_values("GPE"), None)
         print(city)
 
-        r = requests.get(url="http://serviceapis:8080/air-quality", params={
+        r = requests.get(url="http://"+host+":"+port+"/air-quality", params={
             "CITY_NAME": city,
         }).json()
         
@@ -63,7 +66,7 @@ class ActionConciergeFetchDefinitions(Action):
 
         word = next(tracker.get_latest_entity_values("search_word"), None)
         print(word)
-        r = requests.get(url="http://serviceapis:8080/dictionary", params={
+        r = requests.get(url="http://"+host+":"+port+"/dictionary", params={
             "WORD": word,
             "INCLUDE_SYNONYMS": "false"
         }).json()
@@ -86,7 +89,7 @@ class ActionConciergeFetchSynonyms(Action):
 
         synonym = next(tracker.get_latest_entity_values("search_word"), None)
         print(synonym)
-        r = requests.get(url="http://serviceapis:8080/dictionary", params={
+        r = requests.get(url="http://"+host+":"+port+"/dictionary", params={
             "WORD": synonym,
             "INCLUDE_SYNONYMS": "true",
             "SYNONYMS_ONLY": "true"

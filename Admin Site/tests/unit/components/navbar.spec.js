@@ -6,6 +6,9 @@ import {app, mockRouter, testUsername} from "../util/constants.js";
 
 describe("Navbar", () => {
     const getWrapper = (path, name) => {
+        mockRouter.push({
+            name, params: { username: testUsername },
+        });
         return mount(Navbar, {
             attachTo: app,
             data() {

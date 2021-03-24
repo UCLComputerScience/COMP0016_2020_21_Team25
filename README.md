@@ -63,7 +63,7 @@ Friends of elderly users, called admins, will be able to manage the details of t
 from their accounts to enhance their experience. To activate a user account, the admin will register their details on
 the web app. Once completed, a unique three-word phrase will be generated, and this will have to be quoted on the
 android app to “unlock” and activate the account for the user. Note that these codes do not expire meaning user data can
-be transferred between Android app.
+be transferred between Android devices.
 
 More information on the web app can be
 found [here](https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/wiki/Admin-Web-App).

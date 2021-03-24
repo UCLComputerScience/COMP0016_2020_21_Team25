@@ -6,6 +6,8 @@ from rasa_sdk.events import SlotSet
 import askbob.plugin
 import requests
 
+host="serviceapis"
+port="8080"
 
 @askbob.plugin.action("concierge_food", "fetch_recipe_by_search")
 class ActionConciergePlaceCall(Action):
@@ -28,7 +30,7 @@ class ActionConciergePlaceCall(Action):
 
         else:
 
-            r = requests.get(url="http://serviceapis:8080/recipe", params={
+            r = requests.get(url="http://"+host+":"+port+"/recipe", params={
                 "QUERY":recipe_search}).json()
 
 
@@ -68,7 +70,7 @@ class ActionConciergePlaceCall(Action):
 
 
         else:
-            r = requests.get(url="http://serviceapis:8080/ingredient", params={
+            r = requests.get(url="http://"+host+":"+port+"/ingredient", params={
                 "INGREDIENTS":recipe_ingredient}).json()
 
 
@@ -94,7 +96,7 @@ class ActionConciergePlaceCall(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        r = requests.get(url="http://serviceapis:8080/random-recipe").json()
+        r = requests.get(url="http://"+host+":"+port+"/random-recipe").json()
 
 
         data_package={
@@ -126,7 +128,7 @@ class ActionConciergePlaceCall(Action):
             }
 
         else:
-            r = requests.get(url="http://serviceapis:8080/recipe-instructions",params={
+            r = requests.get(url="http://"+host+":"+port+"/recipe-instructions",params={
             "ID":recipe_id}).json()
 
             data_package={

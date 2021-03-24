@@ -5,6 +5,8 @@ from rasa_sdk.executor import CollectingDispatcher
 import askbob.plugin
 import requests
 
+host="serviceapis"
+port="8080"
 
 @askbob.plugin.action("concierge_finance", "fetch_stocks")
 class ActionConciergeFetchStocks(Action):
@@ -23,7 +25,7 @@ class ActionConciergeFetchStocks(Action):
             "Response": "Sorry, I don't know that organisation"
             }
         else:
-            r = requests.get(url="http://serviceapis:8080/stocks", params={
+            r = requests.get(url="http://"+host+":"+port+"/stocks", params={
                 "SYMBOL": stock,
             }).json()
             data_package={
@@ -47,7 +49,7 @@ class ActionConciergeFetchCharity(Action):
         search_term = next(tracker.get_latest_entity_values("charity_search_term"), None)
 
 
-        r = requests.get(url="http://serviceapis:8080/charity-search", params={
+        r = requests.get(url="http://"+host+":"+port+"/charity-search", params={
             "QUERY": search_term,
             
         }).json()
@@ -80,7 +82,7 @@ class ActionConciergeFetchCharityCity(Action):
             }
 
         else:
-            r = requests.get(url="http://serviceapis:8080/charity-by-city", params={
+            r = requests.get(url="http://"+host+":"+port+"/charity-by-city", params={
                 "CITY": city,
                 
             }).json()

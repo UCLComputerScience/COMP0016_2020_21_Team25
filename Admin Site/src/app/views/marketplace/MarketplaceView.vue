@@ -82,12 +82,11 @@ export default {
         this.fetchCategories();
     },
     methods: {
-        fetchCategories() {
-            this.$store.dispatch("service/setServices").then(_ => {
-                this.$store.dispatch("media/setProfileImages");
-                this.$store.dispatch("media/setServiceIcons");
-                this.categories = Object.keys(this.$store.getters["service/allServices"]);
-            });
+        async fetchCategories() {
+            await this.$store.dispatch("service/setServices");
+            await this.$store.dispatch("media/setProfileImages");
+            await this.$store.dispatch("media/setServiceIcons");
+            this.categories = Object.keys(this.$store.getters["service/allServices"]);
         },
         setRef(el) {
             this.sections.push(el);

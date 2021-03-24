@@ -18,6 +18,7 @@ const getWrapper = async (searchTerm) => {
             }
         },
     });
+    await wrapper.vm.fetchCategories();
 
     const searchBar = wrapper.get("input");
     await searchBar.setValue(searchTerm);
