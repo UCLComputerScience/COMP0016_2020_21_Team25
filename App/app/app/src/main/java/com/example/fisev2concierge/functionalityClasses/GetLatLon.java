@@ -47,6 +47,8 @@ public class GetLatLon{
     }
 
     private void handleLocationSuccess(Location location){
+        //note that for some reason we are unable to return the location safely -> threads, conditional synchronization etc were tried but unsuccessful
+        //all services using location therefore must be called directly from within the fusedLocationProviderClient.getLastLocation() success and failure methods
         MainController mainController = new MainController();
         if (location != null) {
             if (askBobResponse.get("Service").equals("Yell Search")) {

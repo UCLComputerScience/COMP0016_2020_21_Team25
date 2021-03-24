@@ -89,7 +89,6 @@ public class MainController {
         askBobResponseController.responseController(parsedResponse, context, activity, appCompatActivity, speechSynthesis);
     }
 
-    //BackendServices
     public ArrayList<String> backendServices(String method, String parameter, AppCompatActivity appCompatActivity){
         Backend backend = new Backend(method, parameter, appCompatActivity);
         Thread thread = new Thread(backend);
@@ -97,7 +96,6 @@ public class MainController {
         return backend.getResult();
     }
 
-    //AskBob Services
     public ArrayList<String> askBobServices(String method, String parameters, AppCompatActivity appCompatActivity){
         AskBob askBob = new AskBob(method, parameters, appCompatActivity);
         Thread thread = new Thread(askBob);
@@ -129,7 +127,6 @@ public class MainController {
         return adminDbHelper.hasUserID();
     }
 
-    //Reminders
     public Cursor getReminders(Context context){
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(context);
         return remindersFunctionality.getReminders();
@@ -149,7 +146,6 @@ public class MainController {
         remindersFunctionality.deleteReminder(selectedID);
     }
 
-    //Alarams
     public Cursor getAlarm(Context context){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
         return alarmsFunctionality.getAlarms();
