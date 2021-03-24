@@ -10,13 +10,14 @@ const patterns = () => {
 };
 
 module.exports = {
-    clearMocks: true,
+    maxConcurrency: 1,
+    verbose: true,
     transform: {
         ".*\\.(vue)$": "vue-jest",
         ".*\\.(js)$": "babel-jest",
     },
     transformIgnorePatterns: patterns(),
-    // collectCoverage: true,
     collectCoverageFrom: ["src/**/*.js", "src/**/*.vue"],
-    setupFilesAfterEnv: ["<rootDir>/tests/unit/setup.js"]
+    setupFilesAfterEnv: ["<rootDir>/tests/unit/setup.js"],
+    slowTestThreshold: 15,
 };

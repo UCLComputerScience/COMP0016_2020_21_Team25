@@ -12,16 +12,15 @@ const waitForBackend = async () => {
     while (!response.success) {
         response = await api.ping();
     }
-}
+};
 
 global.beforeAll(async () => {
     // await waitForBackend();
     jest.setTimeout(45000);
-    prompt = scrollTo = alert = window.scrollTo = window.alert = window.prompt = () => {
-    };
+    prompt = global.scrollTo = scrollTo = alert = window.scrollTo = window.alert = window.prompt = jest.fn();
     confirm = window.confirm = () => {
         return true;
-    }
+    };
 
     window.document.body.appendChild(app);
     const description = document.createElement("meta");

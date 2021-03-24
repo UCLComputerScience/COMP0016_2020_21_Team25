@@ -12,14 +12,14 @@
     "build": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
     "coverage": "start-server-and-test backend http://localhost:8100 jest --coverage; open coverage/lcov-report/index.html",
-    "coverage:noserver": "jest --coverage; open coverage/lcov-report/index.html",
+    "coverage:noserver": "jest --coverage --silent --maxWorkers -1; open coverage/lcov-report/index.html",
     "deploy": "set -e; npm run-script build; firebase deploy",
     "start": "set -e; npm run-script build; npm run-script browser",
     "start:backend": "npm run-script backend & npm start",
     "start:dev": "set -e; npm run-script build:dev; npm run-script browser",
     "start:dev:backend": "npm run-script backend & npm run-script start:dev",
     "test": "start-server-and-test backend http://localhost:8100 jest",
-    "test:noserver": "jest"
+    "test:noserver": "jest --silent --maxWorkers -1"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.18",
