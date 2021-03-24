@@ -16,6 +16,27 @@ import static org.junit.Assert.assertNotNull;
 public class AdminDbHelperTest {
 
     @Test
+    public void addUserIdIfItAlreadyExists(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        AdminDbHelper adminDbHelper = new AdminDbHelper(activity);
+        adminDbHelper.addID("0");
+        adminDbHelper.addID("1");
+        Cursor cursor = adminDbHelper.getData();
+        cursor.moveToFirst();
+        String userID = cursor.getString(1);
+        assertEquals(1, adminDbHelper.getData().getCount());
+        assertEquals("1", userID);
+    }
+
+    @Test
+    public void getIdOfUserIdTest(){
+        MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
+        AdminDbHelper adminDbHelper = new AdminDbHelper(activity);
+        adminDbHelper.addID("0");
+        assertEquals("1", adminDbHelper.getIdOfUserId());
+    }
+
+    @Test
     public void getDataTest(){
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AdminDbHelper adminDbHelper = new AdminDbHelper(activity);

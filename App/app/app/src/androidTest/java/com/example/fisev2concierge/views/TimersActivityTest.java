@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.example.fisev2concierge.R;
 
@@ -25,7 +25,6 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -34,11 +33,11 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class TimersActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<TimersActivity> mActivityTestRule = new ActivityScenarioRule<>(TimersActivity.class);
 
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
@@ -55,15 +54,6 @@ public class TimersActivityTest {
 
     @Test
     public void timersViewTest() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.timers_view_button), withText("Timers"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonsScrollView),
-                                        0),
-                                4)));
-        materialButton.perform(scrollTo(), click());
-
         ViewInteraction customEditText = onView(
                 allOf(withClassName(is("android.widget.NumberPicker$CustomEditText")), withText("0"),
                         childAtPosition(
