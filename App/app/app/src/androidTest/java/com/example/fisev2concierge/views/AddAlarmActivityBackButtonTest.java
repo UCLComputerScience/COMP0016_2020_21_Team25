@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
@@ -22,7 +23,6 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -33,53 +33,33 @@ import static org.hamcrest.Matchers.allOf;
 public class AddAlarmActivityBackButtonTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<AddAlarmActivity> mActivityTestRule = new ActivityScenarioRule<>(AddAlarmActivity.class);
 
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
             GrantPermissionRule.grant(
                     "android.permission.SEND_SMS",
-                    "android.permission.ACCESS_FINE_LOCATION",
-                    "android.permission.READ_CONTACTS",
-                    "android.permission.CALL_PHONE",
-                    "android.permission.ACCESS_COARSE_LOCATION",
-                    "android.permission.INTERNET",
-                    "android.permission.ACCESS_NETWORK_STATE",
-                    "android.permission.WRITE_CONTACTS",
-                    "android.permission.RECORD_AUDIO");
+"android.permission.ACCESS_FINE_LOCATION",
+"android.permission.READ_CONTACTS",
+"android.permission.CALL_PHONE",
+"android.permission.ACCESS_COARSE_LOCATION",
+"android.permission.INTERNET",
+"android.permission.ACCESS_NETWORK_STATE",
+"android.permission.WRITE_CONTACTS",
+"android.permission.RECORD_AUDIO");
 
     @Test
-    public void addAlarmViewBackButtonTest() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.alarms_view_button), withText("Alarms"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonsScrollView),
-                                        0),
-                                2)));
-        materialButton.perform(scrollTo(), click());
-
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.addNewAlarm), withText("Add New Alarm"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
-                        isDisplayed()));
-        materialButton2.perform(click());
-
-
+    public void addAlarmActivityBackButtonTest() {
         ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.backButtonAddAlarm), withText("Back"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
+            allOf(withId(R.id.backButtonAddAlarm), withText("Back"),
+            childAtPosition(
+                childAtPosition(
+                    withId(android.R.id.content),
+            0),
+            8),
+                    isDisplayed()));
         materialButton3.perform(click());
-    }
+        }
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
@@ -95,8 +75,8 @@ public class AddAlarmActivityBackButtonTest {
             public boolean matchesSafely(View view) {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
+                        && view.equals(((ViewGroup)parent).getChildAt(position));
             }
         };
     }
-}
+    }
