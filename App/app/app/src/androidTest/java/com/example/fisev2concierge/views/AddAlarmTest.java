@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.example.fisev2concierge.R;
 
@@ -33,11 +33,11 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class AddAlarmTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<AddAlarmActivity> mActivityTestRule = new ActivityScenarioRule<>(AddAlarmActivity.class);
 
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
@@ -54,25 +54,6 @@ public class AddAlarmTest {
 
     @Test
     public void addAlarmTest() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.alarms_view_button), withText("Alarms"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonsScrollView),
-                                        0),
-                                2)));
-        materialButton.perform(scrollTo(), click());
-
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.addNewAlarm), withText("Add New Alarm"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
-                        isDisplayed()));
-        materialButton2.perform(click());
-
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.alarmText),
                         childAtPosition(
@@ -120,8 +101,6 @@ public class AddAlarmTest {
                                         0),
                                 3)));
         materialButton6.perform(scrollTo(), click());
-
-
 
         ViewInteraction materialButton7 = onView(
                 allOf(withId(R.id.addAlarmButton), withText("Add Alarm"),

@@ -75,13 +75,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+<TextView
                 android:id="@+id/registerText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/assistant"
-                android:text="Connect with your admin by entering your three registration codes on the 'Register' page. You will then be able to see your history and call your Gp, Dentist and Optometrist. For more help, see some of the commands you can use below."
+                android:text="@string/register_text"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
@@ -91,7 +91,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/assistant"
-                android:text="Command: Call Bob. Description: This command will automatically search your contacts for someone called 'Bob' and will place a call to them if this contact exists."
+                android:text="@string/helpText1"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
@@ -101,7 +101,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/assistant"
-                android:text="Command: What will the weather in London be like tomorrow? Description: This command will  tell you the weather. You can ask for the weather of any city"
+                android:text="@string/helpText2"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
@@ -111,7 +111,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/assistant"
-                android:text="Command: Open Candy Crush. Description:  This command will open Candy Crush for you.  You can ask for any app but if it is not installed, you will be taken to the Play Store where you can download it."
+                android:text="@string/helpText3"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
@@ -121,7 +121,207 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/assistant"
-                android:text="Commad: Search Amazon for baked beans. Description: This command will search Amazon for 'baked beans' and take you to the results page."
+                android:text="@string/helpText4"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText5"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText6"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText7"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText8"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText9"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText10"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText11"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText12"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText13"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText14"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText14"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText15"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText17"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText17"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText18"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText18"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText19"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText19"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText20"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText20"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText21"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText21"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText22"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText22"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText23"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText23"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText24"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText24"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/helpText25"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistant"
+                android:text="@string/helpText25"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
         </LinearLayout>

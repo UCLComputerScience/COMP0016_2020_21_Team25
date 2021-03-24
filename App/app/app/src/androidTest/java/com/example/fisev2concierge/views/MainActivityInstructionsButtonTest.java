@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.example.fisev2concierge.R;
 
@@ -28,11 +28,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class MainActivityInstructionsButtonTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<MainActivity> mActivityTestRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
@@ -53,19 +53,19 @@ public class MainActivityInstructionsButtonTest {
                 allOf(withId(R.id.instructions_view_button), withText("Instructions"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.buttonsScrollView),
-                                        0),
-                                0)));
+                                        withId(R.id.buttonsScrollView)
+                                )
+                        )));
         materialButton.perform(scrollTo(), click());
     }
 
     private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
+            final Matcher<View> parentMatcher) {
 
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
+                description.appendText("Child at position " + 0 + " in parent ");
                 parentMatcher.describeTo(description);
             }
 
@@ -73,7 +73,7 @@ public class MainActivityInstructionsButtonTest {
             public boolean matchesSafely(View view) {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
+                        && view.equals(((ViewGroup) parent).getChildAt(0));
             }
         };
     }

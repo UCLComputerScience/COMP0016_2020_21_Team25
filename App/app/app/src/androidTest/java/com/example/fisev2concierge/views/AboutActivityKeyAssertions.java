@@ -6,7 +6,9 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -31,11 +33,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
-public class AlarmsViewKeyAssertions {
+@RunWith(AndroidJUnit4ClassRunner.class)
+public class AboutActivityKeyAssertions {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<AboutActivity> mActivityTestRule = new ActivityScenarioRule<>(AboutActivity.class);
 
     @Rule
     public GrantPermissionRule mGrantPermissionRule =
@@ -51,33 +53,18 @@ public class AlarmsViewKeyAssertions {
                     "android.permission.RECORD_AUDIO");
 
     @Test
-    public void alarmsViewKeyAssertions() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.alarms_view_button), withText("Alarms"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonsScrollView),
-                                        0),
-                                2)));
-        materialButton.perform(scrollTo(), click());
+    public void aboutActivityKeyAssertions() {
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.aboutText),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(isDisplayed()));
 
         ViewInteraction button = onView(
-                allOf(withId(R.id.addNewAlarm), withText("ADD NEW ALARM"),
+                allOf(withId(R.id.backButtonAbout), withText("BACK"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button.check(matches(isDisplayed()));
-
-        ViewInteraction listView = onView(
-                allOf(withId(R.id.alarmsListView),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        listView.check(matches(isDisplayed()));
-
-        ViewInteraction button2 = onView(
-                allOf(withId(R.id.backButtonViewAlarm), withText("BACK"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        button2.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(
