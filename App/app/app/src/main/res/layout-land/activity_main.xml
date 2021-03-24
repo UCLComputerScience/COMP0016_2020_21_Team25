@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".UI.MainActivity">
+    tools:context=".views.MainActivity">
     <!--    android:paddingTop="?attr/actionBarSize"-->
 
     <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->

@@ -8,17 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.fisev2concierge.controllers.MainController;
 import com.example.fisev2concierge.localApis.GetRequestFramework;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class BackendFramework {
     //baseUrl for running on emulator
     //private String baseUrl = "http://10.0.2.2:8080/";
 
-    private AppCompatActivity appCompatActivity;
+    private final AppCompatActivity appCompatActivity;
 
     public BackendFramework(AppCompatActivity appCompatActivity){
         this.appCompatActivity = appCompatActivity;
@@ -36,7 +32,7 @@ public class BackendFramework {
     }
 
     public ArrayList<String> request(String path){
-        String baseUrl = "";
+        String baseUrl;
         SharedPreferences sharedpreferences = appCompatActivity.getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         if (!sharedpreferences.contains("server_ip")){
             baseUrl = getIp(sharedpreferences);

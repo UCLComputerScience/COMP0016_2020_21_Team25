@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,21 +16,19 @@ import com.example.fisev2concierge.helperClasses.TransportApiResponse;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class GetLatLon{
 
-    private Context context;
-    private final int REQUEST_LOCATION = 6;
-    private Activity activity;
-    private HashMap askBobResponse;
-    private AppCompatActivity appCompatActivity;
-    private SpeechSynthesis speechSynthesis;
+    private final Context context;
+    private final Activity activity;
+    private final HashMap<String, String> askBobResponse;
+    private final AppCompatActivity appCompatActivity;
+    private final SpeechSynthesis speechSynthesis;
 
-    public GetLatLon(Context context, Activity activity, HashMap askBobResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+    public GetLatLon(Context context, Activity activity, HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
         this.context = context;
         this.activity = activity;
         this.askBobResponse = askBobResponse;
@@ -42,19 +39,10 @@ public class GetLatLon{
     public void searchLatLon(){
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            int REQUEST_LOCATION = 6;
             ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
         } else {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    handleLocationSuccess(location);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    handleLocationFailure();
-                }
-            });
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this::handleLocationSuccess).addOnFailureListener(e -> handleLocationFailure());
         }
     }
 
@@ -87,7 +75,7 @@ public class GetLatLon{
 
     private void handleYellSearchWithLocation(Double lat, Double lon){
         MainController mainController = new MainController();
-        String postcode = mainController.getLocation(context, activity, lat, lon);
+        String postcode = mainController.getLocation(lat, lon);
         askBobResponse.put("location", postcode);
         mainController.askBobController(askBobResponse, context, activity, appCompatActivity, speechSynthesis);
     }
@@ -98,11 +86,11 @@ public class GetLatLon{
         url = url.replace("{lat}", String.valueOf(lat));
         url = url.replace("{lon}", String.valueOf(lon));
         TransportApiResponse transportApiResponse = new TransportApiResponse();
-        url = transportApiResponse.searchForTransport(askBobResponse.get("Transport Type").toString() ,url);
-        speechSynthesis.runTts(askBobResponse.get("Response").toString());
+        url = transportApiResponse.searchForTransport(Objects.requireNonNull(askBobResponse.get("Transport Type")),url);
+        speechSynthesis.runTts(askBobResponse.get("Response"));
         mainController.openUrl(appCompatActivity, url);
         if (mainController.hasUserID(context)) {
-            mainController.backendServices("addHistory", askBobResponse.get("Service").toString() + "&user_id=" + mainController.getUserID(context), appCompatActivity);
+            mainController.backendServices("addHistory", askBobResponse.get("Service") + "&user_id=" + mainController.getUserID(context), appCompatActivity);
         }
     }
 }

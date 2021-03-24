@@ -6,25 +6,24 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseParser;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
-
-import org.json.JSONArray;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AskBobResponseController {
 
-    private MainController mainController = new MainController();
+    private final MainController mainController = new MainController();
 
-    public void responseController(HashMap parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+    public void responseController(HashMap<String, String> parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
 
         String service_type = (String) parsedResponse.get("Service_Type");
+        assert service_type != null;
         if (service_type.equals("API_CALL")){
             handleApiResponse(parsedResponse, speechSynthesis, appCompatActivity);
         } else {
-            switch (parsedResponse.get("Service").toString()) {
+            switch (Objects.requireNonNull(parsedResponse.get("Service"))) {
                 case "Call Contact":
                     handleCallResponse(parsedResponse, appCompatActivity, context, activity, speechSynthesis);
                     break;
@@ -48,46 +47,46 @@ public class AskBobResponseController {
                     break;
                 default:
                     //Improve error dealing
-                    Toast.makeText(context, "Error: unknown command: " + parsedResponse.get("Service").toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Error: unknown command: " + parsedResponse.get("Service"), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void handleApiResponse(HashMap parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
-        if (parsedResponse.get("Service").toString().equals("Transport") && parsedResponse.containsKey("Message")){
+    private void handleApiResponse(HashMap<String, String> parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
+        if (parsedResponse.get("Service").equals("Transport") && parsedResponse.containsKey("Message")){
             handleApiTransportResponse(parsedResponse, speechSynthesis, appCompatActivity);
-        } else if (parsedResponse.get("Service").toString().equals("Recipes") && parsedResponse.containsKey("Steps")) {
-            handleApiRecipesWithStepsResponse(parsedResponse, speechSynthesis, appCompatActivity);
-        } else if (parsedResponse.get("Service").toString().equals("Books")) {
+        } else if (parsedResponse.get("Service").equals("Recipes") && parsedResponse.containsKey("Steps")) {
+            handleApiRecipesWithStepsResponse(parsedResponse, speechSynthesis);
+        } else if (parsedResponse.get("Service").equals("Books")) {
             handleApiBooksResponse(parsedResponse, speechSynthesis, appCompatActivity);
         } else {
             speechSynthesis.runTts((String) parsedResponse.get("Response"));
         }
     }
 
-    private void handleApiTransportResponse(HashMap parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
+    private void handleApiTransportResponse(HashMap<String, String> parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
         String url = mainController.searchUrlLookup("maps_location");
-        url = url.replace("{lat}", parsedResponse.get("lat").toString());
-        url = url.replace("{lon}", parsedResponse.get("lon").toString());
+        url = url.replace("{lat}", Objects.requireNonNull(parsedResponse.get("lat")));
+        url = url.replace("{lon}", Objects.requireNonNull(parsedResponse.get("lon")));
         speechSynthesis.runTts((String) parsedResponse.get("Message"));
         mainController.openUrl(appCompatActivity, url);
     }
 
-    private void handleApiRecipesWithStepsResponse(HashMap parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
+    private void handleApiRecipesWithStepsResponse(HashMap<String, String> parsedResponse, SpeechSynthesis speechSynthesis){
         speechSynthesis.runTts((String) parsedResponse.get("Response"));
-        speechSynthesis.runTts(parsedResponse.get("Steps").toString());
+        speechSynthesis.runTts(parsedResponse.get("Steps"));
     }
 
-    private void handleApiBooksResponse(HashMap parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
+    private void handleApiBooksResponse(HashMap<String, String> parsedResponse, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity){
         try {
-            URL url = new URL(parsedResponse.get("Response").toString());
-            mainController.openUrl(appCompatActivity, parsedResponse.get("Response").toString());
+            new URL(parsedResponse.get("Response"));
+            mainController.openUrl(appCompatActivity, parsedResponse.get("Response"));
         } catch (Exception e){
             speechSynthesis.runTts((String) parsedResponse.get("Response"));
         }
     }
 
-    private void handleCallResponse(HashMap parsedResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+    private void handleCallResponse(HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         String callContact = (String) parsedResponse.get("Contact");
         String callNumber = mainController.searchContact(callContact, appCompatActivity, context, activity);
         if (!callNumber.equals("-1")) {
@@ -98,7 +97,7 @@ public class AskBobResponseController {
         }
     }
 
-    private void handleMessageResponse(HashMap parsedResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+    private void handleMessageResponse(HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         String smsContact = (String) parsedResponse.get("Contact");
         String smsNumber = mainController.searchContact(smsContact, appCompatActivity, context, activity);
         if (!smsNumber.equals("-1")) {
@@ -110,30 +109,32 @@ public class AskBobResponseController {
         }
     }
 
-    private void handleOpenAppResponse(HashMap parsedResponse, AppCompatActivity appCompatActivity, Context context){
+    private void handleOpenAppResponse(HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, Context context){
         String appName = (String) parsedResponse.get("Application");
+        assert appName != null;
         mainController.openApp(appCompatActivity, context, appName.toLowerCase());
     }
 
-    private void handleShopSearchResponse(HashMap parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+    private void handleShopSearchResponse(HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
         String websiteName = (String) parsedResponse.get("Shop");
+        assert websiteName != null;
         websiteName = websiteName.toLowerCase();
         speechSynthesis.runTts((String) parsedResponse.get("Response"));
         mainController.searchSite(appCompatActivity, websiteName, parsedResponse);
     }
 
-    private void handleYellSearchResponse(HashMap parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+    private void handleYellSearchResponse(HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
         String websiteName = "yell";
         speechSynthesis.runTts((String) parsedResponse.get("Response"));
         mainController.searchSite(appCompatActivity, websiteName, parsedResponse);
     }
 
-    private void handleNavigateAppResponse(HashMap parsedResponse, AppCompatActivity appCompatActivity, Context context){
+    private void handleNavigateAppResponse(HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, Context context){
         String activityName = (String) parsedResponse.get("Application");
         mainController.openActivity(appCompatActivity, context, activityName);
     }
 
-    private void handleErrorResponse(HashMap parsedResponse, Context context, SpeechSynthesis speechSynthesis){
+    private void handleErrorResponse(HashMap<String, String> parsedResponse, Context context, SpeechSynthesis speechSynthesis){
         speechSynthesis.runTts((String) parsedResponse.get("text"));
         Toast.makeText(context, "Command not understood", Toast.LENGTH_SHORT).show();
     }

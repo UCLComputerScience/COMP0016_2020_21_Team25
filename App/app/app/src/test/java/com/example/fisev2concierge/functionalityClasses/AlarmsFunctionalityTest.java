@@ -2,7 +2,7 @@ package com.example.fisev2concierge.functionalityClasses;
 
 import android.database.Cursor;
 
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.MainActivity;
 import com.example.fisev2concierge.helperClasses.NotificationHelper;
 
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class AlarmsFunctionalityTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         alarmsFunctionality.addAlarm("test", "date");
-        alarmsFunctionality.updateAlarm("test", 1, "new alarm", "new date");
+        alarmsFunctionality.updateAlarm(1, "new alarm", "new date");
         Cursor cursor = alarmsFunctionality.getAlarms();
         cursor.moveToFirst();
         assertEquals("new alarm", cursor.getString(1));
@@ -49,7 +49,7 @@ public class AlarmsFunctionalityTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(activity);
         alarmsFunctionality.addAlarm("test", "date");
-        alarmsFunctionality.deleteAlarm(1, "test");
+        alarmsFunctionality.deleteAlarm(1);
         assertEquals(0, alarmsFunctionality.getAlarms().getCount());
     }
 

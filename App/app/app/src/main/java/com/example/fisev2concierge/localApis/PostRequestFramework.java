@@ -9,14 +9,13 @@ import java.util.ArrayList;
 
 public class PostRequestFramework {
 
-    private String baseUrl;
+    private final String baseUrl;
 
     public PostRequestFramework(String baseUrl){
         this.baseUrl = baseUrl;
     }
 
     public ArrayList<String> request(String path, String parameters){
-        //configured for POST Requests which take parameters through body
         ArrayList<String> response = new ArrayList<>();
         try {
             URL url = new URL(baseUrl + path);

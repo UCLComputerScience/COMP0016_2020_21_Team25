@@ -22,15 +22,12 @@ import java.util.ArrayList;
 
 public class SearchContacts {
 
-    private AppCompatActivity appCompatActivity;
-    private Context context;
-    private Activity activity;
-    private static final int REQUEST_CONTACTS = 5;
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
 
     public SearchContacts(AppCompatActivity appCompatActivity, Context context, Activity activity){
         this.appCompatActivity = appCompatActivity;
         this.context = context;
-        this.activity = activity;
     }
 
     public String searchContacts(String searchName){
@@ -63,12 +60,13 @@ public class SearchContacts {
     }
 
     private String searchDeviceForContact(String searchName){
-        Cursor cursor = appCompatActivity.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE}, "DISPLAY_NAME = '" + searchName + "'", null, null);
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            return cursor.getString(0);
-        } else {
-            Toast.makeText(context, "No such contact: " + searchName, Toast.LENGTH_SHORT).show();
+        try (Cursor cursor = appCompatActivity.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE}, "DISPLAY_NAME = '" + searchName + "'", null, null)) {
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                return cursor.getString(0);
+            } else {
+                Toast.makeText(context, "No such contact: " + searchName, Toast.LENGTH_SHORT).show();
+            }
         }
         return "-1";
     }

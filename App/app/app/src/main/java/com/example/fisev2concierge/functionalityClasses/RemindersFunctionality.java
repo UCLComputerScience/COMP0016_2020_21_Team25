@@ -7,27 +7,25 @@ import com.example.fisev2concierge.model.RemindersDbHelper;
 
 public class RemindersFunctionality {
 
-    private RemindersDbHelper dbHelper;
+    private final RemindersDbHelper dbHelper;
 
     public RemindersFunctionality(Context context){
         this.dbHelper = new RemindersDbHelper(context);
     }
 
     public Cursor getReminders(){
-        Cursor cursor = dbHelper.getData();
-        return cursor;
+        return dbHelper.getData();
     }
 
     public boolean addReminder(String reminder){
-        boolean insertData = dbHelper.addData(reminder);
-        return insertData;
+        return dbHelper.addData(reminder);
     }
 
-    public void updateReminder(String selectedReminder, int selectedID, String item){
-        dbHelper.updateReminder(selectedReminder, selectedID, item);
+    public void updateReminder(int selectedID, String item){
+        dbHelper.updateReminder(selectedID, item);
     }
 
-    public void deleteReminder(int selectedID, String selectedReminder){
-        dbHelper.deleteReminder(selectedID, selectedReminder);
+    public void deleteReminder(int selectedID){
+        dbHelper.deleteReminder(selectedID);
     }
 }

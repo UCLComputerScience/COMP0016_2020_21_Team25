@@ -11,9 +11,9 @@ import com.example.fisev2concierge.controllers.MainController;
 
 public class OpenAppFunctionality {
 
-    private AppCompatActivity appCompatActivity;
-    private Context context;
-    private MainController mainController = new MainController();
+    private final AppCompatActivity appCompatActivity;
+    private final Context context;
+    private final MainController mainController = new MainController();
 
     public OpenAppFunctionality(AppCompatActivity appCompatActivity, Context context){
         this.appCompatActivity = appCompatActivity;
@@ -28,15 +28,12 @@ public class OpenAppFunctionality {
     public void openPackage(String appName, String packageName){
         if (packageName == null ){
             Toast.makeText(context, "Could not open: " + appName, Toast.LENGTH_SHORT).show();
-            //package name not found -> search playstore
             searchPlayStore(appName);
         } else {
-            //package name found
             Intent launchIntent = appCompatActivity.getPackageManager().getLaunchIntentForPackage(packageName);
             if (launchIntent != null) {
                 appCompatActivity.startActivity(launchIntent);
             } else {
-                //app is not installed, open on playstore
                 Toast.makeText(context, "Could not open: " + appName, Toast.LENGTH_SHORT).show();
                 openAppInPlayStore(packageName);
             }

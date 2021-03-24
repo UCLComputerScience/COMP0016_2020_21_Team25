@@ -8,14 +8,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fisev2concierge.localApis.FindServerIpAddress;
-import com.example.fisev2concierge.localApis.askBobConnectivity.AskBob;
-import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobRequest;
-import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseHandler;
-import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseParser;
-import com.example.fisev2concierge.localApis.backendConnectivity.Backend;
 import com.example.fisev2concierge.functionalityClasses.AlarmsFunctionality;
 import com.example.fisev2concierge.functionalityClasses.CallFunctionality;
+import com.example.fisev2concierge.functionalityClasses.GetLatLon;
 import com.example.fisev2concierge.functionalityClasses.OpenActivity;
 import com.example.fisev2concierge.functionalityClasses.OpenAppFunctionality;
 import com.example.fisev2concierge.functionalityClasses.OpenUrlFunctionality;
@@ -23,38 +18,38 @@ import com.example.fisev2concierge.functionalityClasses.RemindersFunctionality;
 import com.example.fisev2concierge.functionalityClasses.SearchContacts;
 import com.example.fisev2concierge.functionalityClasses.SmsFunctionality;
 import com.example.fisev2concierge.helperClasses.AppPackageNameLookup;
-import com.example.fisev2concierge.functionalityClasses.GetLatLon;
-import com.example.fisev2concierge.localApis.GetLocation;
 import com.example.fisev2concierge.helperClasses.SearchUrlLookup;
 import com.example.fisev2concierge.helperClasses.WebsiteUrlLookup;
+import com.example.fisev2concierge.localApis.FindServerIpAddress;
+import com.example.fisev2concierge.localApis.GetLocation;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBob;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobRequest;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseHandler;
+import com.example.fisev2concierge.localApis.askBobConnectivity.AskBobResponseParser;
+import com.example.fisev2concierge.localApis.backendConnectivity.Backend;
 import com.example.fisev2concierge.model.AdminDbHelper;
 import com.example.fisev2concierge.speech.SpeechSynthesis;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
-public class MainController{
+public class MainController {
 
     public void openActivity(AppCompatActivity appCompatActivity, Context context, String activityName){
         OpenActivity openActivity = new OpenActivity(appCompatActivity, context);
         openActivity.openActivity(activityName);
     }
 
-    //need to change this name
-    public void test(Context context, Activity activity, HashMap parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
-        GetLatLon test = new GetLatLon(context, activity, parsedResponse, appCompatActivity, speechSynthesis);
-        test.searchLatLon();
+    public void getLatLon(Context context, Activity activity, HashMap<String, String> parsedResponse, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+        GetLatLon getLatLon = new GetLatLon(context, activity, parsedResponse, appCompatActivity, speechSynthesis);
+        getLatLon.searchLatLon();
     }
 
     public void handleUserRequest(String[] userRequest, SpeechSynthesis speechSynthesis, AppCompatActivity appCompatActivity, Context context, Activity activity, TextView conciergeStatusText){
         if (userRequest[0].length()>0) {
             conciergeStatusText.setText(userRequest[0]);
-            HashMap askBobResponse = askBobRequest(userRequest[0], appCompatActivity);
+            HashMap<String, String> askBobResponse = askBobRequest(userRequest[0], appCompatActivity);
             handleAskBobResponse(askBobResponse, appCompatActivity, context, activity, speechSynthesis);
         } else {
             conciergeStatusText.setText("Concierge is off");
@@ -62,13 +57,13 @@ public class MainController{
         }
     }
 
-    public void handleAskBobResponse(HashMap askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
+    public void handleAskBobResponse(HashMap<String, String> askBobResponse, AppCompatActivity appCompatActivity, Context context, Activity activity, SpeechSynthesis speechSynthesis){
         AskBobResponseHandler askBobResponseHandler = new AskBobResponseHandler(askBobResponse, appCompatActivity, context, activity, speechSynthesis);
         askBobResponseHandler.handleResponse();
     }
 
-    public String getLocation(Context context, Activity activity, Double lat, Double lon){
-        GetLocation getLocation = new GetLocation(context, activity, lat, lon);
+    public String getLocation(Double lat, Double lon){
+        GetLocation getLocation = new GetLocation(lat, lon);
         Thread thread = new Thread(getLocation);
         thread.start();
         return getLocation.getPostcode();
@@ -79,17 +74,17 @@ public class MainController{
         return searchContacts.searchContacts(name);
     }
 
-    public HashMap askBobRequest(String sTT, AppCompatActivity appCompatActivity){
+    public HashMap<String, String> askBobRequest(String sTT, AppCompatActivity appCompatActivity){
         AskBobRequest askBobRequest = new AskBobRequest();
         return askBobRequest.makeRequest(sTT, appCompatActivity);
     }
 
-    public HashMap parseAskBobResponse(ArrayList<String> response){
+    public HashMap<String, String> parseAskBobResponse(ArrayList<String> response){
         AskBobResponseParser parser = new AskBobResponseParser();
         return parser.parse(response);
     }
 
-    public void askBobController(HashMap parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
+    public void askBobController(HashMap<String, String> parsedResponse, Context context, Activity activity, AppCompatActivity appCompatActivity, SpeechSynthesis speechSynthesis){
         AskBobResponseController askBobResponseController = new AskBobResponseController();
         askBobResponseController.responseController(parsedResponse, context, activity, appCompatActivity, speechSynthesis);
     }
@@ -131,60 +126,53 @@ public class MainController{
 
     public boolean hasUserID(Context context){
         AdminDbHelper adminDbHelper = new AdminDbHelper(context);
-        Cursor cursor = adminDbHelper.getData();
-        if (cursor.getCount() > 0) { return true;}
-        return false;
+        return adminDbHelper.hasUserID();
     }
 
     //Reminders
     public Cursor getReminders(Context context){
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(context);
-        Cursor cursor = remindersFunctionality.getReminders();
-        return cursor;
+        return remindersFunctionality.getReminders();
     }
     public boolean addReminder(Context context, String reminder){
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(context);
-        boolean dataInsert = remindersFunctionality.addReminder(reminder);
-        return dataInsert;
+        return remindersFunctionality.addReminder(reminder);
     }
 
-    public void updateReminder(Context context, String selectedReminder, int selectedID, String item){
+    public void updateReminder(Context context, int selectedID, String item){
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(context);
-        remindersFunctionality.updateReminder(selectedReminder, selectedID, item);
+        remindersFunctionality.updateReminder(selectedID, item);
     }
 
-    public void deleteReminder(Context context, int selectedID, String selectedReminder){
+    public void deleteReminder(Context context, int selectedID){
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(context);
-        remindersFunctionality.deleteReminder(selectedID, selectedReminder);
+        remindersFunctionality.deleteReminder(selectedID);
     }
 
     //Alarams
     public Cursor getAlarm(Context context){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
-        Cursor cursor = alarmsFunctionality.getAlarms();
-        return cursor;
+        return alarmsFunctionality.getAlarms();
     }
 
     public boolean addAlarm(Context context, String newEntry, String date){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
-        boolean dataInserted = alarmsFunctionality.addAlarm(newEntry, date);
-        return dataInserted;
+        return alarmsFunctionality.addAlarm(newEntry, date);
     }
 
-    public void updateAlarm(Context context, String selectedAlarm, int selectedID, String item, String date){
+    public void updateAlarm(Context context, int selectedID, String item, String date){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
-        alarmsFunctionality.updateAlarm(selectedAlarm, selectedID, item, date);
+        alarmsFunctionality.updateAlarm(selectedID, item, date);
     }
 
-    public void deleteAlarm(Context context, int selectedID, String selectedAlarm){
+    public void deleteAlarm(Context context, int selectedID){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
-        alarmsFunctionality.deleteAlarm(selectedID, selectedAlarm);
+        alarmsFunctionality.deleteAlarm(selectedID);
     }
 
     public Cursor getRecentAlarm(Context context){
         AlarmsFunctionality alarmsFunctionality = new AlarmsFunctionality(context);
-        Cursor cursor = alarmsFunctionality.getRecent();
-        return cursor;
+        return alarmsFunctionality.getRecent();
     }
 
     public void startAlarm(AppCompatActivity appCompatActivity, Context context, String id, Calendar c, String message){
@@ -222,7 +210,7 @@ public class MainController{
         openUrlFunctionality.openUrl(url);
     }
 
-    public void searchSite(AppCompatActivity appCompatActivity, String website, HashMap searchItems){
+    public void searchSite(AppCompatActivity appCompatActivity, String website, HashMap<String, String> searchItems){
         OpenUrlFunctionality openUrlFunctionality = new OpenUrlFunctionality(appCompatActivity);
         openUrlFunctionality.searchWeb(website, searchItems);
     }

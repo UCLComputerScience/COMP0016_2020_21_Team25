@@ -20,27 +20,27 @@
         android:theme="@style/Theme.FISEV2Concierge" >
         <receiver android:name=".helperClasses.AlertReceiver"/>
         <activity
-            android:name=".UI.AboutActivity"
+            android:name=".views.AboutActivity"
             android:label="About" >
         </activity>
         <activity
-            android:name=".UI.RegisterActivity"
+            android:name=".views.RegisterActivity"
             android:label="Register" >
         </activity>
         <activity
-            android:name=".UI.HistoryActivity"
+            android:name=".views.HistoryActivity"
             android:label="@string/history" >
         </activity>
         <activity
-            android:name=".UI.AddReminderActivity"
+            android:name=".views.AddReminderActivity"
             android:label="@string/reminders" >
         </activity>
         <activity
-            android:name=".UI.TimersActivity"
+            android:name=".views.TimersActivity"
             android:label="@string/timers" >
         </activity>
         <activity
-            android:name=".UI.InstructionActivity"
+            android:name=".views.InstructionActivity"
             android:label="@string/help" >
         </activity>
 <!--        <activity-->
@@ -48,27 +48,27 @@
 <!--            android:label="@string/title_activity_" >-->
 <!--        </activity>-->
         <activity
-            android:name=".UI.ViewRemindersActivity"
+            android:name=".views.ViewRemindersActivity"
             android:label="ReminderList">
         </activity>
         <activity
-            android:name=".UI.EditReminderActivity"
+            android:name=".views.EditReminderActivity"
             android:label="EditReminder">
         </activity>
         <activity
-            android:name=".UI.EditAlarmActivity"
+            android:name=".views.EditAlarmActivity"
             android:label="EditAlarm">
         </activity>
         <activity
-            android:name=".UI.ViewAlarmsActivity"
+            android:name=".views.ViewAlarmsActivity"
             android:label="ViewAlarm">
         </activity>
         <activity
-            android:name=".UI.AddAlarmActivity"
+            android:name=".views.AddAlarmActivity"
             android:label="AddAlarm">
         </activity>
         <activity
-            android:name=".UI.MainActivity"
+            android:name=".views.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

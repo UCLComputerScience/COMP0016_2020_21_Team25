@@ -2,7 +2,7 @@ package com.example.fisev2concierge.functionalityClasses;
 
 import android.database.Cursor;
 
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.MainActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class RemindersFunctionalityTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(activity);
         remindersFunctionality.addReminder("old reminder");
-        remindersFunctionality.updateReminder("old reminder", 1, "new reminder");
+        remindersFunctionality.updateReminder(1, "new reminder");
         Cursor cursor = remindersFunctionality.getReminders();
         cursor.moveToFirst();
         assertEquals("new reminder", cursor.getString(1));
@@ -46,7 +46,7 @@ public class RemindersFunctionalityTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         RemindersFunctionality remindersFunctionality = new RemindersFunctionality(activity);
         remindersFunctionality.addReminder("reminder");
-        remindersFunctionality.deleteReminder(1, "reminder");
+        remindersFunctionality.deleteReminder(1);
         assertEquals(0, remindersFunctionality.getReminders().getCount());
     }
 

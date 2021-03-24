@@ -5,16 +5,13 @@ import android.content.pm.PackageManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class AppPackageNameLookup {
-    private HashMap appPackageNames = new HashMap();
-    private AppCompatActivity appCompatActivity;
+    private final HashMap<String, String> appPackageNames = new HashMap<>();
 
     public AppPackageNameLookup(AppCompatActivity appCompatActivity){
-        this.appCompatActivity = appCompatActivity;
         appPackageNames.put("facebook", "com.facebook.katana");
         appPackageNames.put("snapchat", "com.snapchat.android");
         appPackageNames.put("twitter", "com.twitter.android");
@@ -35,6 +32,6 @@ public class AppPackageNameLookup {
     }
 
     public String search(String appName) {
-        return (String) appPackageNames.get(appName);
+        return appPackageNames.get(appName);
     }
 }

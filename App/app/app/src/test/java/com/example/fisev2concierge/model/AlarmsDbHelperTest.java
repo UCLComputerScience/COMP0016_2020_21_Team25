@@ -2,7 +2,7 @@ package com.example.fisev2concierge.model;
 
 import android.database.Cursor;
 
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.MainActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class AlarmsDbHelperTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsDbHelper alarmsDbHelper = new AlarmsDbHelper(activity);
         alarmsDbHelper.addData("test", "date");
-        alarmsDbHelper.updateAlarm("test", 1, "new alarm", "new date");
+        alarmsDbHelper.updateAlarm(1, "new alarm", "new date");
         Cursor cursor = alarmsDbHelper.getData();
         cursor.moveToFirst();
         assertEquals("new alarm", cursor.getString(1));
@@ -47,7 +47,7 @@ public class AlarmsDbHelperTest {
         MainActivity activity = Robolectric.buildActivity(MainActivity.class).get();
         AlarmsDbHelper alarmsDbHelper = new AlarmsDbHelper(activity);
         alarmsDbHelper.addData("test", "date");
-        alarmsDbHelper.deleteAlarm(1, "test");
+        alarmsDbHelper.deleteAlarm(1);
         assertEquals(0, alarmsDbHelper.getData().getCount());
     }
 

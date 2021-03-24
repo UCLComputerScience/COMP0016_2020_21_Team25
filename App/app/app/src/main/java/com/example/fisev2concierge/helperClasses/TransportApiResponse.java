@@ -1,11 +1,5 @@
 package com.example.fisev2concierge.helperClasses;
 
-import com.example.fisev2concierge.controllers.MainController;
-import android.Manifest;
-
-import com.example.fisev2concierge.UI.MainActivity;
-import com.example.fisev2concierge.controllers.MainController;
-
 
 public class TransportApiResponse {
 

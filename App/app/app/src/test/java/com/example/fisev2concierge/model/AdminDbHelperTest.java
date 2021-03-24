@@ -2,7 +2,7 @@ package com.example.fisev2concierge.model;
 
 import android.database.Cursor;
 
-import com.example.fisev2concierge.UI.MainActivity;
+import com.example.fisev2concierge.views.MainActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
