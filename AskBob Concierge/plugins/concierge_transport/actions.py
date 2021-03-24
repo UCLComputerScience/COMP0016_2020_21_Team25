@@ -5,6 +5,9 @@ from rasa_sdk.executor import CollectingDispatcher
 import askbob.plugin
 import requests
 
+host="serviceapis"
+port="8080"
+
 @askbob.plugin.action("concierge_transport", "fetch_nearest_transport")
 class ActionConciergePlaceCall(Action):
 
@@ -82,7 +85,7 @@ class ActionConciergePlaceCall(Action):
                 dispatcher.utter_message(json_message= data_package)
                 return[]
 
-            r = requests.get(url="http://serviceapis:8080/transport-search", params={
+            r = requests.get(url="http://"+host+":"+port+"/transport-search", params={
                 "QUERY":location, "TRANSPORT": transport_type}).json()
 
             data_package={

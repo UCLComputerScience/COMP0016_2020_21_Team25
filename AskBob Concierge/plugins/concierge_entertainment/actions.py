@@ -6,6 +6,9 @@ from rasa_sdk.executor import CollectingDispatcher
 import askbob.plugin
 import requests
 
+host="serviceapis"
+port="8080"
+
 @askbob.plugin.action("concierge_entertainment", "fetch_joke")
 class ActionConciergeFetchJoke(Action):
 
@@ -15,7 +18,7 @@ class ActionConciergeFetchJoke(Action):
 
         joke_term = next(tracker.get_latest_entity_values("joke_category"), None)
         print(joke_term)
-        r = requests.get(url="http://serviceapis:8080/joke", params={
+        r = requests.get(url="http://"+host+":"+port+"/joke", params={
             "TERM":joke_term}).json()
         
         data_package={
@@ -38,7 +41,7 @@ class ActionConciergeFetchNews(Action):
 
         search_term = next(tracker.get_latest_entity_values("news_search_term"), None)
         print(search_term)
-        r = requests.get(url="http://serviceapis:8080/news", params={
+        r = requests.get(url="http://"+host+":"+port+"/news", params={
             "QUERY": search_term,
             "LANGUAGE": "en"
         }).json()
@@ -71,7 +74,7 @@ class ActionConciergeFetchBook(Action):
             dispatcher.utter_message(json_message= data_package)
             return[]
         else:
-            r = requests.get(url="http://serviceapis:8080/book", params={
+            r = requests.get(url="http://"+host+":"+port+"/book", params={
                 "QUERY": search_term,
                 "LANGUAGES": "en"
             }).json()
@@ -107,7 +110,7 @@ class ActionConciergeFetchBookCategory(Action):
 
             return[]
         else:
-            r = requests.get(url="http://serviceapis:8080/book", params={
+            r = requests.get(url="http://"+host+":"+port+"/book", params={
                 "TOPIC": category,
                 "LANGUAGES": "en"
             }).json()
