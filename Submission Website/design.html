@@ -58,11 +58,91 @@
 
     <section class="android-app">
         <h2>Android App Architecture</h2>
-        <p></p>
+        <p>See below for the app architecture</p>
         <div class="diagram image-container">
             <img alt="App system architecture" src="assets/images/design/System%20Design%20-%20App.jpg">
         </div>
-    </section>
+		<div>
+			<h2>UI Design</h2>
+			<p>All Activities are accessible from the MainActivity (home page). See details for each Activity below.</p>
+			<p>All Activities use the constraint layout provided by Android as it provided strong control over the positioning of UI objects, more so than other 
+			layouts such as RelativeLayout. All errors on Activities were relayed to users through Toasts. Speech synthesis was also used where possible.</p>
+			<h3>MainActivity</h3>
+			<p>This Activity was the main page where users could use the Concierge voice assisstant and navigate to all pages. To ensure the UI hierarchy was
+			as clean, minimal and easy to navigate as possible, we did not provide access to any Activity from every Activity. We did provide 'BACK' buttons on each page 
+			to allows users to easily navigate back to the previous activity they were on. Each activity has a clear title to ensure the user knows which page they are on.</p>
+			<p>This activity contains a scrollable menu of all the available activities and comes with a custom scroll bar to make it clear to elderly user
+			that this is a scrollable menu. This has many benefits. For example, buttons and their text can be bigger as we don't have to show all the buttons
+			on the page. It also means that developers can easily add new activities and add their buttons to the scrollable menu without disrupting the existing
+			UI.</p>
+			<h3>ViewAlarmsActivity</h3>
+			<p>This activity allows user to view all their alarms in one place. We used the ListView to display all alarms to the user and added a custom 
+			scrollbar which means users can add as many alarms as they want and simply scroll through them should they exceed the screen height. From here users can 
+			click on the 'ADD NEW ALARM' button which will take them to the AddAlarmActivity. This page automatically queries the local db to see the alarms
+			currently added by the user.</p>
+			<h3>AddAlarmActivity</h3>
+			<p>This activity allows users to add a new alarm by adding an alarm message, selecting a date using the datepicker widget, selecting a time using
+			the timepicker widget and pressing save. The alarm will then be added to the local storage.
+			Users will then be taken back to the ViewAlarmsActivity will their alarm will now be displayed.</p>
+			<h3>EditAlarmActivity</h3>
+			<p>Users can tap on an existing alarm and will be taken to this activity where they can edit the alarm details, or instead, delete the alarm completely.
+			Whether they save or delete, they will then be taken back to ViewAlarmsActivity.</p>
+			<h3>ViewRemindersActivity</h3>
+			<p>This activity allows user to view all their reminders in one place. We used the ListView to display all reminders to the user and added a custom 
+			scrollbar which means users can add as many reminders as they want and simply scroll through them should they exceed the screen height. From here users can 
+			click on the 'ADD NEW REMINDER' button which will take them to the AddReminderActivity. This page automatically queries the local db to see the reminders
+			currently added by the user.</p>
+			<h3>AddReminderActivity</h3>
+			<p>This activity allows users to add a new reminder by adding a reminder message and pressing save. The reminder will then be added to the local storage.
+			Users will then be taken back to the ViewRemindersActivity where their reminder will now be displayed.</p>
+			<h3>EditReminderActivity</h3>
+			<p>Users can tap on an existing reminder and will be taken to this activity where they can edit the reminder details, or instead, delete the reminder completely.
+			Whether they save or delete, they will then be taken back to ViewRemindersActivity.</p>
+			<h3>TimersActivity</h3>
+			<p>Users can use the numberpicker widgets to set a timer. There are 3 numberwidegts, one for hours, one for minutes and one for seconds. When the user
+			starts a timer, a 'PAUSE' button appears which they can use to pause the timer. Once they pause a timer, the original 'START' button will appear again 
+			which they can use to resume the timer from where it was paused.</p>
+			<h3>HistoryActivity</h3>
+			<p>Users can view their last seven day history on this Activity. History is only shown for Service API requests. This activity too uses a ListView with
+			our custom scroll bar so no matter how long a user's seven day history is, they will be able to scroll through it all.</p>
+			<h3>RegisterActivity</h3>
+			<p>This activity is where users can enter their three registration codes to connect to their admin.</p>
+			<h3>AboutActivity</h3>
+			<p>This activity provides some information about the developers, clients and the product itself.</p>
+		</div>
+		<div>
+			<h2>Code Design</h2>
+			<h3>MVC design principle</h3>
+			<p>Given that the app will have a UI, database interactions and functionality, the MVC architecture was a natural fit for the app 
+			where the UI will be managed by classes under the 'views' package, database quereies and structure through classes in the 'model' package
+			and functionality through classes under the 'controllers' package. See the architecture diagram for a visual representation of this.
+			Aside from this, no other design pattern was employed. This was because code was split across over 80 classes each of which was very different from the next.
+			Even classes within the same packages would differ widely from each other containing vastly different methods taking different parameters and returning different
+			values and also took different values in their constructors. This meant that the use of design patterns would only over complicate the system, defeating the
+			point of design patterns. However, other good programming practises were employed. See details below. Makes it easier for developers to expand on and 
+			use existing functionality. For example, if they add a new feature which requires opening a URL, they can just use the openUrl method in MainController
+			to do this without ever needing to understanding how this is done/implemented, hence abstracting away the existing complexity of the code and system.</p>
+			<h3>Android Naming Conventions</h3>
+			<p>Android naming conventions were used where appropriate. For example, all xml files for Activities were named using the convention activity_name
+			for example activity_register. This means that existing Android developers will be able to easily understand and navigate through files.</p>
+			<h3>Seperation of Concern Principle</h3>
+			<p>We used this principle to ensure that each class was doing one main thing. This would ensure that code would be cleaner and easier to understand. 
+			Code is also easier to test, debug and fix. We went further and within each class, split the code into modules so that each module was doing one key thing.
+			This also makes it easier for developers to add code.</p>
+			<h3>Modularised and Packaged Code</h3>
+			<p>Code is split into several well named packages and within each well named class we have well named method names which are concise yet descriptive.
+			This makes it easy to find code, read code, understand code, navigate files and extend the system further.</p>
+			<h3>Intelligent Reuse of Code</h3>
+			<p>Where we could, we reused sections of code. For example, we were making GetRequests for the backend and for the GetLocation API (see implementation).
+			We therefore abstracted this away into a new class called GetRequestFramework which allows you to make GET requests easily. (We also have a class 
+			to make Post requests called PostRequestFramework). This also makes it easy to test, debug, fix code, increases code readability and makes it easy for 
+			developers to utilise the existing code base further wihtout having to write redundant code saving them time and preventing bugs.</p>
+			<h3>Comments/Documentation</h3>
+			<p>We tried to follow the principle of writing minimal comments and instead convey useful information to developers through meaningful and informative
+			package, class and method names along with well structured code and seperation of concern. However, there were some sections of code which warranted greater 
+			explanation and in these cases we added comments where necessary. We also gave necessary, detailed information on the Readme for the app.</p>
+		</div>
+	</section>
 
     <section class="web-app light-page-section">
         <h2>Admin Web App Architecture</h2>
