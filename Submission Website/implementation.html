@@ -27,7 +27,7 @@
     <div class="header-card">
         <div class="page-header">
             <h1>System<br>Development</h1>
-            <p></p>
+            <p>Here we highlight some key features and algorithms of our system and how were they implemented. </p>
         </div>
         <div class="image-container noselect"></div>
         <script>
@@ -42,7 +42,42 @@
         </script>
     </div>
 
-    <section class="web-app centred">
+    <section class="main-technologies centred">
+        <h2>Main Technologies</h2>
+        <p>As shown in our research, our main technologies are <b>Vue.js</b> <i>(web app in JavaScript)</i>, <b>Android
+            Studio</b><i>(Android App in Java)</i>, <b>IBM Cloud DB2</b> <i>(Cloud database)</i>,
+            <b>Java</b> <i>(for the backend and services API)</i> and <b>Google Firebase</b><i>(media storage)</i>
+        </p>
+        <div class="logo-row centred">
+            <div class="image-container">
+                <img src="assets/images/implementation/vuejs.webp" alt="Vue.js">
+            </div>
+            <div class="image-container">
+                <img src="assets/images/implementation/android.jpg" alt="Android">
+            </div>
+            <div class="image-container">
+                <img src="assets/images/implementation/ibm-db2.jpg" alt="IBM Cloud DB2">
+            </div>
+            <div class="image-container">
+                <img src="assets/images/implementation/java.png" alt="Java">
+            </div>
+            <div class="image-container">
+                <img src="assets/images/implementation/firebase.png" alt="Google Firebase">
+            </div>
+        </div>
+        <p>All Java components will be managed using the <b>Maven</b> build tool.</p>
+        <div class="image-container">
+            <img src="assets/images/implementation/maven.png" alt="Maven">
+        </div>
+        <p>We will also be using the Java <b>SpringBoot</b> dependency which allows us to create simple RESTful APIs
+            with little
+            overhead code.</p>
+        <div class="image-container">
+            <img src="assets/images/implementation/spring-boot.png" alt="SpringBoot">
+        </div>
+    </section>
+
+    <section class="web-app centred light-page-section">
         <h2>Admin Web App</h2>
         <p></p>
         <div class="web-app-section centred">
@@ -168,6 +203,64 @@
             </div>
         </div>
 
+    </section>
+
+    <section class="ask-bob-integration">
+        <h2>AskBob Integration</h2>
+        <p>An integral part of our system is the Concierge Voice Assistant. This voice assistant is powered by the
+            AskBob RESTful API which is deployed locally and will allow users to utilise the voice assistant within the
+            app. This AskBob API receives the users command from the Concierge app in plain text. It then employee’s
+            natural language processing to decode the intent behind command and then calls our Service API to retrieve
+            the necessary information required to fulfil this request. This data is then returned to the app where the
+            appropriate action can be triggered. </p>
+        <p>This AskBob API was developed using Team 39’s AskBob NLP framework. This framework is based upon the Python
+            library Rasa which is designed for building chatbots. Originally, we had been utilising Spacy to perform our
+            natural language processing. In this case we designed and trained our own NLP Spacy model and were then
+            running it as an API using the Python Library Flask. However, our clients requested that we integrate some
+            of our services with the other 2 IBM groups (Team 39 and Team 38). As part of this integration, we were
+            instructed to transition to the AskBob NLP framework for our voice assistant to ensure consistency across
+            the FISE ecosystem. This involved transferring the services that we had already designed to the AskBob
+            framework. </p>
+        <h3>Structure</h3>
+        <p>As mentioned above the AskBob API is intended to be deployed on a local network as specified in our MOSCOW
+            requirements. The AskBob API is intended to receive a user’s command in plain text from the app which is
+            acquired having the app perform speech recognition on the user’s verbal request. This request is then
+            processed, and the appropriate data required to fulfil the request is retrieved from our service API. For
+            the AskBob API to perform this, it is reliant on also having the service API running locally. </p>
+        <h3>Adding Plugins</h3>
+        <p>Services are added to the AskBob API in the form of plugins. Plugins are collections of services and the
+            general Concierge plugin consists of three main files: an __init__.py file, an actions.py file and a
+            config.json file. Within these files all the data required to implement a service is contained. </p>
+        <h4>The <span class="code-snippet">__init__.py</span> File</h4>
+        <p>The purpose of the <span class="code-snippet">__init__.py</span> file is to mark the plugin folder as a
+            Python package. </p>
+        <h4>The <span class="code-snippet">config.json</span> File</h4>
+        <p>The config file is used to define the skills within a given plugin. Skills refers to the to a specific
+            service within the plugin. At its core a skill is comprised of an intent and an action. The intent can be
+            understood as what the user is attempting to achieve, and the action is the process that is triggered by a
+            specific intent. When defining an intent multiple sample commands must be provided as this is what the NLP
+            model will train from. Actions on the other hand will be defined within the <span class="code-snippet">actions.py</span>
+            file. </p>
+        <p>Additionally, certain skills may require data to be extracted from the user’s command. This data is referred
+            to as entities and must also be defined in the config file. For more information on the syntax of a config
+            file see <a href="https://github.com/UCL-COMP0016-2020-Team-39/AskBob">Team 39's GitHub repository</a>. </p>
+        <p>Below is a sample config file for the weather service: </p>
+        <div class="image-container">
+            <img src="" alt="An example AskBob config.json file">
+        </div>
+        <h4>The <span class="code-snippet">actions.py</span> File</h4>
+        <p>The actions.py file contains is where the actions for a given skill must be defined. Each action is defined
+            as its own class. The code defined within this file will trigger when a given intent is recognised. For the
+            majority of the Concierge an action will consist of extracting the necessary entities required by the
+            service API and then placing a request to the specific service API endpoint to retrieve the necessary
+            response. This response is then returned as a JSON data package with the following format: </p>
+        <div class="image-container">
+            <img src="" alt="An example JSON response">
+        </div>
+        <p>Below is an action class for the weather service that is defined by the config class. </p>
+        <div class="image-container">
+            <img src="" alt="An example AskBob actions.py file">
+        </div>
     </section>
 
     <section class="light-page-section centred">

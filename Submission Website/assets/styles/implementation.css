@@ -1,3 +1,22 @@
+.main-technologies .logo-row {
+    margin-top: 32px;
+}
+
+.main-technologies .image-container {
+    margin-right: 24px;
+    max-height: 72px;
+    height: 100%;
+}
+
+.main-technologies .image-container img {
+    object-fit: cover;
+    max-height: inherit;
+}
+
+.main-technologies > .image-container {
+    margin-top: 32px;
+}
+
 .web-app-section {
     flex-direction: column;
     max-width: 66.7%;
@@ -21,4 +40,12 @@
 .web-app-section .image-container {
     margin-top: 24px;
     margin-bottom: 24px;
+}
+
+.ask-bob-integration h4 {
+    margin-bottom: 0;
+}
+
+.ask-bob-integration h4 .code-snippet {
+    font-weight: 900;
 }
