@@ -102,7 +102,7 @@
             <h3>Accessibility</h3>
             <p>The web app must be user-friendly to all types of users, including those less able. To ensure this was
                 true, standard HTML semantics were followed (e.g., using the <span
-                        class="code-snippet">&lt;button&gt;</span> tag for buttons instead of div
+                       >&lt;button&gt;</span> tag for buttons instead of div
                 elements; splitting pages into section elements and ensuring headings followed the <i>h1, h2, h3</i>
                 etc.
                 pattern in order).</p>
@@ -113,7 +113,7 @@
 
         <div class="web-app-section centred">
             <h3>Data Fetching</h3>
-            <p>To communicate with the backend, the <a href="https://github.com/axios/axios">Axios</a> Node module was
+            <p>To communicate with the backend, the <a rel="noopener" target="_blank" href="https://github.com/axios/axios">Axios</a> Node module was
                 used to make RESTful API calls to the
                 backend;
                 this was then wrapped in a set of methods to act as a further abstraction between the backend and the
@@ -127,9 +127,9 @@
                 be frozen while waiting for this data otherwise it would completely hamper the user experience; this
                 problem would worsen for users on slower internet connections.</p>
             <p>In essence, when performing an API call with the
-                <span class="code-snippet">axios.request()</span>
+                <code>axios.request()</code>
                 method, the object returned is a <b>Promise</b>. A
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>
+                <a rel="noopener" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>
                 is an object representing the eventual completion or failure of an asynchronous operation (MDN
                 Web Docs, 2021). The backend response was wrapped in a Promise (by the axios library) which resolves
                 into the JSON response when the backend responds; this happens automatically, handled by the Promise
@@ -184,14 +184,14 @@
                 need to encode the images as binary text and then insert it; this would make database maintenance very
                 difficult (e.g., we would not know if we’ve inserted the correct image as we cannot see it in the cloud
                 database console).</p>
-            <p>Instead, images were stored in a <a href="https://firebase.google.com">Google Firebase bucket</a> and
+            <p>Instead, images were stored in a <a rel="noopener" target="_blank" href="https://firebase.google.com">Google Firebase bucket</a> and
                 accessed using Firebase’s JavaScript
                 API. Accessing these images returns a download link which we can directly insert into an image tag in
                 HTML. Images can then be easily modified as well as essentially providing us with more storage to work
                 with for free.</p>
             <p>In the cloud database, these images are referenced by their filename which the web app uses when
                 searching the Firebase bucket.</p>
-            <p>Note that all images were converted into the <span class="code-snippet">.webp</span> file format to
+            <p>Note that all images were converted into the <code>.webp</code> file format to
                 reduce file sizes (and hence, bandwidth) with
                 no loss in image quality. Images were also scaled down so their size was the maximum size the image
                 would ever be when displayed on the website.</p>
@@ -305,24 +305,24 @@
         <p>Services are added to the AskBob API in the form of plugins. Plugins are collections of services and the
             general Concierge plugin consists of three main files: an __init__.py file, an actions.py file and a
             config.json file. Within these files all the data required to implement a service is contained. </p>
-        <h4>The <span class="code-snippet">__init__.py</span> File</h4>
-        <p>The purpose of the <span class="code-snippet">__init__.py</span> file is to mark the plugin folder as a
+        <h4>The <code>__init__.py</code> File</h4>
+        <p>The purpose of the <code>__init__.py</code> file is to mark the plugin folder as a
             Python package. </p>
-        <h4>The <span class="code-snippet">config.json</span> File</h4>
+        <h4>The <code>config.json</code> File</h4>
         <p>The config file is used to define the skills within a given plugin. Skills refers to the to a specific
             service within the plugin. At its core a skill is comprised of an intent and an action. The intent can be
             understood as what the user is attempting to achieve, and the action is the process that is triggered by a
             specific intent. When defining an intent multiple sample commands must be provided as this is what the NLP
-            model will train from. Actions on the other hand will be defined within the <span class="code-snippet">actions.py</span>
+            model will train from. Actions on the other hand will be defined within the <code>actions.py</code>
             file. </p>
         <p>Additionally, certain skills may require data to be extracted from the user’s command. This data is referred
             to as entities and must also be defined in the config file. For more information on the syntax of a config
-            file see <a href="https://github.com/UCL-COMP0016-2020-Team-39/AskBob">Team 39's GitHub repository</a>. </p>
+            file see <a rel="noopener" target="_blank" href="https://github.com/UCL-COMP0016-2020-Team-39/AskBob">Team 39's GitHub repository</a>. </p>
         <p>Below is a sample config file for the weather service: </p>
         <div class="image-container">
             <img alt="An example AskBob config.json file" src="">
         </div>
-        <h4>The <span class="code-snippet">actions.py</span> File</h4>
+        <h4>The <code>actions.py</code> File</h4>
         <p>The actions.py file contains is where the actions for a given skill must be defined. Each action is defined
             as its own class. The code defined within this file will trigger when a given intent is recognised. For the
             majority of the Concierge an action will consist of extracting the necessary entities required by the
