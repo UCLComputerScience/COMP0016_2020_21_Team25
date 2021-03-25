@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="Extra legal information and manuals for deployment and usage." name="description">
+    <title>Team 25 - Appendix</title>
+    <link href="assets/styles/main.css" rel="stylesheet">
+    <link href="assets/styles/appendix.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" type="module"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script defer>
+        $(function () {
+            $("#navbar").load("navbar.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+</head>
+<body>
+<header id="navbar"></header>
+<div class="page">
+    <div class="header-card">
+        <div class="page-header">
+            <h1>Appendix</h1>
+            <p></p>
+        </div>
+        <div class="image-container noselect"></div>
+        <script>
+            let title = document.querySelector(".page-header h1");
+            let subtitle = document.querySelector(".page-header p");
+            const resize = function (subtitle) {
+                subtitle.style.maxWidth = title.clientWidth.toString() + "px";
+            };
+            window.onresize = window.onload = () => {
+                resize(subtitle);
+            };
+        </script>
+    </div>
+
+    <section class="supporting-docs centred">
+        <h2>Supporting Documents</h2>
+    </section>
+
+    <section class="deployment-manual light-page-section">
+        <h2>Deployment Manual</h2>
+        <p>See the following guides for deploying the admin web app and the Android app. Both have been containerised to
+            greatly simplify the build process and provide platform independency where possible. </p>
+        <div class="deployment-guide centred">
+            <div class="web-app-deployment">
+                <h3>Admin Web App</h3>
+                <p>See instructions for deploying the admin web app.</p>
+                <h4>Prerequisites</h4>
+                <p>You will need a (relatively recent) browser that allows JavaScript - more information on supported
+                    browsers can be found in the <a
+                            href="https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/tree/main/Admin%20Site/package.json#L69"><code>package.json</code></a>
+                    file.</p>
+                <p>The web app is hosted at <a rel="noopener" target="_blank" href="https://fise-concierge.web.app">fise-concierge.web.app</a>.
+                    However, due to security restrictions, the backend does not
+                    work on Safari, this means you will need to serve the web app locally.</p>
+                <p>If you would like to serve the web app locally or get started with development, you will need the
+                    additional prerequisites:</p>
+                <ul>
+                    <li><a rel="noopener" target="_blank" href="https://nodejs.org">Node.js</a> - Package manager</li>
+                    <li><a rel="noopener" target="_blank" href="https://www.npmjs.com/get-npm">npm</a> - This should
+                        come with your Node installation.
+                    </li>
+                </ul>
+
+                <p>You will also need to clone the source code from our <a
+                        href="https://github.com/UCLComputerScience/COMP0016_2020_21_Team25">GitHub repository.</a
+                ></p>
+
+                <p>The backend is containerised with <a rel="noopener" target="_blank"
+                                                        href="https://docs.docker.com/get-docker/">Docker</a> to make
+                    for simple and fast deployment.</p>
+
+                <h4>Installation</h4>
+
+                <p>The following installation steps are only required if you would like to serve the web app locally. If
+                    using the hosted web app, you can skip this section.
+                <p>
+                <p>You will need to clone our GitHub repository, running the following command in a directory of your
+                    choice: </p>
+                <code class="bash-cmd">git clone
+                    https://github.com/UCLComputerScience/COMP0016_2020_21_Team25.git</code>
+                <p>Once you have the source code, to install the necessary dependencies using the
+                    following terminal command:</p>
+                <code class="bash-cmd">npm install</code>
+                <br>
+
+
+                <h4>Deployment</h4>
+                <div class="backend-deployment">
+                    <p>To start the backend, first ensure no <code>localhost</code> service is currently running on port
+                        <code>8100</code>.</p>
+                    <p>Next, open a terminal window and navigate to the "Backend" directory. If you cloned the entire
+                        repository and are in the topmost directory, you can use the following command:</p>
+                    <code class="bash-cmd">cd Backend</code>
+                    <p>The backend can then be built using the following terminal command:</p>
+                    <code class="bash-cmd">docker build --tag backend .</code>
+                    <p>And to then start the backend application (whilst in the "Backend" directory):</p>
+                    <code class="bash-cmd">docker run --rm backend backend</code>
+                    <p>It is recommended that you always start the backend before the web application.</p>
+                </div>
+
+                <div class="web-app-start">
+                    <p>If you are <b>not</b> serving the web app locally, you can just head over to <a rel="noopener"
+                                                                                                       target="_blank"
+                                                                                                       href="https://fise-concierge.web.app">fise-concierge.web.app</a>.
+                    </p>
+                    <p>Otherwise, navigate to the "Admin Site" directory with:</p>
+                    <code class="bash-cmd">cd ..; cd "Admin Site"</code>
+                    <p>And then:</p>
+                    <ul>
+                        <li>To start the web app in development mode, with verbose debugging information:
+                            <br><code class="bash-cmd">npm run-script dev:start</code></li>
+                        <li>To start the web app in production mode, with all the necessary optimisations performed:
+                            <br><code class="bash-cmd">npm start</code></li>
+                    </ul>
+                </div>
+
+                <h4>Testing</h4>
+                <p>Note that when running any tests, the backend must still be started.</p>
+
+                <p>To run the pre-defined tests:</p>
+                <code class="bash-cmd">npm run-script test:noserver</code>
+
+                <p>The backend can be started automatically, so you do not need to manually start the backend. </p>
+                <code class="bash-cmd">npm test</code>
+
+                <p>However, this starts up and shuts down the backend server on each run - this approach is intended to
+                    be used for automated build systems.</p>
+
+                <p>A coverage report can be generated using:</p>
+                <code class="bash-cmd">npm run-script coverage:noserver</code>
+
+                <p>And to generate a coverage report, whilst also automatically running the backend:</p>
+                <code class="bash-cmd">npm run-script coverage</code>
+
+
+            </div>
+            <div class="v-divider"></div>
+            <div class="android-app-deployment">
+                <h3>Android App</h3>
+                <p>See instructions for deploying the Android app.</p>
+                <h4>Prerequisites</h4>
+                <p>You will need an Android device running an Android API level of at least 16 (<b>Jellybean 4.1.x</b>)
+                    and a separate computer or
+                    laptop to run the backend to serve the app.</p>
+
+                <p>The backend, the AskBob (Team 39) NLP server and service API interaction are all containerised
+                    meaning the following prerequisites are also required:</p>
+                <ul>
+                    <li><a rel="noopener" target="_blank"
+                           href="https://docs.docker.com/get-docker/">Docker</a></li>
+                    <li><a rel="noopener" target="_blank"
+                           href="https://docs.docker.com/compose/install/">docker-compose</a></li>
+
+                </ul>
+
+                <p>For development, you will also need <a href="https://developer.android.com/studio"
+                                                          rel="noopener norefferer" target="_blank">Android
+                    Studio</a>.</p>
+
+                <p>It is important to note that Concierge is intended to be used in <b>private networks only.</b></p>
+
+                <h4>Installation</h4>
+                <p>The APK file for the Android app can be found <a rel="noopener norefferer" target="_blank"
+                                                                    href="https://liveuclac-my.sharepoint.com/:f:/g/personal/zcabasy_ucl_ac_uk/EoxETmOVQ8JGhfXjyaqTgp4BnNrG9aYGqlXwCrODMDtB4A?e=xEE6WN">here</a>.
+                </p>
+
+                <p>You will need to clone our GitHub repository, running the following command in a directory of your
+                    choice: </p>
+                <code class="bash-cmd">git clone
+                    https://github.com/UCLComputerScience/COMP0016_2020_21_Team25.git</code>
+
+                <h4>Deployment</h4>
+                <p>To start the backend, the AskBob (Team 39) NLP server and service API interaction:</p>
+                <code class="bash-cmd">docker-compose up</code>
+
+                <p>The final step is the run the APK file on your Android device. Instructions on how to do so can be
+                    found <a href="https://www.lifewire.com/install-apk-on-android-4177185" rel="noopener norefferrer"
+                             target="_blank">here</a>.</p>
+
+                <h4>Testing</h4>
+                <p>The following information assumes you have cloned the repository and have Android Studio
+                    installed.</p>
+                <p>The repository contains a regression test suite developed through TDD which you can use to ensure
+                    there is no functionality breakage and to which you can add your own tests for your code. The tests
+                    under androidTest package are instrumented tests which run on a device/emulator. The tests under
+                    test package are unit tests which run on the JVM. See important notes for both below.
+                </p>
+                <p>Instrumented tests - these tests were written using the Espresso framework and provide UI tests hence
+                    only contain tests for classes corresponding to an activity. Please note, for these tests to run,
+                    line 19 in the <code>build.gradle</code> file had to be commented out as these tests fail when using
+                    <code>ANDROID_TEST_ORCHESTRATOR</code> (nothing to do with our tests, more of an Android Studio
+                    bug).</p>
+                <p>Unit tests - these tests were written using the Robolectric framework and test the actual logic and
+                    code of the app. There are two important points to note here:</p>
+                <ul>
+                    <li>To run these tests, the <code>targetSdkVersion</code> under <code>defaultConfig</code> under
+                        android must be
+                        set to <b>29</b> or lower as Robolectric framework does not currently support any Android SDK
+                        versions greater than
+                        29. In no way does this hinder the reliability of the tests as all the code written is intended
+                        for devices with Android SDK version 16 or higher as mentioned above.
+                    </li>
+                    <li>All the tests cannot be run in one go (i.e., you cannot right click on the test package and
+                        select
+                        <code>'Run Tests in 'fisev2concierge''</code>) as for some reason this causes the tests to fail.
+                        Again, this
+                        has nothing to do with our tests, rather it is an Android Studio issue. Instead, you must run
+                        each test class individually.
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="user-manual">
+        <h2>User Manual</h2>
+        <p>See the following instructions on how to use both the admin web app and the Android app (assuming they have
+            both been deployed).</p>
+        <div class="manual centred">
+            <div class="web-app-manual">
+                <h3>Admin Web App</h3>
+                <p>The companion web app to the <b>IBM FISE Concierge</b> allowing friends of (elderly) users to set up
+                    accounts and manage the details of all members in their circle. Admins have the ability to add and
+                    remove services from member accounts and view service usage history for each member.</p>
+            </div>
+            <div class="v-divider"></div>
+            <div class="android-app-manual">
+                <h3>Android App</h3>
+                <p></p>
+            </div>
+        </div>
+
+
+    </section>
+
+    <section class="eula light-page-section">
+        <h2>EULA</h2>
+    </section>
+
+    <section class="license">
+        <h2>License</h2>
+    </section>
+
+</div>
+<footer id="footer"></footer>
+</body>
+</html>
