@@ -27,7 +27,8 @@
     <div class="header-card">
         <div class="page-header">
             <h1>System<br>Testing</h1>
-            <p>Here we discuss how we tested the different parts of our system to ensure everything worked as it should.</p>
+            <p>Here we discuss how we tested the different parts of our system to ensure everything worked as it
+                should.</p>
         </div>
         <div class="image-container noselect"></div>
         <script>
@@ -35,90 +36,281 @@
             let subtitle = document.querySelector(".page-header p");
             const resize = function (subtitle) {
                 subtitle.style.maxWidth = title.clientWidth.toString() + "px";
-            }
+            };
             window.onresize = window.onload = () => {
                 resize(subtitle);
-            }
+            };
         </script>
     </div>
-	
-	<section>
-		<h2>Android App</h2>
-		<p>Find details of the different types of tests we conducted to evaluate our app below.</p>
-		<h3>Unit/Integration Testing</h3>
-		<p>We wrote over 200 unit and integration tests achieving overall branch coverage of roughly 90%. 
-		These tests tested our code for the functionality of the app, from testing if buttons opened the correct Activity to testing if we 
-		could parse AskBob responses correctly. Tests were split into different classes, each one corresponding to the class we were testing.
-		The 'test' folder structure is identical to the structure of the 'main' folder which makes it easy to navigate and quickly find the test 
-		class we need. Unit tests tested individual classes whereas the integration tests tested interactions between multiple classes. The majority 
-		of integration tests were limited to the MainContoller class and AskBobResponseController class since these are the two main classes which interact
-		with other classes. We had two choices, split the tests based on classes or split the tests based on the 'main' folder structure. We chose the
-		latter since as mentioned afore majority of integration tests were restricted to only two classes so this made more sense. Unit and integration 
-		tests are important as they provide a quick way of locally testing whether our code works or not. It also ensures that any code that we may forget
-		to test on a device will definitely be tested through these tests. We can assert that these tests cover the majority of our code through branch
-		coverage. See screenshots below for overall branch coverage and branch coverage package by package (statistics provided through Android Studio). 
-		The tests were also developed through TDD which helped us ensure the code we wrote was correct and minimal. The tests now act as a regression
-		test suite, where if we add new code, we can run these tests to ensure there is no functionality leakage. This will be very useful for 
-		developers in the future who can use this when they add their own features to the app. As the tests utilised Android APIs and real time system
-		features, we had to use a testing framework which would allow us to 'mock' these API and system calls. Therefore, we used Robolectric as our 
-		testing framework which provided powerful APIs to test our code. We chose Robolectric because it was robust, well tested, have a developer 
-		communnity and provided the APIs we needed to test our code. We did research alternatives such as Mockito and UI Automator but found Robolectric
-		was easiest to use and provided all the functonality we needed. However, a downside was that Robolectric can't run if the targetSdkVersion is 
-		greater than 29 (and ours is 30). Although this was not an issue in terms of the validity of tests (since our minSDK was 16 and our Android API
-		calls were limited to basic features available on all SDKs above 16 so we are certain that our code works on SDK 30, see Compatibility Testing), it meant that we had to 
-		change the targetSdkVersion everytime we wanted to run the tests. Please note, aside from changing the targetSdkVersion, each test class has 
-		to be run individually as running all the tests in the 'test' package at once will cause them to fail - this is not because of our tests and 
-		is more of an Android Studio bug [see Bugs under Evaluation].</p>
-		<h3>Instrumentation Testing</h3>
-		<p>Instrumentation tests are UI tests which run on an emulator/device. We wrote these tests to provide a way to assert the UI was 
-		working correctly from a high level eg the buttons all worked. We used the Espresso framework to write these tests as recommended by Android. 
-		We used the 'assertions' feature to assert that key UI components such as the mic icon on MainActivity were present. We also used the built in 
-		Espress Test Recorder which allowed us to perform actions on the device such as clicking a button and it would automatically convert this into code. 
-		We used its assert feature. This was important as it made testing (and writing tests) so much easier. This meant we didn't have to spend time 
-		writing tests ourselves or getting bogged down with learning how to use the framework from scratch as we could use this tools to automatically 
-		produce our tests easily in an intuitive manner. This is very important as a developer as we have very limited time and testing can take up a 
-		lot of time so one must use the available tools to make this process simpler, faster and more efficient. It also meant we could avoid the chances
-		of us making mistakes while writing the tests. However, a downside was that the tests produced by the Test Recorded contained many deprecated 
-		methods which is not good. Therefore, after each test was produced we manually replaced these deprecated methods ourselves with the proper, 
-		appropriate methods as required. Overall, we still saved a lot of time having to learn the framework and writing the tests purely from scratch. 
-		Please note, that the tests fail if ANDROID_TEST_ORCHESTRATOR is used as executor under testOptions in the gradle file. This is again an 
-		Android Studio bug and nothing to do with us [please see Bugs under Evaluation]. The current gradle file already comments out use of 
-		ANDROID_TEST_ORCHESTRATOR as this isn't needed anywhere else so we have no use for it. However, should a need arise for it in the future, 
-		it must be commented out before running the Instrumentation tests. The combined use of unit tests and instrumentation tests provided a powerful
-		testing suite where unit tests would test the actual functionality and logic and the instrumentation tests would provide high level UI tests
-		which we could use to ensure the UI was working correctly and all necessary objects were being correctly displayed. </p>
-		<h3>Stress Testing</h3>
-		<p>It is an important quality assurance metric to stress test the app to ensure it can handle high pressure and volumes of input from the user. 
-		We used the Monkey framework for this. This was a form of automated testing where Monkey would randomly generate a number of events such as button clicks
-		, text input, screen rotations and more and inject these into a device and perform them on the app. The number of events to be generated could be specified
-		by us through the terminal. We could also specify which types on inputs we wanted, however we left this to be the default (all types of input) as this
-		would provide a comprehensive view of how much load our app could handle. We started off with 500 events, and doubled this every time (1000, 2000 etc). We are
-		pleased to say that our app crashed at 16,000 events! Our target was 5000. Given that our app is to be used by elderly people and the nature of the 
-		app does not warrant regular, high volume user input (as a game might), we are highly confident that our app will be able to take the strain of regular
-		user input and will not crash. Please note that Monkey tests are formally written or produced as with our other tests - we have to run a command in the
-		terminal every time we want to run a test. The command we used was.... Please make sure the device is connected to your computer and that the computer
-		has ABD installed and available.</p>
-		<h3>Resource Usage Testing</h3>
-		<p>Using the built in Android Studio Profiler, we were able to monitor the system resource usage of our app on the tablet [mention specs here]. We performed
-		a range of tasks on the app that we would expect our users to do, from making commands to adding reminders, for example. The average CPU usage during
-		this time was less than 10% and the average RAM used was around 7MB. This is very good as it means our app barely uses system resources [which also 
-		suggests that it should be able to run on very low powered, low resource machines]. Android themselves only recommend doing formal speed testing specifically
-		for tasks which use high amounts of the CPU. As our app doesn't use much CPU for any of the tasks, we did not conduct formal speed tests though 
-		future developers may decide to do this as they add new functionality to the app. See Screenshots from the Profiler below. [give details of the profiler
-		to show we were testing all method calls]. </p>
-		<h3>Compatibility Testing</h3>
-		<p>We want our app to be able to be used on a variety of devices, old and new. It was therefore important to make sure that it is compatible with
-		a large number of Android API levels. We did not conduct formal compatibility testing for the following reasons. Lack of time. Lack of need. Since all our 
-		Android API calls are rather basic, such as calling and messaging, we are certain that any device with SDK greather than 16 (our minSDK), will be able
-		to run our app. [tablet is only ANDROID 8!]. Furthermore, Android Studio itself tells us if we are using a system feature that is above our minSDK.
-		[show screenshot of setting alarm using set and setExact methods depending on SDK]. As a result, we believed that formal compatibility testing would be 
-		unncessary at this stage, especially since we had tested the app on the tablet and it worked. [mention key terms from the Android website link we saved].</p>
-		<h3>Device Testing???</h3>
-		<p></p>
-		<h3>User Acceptance Testing</h3>
-		<p></p>
-	</section>
-    
+
+    <section class="centred">
+        <h2>Admin Web App</h2>
+        <p>Several different testing mechanisms were used to provide the assurance that the web app functioned correctly
+            and provided a consistent user experience across different browsers and devices.</p>
+        <div class="web-app-section centred">
+            <h3>Technology Used</h3>
+            <p>Testing a website can seem unintuitive at times but allowed us to uncover unknown issues with the web app
+                that were not picked up during the initial implementation phase. </p>
+            <p>We used the popular testing framework <a href="https://jestjs.io"><b>Jest</b></a> to test the web app. It
+                allows us to mock components
+                (without
+                building them) and manually test individual components without building the entire application; we can
+                therefore test specific pages and components without having to start at the homepage and sign in (or
+                sign up) at the start of every single test. </p>
+            <p>Human interaction e.g., button clicks, typing etc., can be accurately simulated using Jest making it a
+                very versatile testing technology.</p>
+            <div class="image-container" style="max-width: 40%">
+                <img src="assets/images/testing/jest.webp" alt="Jest">
+            </div>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Unit Testing</h3>
+            <p>Unit testings allows us to focus on and test components in isolation. Individual components (such as
+                buttons, dropdowns and text inputs) were unit tested to ensure they were
+                usable across many different contexts and provided the necessary functionality. These components were
+                tested first to assert that the foundation of the web app was in working order. </p>
+            <p>The components pass all the unit tests, and the report is included in the coverage report for the
+                integration tests in the section below. </p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Integration Testing</h3>
+            <p>Integration testing was used to test multiple components together, with the backend.</p>
+            <p>Given the nature of the web app, a sizeable portion of the system could not be tested in isolation.
+                Integration testing was used with the backend to ensure that the web app communicated correctly with the
+                database and provides assurance that the backend API, its endpoints (and their enclosing logic) were all
+                in working order. A single test suite can therefore be used to assure that both the web app and backend
+                (more specifically, the portion of the backend serving the web app) are functioning correctly. </p>
+            <p>We can report that all integration tests passed, and the coverage report is shown below: </p>
+            <div class="image-container">
+                <img src="" alt="Coverage report for the web app">
+            </div>
+            <p>It is important to note that some components could not be tested, some examples are given below: </p>
+            <p>Some Vue components exist to reduce typing e.g., images – Jest does not allow the local filesystem to be
+                used in tests meaning these components would throw an error if included in tests. </p>
+            <ul class="centred">
+                <li>Some code branches exist to assist with responsive design e.g., the grid shown for services in the
+                    marketplace is implemented using several branches monitoring the window width – this cannot be
+                    tested because of the limitations with the virtual DOM used by Jest outlined below.
+                </li>
+            </ul>
+            <p>The virtual DOM used by Jest does not implement the following: </p>
+            <ul class="centred">
+                <li>Programmatic scrolling.</li>
+                <li>Navigation between pages (we can only test whether the method to change the page was called, but
+                    not if it navigated to the correct page with the correct parameters).
+                </li>
+                <li>Window alerts and other popup messages.</li>
+                <li>Page reloading.</li>
+                <li>Setting a specific window size (width or height).</li>
+            </ul>
+            <p>As a result, the line and branch coverage is not as high as we had hoped.</p>
+            <p>To circumvent these limitations with Jest, these components and aspects were tested manually during
+                development; while on its own, line coverage is not the be-all-end-all for testing, manual testing still
+                provides us with the assurance that the web app functions correctly. </p>
+            <p>The total amount of unit and integration tests amounts to 138.</p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Responsive Design Testing</h3>
+            <p>It is expected that the admin web app will be used on several different browsers, on several different
+                types of devices with different screen sizes, resolutions and pointer precisions. Because of this, it is
+                better to display the responsive design test as a video (6 min) using Safari’s responsive design mode
+                feature: </p>
+            <div class="card centred">
+                <div class="image-container noselect">
+                    <div style="width:100%;height:0px;position:relative;padding-bottom:65.099%;">
+                        <iframe src="https://streamable.com/e/5yw2sd" frameborder="0" width="100%" height="100%"
+                                allowfullscreen
+                                style="width:100%;height:100%;position:absolute;left:0;top:0;overflow:hidden;"></iframe>
+                    </div>
+                </div>
+            </div>
+            <p>In short, the web app is responsive to any device size and mouse pointer precision (or lack thereof),
+                achieved through <b>mobile-first</b> design. </p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Compatibility Testing</h3>
+            <p>Web apps do not need to be assessed for their platform-compatibility given they run on any platform with
+                a browser with JavaScript enabled and an internet connection. Instead, this section describes the visual
+                appearance of the web app on different browsers. </p>
+            <p>As previously mentioned, the web app will be used on different browsers and we can confirm that it
+                appears as expected in the four main browsers: Chrome, Edge, Safari and Firefox. </p>
+            <p>During implementation, the tool <a href="https://caniuse.com">CanIUse</a> was used to determine which CSS
+                attributes were available
+                on
+                which browsers. It also gives a breakdown of the popularity of each browser, allowing us to decide
+                whether it was worth supporting a particular browser that did not implement a CSS attribute. As a
+                result, it is also likely the web app will appear the same on more obscure browsers. </p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Performance Testing</h3>
+            <p><a href="https://developers.google.com/web/tools/lighthouse">Google Lighthouse</a> was used to gauge the
+                performance of the web app (among its accessibility and
+                search
+                engine optimisation); this is a simple, minimal-effort way of getting a performance report without
+                requiring more advanced performance testing frameworks which are unnecessary given the project scale,
+                deadline and expected load. </p>
+            <p>The Lighthouse report for the Concierge web app is shown below: </p>
+            <div class="image-container">
+                <img src="" alt="Google Lighthouse report">
+            </div>
+            <p>It is important to note that Google Lighthouse is indeed a rough guide to improving websites and should
+                be taken with a grain of salt.</p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>User Acceptance Testing</h3>
+            <div class="image-container">
+                <img src="" alt="responsive-design">
+            </div>
+        </div>
+
+    </section>
+
+    <section class="light-page-section">
+        <h2>Android App</h2>
+        <p>Find details of the different types of tests we conducted to evaluate our app below.</p>
+        <h3>Unit/Integration Testing</h3>
+        <p>We wrote over 200 unit and integration tests achieving overall branch coverage of roughly 90%.
+            These tests tested our code for the functionality of the app, from testing if buttons opened the correct
+            Activity to testing if we
+            could parse AskBob responses correctly. Tests were split into different classes, each one corresponding to
+            the class we were testing.
+            The 'test' folder structure is identical to the structure of the 'main' folder which makes it easy to
+            navigate and quickly find the test
+            class we need. Unit tests tested individual classes whereas the integration tests tested interactions
+            between multiple classes. The majority
+            of integration tests were limited to the MainContoller class and AskBobResponseController class since these
+            are the two main classes which interact
+            with other classes. We had two choices, split the tests based on classes or split the tests based on the
+            'main' folder structure. We chose the
+            latter since as mentioned afore majority of integration tests were restricted to only two classes so this
+            made more sense. Unit and integration
+            tests are important as they provide a quick way of locally testing whether our code works or not. It also
+            ensures that any code that we may forget
+            to test on a device will definitely be tested through these tests. We can assert that these tests cover the
+            majority of our code through branch
+            coverage. See screenshots below for overall branch coverage and branch coverage package by package
+            (statistics provided through Android Studio).
+            The tests were also developed through TDD which helped us ensure the code we wrote was correct and minimal.
+            The tests now act as a regression
+            test suite, where if we add new code, we can run these tests to ensure there is no functionality leakage.
+            This will be very useful for
+            developers in the future who can use this when they add their own features to the app. As the tests utilised
+            Android APIs and real time system
+            features, we had to use a testing framework which would allow us to 'mock' these API and system calls.
+            Therefore, we used Robolectric as our
+            testing framework which provided powerful APIs to test our code. We chose Robolectric because it was robust,
+            well tested, have a developer
+            communnity and provided the APIs we needed to test our code. We did research alternatives such as Mockito
+            and UI Automator but found Robolectric
+            was easiest to use and provided all the functonality we needed. However, a downside was that Robolectric
+            can't run if the targetSdkVersion is
+            greater than 29 (and ours is 30). Although this was not an issue in terms of the validity of tests (since
+            our minSDK was 16 and our Android API
+            calls were limited to basic features available on all SDKs above 16 so we are certain that our code works on
+            SDK 30, see Compatibility Testing), it meant that we had to
+            change the targetSdkVersion everytime we wanted to run the tests. Please note, aside from changing the
+            targetSdkVersion, each test class has
+            to be run individually as running all the tests in the 'test' package at once will cause them to fail - this
+            is not because of our tests and
+            is more of an Android Studio bug [see Bugs under Evaluation].</p>
+        <h3>Instrumentation Testing</h3>
+        <p>Instrumentation tests are UI tests which run on an emulator/device. We wrote these tests to provide a way to
+            assert the UI was
+            working correctly from a high level eg the buttons all worked. We used the Espresso framework to write these
+            tests as recommended by Android.
+            We used the 'assertions' feature to assert that key UI components such as the mic icon on MainActivity were
+            present. We also used the built in
+            Espress Test Recorder which allowed us to perform actions on the device such as clicking a button and it
+            would automatically convert this into code.
+            We used its assert feature. This was important as it made testing (and writing tests) so much easier. This
+            meant we didn't have to spend time
+            writing tests ourselves or getting bogged down with learning how to use the framework from scratch as we
+            could use this tools to automatically
+            produce our tests easily in an intuitive manner. This is very important as a developer as we have very
+            limited time and testing can take up a
+            lot of time so one must use the available tools to make this process simpler, faster and more efficient. It
+            also meant we could avoid the chances
+            of us making mistakes while writing the tests. However, a downside was that the tests produced by the Test
+            Recorded contained many deprecated
+            methods which is not good. Therefore, after each test was produced we manually replaced these deprecated
+            methods ourselves with the proper,
+            appropriate methods as required. Overall, we still saved a lot of time having to learn the framework and
+            writing the tests purely from scratch.
+            Please note, that the tests fail if ANDROID_TEST_ORCHESTRATOR is used as executor under testOptions in the
+            gradle file. This is again an
+            Android Studio bug and nothing to do with us [please see Bugs under Evaluation]. The current gradle file
+            already comments out use of
+            ANDROID_TEST_ORCHESTRATOR as this isn't needed anywhere else so we have no use for it. However, should a
+            need arise for it in the future,
+            it must be commented out before running the Instrumentation tests. The combined use of unit tests and
+            instrumentation tests provided a powerful
+            testing suite where unit tests would test the actual functionality and logic and the instrumentation tests
+            would provide high level UI tests
+            which we could use to ensure the UI was working correctly and all necessary objects were being correctly
+            displayed. </p>
+        <h3>Stress Testing</h3>
+        <p>It is an important quality assurance metric to stress test the app to ensure it can handle high pressure and
+            volumes of input from the user.
+            We used the Monkey framework for this. This was a form of automated testing where Monkey would randomly
+            generate a number of events such as button clicks
+            , text input, screen rotations and more and inject these into a device and perform them on the app. The
+            number of events to be generated could be specified
+            by us through the terminal. We could also specify which types on inputs we wanted, however we left this to
+            be the default (all types of input) as this
+            would provide a comprehensive view of how much load our app could handle. We started off with 500 events,
+            and doubled this every time (1000, 2000 etc). We are
+            pleased to say that our app crashed at 16,000 events! Our target was 5000. Given that our app is to be used
+            by elderly people and the nature of the
+            app does not warrant regular, high volume user input (as a game might), we are highly confident that our app
+            will be able to take the strain of regular
+            user input and will not crash. Please note that Monkey tests are formally written or produced as with our
+            other tests - we have to run a command in the
+            terminal every time we want to run a test. The command we used was.... Please make sure the device is
+            connected to your computer and that the computer
+            has ABD installed and available.</p>
+        <h3>Resource Usage Testing</h3>
+        <p>Using the built in Android Studio Profiler, we were able to monitor the system resource usage of our app on
+            the tablet [mention specs here]. We performed
+            a range of tasks on the app that we would expect our users to do, from making commands to adding reminders,
+            for example. The average CPU usage during
+            this time was less than 10% and the average RAM used was around 7MB. This is very good as it means our app
+            barely uses system resources [which also
+            suggests that it should be able to run on very low powered, low resource machines]. Android themselves only
+            recommend doing formal speed testing specifically
+            for tasks which use high amounts of the CPU. As our app doesn't use much CPU for any of the tasks, we did
+            not conduct formal speed tests though
+            future developers may decide to do this as they add new functionality to the app. See Screenshots from the
+            Profiler below. [give details of the profiler
+            to show we were testing all method calls]. </p>
+        <h3>Compatibility Testing</h3>
+        <p>We want our app to be able to be used on a variety of devices, old and new. It was therefore important to
+            make sure that it is compatible with
+            a large number of Android API levels. We did not conduct formal compatibility testing for the following
+            reasons. Lack of time. Lack of need. Since all our
+            Android API calls are rather basic, such as calling and messaging, we are certain that any device with SDK
+            greather than 16 (our minSDK), will be able
+            to run our app. [tablet is only ANDROID 8!]. Furthermore, Android Studio itself tells us if we are using a
+            system feature that is above our minSDK.
+            [show screenshot of setting alarm using set and setExact methods depending on SDK]. As a result, we believed
+            that formal compatibility testing would be
+            unncessary at this stage, especially since we had tested the app on the tablet and it worked. [mention key
+            terms from the Android website link we saved].</p>
+        <h3>Device Testing???</h3>
+        <p></p>
+        <h3>User Acceptance Testing</h3>
+        <p></p>
+    </section>
+
+    <section class="testing-references centred">
+
+    </section>
+
 </div>
 <footer id="footer"></footer>
 </body>

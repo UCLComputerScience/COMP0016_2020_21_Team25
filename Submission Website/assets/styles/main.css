@@ -58,6 +58,11 @@ p {
     line-height: 150%;
 }
 
+.code-snippet {
+    font-family: "Courier New", sans-serif;
+    font-weight: 500;
+}
+
 .page {
     width: 100%;
     min-height: 100%;
@@ -95,7 +100,7 @@ section p {
 }
 
 section > p {
-    width: 50%;
+    width: 66.7%;
     margin-top: 32px;
     text-align: center;
 }
@@ -141,7 +146,7 @@ section h2 {
     flex: 1;
 }
 
-img {
+img, video {
     max-width: 100%;
     width: auto;
     height: auto;

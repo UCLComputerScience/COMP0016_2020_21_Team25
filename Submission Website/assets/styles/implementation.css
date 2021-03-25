@@ -1,0 +1,24 @@
+.web-app-section {
+    flex-direction: column;
+    max-width: 66.7%;
+    width: 100%;
+}
+
+.web-app-section:not(:last-child) {
+    margin-bottom: 48px;
+}
+
+.web-app-section p {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.web-app-section p:first-child {
+    margin-top: 0 !important;
+}
+
+.web-app-section .image-container {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
