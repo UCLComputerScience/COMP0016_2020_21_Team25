@@ -204,6 +204,80 @@
         </div>
 
     </section>
+	
+	<section>
+		<h2>Android App</h2>
+		<p>See implementation details for the app below.</p>
+		<div>
+			<h3>Main Technologies</h3>
+			<p>The app was programmed in Java using the Android Studio IDE and its built in features such as the Profiler.</p>
+		</div>
+		<div>
+			<h3>Dependencies & Tools</h3>
+			<p>We used several external libraries beyond the standard Java and Android libraries to help us develop and test our app. See the different sections below.</p>
+		</div>
+		<div>
+			<h3>Android APIs</h3>
+			<p>We made extensive use of the built in Android APIs for features such as searching contacts, making calls and providing notifications.-> saved time, code, better code quality, well tested, ensured compatibility</p></p>
+			<p>We also used built in speech recognition and speech synthesis for our app as this satisfied our MoSCoW requirements and 
+			allowed us to focus on other parts of the system. Furthermore, this provides the added benefit that as the Android speech 
+			recognition and speech synthesis improves, our app will automatically benefit and be able to use this updated software.</p>
+			<h4>Built in SQLite 3 DB, -> Alarms, Reminders</h4>
+			<p>We utilised the built in SQLite database that comes with Android for our Alarms and Reminders. We also used this to store 
+			user details after connecting to their admin. Fast, no privacy concerns, convenient, reliable, act as a framework for developers</p>
+			<h4>Built in widgets like DateFragment, NumberPickerFragment -> Timers</h4>
+			<p>Some of our features required widgets for example Alarms required widgets for choosing the date and time. For our Timers 
+			feature, we also used the NumberPicker widgets. Reasons for this are the same as for using Android APIs[provide screenshots] </p>
+		</div>
+		<div>
+			<h3>Java</h3>
+			<h4>Java 13</h4>
+			<p>We used Java 13 to program our app as it was the most up to date Java version and provided many standard, well tested, well maintained libraries which we could use.</p>
+			<h4>Data Structures - HashMaps, JSON, ArrayLists, Arrays, Strings, primitives -> booleans</h4>
+			<p>We used many data structures in our app. The most notable one was HashMaps. This was used to store key value pairs after parsing the JSON response
+			from Ask Bob which would then be used by the AskBobResponseController to decide which method in MainController to call. We used HashMaps 
+			as they provide O(1) time complexity for searching. We used them for their efficiency. It would mean that we could respond to user requests more
+			quickly. They also come with a variety of built in methods that were very useful such as contains() which was needed at several points to quickly 
+			check what sort of a request the user had made (Service API, Lookup etc) and respond appropriately. It also prevented the app from crashing
+			due to NullPointerExceptions as we could check if the hashmap contained a particular key or not before asking for it through the get() method. The 
+			O(1) time complexity came into use here too. 
+			Aside from this, we used other data structures such as ArrayLists and Strings to pass data around our app appropriately. These data structures also
+			came with a nice interface [mention API name from Soft Eng] which made working with them easier than raw data structures such as arrays. 
+			We also used booleans, ints and other primitive data types. We used these when there was no need to use more complex data structures which made our
+			app faster and meant it took less RAM.</p>
+			<h4>Other Java Libraries</h4>
+			<p>We used other standard Java libraries such as HttpUrlConnection (for connecting to the backend and Ask Bob servers) throughout the app. </p>
+		</div>
+		<div>
+			<h3>Other Major Libraries</h3>
+			<h4>Espresso</h4>
+			<p>This library was used to write Instrumentation tests. Please refer to the testing section for further details.</p>
+			<h4>Robolectric</h4>
+			<p>This library was used to write unit/integration tests. Please refer to the testing section for further details. </p>
+			<h4>Monkey</h4>
+			<p>This library was used for stress testing. Please refer to the testing section for further details.</p>
+			<h4>AndroidJUnit4Runner</h4>
+			<p>This library was used to run Instrumentation tests. Please refer to the testing section for further details.</p>
+			<h4>org.json</h4>
+			<p>This library was used to parse the JSON response from the Ask Bob Server.</p>
+			<h4>JacksonCore, jacksondatabind </h4>
+			<p></p>
+			<h4>Backend and Ask Bob Server</h4>
+			<p>The app makes use of the Ask Bob server to send user requests and receive a JSON response which the app can use to decide which action to take. 
+			See...for details on what we use the Ask Bob server for exactly. We also make use of our backend server to connect them with their admin and provide
+			them with the functionality this entails such as their history.</p>
+			<h4>Offline NLP from Ask Bob</h4>
+			<p>The app utilises the Ask Bob server's NLP framework to interpret user requests.</p>
+		</div>
+		<div>
+			<h3>Minor Libraries Used</h3>
+			<h4>GetLocationApi</h4>
+			<p>This API is used to convert the user's latitude and longitude into a postcode for services which require this such as Yell searches.</p>
+			<h4>PlayServices</h4>
+			<p>This Google library is used as part of getting the user's latitude and longitude which is used for certain services such as opening Google Maps 
+			and finding the nearest bus/train station.</p>
+		</div>
+	</section>
 
     <section class="ask-bob-integration">
         <h2>AskBob Integration</h2>

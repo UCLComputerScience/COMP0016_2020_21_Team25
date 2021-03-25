@@ -248,7 +248,10 @@
             targetSdkVersion, each test class has
             to be run individually as running all the tests in the 'test' package at once will cause them to fail - this
             is not because of our tests and
-            is more of an Android Studio bug [see Bugs under Evaluation].</p>
+            is more of an Android Studio bug [see Bugs under Evaluation].
+			Please note this was also used for tests which did not use Android API calls as using Robolectric provided a
+			sandbox environment which could mock a real time Android setup and allow us to test other features such as 
+			making Http requests to our server which we could not do in standard unit tests.</p>
         <h3>Instrumentation Testing</h3>
         <p>Instrumentation tests are UI tests which run on an emulator/device. We wrote these tests to provide a way to
             assert the UI was
