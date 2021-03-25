@@ -43,23 +43,18 @@ Within the body of the request must be contained the following fields
 ## Data Format
 The AskBob Concierge Plugin returns the relevant data needed by the app to fulfill the request as a JSON with the following structure.
 ```
-"messages":[
-
+{
+    "query": ".....",
+    "messages": [
         {
-        
             "custom": {
-            
-                "Service_Type": "....",
-                
-                "Service": "....",
-                
-                "Response": "...."
-                
+                "Service_Type": ".....",
+                "Service": ".....",
+                "Response": "....."
             }
-            
         }
-        
     ]
+}
 }
 ```
 ## Testing
