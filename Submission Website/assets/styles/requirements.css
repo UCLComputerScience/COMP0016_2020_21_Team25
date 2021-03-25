@@ -138,14 +138,14 @@
 
 .moscow-grid {
     flex-direction: column;
-    width: 50%;
+    width: 75%;
 }
 
 .moscow-row {
     flex: 1;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    /*list-style: none;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
 }
 
 .moscow-row:not(:last-child) {
@@ -170,10 +170,12 @@
     color: var(--blue);
     margin-left: 24px;
     margin-right: 24px;
+    display: none;
 }
 
-.moscow-content h4 {
+.moscow-content h5 {
     margin-top: 0;
+    margin-bottom: 6px;
 }
 
 .usecase-diagram-div {
