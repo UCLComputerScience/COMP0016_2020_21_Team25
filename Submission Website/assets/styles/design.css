@@ -1,20 +1,42 @@
-.er-div{
-	text-align: center;
+.er-div {
+    text-align: center;
 }
 
-.er-img{
-	margin-left: 10px;
+.er-img {
+    margin-left: 10px;
     margin-right: 10px;
-	margin-bottom: 10px;
-	
+    margin-bottom: 10px;
+
 }
 
-.app-map-div{
-	text-align: center;
+.app-map-div {
+    text-align: center;
 }
 
-.app-map-img{
-	margin-left: 10px;
+.app-map-img {
+    margin-left: 10px;
     margin-right: 10px;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+
+.diagram {
+    box-shadow: 0 0 16px 1px rgba(0, 0, 0, .33);
+
+}
+
+.diagram.image-container, .diagram img {
+    border-radius: 20px;
+}
+
+.web-app h4, .web-app h3 {
+    margin-bottom: 0;
+}
+
+.web-app ul {
+    max-width: 33%;
+}
+
+.web-app p:nth-child(2) {
+    margin-bottom: 32px;
 }

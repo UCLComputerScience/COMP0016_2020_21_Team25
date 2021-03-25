@@ -11,6 +11,7 @@
 .main-technologies .image-container img {
     object-fit: cover;
     max-height: inherit;
+    mix-blend-mode: darken;
 }
 
 .main-technologies > .image-container {

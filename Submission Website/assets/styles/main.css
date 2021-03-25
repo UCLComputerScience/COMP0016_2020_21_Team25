@@ -1,15 +1,15 @@
 :root {
-    --header: #002e43;
-    --subheader: #2a2b30;
+    --header: #002E43;
+    --subheader: #2A2B30;
     --text-color: #222;
-    --page-background: #f9f9f9;
-    --light-page: #edf3fd;
-    --blue: #2848d1;
-    --green: #30ce91;
-    --light-blue: #5783ff;
+    --page-background: #F9F9F9;
+    --light-page: #EDF3FD;
+    --blue: #2848D1;
+    --green: #30CE91;
+    --light-blue: #5783FF;
     --light-green: #00FA9A;
-    --dark-blue: #3742fa;
-    --darker-blue: #001b4d;
+    --dark-blue: #3742FA;
+    --darker-blue: #001B4D;
     --border-radius: 6px;
     --nav-height: 48px;
 }
@@ -28,7 +28,7 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     color: var(--header);
     font-weight: 700;
     letter-spacing: -.05em;
@@ -48,6 +48,11 @@ h3 {
     color: var(--subheader);
 }
 
+h4 {
+    font-size: calc(1rem + .25vw);
+    color: var(--subheader);
+}
+
 a {
     text-decoration: none;
 }
@@ -58,9 +63,13 @@ p {
     line-height: 150%;
 }
 
-.code-snippet {
+.code-snippet, pre {
     font-family: "Courier New", sans-serif;
     font-weight: 500;
+}
+
+pre {
+    font-weight: 600;
 }
 
 .page {
@@ -73,17 +82,17 @@ p {
 
 .page-header h1 {
     margin: 0;
-    color: #fff;
+    color: #FFF;
     text-align: left;
 }
 
 .page-header p {
-    color: #d2d2d2;
+    color: #D2D2D2;
     font-size: 24px;
 }
 
 .separator {
-    border-top: 1px solid #e7eaf0;
+    border-top: 1px solid #E7EAF0;
 }
 
 section {
@@ -93,7 +102,7 @@ section {
 }
 
 section p {
-    color: #676b75;
+    color: #676B75;
     margin-top: 0;
     margin-bottom: 4px;
     font-size: 18px;
@@ -163,7 +172,7 @@ img, video {
     background: var(--dark-blue);
     border-bottom-left-radius: 10px;
     font-size: 11px;
-    color: #fff;
+    color: #FFF;
     top: 0;
     right: 0;
     padding: 6px 12px;
@@ -207,7 +216,7 @@ img, video {
 .flat-button {
     border-radius: var(--border-radius);
     background: var(--darker-blue);
-    color: #fff;
+    color: #FFF;
     padding: 16px 12px;
     font-weight: 700;
     text-align: center;
