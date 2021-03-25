@@ -55,7 +55,6 @@ The AskBob Concierge Plugin returns the relevant data needed by the app to fulfi
         }
     ]
 }
-}
 ```
 ## Testing
 
