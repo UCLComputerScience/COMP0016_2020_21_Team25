@@ -59,17 +59,21 @@ Where
 
 ## Deployment
 
+The backend is containerised to make for simple deployment.
+
+### Docker
+
 To start the application in a Docker container, you must first build the image with:
 
     docker build --tag services .
 
 And then to start the application on port `8080`:
 
-    docker run --rm services services/services
+    docker run --rm -it -p 8080:8080 services services
 
-Note that you must be running these docker commands from one level up, just outside this folder. You should navigate to the containing folder before building or running the image:
+### Without Docker
 
-    cd ..
+If you would prefer to not use Docker, you will need JDK 11 and Maven installed.
 
 To start the application, ensuring no service is currently using port `8080`, run the following command in a terminal in
 the "services" directory (where the `pom.xml` is located):
