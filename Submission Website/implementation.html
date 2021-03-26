@@ -79,7 +79,9 @@
 
     <section class="web-app centred light-page-section">
         <h2>Admin Web App</h2>
-        <p></p>
+        <p>The companion web app to the <b>IBM FISE Concierge</b> allowing friends of (elderly) users to set up
+            accounts and manage the details of all members in their circle. Admins have the ability to add and
+            remove services from member accounts and view service usage history for each member.</p>
         <div class="web-app-section centred">
             <h3>Responsive Design</h3>
             <p>The web app is designed to be usable on any device with a browser (with JavaScript enabled) and as such
@@ -88,13 +90,18 @@
                 component (button, header, input etc.) are designed to be usable on mobile devices. Once the appearance
                 was up to standard, extra cases were added (using CSS media queries) to make use of the space afforded
                 by larger devices.</p>
-            <div class="image-container">
-                <img alt="An example of the CSS Media queries used" src="">
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="An example of the CSS Media queries used" src="assets/images/implementation/css-snippet.png">
+                <img alt="An example of the CSS Media queries used" src="assets/images/implementation/css-snippet.png"
+                     tabindex="-1">
             </div>
             <p>Several implementation iterations were carried out, testing the appearance on multiple browsers, screen
                 sizes and orientations. Screenshots are shown below:</p>
-            <div class="image-container">
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
                 <img alt="The Concierge web app on different devices" src="">
+                <img alt="The Concierge web app on different devices" src="" tabindex="-1">
             </div>
         </div>
 
@@ -102,7 +109,7 @@
             <h3>Accessibility</h3>
             <p>The web app must be user-friendly to all types of users, including those less able. To ensure this was
                 true, standard HTML semantics were followed (e.g., using the <span
-                       >&lt;button&gt;</span> tag for buttons instead of div
+                >&lt;button&gt;</span> tag for buttons instead of div
                 elements; splitting pages into section elements and ensuring headings followed the <i>h1, h2, h3</i>
                 etc.
                 pattern in order).</p>
@@ -113,7 +120,8 @@
 
         <div class="web-app-section centred">
             <h3>Data Fetching</h3>
-            <p>To communicate with the backend, the <a rel="noopener" target="_blank" href="https://github.com/axios/axios">Axios</a> Node module was
+            <p>To communicate with the backend, the <a href="https://github.com/axios/axios" rel="noopener"
+                                                       target="_blank">Axios</a> Node module was
                 used to make RESTful API calls to the
                 backend;
                 this was then wrapped in a set of methods to act as a further abstraction between the backend and the
@@ -129,7 +137,8 @@
             <p>In essence, when performing an API call with the
                 <code>axios.request()</code>
                 method, the object returned is a <b>Promise</b>. A
-                <a rel="noopener" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" rel="noopener"
+                   target="_blank">Promise</a>
                 is an object representing the eventual completion or failure of an asynchronous operation (MDN
                 Web Docs, 2021). The backend response was wrapped in a Promise (by the axios library) which resolves
                 into the JSON response when the backend responds; this happens automatically, handled by the Promise
@@ -143,8 +152,12 @@
             <p>In short, Vue’s reactive nature, coupled with JavaScript’s built-in asynchronous features, allows us to
                 maximise the performance of the web app with little overhead code without idling, waiting for a backend
                 response. </p>
-            <div class="image-container">
-                <img alt="Code snippet of the code using to communicate with the backend" src="">
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="Code snippet of the code used to communicate with the backend"
+                     src="assets/images/implementation/axios-snippet.png">
+                <img alt="Code snippet of the code used to communicate with the backend"
+                     src="assets/images/implementation/axios-snippet.png" tabindex="-1">
             </div>
         </div>
 
@@ -168,8 +181,12 @@
                 fetched from elsewhere whenever the admin visits the website. It is important to note that if more
                 images were to be added, the Vuex store would need to be cleared (which can be done
                 programmatically).</p>
-            <div class="image-container">
-                <img alt="Code snippet of the code used to interact with the store" src="">
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="Code snippet of the code used to interact with the store"
+                     src="assets/images/implementation/vuex-snippet.png">
+                <img alt="Code snippet of the code used to interact with the store"
+                     src="assets/images/implementation/vuex-snippet.png" tabindex="-1">
             </div>
         </div>
 
@@ -184,7 +201,8 @@
                 need to encode the images as binary text and then insert it; this would make database maintenance very
                 difficult (e.g., we would not know if we’ve inserted the correct image as we cannot see it in the cloud
                 database console).</p>
-            <p>Instead, images were stored in a <a rel="noopener" target="_blank" href="https://firebase.google.com">Google Firebase bucket</a> and
+            <p>Instead, images were stored in a <a href="https://firebase.google.com" rel="noopener" target="_blank">Google
+                Firebase bucket</a> and
                 accessed using Firebase’s JavaScript
                 API. Accessing these images returns a download link which we can directly insert into an image tag in
                 HTML. Images can then be easily modified as well as essentially providing us with more storage to work
@@ -195,90 +213,155 @@
                 reduce file sizes (and hence, bandwidth) with
                 no loss in image quality. Images were also scaled down so their size was the maximum size the image
                 would ever be when displayed on the website.</p>
-            <div class="image-container">
-                <img alt="Screenshot of Firebase bucket" src="">
+            <div class="firebase-console enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="Screenshot of Firebase bucket" src="assets/images/implementation/firebase-console.png">
+                <img alt="Screenshot of Firebase bucket" src="assets/images/implementation/firebase-console.png"
+                     tabindex="-1">
             </div>
-            <div class="image-container">
-                <img alt="Code snippet of the code used to access the Firebase bucket" src="">
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="Code snippet of the code used to access the Firebase bucket"
+                     src="assets/images/implementation/firebase-snippet.png">
+                <img alt="Code snippet of the code used to access the Firebase bucket"
+                     src="assets/images/implementation/firebase-snippet.png" tabindex="-1">
+            </div>
+
+            <i>See the <a href="appendix.html">appendix</a> for image attributions.</i>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Marketplace</h3>
+            <p>The marketplace allows users to search for services by either their name, or description.</p>
+            <p>Naturally, users may make mistakes with typing meaning a strict equality string comparison between the
+                search term and each service name is inappropriate./p>
+            <p>Instead, the similarity between the two was compared and returned a match if this similarity was above
+                75%.</p>
+            <p>To calculate the string similarity, an <a href="">edit distance</a> algorithm was used:</p>
+            <div class="searching-snippets centred">
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Code snippet of similarity function"
+                         src="assets/images/implementation/similarity-snippet.png">
+                    <img alt="Code snippet of similarity function"
+                         src="assets/images/implementation/similarity-snippet.png" tabindex="-1">
+                </div>
+
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Code snippet of the edit distance algorithm"
+                         src="assets/images/implementation/edit-distance.png">
+                    <img alt="Code snippet of the edit distance algorithm"
+                         src="assets/images/implementation/edit-distance.png" tabindex="-1">
+                </div>
             </div>
         </div>
 
     </section>
-	
-	<section>
-		<h2>Android App</h2>
-		<p>See implementation details for the app below.</p>
-		<p>Mention connecting app automatically to backend</p>
-		<div>
-			<h3>Main Technologies</h3>
-			<p>The app was programmed in Java using the Android Studio IDE and its built in features such as the Profiler.</p>
-		</div>
-		<div>
-			<h3>Dependencies & Tools</h3>
-			<p>We used several external libraries beyond the standard Java and Android libraries to help us develop and test our app. See the different sections below.</p>
-		</div>
-		<div>
-			<h3>Android APIs</h3>
-			<p>We made extensive use of the built in Android APIs for features such as searching contacts, making calls and providing notifications.-> saved time, code, better code quality, well tested, ensured compatibility</p></p>
-			<p>We also used built in speech recognition and speech synthesis for our app as this satisfied our MoSCoW requirements and 
-			allowed us to focus on other parts of the system. Furthermore, this provides the added benefit that as the Android speech 
-			recognition and speech synthesis improves, our app will automatically benefit and be able to use this updated software.</p>
-			<h4>Built in SQLite 3 DB, -> Alarms, Reminders</h4>
-			<p>We utilised the built in SQLite database that comes with Android for our Alarms and Reminders. We also used this to store 
-			user details after connecting to their admin. Fast, no privacy concerns, convenient, reliable, act as a framework for developers</p>
-			<h4>Built in widgets like DateFragment, NumberPickerFragment -> Timers</h4>
-			<p>Some of our features required widgets for example Alarms required widgets for choosing the date and time. For our Timers 
-			feature, we also used the NumberPicker widgets. Reasons for this are the same as for using Android APIs[provide screenshots] </p>
-		</div>
-		<div>
-			<h3>Java</h3>
-			<h4>Java 13</h4>
-			<p>We used Java 13 to program our app as it was the most up to date Java version and provided many standard, well tested, well maintained libraries which we could use.</p>
-			<h4>Data Structures - HashMaps, JSON, ArrayLists, Arrays, Strings, primitives -> booleans</h4>
-			<p>We used many data structures in our app. The most notable one was HashMaps. This was used to store key value pairs after parsing the JSON response
-			from Ask Bob which would then be used by the AskBobResponseController to decide which method in MainController to call. We used HashMaps 
-			as they provide O(1) time complexity for searching. We used them for their efficiency. It would mean that we could respond to user requests more
-			quickly. They also come with a variety of built in methods that were very useful such as contains() which was needed at several points to quickly 
-			check what sort of a request the user had made (Service API, Lookup etc) and respond appropriately. It also prevented the app from crashing
-			due to NullPointerExceptions as we could check if the hashmap contained a particular key or not before asking for it through the get() method. The 
-			O(1) time complexity came into use here too. 
-			Aside from this, we used other data structures such as ArrayLists and Strings to pass data around our app appropriately. These data structures also
-			came with a nice interface [mention API name from Soft Eng] which made working with them easier than raw data structures such as arrays. 
-			We also used booleans, ints and other primitive data types. We used these when there was no need to use more complex data structures which made our
-			app faster and meant it took less RAM.</p>
-			<h4>Other Java Libraries</h4>
-			<p>We used other standard Java libraries such as HttpUrlConnection (for connecting to the backend and Ask Bob servers) throughout the app. </p>
-		</div>
-		<div>
-			<h3>Other Major Libraries</h3>
-			<h4>Espresso</h4>
-			<p>This library was used to write Instrumentation tests. Please refer to the testing section for further details.</p>
-			<h4>Robolectric</h4>
-			<p>This library was used to write unit/integration tests. Please refer to the testing section for further details. </p>
-			<h4>Monkey</h4>
-			<p>This library was used for stress testing. Please refer to the testing section for further details.</p>
-			<h4>AndroidJUnit4Runner</h4>
-			<p>This library was used to run Instrumentation tests. Please refer to the testing section for further details.</p>
-			<h4>org.json</h4>
-			<p>This library was used to parse the JSON response from the Ask Bob Server.</p>
-			<h4>JacksonCore, jacksondatabind </h4>
-			<p></p>
-			<h4>Backend and Ask Bob Server</h4>
-			<p>The app makes use of the Ask Bob server to send user requests and receive a JSON response which the app can use to decide which action to take. 
-			See...for details on what we use the Ask Bob server for exactly. We also make use of our backend server to connect them with their admin and provide
-			them with the functionality this entails such as their history.</p>
-			<h4>Offline NLP from Ask Bob</h4>
-			<p>The app utilises the Ask Bob server's NLP framework to interpret user requests.</p>
-		</div>
-		<div>
-			<h3>Minor Libraries Used</h3>
-			<h4>GetLocationApi</h4>
-			<p>This API is used to convert the user's latitude and longitude into a postcode for services which require this such as Yell searches.</p>
-			<h4>PlayServices</h4>
-			<p>This Google library is used as part of getting the user's latitude and longitude which is used for certain services such as opening Google Maps 
-			and finding the nearest bus/train station.</p>
-		</div>
-	</section>
+
+    <section>
+        <h2>Android App</h2>
+        <p>See implementation details for the app below.</p>
+        <p>Mention connecting app automatically to backend</p>
+        <div>
+            <h3>Main Technologies</h3>
+            <p>The app was programmed in Java using the Android Studio IDE and its built in features such as the
+                Profiler.</p>
+        </div>
+        <div>
+            <h3>Dependencies & Tools</h3>
+            <p>We used several external libraries beyond the standard Java and Android libraries to help us develop and
+                test our app. See the different sections below.</p>
+        </div>
+        <div>
+            <h3>Android APIs</h3>
+            <p>We made extensive use of the built in Android APIs for features such as searching contacts, making calls
+                and providing notifications.-> saved time, code, better code quality, well tested, ensured
+                compatibility</p></p>
+            <p>We also used built in speech recognition and speech synthesis for our app as this satisfied our MoSCoW
+                requirements and
+                allowed us to focus on other parts of the system. Furthermore, this provides the added benefit that as
+                the Android speech
+                recognition and speech synthesis improves, our app will automatically benefit and be able to use this
+                updated software.</p>
+            <h4>Built in SQLite 3 DB, -> Alarms, Reminders</h4>
+            <p>We utilised the built in SQLite database that comes with Android for our Alarms and Reminders. We also
+                used this to store
+                user details after connecting to their admin. Fast, no privacy concerns, convenient, reliable, act as a
+                framework for developers</p>
+            <h4>Built in widgets like DateFragment, NumberPickerFragment -> Timers</h4>
+            <p>Some of our features required widgets for example Alarms required widgets for choosing the date and time.
+                For our Timers
+                feature, we also used the NumberPicker widgets. Reasons for this are the same as for using Android
+                APIs[provide screenshots] </p>
+        </div>
+        <div>
+            <h3>Java</h3>
+            <h4>Java 13</h4>
+            <p>We used Java 13 to program our app as it was the most up to date Java version and provided many standard,
+                well tested, well maintained libraries which we could use.</p>
+            <h4>Data Structures - HashMaps, JSON, ArrayLists, Arrays, Strings, primitives -> booleans</h4>
+            <p>We used many data structures in our app. The most notable one was HashMaps. This was used to store key
+                value pairs after parsing the JSON response
+                from Ask Bob which would then be used by the AskBobResponseController to decide which method in
+                MainController to call. We used HashMaps
+                as they provide O(1) time complexity for searching. We used them for their efficiency. It would mean
+                that we could respond to user requests more
+                quickly. They also come with a variety of built in methods that were very useful such as contains()
+                which was needed at several points to quickly
+                check what sort of a request the user had made (Service API, Lookup etc) and respond appropriately. It
+                also prevented the app from crashing
+                due to NullPointerExceptions as we could check if the hashmap contained a particular key or not before
+                asking for it through the get() method. The
+                O(1) time complexity came into use here too.
+                Aside from this, we used other data structures such as ArrayLists and Strings to pass data around our
+                app appropriately. These data structures also
+                came with a nice interface [mention API name from Soft Eng] which made working with them easier than raw
+                data structures such as arrays.
+                We also used booleans, ints and other primitive data types. We used these when there was no need to use
+                more complex data structures which made our
+                app faster and meant it took less RAM.</p>
+            <h4>Other Java Libraries</h4>
+            <p>We used other standard Java libraries such as HttpUrlConnection (for connecting to the backend and Ask
+                Bob servers) throughout the app. </p>
+        </div>
+        <div>
+            <h3>Other Major Libraries</h3>
+            <h4>Espresso</h4>
+            <p>This library was used to write Instrumentation tests. Please refer to the testing section for further
+                details.</p>
+            <h4>Robolectric</h4>
+            <p>This library was used to write unit/integration tests. Please refer to the testing section for further
+                details. </p>
+            <h4>Monkey</h4>
+            <p>This library was used for stress testing. Please refer to the testing section for further details.</p>
+            <h4>AndroidJUnit4Runner</h4>
+            <p>This library was used to run Instrumentation tests. Please refer to the testing section for further
+                details.</p>
+            <h4>org.json</h4>
+            <p>This library was used to parse the JSON response from the Ask Bob Server.</p>
+            <h4>JacksonCore, jacksondatabind </h4>
+            <p></p>
+            <h4>Backend and Ask Bob Server</h4>
+            <p>The app makes use of the Ask Bob server to send user requests and receive a JSON response which the app
+                can use to decide which action to take.
+                See...for details on what we use the Ask Bob server for exactly. We also make use of our backend server
+                to connect them with their admin and provide
+                them with the functionality this entails such as their history.</p>
+            <h4>Offline NLP from Ask Bob</h4>
+            <p>The app utilises the Ask Bob server's NLP framework to interpret user requests.</p>
+        </div>
+        <div>
+            <h3>Minor Libraries Used</h3>
+            <h4>GetLocationApi</h4>
+            <p>This API is used to convert the user's latitude and longitude into a postcode for services which require
+                this such as Yell searches.</p>
+            <h4>PlayServices</h4>
+            <p>This Google library is used as part of getting the user's latitude and longitude which is used for
+                certain services such as opening Google Maps
+                and finding the nearest bus/train station.</p>
+        </div>
+    </section>
 
     <section class="ask-bob-integration">
         <h2>AskBob Integration</h2>
@@ -318,10 +401,13 @@
             file. </p>
         <p>Additionally, certain skills may require data to be extracted from the user’s command. This data is referred
             to as entities and must also be defined in the config file. For more information on the syntax of a config
-            file see <a rel="noopener" target="_blank" href="https://github.com/UCL-COMP0016-2020-Team-39/AskBob">Team 39's GitHub repository</a>. </p>
+            file see <a href="https://github.com/UCL-COMP0016-2020-Team-39/AskBob" rel="noopener" target="_blank">Team
+                39's GitHub repository</a>. </p>
         <p>Below is a sample config file for the weather service: </p>
-        <div class="image-container">
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
             <img alt="An example AskBob config.json file" src="">
+            <img alt="An example AskBob config.json file" src="" tabindex="-1">
         </div>
         <h4>The <code>actions.py</code> File</h4>
         <p>The actions.py file contains is where the actions for a given skill must be defined. Each action is defined
@@ -329,17 +415,27 @@
             majority of the Concierge an action will consist of extracting the necessary entities required by the
             service API and then placing a request to the specific service API endpoint to retrieve the necessary
             response. This response is then returned as a JSON data package with the following format: </p>
-        <div class="image-container">
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
             <img alt="An example JSON response" src="">
+            <img alt="An example JSON response" src="" tabindex="-1">
         </div>
         <p>Below is an action class for the weather service that is defined by the config class. </p>
-        <div class="image-container">
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
             <img alt="An example AskBob actions.py file" src="">
+            <img alt="An example AskBob actions.py file" src="" tabindex="-1">
         </div>
     </section>
 
-    <section class="light-page-section centred">
+    <section class="services-api light-page-section">
+        <h2>Services API</h2>
+    </section>
+
+    <section class="centred">
         <h2>References</h2>
+        <p>MDN Web Docs ...</p>
+        <p>Vuex ...</p>
     </section>
 
 </div>

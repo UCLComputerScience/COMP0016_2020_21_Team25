@@ -23,12 +23,16 @@
     margin-right: auto;
 }
 
-.sketches-img {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    height: 300px;
-    width: 500px;
+.web-app-images {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-gap: 48px;
+    padding: 48px;
+}
+
+.enlargeable.admin-web-app > img {
+    border-radius: inherit;
+    object-fit: cover;
 }
 
 .wireframe-div {

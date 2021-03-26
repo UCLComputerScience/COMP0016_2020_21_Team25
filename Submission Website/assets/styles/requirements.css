@@ -138,23 +138,15 @@
 
 .moscow-grid {
     flex-direction: column;
-    width: 75%;
+    width: 50%;
 }
 
 .moscow-row {
     flex: 1;
-    /*list-style: none;*/
-    /*padding: 0;*/
-    /*margin: 0;*/
 }
 
 .moscow-row:not(:last-child) {
     margin-bottom: 32px;
-}
-
-.moscow-grid h3 {
-    text-align: left;
-    padding-bottom: 12px;
 }
 
 .moscow-item {
@@ -171,6 +163,14 @@
     margin-left: 24px;
     margin-right: 24px;
     display: none;
+}
+
+.moscow-requirements h3 {
+    margin: 0;
+}
+
+.moscow-requirements h4 {
+    margin-bottom: 0;
 }
 
 .moscow-content h5 {

@@ -271,11 +271,21 @@
     <section class="usecase-diagram">
         <h2>Use Case Diagrams</h2>
         <p> We created two Use Case diagrams to illustrate how users would interact with our system. </p>
-        <p> We split the system based on the two main user interactable components, the Concierge App and 
+        <p> We split the system based on the two main user components, the Concierge App and
             the admin website. We then created Use Case diagrams for each</p>
-        <div class="usecase-diagram-div">
-            <img class="usecase-diagram-img" src="assets/images/requirements/Elderly User Use Case Diagram.jpg"/>
-            <img class="usecase-diagram-img" src="assets/images/requirements/Admin Use Case Diagram.jpg"/>
+        <div class="usecase-diagram-div centred">
+            <div class="enlargeable noselect centred">
+                <span>Click to enlarge</span>
+                <img class="usecase-diagram-img" src="assets/images/requirements/Elderly User Use Case Diagram.jpg"/>
+                <img class="usecase-diagram-img" src="assets/images/requirements/Elderly User Use Case Diagram.jpg"
+                     tabindex="-1"/>
+            </div>
+            <div class="enlargeable noselect centred">
+                <span>Click to enlarge</span>
+                <img class="usecase-diagram-img" src="assets/images/requirements/Admin Use Case Diagram.jpg"/>
+                <img class="usecase-diagram-img" src="assets/images/requirements/Admin Use Case Diagram.jpg"
+                     tabindex="-1"/>
+            </div>
         </div>
     </section>
 
@@ -453,7 +463,6 @@
 
             <h4>Could Have (Optional Requirements)</h4>
             <ul class="moscow-row">
-
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
@@ -470,8 +479,6 @@
                         <p>The app could provide the ability for users to open other apps through speech.</p>
                     </div>
                 </li>
-
-
             </ul>
 
             <h4>Won't Have</h4>
@@ -488,90 +495,87 @@
                     </div>
                 </li>
             </ul>
+        </div>
 
-            <h3>Non-functional requirements</h3>
+        <h3>Non-functional requirements</h3>
+        <div class="moscow-grid">
+            <h4>Must Have</h4>
+            <ul class="moscow-row">
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Localised Speech Recognition</h5>
+                        <p>The app must be able to process a user speech into a given command locally.</p>
+                    </div>
+                </li>
 
-            <div class="moscow-grid">
-                <h4>Must Have</h4>
-                <ul class="moscow-row">
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Localised Speech Recognition</h5>
-                            <p>The app must be able to process a user speech into a given command locally.</p>
-                        </div>
-                    </li>
-                </ul>
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Interaction with other RESTful APIs</h5>
+                        <p>The app must use other external RESTful APIs to provide services to users.</p>
+                    </div>
+                </li>
 
-                <ul class="moscow-row">
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Interaction with other RESTful APIs</h5>
-                            <p>The app must use other external RESTful APIs to provide services to users.</p>
-                        </div>
-                    </li>
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Speech Synthesis</h5>
+                        <p>The app must provide speech synthesis to give verbal responses from its services.</p>
+                    </div>
+                </li>
 
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Speech Synthesis</h5>
-                            <p>The app must provide speech synthesis to give verbal responses from its services.</p>
-                        </div>
-                    </li>
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Local Data Storage</h5>
+                        <p>Where possible, data storage must be primarily local.</p>
+                    </div>
+                </li>
 
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Local Data Storage</h5>
-                            <p>Where possible, data storage must be primarily local.</p>
-                        </div>
-                    </li>
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Service API interaction as a RESTful API</h5>
+                        <p>The interaction with external RESTful APIs must itself be a standalone component,
+                            implemented as a RESTful API.</p>
+                    </div>
+                </li>
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Integration into wider FISE ecosystem</h5>
+                        <p>IBM FISE Concierge must integrate with the other two teams (Teams 38 and 39) working on
+                            the FISE portfolio of social isolation projects.</p>
+                        <p>Note - we were only notified of this in February.</p>
+                    </div>
+                </li>
+            </ul>
 
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Service API interaction as a RESTful API</h5>
-                            <p>The interaction with external RESTful APIs must itself be a standalone component,
-                                implemented as a RESTful API.</p>
-                        </div>
-                    </li>
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Integration into wider FISE ecosystem</h5>
-                            <p>IBM FISE Concierge must integrate with the other two teams (Teams 39 and 40) working on
-                                the FISE portfolio of social isolation projects.</p>
-                            <p>Note - we were only notified of this in February.</p>
-                        </div>
-                    </li>
-                </ul>
+            <h4>Should Have</h4>
+            <ul class="moscow-row"></ul>
 
-                <h4>Should Have</h4>
-                <ul class="moscow-row"></ul>
+            <h4>Could Have (Optional Requirements)</h4>
+            <ul class="moscow-row">
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Ability to utilise user's location</h5>
+                        <p>The app must be able to process a user speech into a given command locally.</p>
+                    </div>
+                </li>
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Natural Language Processing for User Requests</h5>
+                        <p>Natural language processing could be used to provide a more natural form of verbal
+                            communication with Concierge, as well as providing more flexibility.</p>
+                    </div>
+                </li>
+            </ul>
 
-                <h4>Could Have (Optional Requirements)</h4>
-                <ul class="moscow-row">
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Ability to utilise user's location</h5>
-                            <p>The app must be able to process a user speech into a given command locally.</p>
-                        </div>
-                    </li>
-                    <li class="moscow-item">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <div class="moscow-content">
-                            <h5>Natural Language Processing for User Requests</h5>
-                            <p>Natural language processing could be used to provide a more natural form of verbal
-                                communication with Concierge, as well as providing more flexibility.</p>
-                        </div>
-                    </li>
-                </ul>
-
-                <h4>Won't Have</h4>
-                <ul class="moscow-row"></ul>
-            </div>
+            <h4>Won't Have</h4>
+            <ul class="moscow-row"></ul>
         </div>
     </section>
 </div>

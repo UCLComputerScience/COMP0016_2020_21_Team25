@@ -81,7 +81,8 @@
             <h3>Technology Used</h3>
             <p>Testing a website can seem unintuitive at times but allowed us to uncover unknown issues with the web app
                 that were not picked up during the initial implementation phase. </p>
-            <p>We used the popular testing framework <a rel="noopener" target="_blank" href="https://jestjs.io"><b>Jest</b></a> to test the web app. It
+            <p>We used the popular testing framework <a href="https://jestjs.io" rel="noopener"
+                                                        target="_blank"><b>Jest</b></a> to test the web app. It
                 allows us to mock components
                 (without
                 building them) and manually test individual components without building the entire application; we can
@@ -113,8 +114,11 @@
                 in working order. A single test suite can therefore be used to assure that both the web app and backend
                 (more specifically, the portion of the backend serving the web app) are functioning correctly. </p>
             <p>We can report that all integration tests passed, and the coverage report is shown below: </p>
-            <div class="image-container">
-                <img alt="Coverage report for the web app" src="">
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="Coverage report for the web app" src="assets/images/testing/web-app-coverage.png">
+                <img alt="Coverage report for the web app" src="assets/images/testing/web-app-coverage.png"
+                     tabindex="-1">
             </div>
             <p>It is important to note that some components could not be tested, some examples are given below: </p>
             <p>Some Vue components exist to reduce typing e.g., images – Jest does not allow the local filesystem to be
@@ -168,7 +172,8 @@
                 appearance of the web app on different browsers. </p>
             <p>As previously mentioned, the web app will be used on different browsers and we can confirm that it
                 appears as expected in the four main browsers: Chrome, Edge, Safari and Firefox. </p>
-            <p>During implementation, the tool <a rel="noopener" target="_blank" href="https://caniuse.com">CanIUse</a> was used to determine which CSS
+            <p>During implementation, the tool <a href="https://caniuse.com" rel="noopener" target="_blank">CanIUse</a>
+                was used to determine which CSS
                 attributes were available
                 on
                 which browsers. It also gives a breakdown of the popularity of each browser, allowing us to decide
@@ -178,15 +183,30 @@
 
         <div class="web-app-section centred">
             <h3>Performance Testing</h3>
-            <p><a rel="noopener" target="_blank" href="https://developers.google.com/web/tools/lighthouse">Google Lighthouse</a> was used to gauge the
+            <p><a href="https://developers.google.com/web/tools/lighthouse" rel="noopener" target="_blank">Google
+                Lighthouse</a> was used to gauge the
                 performance of the web app (among its accessibility and
                 search
                 engine optimisation); this is a simple, minimal-effort way of getting a performance report without
                 requiring more advanced performance testing frameworks which are unnecessary given the project scale,
                 deadline and expected load. </p>
-            <p>The Lighthouse report for the Concierge web app is shown below: </p>
-            <div class="image-container">
-                <img alt="Google Lighthouse report" src="">
+            <p>The Lighthouse report for the Concierge web app for desktop (<b>left</b>) and mobile devices
+                (<b>right</b>) is shown below: </p>
+            <div class="lighthouse-reports centred">
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Google Lighthouse report for desktops" src="assets/images/testing/lighthouse-desktop.png">
+                    <img alt="Google Lighthouse report for desktops" src="assets/images/testing/lighthouse-desktop.png"
+                         tabindex="-1">
+                </div>
+
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Google Lighthouse report for mobile devices"
+                         src="assets/images/testing/lighthouse-mobile.png">
+                    <img alt="Google Lighthouse report for mobile devices"
+                         src="assets/images/testing/lighthouse-mobile.png" tabindex="-1">
+                </div>
             </div>
             <p>It is important to note that Google Lighthouse is indeed a rough guide to improving websites and should
                 be taken with a grain of salt.</p>
@@ -342,53 +362,54 @@
 
     <section class="askbob-integration light-page-section">
         <h2>AskBob Integration</h2>
-        <p>Testing the AskBob API presented certain challenges which limited the depth at 
-            which it could be tested. However, we were still able to test the AskBob APIs 
+        <p>Testing the AskBob API presented certain challenges which limited the depth at
+            which it could be tested. However, we were still able to test the AskBob APIs
             to a certain extent. </p>
-        <p>To do this we used the Python testing library <a rel="noopener" target="_blank" href="https://docs.pytest.org/en/stable/"><b>PyTest</b></a>. 
-            This library allows us to easily create tests written in Python which are easy to 
+        <p>To do this we used the Python testing library <a href="https://docs.pytest.org/en/stable/" rel="noopener"
+                                                            target="_blank"><b>PyTest</b></a>.
+            This library allows us to easily create tests written in Python which are easy to
             read and understand. </p>
-            <div class="image-container" style="max-width: 40%">
-                <img alt="PyTest" src="assets/images/testing/pytest.jpeg">
-            </div>
+        <div class="image-container" style="max-width: 40%">
+            <img alt="PyTest" src="assets/images/testing/pytest.jpeg">
+        </div>
 
         <div class="web-app-section centred">
-            <h3>Unit Testing</h2>
+            <h3>Unit Testing</h3>
             <p>
-                Due to the nature API, we found that unit testing was not feasible. 
-                This is caused by the way the AskBob is written due to the fact it utilises RASA. 
-                With RASA it is very difficult to separate the components of a chat bot (or in our 
-                case a voice assistant) as the code behind it is very intertwined. For example, in 
-                our case we were unable to separate the intent recognition of AskBob from the action’s 
+                Due to the nature API, we found that unit testing was not feasible.
+                This is caused by the way the AskBob is written due to the fact it utilises RASA.
+                With RASA it is very difficult to separate the components of a chat bot (or in our
+                case a voice assistant) as the code behind it is very intertwined. For example, in
+                our case we were unable to separate the intent recognition of AskBob from the action’s
                 component. This meant that performing unit tests was not possible. </p>
-                
+
         </div>
         <div class="web-app-section centred">
-            <h3>Integration Testing</h2>
+            <h3>Integration Testing</h3>
             <p>
-                Due to the nature API, we found that unit testing was not feasible. 
-                This is caused by the way the AskBob is written due to the fact it utilises RASA. 
-                With RASA it is very difficult to separate the components of a chat bot (or in our 
-                case a voice assistant) as the code behind it is very intertwined. For example, in 
-                our case we were unable to separate the intent recognition of AskBob from the action’s 
+                Due to the nature API, we found that unit testing was not feasible.
+                This is caused by the way the AskBob is written due to the fact it utilises RASA.
+                With RASA it is very difficult to separate the components of a chat bot (or in our
+                case a voice assistant) as the code behind it is very intertwined. For example, in
+                our case we were unable to separate the intent recognition of AskBob from the action’s
                 component. This meant that performing unit tests was not possible. </p>
-            <p>These tests were organised based on which specific plugins they are intended to test. 
-                Within these plugins all branches of the actions code that are feasibly accessible by a 
-                user are explored. This provides mostly completely branch coverage with a few exceptions 
-                where a branch is realistically unreachable as in certain cases the service APIs will 
-                provide a default response. Additionally, each service is tested with a variety of phrasings 
+            <p>These tests were organised based on which specific plugins they are intended to test.
+                Within these plugins all branches of the actions code that are feasibly accessible by a
+                user are explored. This provides mostly completely branch coverage with a few exceptions
+                where a branch is realistically unreachable as in certain cases the service APIs will
+                provide a default response. Additionally, each service is tested with a variety of phrasings
                 to ensure the robustness of the natural language processing of the AskBob API. </p>
-            <p>One thing to note is that due to the discrepancies that may arise between training sessions 
-                of the NLP model behind the AskBob API there exists a change that a minute amount of these 
+            <p>One thing to note is that due to the discrepancies that may arise between training sessions
+                of the NLP model behind the AskBob API there exists a change that a minute amount of these
                 tests will fail. These will vary between different instances of the AskBob API. </p>
         </div>
         <div class="web-app-section centred">
-            <h3>Performance Testing</h2>
-            <p>Similarly, to the unit tests we found ourselves unable to perform any meaningful performance 
-                testing on the AskBob API. This is in large part due to the Concierge Service API that the 
-                AskBob API utilises to retrieve the data required for a given request. Since the Concierge 
-                Service API is comprised of a collection of APIs it will have varying degrees of performance. 
-                This is caused by the locations in which these APIs are hosted as that will cause different 
+            <h3>Performance Testing</h3>
+            <p>Similarly, to the unit tests we found ourselves unable to perform any meaningful performance
+                testing on the AskBob API. This is in large part due to the Concierge Service API that the
+                AskBob API utilises to retrieve the data required for a given request. Since the Concierge
+                Service API is comprised of a collection of APIs it will have varying degrees of performance.
+                This is caused by the locations in which these APIs are hosted as that will cause different
                 amounts of latency. </p>
         </div>
     </section>
@@ -413,8 +434,12 @@
         <p>All tests pass, providing us with the assurance that we can use our API plugin system to represent any API as
             a JSON schema and turn the API response into a natural language string.</p>
         <p>The coverage report is shown below:</p>
-        <div class="image-container">
-            <img alt="Coverage report for the units tests for the service API" src="">
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img alt="Coverage report for the units tests for the service API"
+                 src="assets/images/testing/schema-coverage-report.png">
+            <img alt="Coverage report for the units tests for the service API"
+                 src="assets/images/testing/schema-coverage-report.png" tabindex="-1">
         </div>
     </section>
 
@@ -432,8 +457,11 @@
             branch if it did not introduce any new issues. </p>
         <p>If we worked in much larger groups, we would have setup the workflow to automatically merge pull requests -
             this feature is unnecessary for our group size.</p>
-        <div class="image-container">
+        <p>Below is the (recent) history of the CI workflow runs</p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
             <img alt="(Recent) History of CI workflow runs" src="">
+            <img alt="(Recent) History of CI workflow runs" src="" tabindex="-1">
         </div>
     </section>
 

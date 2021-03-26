@@ -43,6 +43,14 @@
     margin-bottom: 24px;
 }
 
+.searching-snippets {
+    align-items: flex-start;
+}
+
+.searching-snippets .enlargeable:first-child {
+    margin-right: 48px;
+}
+
 .ask-bob-integration h4 {
     margin-bottom: 0;
 }

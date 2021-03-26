@@ -486,114 +486,114 @@
             This is because of the two options we believe that the advantages Java
             offered outweighed those offered by Python. For starters, speed is important
             as long load times can have a large negative affect on the usability of both our
-            app and our admin website. Secondly, we are all familiar with Java and as such our rate 
-            production of code is unlikely to be greatly affected even though Python is the 
-            syntactically easier language to use. Finally, in this context we value the 
-            decreased memory consumption of Java as the backend is intended to be run locally and 
+            app and our admin website. Secondly, we are all familiar with Java and as such our rate
+            production of code is unlikely to be greatly affected even though Python is the
+            syntactically easier language to use. Finally, in this context we value the
+            decreased memory consumption of Java as the backend is intended to be run locally and
             as such it should be resource light so that it can be more accessible.
-            </p>
+        </p>
     </section>
 
     <section class="light-page-section centred" id="nlp-research">
         <h2>Voice Assistant</h2>
-        <p>One of the highlights of our system will be the voice assistant within the Concierge App. 
-            This voice assistant will utilise natural language processing to decode a user’s command 
+        <p>One of the highlights of our system will be the voice assistant within the Concierge App.
+            This voice assistant will utilise natural language processing to decode a user’s command
             such that users will have an increased amount of freedom of expression.</p>
         <p>
-            When it comes to natural language processing, Python is the go-to language due 
-            to its expensive array of libraries, especially with regards to machine learning. 
+            When it comes to natural language processing, Python is the go-to language due
+            to its expensive array of libraries, especially with regards to machine learning.
             For our NLP library of choice, we considered two options: Spacy and RASA.</p>
 
-            <div class="research-container centred">
-                <div class="centred">
-                    <h3>Spacy</h3>
-                    <p>Spacy is an advanced natural language processing library focused on creating
-                        NLP algorithms which are for production usage. Spacy utilises convolutional
-                        neural network models that allow it to perform speech tagging, tokenizing
-                        and named entity recognition
-                    </p>
-                    <p>If we were to use Spacy to develop our voice assistant, it would offer
-                        the following advantages:</p>
-                    <ul class="centred">
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Speed. Spacy is faster than Rasa
-                        </li>
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Less rigid than Rasa, making it easier to mold to a specific use case
-                        </li>
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Extensive amounts of documentation
-                        </li>
-                    </ul>
-    
-                    <p>However, there were also certain disadvantages with using Spacy:</p>
-    
-                    <ul class="centred">
-                        <li>
-                            <ion-icon name="close"></ion-icon>
-                            It can be difficult and time consuming to write training data for Spacy
-                        </li>
-                        <li>
-                            <ion-icon name="close"></ion-icon>
-                            Is more complex to work with than Rasa
-                        </li>
-                    </ul>
-                </div>
-    
-                <div class="centred">
-                    <h3>Rasa</h3>
-                    <p>Rasa is a natural language processing framework designed specifically for
-                        building contextual voice assistants. Rasa builds upon Spacy and abstracts
-                        some of the complexities of machine learning. It provides many of the same
-                        features as Spacy such as name entity recognition or tokenizing.
-                    </p>
-                    <p>If we were to use Rasa to develop our backend, it would provide
-                        the following advantages:</p>
-                    <ul class="centred">
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Easier to use compared to Spacy
-                        </li>
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Faster and easier to write training data for Rasa
-                        </li>
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Extensive documentation
-                        </li>
-                        <li>
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                            Has built in features that allow it to be exposed as an API
-                        </li>
-                    </ul>
-    
-                    <p>However, there are also disadvantages with Rasa:</p>
-    
-                    <ul class="centred">
-                        <li>
-                            <ion-icon name="close"></ion-icon>
-                            Slower than Spacy
-                        </li>
-                        <li>
-                            <ion-icon name="close"></ion-icon>
-                            Can be less flexible than Spacy
-                        </li>
-                    </ul>
-                </div>
+        <div class="research-container centred">
+            <div class="centred">
+                <h3>Spacy</h3>
+                <p>Spacy is an advanced natural language processing library focused on creating
+                    NLP algorithms which are for production usage. Spacy utilises convolutional
+                    neural network models that allow it to perform speech tagging, tokenizing
+                    and named entity recognition
+                </p>
+                <p>If we were to use Spacy to develop our voice assistant, it would offer
+                    the following advantages:</p>
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Speed. Spacy is faster than Rasa
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Less rigid than Rasa, making it easier to mold to a specific use case
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Extensive amounts of documentation
+                    </li>
+                </ul>
+
+                <p>However, there were also certain disadvantages with using Spacy:</p>
+
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        It can be difficult and time consuming to write training data for Spacy
+                    </li>
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Is more complex to work with than Rasa
+                    </li>
+                </ul>
             </div>
 
-            <p style="padding-top: 32px">
-                For our app's voice assistant we elected to utilise Spacy. The main factor behind this 
-                decision was speed. As mentioned above speed plays an important part in the system as 
-                it can drastically impact usablity and lower the standard of a users experience. While speed
-                was the main factor considered in this decision, Spacy's increased flexibility was also
-                considered as it would give us greater customisation over the voice assistant and its capabilities.
+            <div class="centred">
+                <h3>Rasa</h3>
+                <p>Rasa is a natural language processing framework designed specifically for
+                    building contextual voice assistants. Rasa builds upon Spacy and abstracts
+                    some of the complexities of machine learning. It provides many of the same
+                    features as Spacy such as name entity recognition or tokenizing.
                 </p>
-    
+                <p>If we were to use Rasa to develop our backend, it would provide
+                    the following advantages:</p>
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Easier to use compared to Spacy
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Faster and easier to write training data for Rasa
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Extensive documentation
+                    </li>
+                    <li>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                        Has built in features that allow it to be exposed as an API
+                    </li>
+                </ul>
+
+                <p>However, there are also disadvantages with Rasa:</p>
+
+                <ul class="centred">
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Slower than Spacy
+                    </li>
+                    <li>
+                        <ion-icon name="close"></ion-icon>
+                        Can be less flexible than Spacy
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="padding-top: 32px">
+            For our app's voice assistant we elected to utilise Spacy. The main factor behind this
+            decision was speed. As mentioned above speed plays an important part in the system as
+            it can drastically impact usablity and lower the standard of a users experience. While speed
+            was the main factor considered in this decision, Spacy's increased flexibility was also
+            considered as it would give us greater customisation over the voice assistant and its capabilities.
+        </p>
+
     </section>
 </div>
 <footer id="footer"></footer>
