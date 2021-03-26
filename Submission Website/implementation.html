@@ -137,10 +137,12 @@
             <p>In essence, when performing an API call with the
                 <code>axios.request()</code>
                 method, the object returned is a <b>Promise</b>. A
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" rel="noopener"
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                   rel="noopener"
                    target="_blank">Promise</a>
-                is an object representing the eventual completion or failure of an asynchronous operation (MDN
-                Web Docs, 2021). The backend response was wrapped in a Promise (by the axios library) which resolves
+                is an object representing the eventual completion or failure of an asynchronous operation (Promise -
+                JavaScript | MDN, 2021). The backend response was wrapped in a Promise (by the axios library) which
+                resolves
                 into the JSON response when the backend responds; this happens automatically, handled by the Promise
                 API.</p>
             <p>As a result, we could make API calls and then set the required data when a response is received; once
@@ -168,7 +170,7 @@
                 library) is a mechanism allowing for persistent data storage.</p>
             <p>Vuex is a state management pattern + library for Vue.js applications. It serves as a centralised store
                 for all the components in an application, with rules ensuring that the state can only be mutated in a
-                predictable fashion (Vuex Documentation, 2021).</p>
+                predictable fashion (What is Vuex? | Vuex, 2021).</p>
             <p>In the web app, Vuex is used to store the username of the logged-in user. This prevents the user from
                 having to login whenever they switch pages and also allows them to remain logged in even after exiting
                 the web app. The username is cleared from the store when the user manually logs out.</p>
@@ -430,12 +432,69 @@
 
     <section class="services-api light-page-section">
         <h2>Services API</h2>
+        <p>The API service interaction is designed to be highly extensible with two methods to adding new services.</p>
+        <div class="methods centred">
+            <div class="json-schema-section">
+                <h3>JSON Schema</h3>
+                <p>This Java package greatly simplifies the extension of Concierge's already rich API interaction
+                    ecosystem. It also allows
+                    for new services to be added in a language-independent manner, providing a simple and intuitive, yet
+                    powerful interface.</p>
+                <p>Adding a new service assumes, and requires, prior knowledge of the API, its endpoints, required URL
+                    parameters and
+                    response structure. Prior knowledge about HTTP status codes (and what they mean) used by the API are
+                    required for custom
+                    exception reporting.
+                <p>
+
+                <p>For most services, the JSON schema should be sufficient to perform and parse API calls. However,
+                    there are some limitations with the schema; to circumvent these, the service can be implemented as a
+                    Java.</p>
+
+                <p>See the example schema below (the API key has been omitted):</p>
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="JSON Schema" src="assets/images/implementation/json-schema.png">
+                    <img alt="JSON Schema" src="assets/images/implementation/json-schema.png"
+                         tabindex="-1">
+                </div>
+                <p>The <code>message</code> field gives an indication as to what the natural language string returned
+                    will be.</p>
+                <p>More information on how this works and possible configurations can be found in our GitHub
+                    <a href="https://github.com/UCLComputerScience/COMP0016_2020_21_Team25/wiki/Adding-Services"
+                       target="_blank" rel="noopener">wiki</a>.</p>
+            </div>
+            <div class="v-divider"></div>
+            <div class="java-class-section">
+                <h3>Java Class</h3>
+                <p>Naturally, there are some limitations with string parsing (detailed in the wiki).</p>
+                <p>To get around these limitations, a Java class can be used instead for more fine-grained control over
+                    the JSON response object parsing.</p>
+                <p>The new service will have to extend an abstract class, <code>AbstractServiceRequest</code>
+                    shown below with some omissions:</p>
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Abstract Service Request" src="assets/images/implementation/service-api-java-class.png">
+                    <img alt="Abstract Service Request" src="assets/images/implementation/service-api-java-class.png"
+                         tabindex="-1">
+                </div>
+            </div>
+        </div>
+        <p>Note that this is to extend the Service API interaction, without any NLP or inclusion in the FISE Concierge
+            ecosystem.</p>
     </section>
 
-    <section class="centred">
+    <section class="references centred">
         <h2>References</h2>
-        <p>MDN Web Docs ...</p>
-        <p>Vuex ...</p>
+        <p>Developer.mozilla.org. 2021. Promise - JavaScript | MDN. [online] Available at:
+            &lt;https:
+            //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise&gt; [Accessed 26 March
+            2021].
+        </p>
+        <p>Next.vuex.vuejs.org. 2021. What is Vuex? | Vuex. [online] Available at:
+            &lt;https:
+            //next.vuex.vuejs.org&gt; [Accessed 26 March 2021].
+        </p>
     </section>
 
 </div>

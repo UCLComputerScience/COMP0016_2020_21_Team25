@@ -73,6 +73,7 @@ code, pre {
     background-color: #F1F1F1;
     padding: 2px;
     font-size: 16px;
+    white-space: pre-wrap;
 }
 
 .bash-cmd {
@@ -209,6 +210,7 @@ img, video {
 
 .enlargeable.enlarged img:last-child {
     display: block;
+    width: auto;
 }
 
 .enlargeable.enlarged img:last-child:focus {
@@ -262,4 +264,12 @@ img, video {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.v-divider {
+    height: 100%;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.15);
+    margin-top: 16px;
+    margin-bottom: 16px;
 }

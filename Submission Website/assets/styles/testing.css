@@ -44,3 +44,7 @@
     height: 100%;
     border-radius: inherit;
 }
+
+.testing-references p {
+    text-align: left;
+}

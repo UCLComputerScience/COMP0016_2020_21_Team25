@@ -56,7 +56,99 @@
     </section>
 
     <section class="light-page-section centred">
-        <h2>Design Principles and Pattern</h2>
+        <h2>Design Principles and Patterns</h2>
+        <p></p>
+        <div class="centred design-principles-and-patterns">
+            <div class="principles">
+                <h3>Design Principles</h3>
+                <br>
+                <h4>MVC design principle</h4>
+                <p>Given that the app will have a UI, database interactions and functionality, the MVC architecture was
+                    a
+                    natural fit for the app
+                    where the UI will be managed by classes under the 'views' package, database quereies and structure
+                    through classes in the 'model' package
+                    and functionality through classes under the 'controllers' package. See the architecture diagram for
+                    a
+                    visual representation of this.
+                    Aside from this, no other design pattern was employed. This was because code was split across over
+                    80
+                    classes each of which was very different from the next.
+                    Even classes within the same packages would differ widely from each other containing vastly
+                    different
+                    methods taking different parameters and returning different
+                    values and also took different values in their constructors. This meant that the use of design
+                    patterns
+                    would only over complicate the system, defeating the
+                    point of design patterns. However, other good programming practises were employed. See details
+                    below.
+                    Makes it easier for developers to expand on and
+                    use existing functionality. For example, if they add a new feature which requires opening a URL,
+                    they
+                    can just use the openUrl method in MainController
+                    to do this without ever needing to understanding how this is done/implemented, hence abstracting
+                    away
+                    the existing complexity of the code and system.</p>
+                <h4>Seperation of Concern Principle</h4>
+                <p>We used this principle to ensure that each class was doing one main thing. This would ensure that
+                    code
+                    would be cleaner and easier to understand.
+                    Code is also easier to test, debug and fix. We went further and within each class, split the code
+                    into
+                    modules so that each module was doing one key thing.
+                    This also makes it easier for developers to add code.</p>
+                <h4>Modularised and Packaged Code</h4>
+                <p>Code is split into several well named packages and within each well named class we have well named
+                    method
+                    names which are concise yet descriptive.
+                    This makes it easy to find code, read code, understand code, navigate files and extend the system
+                    further.</p>
+            </div>
+            <div class="v-divider"></div>
+            <div class="patterns">
+                <h3>Design Patterns</h3>
+                <h4>Creational</h4>
+                <ul>
+                    <li>
+                        <h5>Singleton</h5>
+                        <p>The main controller needs to be a singleton to ensure all object references to the main
+                            controller in all parts of the app will have the same state </p>
+                    </li>
+                    <li>
+                        <h5>Factory</h5>
+                        <p>The main controller, being a singleton object, will be accessed through a factory object.</p>
+                        <p>The main controller will be needed in different view controllers, as well as the service and
+                            backend interaction, all of which do not have references to each other. </p>
+                    </li>
+                </ul>
+                <h4>Structural</h4>
+                <ul>
+                    <li>
+                        <h5>Adapter</h5>
+                        <p>The data model converts data received from the backend into the form required by the main
+                            controller (and vice versa).</p>
+
+                        <p>The service API interaction converts JSON data received from an API into a set of English
+                            sentences to be spoken aloud to the user. </p>
+                    </li>
+                </ul>
+
+                <h4>Behavioural</h4>
+                <ul>
+                    <li>
+                        <h5>Template</h5>
+                        <p>Each service request object will extend an abstract service request object which builds the
+                            HTTP response. </p>
+                    </li>
+                    <li>
+                        <h5>Command</h5>
+                        <p>A service request object represents a HTTP request to a service and its information is passed
+                            to a request handler object to build the URL query, perform the API request and return the
+                            JSON data, also handling any HTTP errors. </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <section class="android-app">
@@ -137,39 +229,6 @@
             <p>This activity is where users can enter their three registration codes to connect to their admin.</p>
             <h3>AboutActivity</h3>
             <p>This activity provides some information about the developers, clients and the product itself.</p>
-        </div>
-        <div>
-            <h2>Code Architecture</h2>
-            <h3>MVC design principle</h3>
-            <p>Given that the app will have a UI, database interactions and functionality, the MVC architecture was a
-                natural fit for the app
-                where the UI will be managed by classes under the 'views' package, database quereies and structure
-                through classes in the 'model' package
-                and functionality through classes under the 'controllers' package. See the architecture diagram for a
-                visual representation of this.
-                Aside from this, no other design pattern was employed. This was because code was split across over 80
-                classes each of which was very different from the next.
-                Even classes within the same packages would differ widely from each other containing vastly different
-                methods taking different parameters and returning different
-                values and also took different values in their constructors. This meant that the use of design patterns
-                would only over complicate the system, defeating the
-                point of design patterns. However, other good programming practises were employed. See details below.
-                Makes it easier for developers to expand on and
-                use existing functionality. For example, if they add a new feature which requires opening a URL, they
-                can just use the openUrl method in MainController
-                to do this without ever needing to understanding how this is done/implemented, hence abstracting away
-                the existing complexity of the code and system.</p>
-            <h3>Seperation of Concern Principle</h3>
-            <p>We used this principle to ensure that each class was doing one main thing. This would ensure that code
-                would be cleaner and easier to understand.
-                Code is also easier to test, debug and fix. We went further and within each class, split the code into
-                modules so that each module was doing one key thing.
-                This also makes it easier for developers to add code.</p>
-            <h3>Modularised and Packaged Code</h3>
-            <p>Code is split into several well named packages and within each well named class we have well named method
-                names which are concise yet descriptive.
-                This makes it easy to find code, read code, understand code, navigate files and extend the system
-                further.</p>
         </div>
     </section>
 
@@ -270,11 +329,99 @@
     <section class="light-page-section centred">
         <h2>Data Storage and Entity Relations</h2>
         <p>We had two databases: a cloud database which would be the more widely used data storage system (for the Admin
-            site, FISE Logs etc.). However, we also had localised storage used to store reminders and alarms.</p>
+            site, FISE Logs etc.).</p>
+        <p>Here is our cloud database schema:</p>
+        <code>
+            CREATE TABLE PROFILE_PICTURE
+            (
+            PICTURE_ID SMALLINT NOT NULL GENERATED BY DEFAULT AS IDENTITY (START WITH 1 INCREMENT BY 1),
+            PICTURE VARCHAR(255) NOT NULL,
+            PRIMARY KEY (PICTURE_ID)
+            );
+
+            CREATE TABLE ADMIN
+            (
+            USERNAME VARCHAR(32) NOT NULL,
+            FIRST_NAME VARCHAR(35) NOT NULL,
+            LAST_NAME VARCHAR(35) NOT NULL,
+            PHONE_NUMBER CHAR(11) NOT NULL,
+            EMAIL VARCHAR(320) NOT NULL,
+            PICTURE_ID SMALLINT,
+            PRIMARY KEY (USERNAME),
+            FOREIGN KEY (PICTURE_ID) REFERENCES PROFILE_PICTURE(PICTURE_ID)
+            );
+
+            CREATE TABLE USER
+            (
+            USER_ID INT NOT NULL GENERATED BY DEFAULT AS IDENTITY (START WITH 1 INCREMENT BY 1),
+            FIRST_NAME VARCHAR(35) NOT NULL,
+            LAST_NAME VARCHAR(35) NOT NULL,
+            PHONE_NUMBER CHAR(11) NOT NULL,
+            PREFIX VARCHAR(5) NOT NULL,
+            PICTURE_ID SMALLINT,
+            PRIMARY KEY (USER_ID),
+            FOREIGN KEY (PICTURE_ID) REFERENCES PROFILE_PICTURE(PICTURE_ID)
+            );
+
+            CREATE TABLE SERVICE
+            (
+            SERVICE_ID INT NOT NULL GENERATED BY DEFAULT IDENTITY (START WITH 1 INCREMENT BY 1),
+            NAME VARCHAR(30) NOT NULL,
+            CATEGORY VARCHAR(20) NOT NULL,
+            ICON VARCHAR(255),
+            DESCRIPTION VARCHAR(255) NOT NULL,
+            PRIMARY KEY (SERVICE_ID)
+            );
+
+            CREATE TABLE SERVICE_LOG
+            (
+            SERVICE_ID INT NOT NULL,
+            USER_ID INT NOT NULL,
+            LOG_DATE DATE NOT NULL,
+            LOG_TIME TIME NOT NULL,
+            PRIMARY KEY (SERVICE_ID, USER_ID),
+            FOREIGN KEY (SERVICE_ID) REFERENCES SERVICE(SERVICE_ID),
+            FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+            );
+
+            CREATE TABLE ADMIN_CIRCLE
+            (
+            USERNAME VARCHAR(32) NOT NULL,
+            USER_ID INT NOT NULL,
+            PRIMARY KEY (USERNAME, USER_ID),
+            FOREIGN KEY (USERNAME) REFERENCES ADMIN(USERNAME),
+            FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+            );
+
+            CREATE TABLE USER_SERVICE
+            (
+            SERVICE_ID INT NOT NULL,
+            USER_ID INT NOT NULL,
+            PRIMARY KEY (SERVICE_ID, USER_ID),
+            FOREIGN KEY (SERVICE_ID) REFERENCES SERVICE(SERVICE_ID),
+            FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+            );
+
+            CREATE TABLE REGISTRATION_CODES (
+            FIRST_WORD VARCHAR(32) NOT NULL,
+            SECOND_WORD VARCHAR(32) NOT NULL,
+            LAST_WORD VARCHAR(32) NOT NULL,
+            USERNAME VARCHAR(32) NOT NULL,
+            USER_ID INT NOT NULL,
+            PRIMARY KEY(FIRST_WORD, SECOND_WORD, LAST_WORD),
+            FOREIGN KEY (USERNAME) REFERENCES ADMIN(USERNAME),
+            FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID)
+            );
+        </code>
+        <p>And the ER diagram:</p>
         <div class="er-div">
             <img class="er-img" src="assets/images/design/Cloud ER diagram.png"/>
             <br>
             <img class="er-img" src="assets/images/design/Person ER diagram.png"/>
+        </div>
+        <p>However, most of this information is not editable by the elderly user - only a limited amount of data will be
+            stored on the device, in local storage:</p>
+        <div class="er-div">
             <img class="er-img" src="assets/images/design/Localised Storage ER diagram.png"/>
         </div>
     </section>
@@ -282,12 +429,6 @@
     <section>
         <h2>Sequence Diagram</h2>
     </section>
-
-
-    <section class="light-page-section">
-        <h2>References</h2>
-    </section>
-
 </div>
 <footer id="footer"></footer>
 </body>
