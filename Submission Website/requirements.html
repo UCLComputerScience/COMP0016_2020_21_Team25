@@ -270,13 +270,12 @@
 
     <section class="usecase-diagram">
         <h2>Use Case Diagrams</h2>
-        <p> We created three Use Case diagrams to illustrate how users would interact with our system. </p>
-        <p> We split the system into three distinct sections and created a Use Case diagram for each: one for Elderly
-            Users, the second for Admins and the final one for the Backend.</p>
+        <p> We created two Use Case diagrams to illustrate how users would interact with our system. </p>
+        <p> We split the system based on the two main user interactable components, the Concierge App and 
+            the admin website. We then created Use Case diagrams for each</p>
         <div class="usecase-diagram-div">
             <img class="usecase-diagram-img" src="assets/images/requirements/Elderly User Use Case Diagram.jpg"/>
             <img class="usecase-diagram-img" src="assets/images/requirements/Admin Use Case Diagram.jpg"/>
-            <img class="usecase-diagram-img" src="assets/images/requirements/Backend Use Case Diagram.jpg"/>
         </div>
     </section>
 
@@ -286,14 +285,15 @@
         <p>Using all the data we had gathered from both our clients and our users, we were able to create our Moscow
             list of requirements.</p>
 
+        <h3>Functional Requirements</h3>
         <div class="moscow-grid">
-            <h3>Must Have</h3>
+            <h4>Must Have</h4>
             <ul class="moscow-row">
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Mobile App</h4>
-                        <p>The FISE Concierge Virtual Assistant must be available as an easy to use and intuitive
+                        <h5>Mobile App</h5>
+                        <p>The IBM FISE Concierge Virtual Assistant must be available as an easy to use and intuitive
                             app.</p>
                     </div>
                 </li>
@@ -301,103 +301,277 @@
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Local Speech Recognition</h4>
-                        <p>The app must be able to process a user speech into a given command locally.</p>
+                        <h5>Simple UI</h5>
+                        <p>The app must have a simple interface, with minimal menus, making it easy to use for the
+                            elderly.</p>
                     </div>
                 </li>
 
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Speech Synthesis</h4>
-                        <p>The app must be able to relay information back to the user using synthesised speech.</p>
+                        <h5>Call loved ones</h5>
+                        <p>The app should allow users to call people on their contact list.</p>
                     </div>
                 </li>
 
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>FISE Logs/Data Storage</h4>
-                        <p>The system must be able to store data about users interactions with the virtual assistant. It
+                        <h5>Message loved ones</h5>
+                        <p>The app should allow users to SMS message people on their contact list.</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Open/Search Websites</h5>
+                        <p>The app should allow users to open and search websites in their default browser.</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Food-related Service APIs</h5>
+                        <p>The app should provide services centred around food (e.g., recipes, dietary information
+                            etc.).</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Weather Information Service APIs</h5>
+                        <p>The app should provide services centred around weather information (e.g., current weather,
+                            forecasts, air quality etc.).</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Transport Information Service APIs</h5>
+                        <p>The app should provide services centred around transport information (e.g., nearest bus/train
+                            station etc.).</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>FISE Logs/Data Storage</h5>
+                        <p>The system must be able to store data about user's interactions with the virtual assistant.
+                            It
                             must also store relevant data for each user.</p>
                     </div>
                 </li>
 
-                <li class="moscow-item">
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                    <div class="moscow-content">
-                        <h4>Third-Party Services</h4>
-                        <p>The system must be able to utilise third-party services that are relevant to the user's
-                            experience. These services must be available through RESTful APIs.</p>
-                    </div>
-                </li>
 
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Admin Panel</h4>
+                        <h5>Admin Panel</h5>
                         <p>The system must provide an interface for loved ones to monitor and enable elderly users
                             interactions with the Concierge app.</p>
                     </div>
                 </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Add/Remove Services from Elderly Users</h5>
+                        <p>The admin panel should allow admins to add and remove services from elderly user's
+                            accounts.</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Manage Elderly user data</h5>
+                        <p>The admin panel should provide admins with the ability to modify the data of the users that
+                            they control (e.g., phone number, name etc.).</p>
+                    </div>
+                </li>
+
             </ul>
 
-            <h3>Should Have</h3>
+            <h4>Should Have</h4>
             <ul class="moscow-row">
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Alarms</h4>
-                        <p>The app should allow users to create, read, update and delete Alarms.</p>
+                        <h5>Alarms</h5>
+                        <p>The app should allow users to create, read, update and delete alarms.</p>
                     </div>
                 </li>
 
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Check-ins with loved ones</h4>
-                        <p>The app should allow users to connect with their loved ones in the form of check-ins. These
-                            can include phone calls or short SMS messages.</p>
+                        <h5>Reminders</h5>
+                        <p>The app could provide the ability for users to create, read, update and delete reminders.</p>
                     </div>
                 </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Timers</h5>
+                        <p>The app could provide the ability for users to create timers.</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Search Device for Contacts</h5>
+                        <p>The app should have the ability to search the device's contacts based on the user's speech
+                            input.</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Entertainment Service APIs</h5>
+                        <p>The app should provide services centred around entertainment (e.g., books, news etc.).</p>
+                    </div>
+                </li>
+
+                <li class="moscow-item">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <div class="moscow-content">
+                        <h5>Finance Service APIs</h5>
+                        <p>The app should provide services centred around finance (e.g., stocks).</p>
+                    </div>
+                </li>
+
             </ul>
 
-            <h3>Could Have</h3>
+            <h4>Could Have (Optional Requirements)</h4>
             <ul class="moscow-row">
+
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Reminders</h4>
-                        <p>The app could provide the ability for users to create, read, update and delete Reminders.</p>
+                        <h5>Query backend for user info (e.g., GP Phone number)</h5>
+                        <p>The system could store relevant user information (e.g., GP phone number) in the backend,
+                            allowing the admin to modify this information and to be used by the app.</p>
                     </div>
                 </li>
 
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Timers</h4>
-                        <p>The app could provide the ability for users to create Timers.</p>
+                        <h5>Device Navigation</h5>
+                        <p>The app could provide the ability for users to open other apps through speech.</p>
                     </div>
                 </li>
 
-                <li class="moscow-item">
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                    <div class="moscow-content">
-                        <h4>Checking Bank Balance</h4>
-                        <p>The app could provide the ability for users to check their bank balance.</p>
-                    </div>
-                </li>
 
+            </ul>
+
+            <h4>Won't Have</h4>
+            <ul class="moscow-grid">
                 <li class="moscow-item">
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                     <div class="moscow-content">
-                        <h4>Multi-Lingual Support</h4>
-                        <p>The app could support multiple different languages.</p>
+                        <h5>Multi-Lingual Support</h5>
+                        <p>It was suggested to us, by our clients, that the app could support multiple different
+                            languages. However, is simply not enough time to work on the translations needed to support
+                            multiple different languages. Additionally, we plan to use natural language processing,
+                            meaning it would be extremely time-consuming trying to perform NLP in different
+                            languages.</p>
                     </div>
                 </li>
             </ul>
 
-            <h3>Won't Have</h3>
+            <h3>Non-functional requirements</h3>
+
+            <div class="moscow-grid">
+                <h4>Must Have</h4>
+                <ul class="moscow-row">
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Localised Speech Recognition</h5>
+                            <p>The app must be able to process a user speech into a given command locally.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="moscow-row">
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Interaction with other RESTful APIs</h5>
+                            <p>The app must use other external RESTful APIs to provide services to users.</p>
+                        </div>
+                    </li>
+
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Speech Synthesis</h5>
+                            <p>The app must provide speech synthesis to give verbal responses from its services.</p>
+                        </div>
+                    </li>
+
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Local Data Storage</h5>
+                            <p>Where possible, data storage must be primarily local.</p>
+                        </div>
+                    </li>
+
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Service API interaction as a RESTful API</h5>
+                            <p>The interaction with external RESTful APIs must itself be a standalone component,
+                                implemented as a RESTful API.</p>
+                        </div>
+                    </li>
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Integration into wider FISE ecosystem</h5>
+                            <p>IBM FISE Concierge must integrate with the other two teams (Teams 39 and 40) working on
+                                the FISE portfolio of social isolation projects.</p>
+                            <p>Note - we were only notified of this in February.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <h4>Should Have</h4>
+                <ul class="moscow-row"></ul>
+
+                <h4>Could Have (Optional Requirements)</h4>
+                <ul class="moscow-row">
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Ability to utilise user's location</h5>
+                            <p>The app must be able to process a user speech into a given command locally.</p>
+                        </div>
+                    </li>
+                    <li class="moscow-item">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <div class="moscow-content">
+                            <h5>Natural Language Processing for User Requests</h5>
+                            <p>Natural language processing could be used to provide a more natural form of verbal
+                                communication with Concierge, as well as providing more flexibility.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <h4>Won't Have</h4>
+                <ul class="moscow-row"></ul>
+            </div>
         </div>
     </section>
 </div>

@@ -81,7 +81,7 @@
             <h3>Technology Used</h3>
             <p>Testing a website can seem unintuitive at times but allowed us to uncover unknown issues with the web app
                 that were not picked up during the initial implementation phase. </p>
-            <p>We used the popular testing framework <a href="https://jestjs.io"><b>Jest</b></a> to test the web app. It
+            <p>We used the popular testing framework <a rel="noopener" target="_blank" href="https://jestjs.io"><b>Jest</b></a> to test the web app. It
                 allows us to mock components
                 (without
                 building them) and manually test individual components without building the entire application; we can
@@ -139,7 +139,7 @@
             <p>To circumvent these limitations with Jest, these components and aspects were tested manually during
                 development; while on its own, line coverage is not the be-all-end-all for testing, manual testing still
                 provides us with the assurance that the web app functions correctly. </p>
-            <p>The total amount of unit and integration tests amounts to 138.</p>
+            <p>The total amount of unit and integration tests amounts to 139.</p>
         </div>
 
         <div class="web-app-section centred">
@@ -168,7 +168,7 @@
                 appearance of the web app on different browsers. </p>
             <p>As previously mentioned, the web app will be used on different browsers and we can confirm that it
                 appears as expected in the four main browsers: Chrome, Edge, Safari and Firefox. </p>
-            <p>During implementation, the tool <a href="https://caniuse.com">CanIUse</a> was used to determine which CSS
+            <p>During implementation, the tool <a rel="noopener" target="_blank" href="https://caniuse.com">CanIUse</a> was used to determine which CSS
                 attributes were available
                 on
                 which browsers. It also gives a breakdown of the popularity of each browser, allowing us to decide
@@ -178,7 +178,7 @@
 
         <div class="web-app-section centred">
             <h3>Performance Testing</h3>
-            <p><a href="https://developers.google.com/web/tools/lighthouse">Google Lighthouse</a> was used to gauge the
+            <p><a rel="noopener" target="_blank" href="https://developers.google.com/web/tools/lighthouse">Google Lighthouse</a> was used to gauge the
                 performance of the web app (among its accessibility and
                 search
                 engine optimisation); this is a simple, minimal-effort way of getting a performance report without
@@ -249,9 +249,9 @@
             to be run individually as running all the tests in the 'test' package at once will cause them to fail - this
             is not because of our tests and
             is more of an Android Studio bug [see Bugs under Evaluation].
-			Please note this was also used for tests which did not use Android API calls as using Robolectric provided a
-			sandbox environment which could mock a real time Android setup and allow us to test other features such as 
-			making Http requests to our server which we could not do in standard unit tests.</p>
+            Please note this was also used for tests which did not use Android API calls as using Robolectric provided a
+            sandbox environment which could mock a real time Android setup and allow us to test other features such as
+            making Http requests to our server which we could not do in standard unit tests.</p>
         <h3>Instrumentation Testing</h3>
         <p>Instrumentation tests are UI tests which run on an emulator/device. We wrote these tests to provide a way to
             assert the UI was
@@ -369,7 +369,26 @@
         </div>
     </section>
 
-    <section class="testing-references light-page-section centred">
+    <section class="ci light-page-section">
+        <h2>Continuous Integration</h2>
+        <p>A continuous integration provides us with some assurance that we are breaking existing code in our system
+            when pushing changes to our repository.</p>
+        <p>Continuous integration also promotes the development of testable code, of a higher quality.</p>
+        <p>We did not feel the need to go for a fully-fledged continuous integration suite like Travis CI as GitHub
+            actions (since our repository is already on GitHub) was sufficient for our use case.</p>
+        <p>GitHub actions run tasks on every push or pull request and we used this to run all of our tests after each
+            repository update.</p>
+        <p>A <code>develop</code>
+            branch was used to introduce new features and manually merged to the <code>main</code>
+            branch if it did not introduce any new issues. </p>
+        <p>If we worked in much larger groups, we would have setup the workflow to automatically merge pull requests -
+            this feature is unnecessary for our group size.</p>
+        <div class="image-container">
+            <img alt="(Recent) History of CI workflow runs" src="">
+        </div>
+    </section>
+
+    <section class="testing-references ">
         <h2>References</h2>
     </section>
 
