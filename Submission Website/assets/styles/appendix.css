@@ -23,3 +23,8 @@ h4, h3 {
 .license-body {
     max-width: 75%;
 }
+
+.web-app-manual .enlargeable {
+    margin-top: 64px;
+    margin-bottom: 64px;
+}
