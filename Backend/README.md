@@ -39,6 +39,14 @@ You can also start the application using a Python script with the following comm
     
 This requires python to be installed.
 
+or simplicity, a shell script is included to run the backend as a RESTful API:
+
+    ./backend
+
+Depending on your system configuration, you may need to give the script execution permissions which can only be done with administrator privileges (`sudo`):
+
+     sudo chmod +x backend
+
 
 ### Command Line Arguments
 
