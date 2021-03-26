@@ -104,7 +104,7 @@
                     <p>The backend can then be built using the following terminal command:</p>
                     <code class="bash-cmd">docker build --tag backend .</code>
                     <p>And to then start the backend application (whilst in the "Backend" directory):</p>
-                    <code class="bash-cmd">docker run --rm backend backend</code>
+                    <code class="bash-cmd">docker run --rm -it -p 8100:8100 backend backend</code>
                     <p>It is recommended that you always start the backend before the web application.</p>
                 </div>
 
