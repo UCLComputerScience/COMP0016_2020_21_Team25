@@ -342,6 +342,55 @@
 
     <section class="askbob-integration light-page-section">
         <h2>AskBob Integration</h2>
+        <p>Testing the AskBob API presented certain challenges which limited the depth at 
+            which it could be tested. However, we were still able to test the AskBob APIs 
+            to a certain extent. </p>
+        <p>To do this we used the Python testing library <a rel="noopener" target="_blank" href="https://docs.pytest.org/en/stable/"><b>PyTest</b></a>. 
+            This library allows us to easily create tests written in Python which are easy to 
+            read and understand. </p>
+            <div class="image-container" style="max-width: 40%">
+                <img alt="PyTest" src="assets/images/testing/pytest.jpeg">
+            </div>
+
+        <div class="web-app-section centred">
+            <h3>Unit Testing</h2>
+            <p>
+                Due to the nature API, we found that unit testing was not feasible. 
+                This is caused by the way the AskBob is written due to the fact it utilises RASA. 
+                With RASA it is very difficult to separate the components of a chat bot (or in our 
+                case a voice assistant) as the code behind it is very intertwined. For example, in 
+                our case we were unable to separate the intent recognition of AskBob from the action’s 
+                component. This meant that performing unit tests was not possible. </p>
+                
+        </div>
+        <div class="web-app-section centred">
+            <h3>Integration Testing</h2>
+            <p>
+                Due to the nature API, we found that unit testing was not feasible. 
+                This is caused by the way the AskBob is written due to the fact it utilises RASA. 
+                With RASA it is very difficult to separate the components of a chat bot (or in our 
+                case a voice assistant) as the code behind it is very intertwined. For example, in 
+                our case we were unable to separate the intent recognition of AskBob from the action’s 
+                component. This meant that performing unit tests was not possible. </p>
+            <p>These tests were organised based on which specific plugins they are intended to test. 
+                Within these plugins all branches of the actions code that are feasibly accessible by a 
+                user are explored. This provides mostly completely branch coverage with a few exceptions 
+                where a branch is realistically unreachable as in certain cases the service APIs will 
+                provide a default response. Additionally, each service is tested with a variety of phrasings 
+                to ensure the robustness of the natural language processing of the AskBob API. </p>
+            <p>One thing to note is that due to the discrepancies that may arise between training sessions 
+                of the NLP model behind the AskBob API there exists a change that a minute amount of these 
+                tests will fail. These will vary between different instances of the AskBob API. </p>
+        </div>
+        <div class="web-app-section centred">
+            <h3>Performance Testing</h2>
+            <p>Similarly, to the unit tests we found ourselves unable to perform any meaningful performance 
+                testing on the AskBob API. This is in large part due to the Concierge Service API that the 
+                AskBob API utilises to retrieve the data required for a given request. Since the Concierge 
+                Service API is comprised of a collection of APIs it will have varying degrees of performance. 
+                This is caused by the locations in which these APIs are hosted as that will cause different 
+                amounts of latency. </p>
+        </div>
     </section>
 
     <section class="services-api centred">
