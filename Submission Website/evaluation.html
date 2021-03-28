@@ -65,19 +65,31 @@
             few bugs with the
             technology we used to develop the app which may be worth discussing.</p>
         <h4>1. Android Studio Bugs</h4>
-        <p>There were a few bugs with Android Studio. For example, with regards to tests, running all the unit tests
-            together causes them all to fail,
-            but running them individually works. Also, the instrumentation tests fail for no reason if
-            ANDROID_TEST_ORCHESTRATOR is used, as specified in the
-            Testing section. Also, when doing a gradle build and installing it on a device from Android Studio, it
-            sometimes displayed error messages, again for no reason.
-            Building the app and installing it again often solved the issue, however sometimes the entire cache had
-            to be cleared by going under File
-            and clicking Invalidate Caches/Restart. In some cases the errors would not stop the build/installation
-            and in some cases it did. It should be made clear
-            that there was no issue with our code (purely an Android Studio bug) as proven by the fact that simply
-            building the project/clearing cache solved the issue</p>
-        <h4>2. Fetching user's location (latitude and longitude) using Google...</h4>
+        <p>There were a few bugs with Android Studio:</p>
+		<ul>
+			<li>
+				<p>With regards to tests, running all the unit tests
+					together causes them all to fail,
+					but running them individually works. </p>
+			</li>
+			<li>
+				<p> The instrumentation tests fail for no reason if
+					ANDROID_TEST_ORCHESTRATOR is used, as specified in the
+					Testing section. </p>
+			</li>
+			<li>
+				<p>
+				When doing a gradle build and installing it on a device from Android Studio, it
+				sometimes displayed error messages, again for no reason.
+				Building the app and installing it again often solved the issue, however sometimes the entire cache had
+				to be cleared by going under File
+				and clicking Invalidate Caches/Restart. In some cases the errors would not stop the build/installation
+				and in some cases it did. It should be made clear
+				that there was no issue with our code (purely an Android Studio bug) as proven by the fact that simply
+				building the project/clearing cache solved the issue.</p>
+			</li>
+		</ul>
+        <h4>2. Fetching user's location (latitude and longitude) using Google's PlayServicesLocation</h4>
         <p>For some reason, this only seems to work if location data for the user already exists (if they have used
             Google maps already then it would exist).
             Manually requesting the user's location from Android also did not seem to work. It is not possible for
