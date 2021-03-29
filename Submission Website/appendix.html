@@ -217,7 +217,7 @@
                     <code>ANDROID_TEST_ORCHESTRATOR</code> (nothing to do with our tests, more of an Android Studio
                     bug).</p>
                 <p>Unit tests - these tests were written using the Robolectric framework and test the actual logic and
-                    code of the app. There are two important points to note here:</p>
+                    code of the app. There are three important points to note here:</p>
                 <ul>
                     <li>To run these tests, the <code>targetSdkVersion</code> under <code>defaultConfig</code> under
                         android must be
@@ -233,6 +233,9 @@
                         has nothing to do with our tests, rather it is an Android Studio issue. Instead, you must run
                         each test class individually.
                     </li>
+					<li>
+					<p>Please also ensure you have both the backend and Ask Bob servers running if you run the tests under 
+				the 'askBobConnectivity' and 'backendConnectivity' packages.</p></li>
                 </ul>
 
             </div>
