@@ -107,3 +107,7 @@ section:not(:first-child) > .centred ul:last-child li {
 img {
     mix-blend-mode: darken;
 }
+
+.research-references p {
+    text-align: left;
+}
