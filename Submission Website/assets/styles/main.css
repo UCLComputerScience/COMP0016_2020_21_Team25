@@ -1,17 +1,17 @@
 :root {
-    --header: #002e43;
-    --subheader: #2a2b30;
+    --header: #002E43;
+    --subheader: #2A2B30;
     --text-color: #222;
-    --page-background: #f9f9f9;
-    --light-page: #edf3fd;
-    --blue: #2848d1;
-    --green: #30ce91;
-    --light-blue: #5783ff;
+    --page-background: #F9F9F9;
+    --light-page: #EDF3FD;
+    --blue: #2848D1;
+    --green: #30CE91;
+    --light-blue: #5783FF;
     --light-green: #00FA9A;
-    --dark-blue: #3742fa;
-    --darker-blue: #001b4d;
+    --dark-blue: #3742FA;
+    --darker-blue: #001B4D;
     --border-radius: 6px;
-    --nav-height: 64px;
+    --nav-height: 48px;
 }
 
 html, body {
@@ -28,7 +28,7 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
     color: var(--header);
     font-weight: 700;
     letter-spacing: -.05em;
@@ -48,14 +48,43 @@ h3 {
     color: var(--subheader);
 }
 
+h4 {
+    font-size: calc(1rem + .25vw);
+    color: var(--subheader);
+}
+
+h5 {
+    font-size: 18px;
+    color: var(--subheader);
+}
+
 a {
     text-decoration: none;
 }
 
-p {
+p, li {
     color: var(--text-color);
     letter-spacing: -.02em;
     line-height: 150%;
+}
+
+code, pre {
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    background-color: #F1F1F1;
+    padding: 2px;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
+
+.bash-cmd {
+    font-size: 14px;
+    font-weight: 200;
+    color: #FFF;
+    background: #000;
+    padding: 4px 10px;
+    margin-top: 21px;
+    margin-bottom: 21px;
+    display: inline-block;
 }
 
 .page {
@@ -68,17 +97,17 @@ p {
 
 .page-header h1 {
     margin: 0;
-    color: #fff;
+    color: #FFF;
     text-align: left;
 }
 
 .page-header p {
-    color: #d2d2d2;
+    color: #D2D2D2;
     font-size: 24px;
 }
 
 .separator {
-    border-top: 1px solid #e7eaf0;
+    border-top: 1px solid #E7EAF0;
 }
 
 section {
@@ -87,15 +116,15 @@ section {
     flex-direction: column;
 }
 
-section p {
-    color: #676b75;
+section p, section li {
+    color: #676B75;
     margin-top: 0;
     margin-bottom: 4px;
     font-size: 18px;
 }
 
 section > p {
-    width: 50%;
+    width: 66.7%;
     margin-top: 32px;
     text-align: center;
 }
@@ -141,7 +170,7 @@ section h2 {
     flex: 1;
 }
 
-img {
+img, video {
     max-width: 100%;
     width: auto;
     height: auto;
@@ -158,7 +187,7 @@ img {
     background: var(--dark-blue);
     border-bottom-left-radius: 10px;
     font-size: 11px;
-    color: #fff;
+    color: #FFF;
     top: 0;
     right: 0;
     padding: 6px 12px;
@@ -181,6 +210,7 @@ img {
 
 .enlargeable.enlarged img:last-child {
     display: block;
+    width: auto;
 }
 
 .enlargeable.enlarged img:last-child:focus {
@@ -202,7 +232,7 @@ img {
 .flat-button {
     border-radius: var(--border-radius);
     background: var(--darker-blue);
-    color: #fff;
+    color: #FFF;
     padding: 16px 12px;
     font-weight: 700;
     text-align: center;
@@ -234,4 +264,12 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.v-divider {
+    height: 100%;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.15);
+    margin-top: 16px;
+    margin-bottom: 16px;
 }

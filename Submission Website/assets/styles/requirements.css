@@ -8,7 +8,7 @@
 }
 
 .client h4, .client p {
-    color: #fff;
+    color: #FFF;
     text-align: center;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .persona * {
-    color: #fff;
+    color: #FFF;
 }
 
 .persona h3 {
@@ -108,7 +108,7 @@
 .interview-container .card .question {
     font-weight: 800;
     font-size: 20px;
-    color: #fff;
+    color: #FFF;
     margin-bottom: 12px;
 }
 
@@ -121,7 +121,7 @@
     font-size: 16px;
     margin-top: 0;
     margin-bottom: 0;
-    color: #fff;
+    color: #FFF;
     display: flex;
     align-items: center;
     margin-left: 16px;
@@ -143,18 +143,10 @@
 
 .moscow-row {
     flex: 1;
-    list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .moscow-row:not(:last-child) {
     margin-bottom: 32px;
-}
-
-.moscow-grid h3 {
-    text-align: left;
-    padding-bottom: 12px;
 }
 
 .moscow-item {
@@ -170,19 +162,30 @@
     color: var(--blue);
     margin-left: 24px;
     margin-right: 24px;
+    display: none;
 }
 
-.moscow-content h4 {
+.moscow-requirements h3 {
+    margin: 0;
+}
+
+.moscow-requirements h4 {
+    margin-bottom: 0;
+}
+
+.moscow-content h5 {
     margin-top: 0;
+    margin-bottom: 6px;
 }
 
-.usecase-diagram-div{
-	text-align: center;
+.usecase-diagram-div {
+    text-align: center;
 }
-.usecase-diagram-img{
-	margin-left: 10px;
+
+.usecase-diagram-img {
+    margin-left: 10px;
     margin-right: 10px;
-	margin-bottom: 10px;
-	height: 300px;
-	width: 500px;
+    margin-bottom: 10px;
+    height: 300px;
+    width: 500px;
 }

@@ -32,21 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 10);
 
-//        SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
-//        if (!sharedpreferences.contains("server_ip")){
-//            String ip = new MainController().findServerIp();
-//            if (ip.startsWith("/")) {
-//                ip = ip.substring(1);
-//            }
-//            SharedPreferences.Editor editor = sharedpreferences.edit();
-//            editor.putString("server_ip", ip);
-//            editor.apply();
-//            Toast.makeText(MainActivity.this, "Connected to server!", Toast.LENGTH_SHORT).show();
-//        }
-
         TextView conciergeStatusText = findViewById(R.id.conciergeStatusText);
 
-        //Speech Synthesis must be defined in MainActivity
+        //SpeechSynthesis and SpeechRecognition must be defined in MainActivity (or any other Activity)
         SpeechSynthesis speechSynthesis = new SpeechSynthesis();
         speechSynthesis.configTts(this);
 

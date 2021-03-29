@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Testing the system.">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="Testing the system." name="description">
     <title>Team 25 - Testing</title>
-    <link rel="stylesheet" href="assets/styles/main.css">
-    <link rel="stylesheet" href="assets/styles/testing.css">
+    <link href="assets/styles/main.css" rel="stylesheet">
+    <link href="assets/styles/testing.css" rel="stylesheet">
 
-    <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" type="module"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    <script crossorigin="anonymous"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-            crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script defer>
         $(function () {
             $("#navbar").load("navbar.html");
@@ -27,7 +27,8 @@
     <div class="header-card">
         <div class="page-header">
             <h1>System<br>Testing</h1>
-            <p></p>
+            <p>Here we discuss how we tested the different parts of our system to ensure everything worked as it
+                should.</p>
         </div>
         <div class="image-container noselect"></div>
         <script>
@@ -35,13 +36,699 @@
             let subtitle = document.querySelector(".page-header p");
             const resize = function (subtitle) {
                 subtitle.style.maxWidth = title.clientWidth.toString() + "px";
-            }
+            };
             window.onresize = window.onload = () => {
                 resize(subtitle);
-            }
+            };
         </script>
     </div>
-    
+
+    <section class="centred">
+        <h2>Testing Strategy</h2>
+        <p>Given the scale of our given project, tests were critical to ensure the system worked correctly - the
+            codebase was simply too large for us to have complete assurance without any tests.</p>
+        <p>For each main component (described in the sections below) we used a subset of the following types of
+            tests:</p>
+        <div class="testing-strategy centred">
+            <div class="fully-automated centred">
+                <h3>Fully-Automated</h3>
+                <ul>
+                    <li>Unit Testing</li>
+                    <li>Integration Testing</li>
+                    <li>Performance Testing</li>
+                    <li>Stress Testing</li>
+                    <li>Instrumented Testing</li>
+                </ul>
+            </div>
+            <div class="semi-automated centred">
+                <h3>Semi-Automated</h3>
+                <ul>
+                    <li>Responsive Design Testing</li>
+                    <li>Compatibility Testing</li>
+                    <li>User Acceptance Testing</li>
+                    <li>Resource Usage Testing</li>
+                </ul>
+            </div>
+        </div>
+        <p>Note that the backend was tested solely through integration testing with the Android app and the admin web
+            app.</p>
+    </section>
+
+    <section class="centred light-page-section">
+        <h2>Admin Web App</h2>
+        <p>Several different testing mechanisms were used to provide the assurance that the web app functioned correctly
+            and provided a consistent user experience across different browsers and devices.</p>
+        <div class="web-app-section centred">
+            <h3>Technology Used</h3>
+            <p>Testing a website can seem unintuitive at times but allowed us to uncover unknown issues with the web app
+                that were not picked up during the initial implementation phase. </p>
+            <p>We used the popular testing framework <a href="https://jestjs.io" rel="noopener"
+                                                        target="_blank"><b>Jest</b></a> to test the web app. It
+                allows us to mock components
+                (without
+                building them) and manually test individual components without building the entire application; we can
+                therefore test specific pages and components without having to start at the homepage and sign in (or
+                sign up) at the start of every single test. </p>
+            <p>Human interaction e.g., button clicks, typing etc., can be accurately simulated using Jest making it a
+                very versatile testing technology.</p>
+            <div class="image-container" style="max-width: 40%">
+                <img alt="Jest" src="assets/images/testing/jest.webp">
+            </div>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Unit Testing</h3>
+            <p>Unit testings allows us to focus on and test components in isolation. Individual components (such as
+                buttons, dropdowns and text inputs) were unit tested to ensure they were
+                usable across many different contexts and provided the necessary functionality. These components were
+                tested first to assert that the foundation of the web app was in working order. </p>
+            <p>The components pass all the unit tests, and the report is included in the coverage report for the
+                integration tests in the section below. </p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Integration Testing</h3>
+            <p>Integration testing was used to test multiple components together, with the backend.</p>
+            <p>Given the nature of the web app, a sizeable portion of the system could not be tested in isolation.
+                Integration testing was used with the backend to ensure that the web app communicated correctly with the
+                database and provides assurance that the backend API, its endpoints (and their enclosing logic) were all
+                in working order. A single test suite can therefore be used to assure that both the web app and backend
+                (more specifically, the portion of the backend serving the web app) are functioning correctly. </p>
+            <p>We can report that all integration tests passed, and the coverage report is shown below: </p>
+            <div class="enlargeable">
+                <span>Click to enlarge</span>
+                <img alt="Coverage report for the web app" src="assets/images/testing/web-app-coverage.png">
+                <img alt="Coverage report for the web app" src="assets/images/testing/web-app-coverage.png"
+                     tabindex="-1">
+            </div>
+            <p>It is important to note that some components could not be tested, some examples are given below: </p>
+            <p>Some Vue components exist to reduce typing e.g., images – Jest does not allow the local filesystem to be
+                used in tests meaning these components would throw an error if included in tests. </p>
+            <ul class="centred">
+                <li>Some code branches exist to assist with responsive design e.g., the grid shown for services in the
+                    marketplace is implemented using several branches monitoring the window width – this cannot be
+                    tested because of the limitations with the virtual DOM used by Jest outlined below.
+                </li>
+            </ul>
+            <p>The virtual DOM used by Jest does not implement the following: </p>
+            <ul class="centred">
+                <li>Programmatic scrolling.</li>
+                <li>Navigation between pages (we can only test whether the method to change the page was called, but
+                    not if it navigated to the correct page with the correct parameters).
+                </li>
+                <li>Window alerts and other popup messages.</li>
+                <li>Page reloading.</li>
+                <li>Setting a specific window size (width or height).</li>
+            </ul>
+            <p>As a result, the line and branch coverage is not as high as we had hoped.</p>
+            <p>To circumvent these limitations with Jest, these components and aspects were tested manually during
+                development; while on its own, line coverage is not the be-all-end-all for testing, manual testing still
+                provides us with the assurance that the web app functions correctly. </p>
+            <p>The total amount of unit and integration tests amounts to 139.</p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Responsive Design Testing</h3>
+            <p>It is expected that the admin web app will be used on several different browsers, on several different
+                types of devices with different screen sizes, resolutions and pointer precisions. Because of this, it is
+                better to display the responsive design test as a video (6 min) using Safari’s responsive design mode
+                feature: </p>
+            <div class="card centred">
+                <div class="image-container noselect">
+                    <div style="width:100%;height:0px;position:relative;padding-bottom:65.099%;">
+                        <iframe allowfullscreen frameborder="0" height="100%" src="https://streamable.com/e/5yw2sd"
+                                style="width:100%;height:100%;position:absolute;left:0;top:0;overflow:hidden;"
+                                width="100%"></iframe>
+                    </div>
+                </div>
+            </div>
+            <p>In short, the web app is responsive to any device size and mouse pointer precision (or lack thereof),
+                achieved through <b>mobile-first</b> design. </p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Compatibility Testing</h3>
+            <p>Web apps do not need to be assessed for their platform-compatibility given they run on any platform with
+                a browser with JavaScript enabled and an internet connection. Instead, this section describes the visual
+                appearance of the web app on different browsers. </p>
+            <p>As previously mentioned, the web app will be used on different browsers and we can confirm that it
+                appears as expected in the four main browsers: Chrome, Edge, Safari and Firefox. </p>
+            <p>During implementation, the tool <a href="https://caniuse.com" rel="noopener" target="_blank">CanIUse</a>
+                was used to determine which CSS
+                attributes were available
+                on
+                which browsers. It also gives a breakdown of the popularity of each browser, allowing us to decide
+                whether it was worth supporting a particular browser that did not implement a CSS attribute. As a
+                result, it is also likely the web app will appear the same on more obscure browsers. </p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Performance Testing</h3>
+            <p><a href="https://developers.google.com/web/tools/lighthouse" rel="noopener" target="_blank">Google
+                Lighthouse</a> was used to gauge the
+                performance of the web app (among its accessibility and
+                search
+                engine optimisation); this is a simple, minimal-effort way of getting a performance report without
+                requiring more advanced performance testing frameworks which are unnecessary given the project scale,
+                deadline and expected load. </p>
+            <p>The Lighthouse report for the Concierge web app for desktop (<b>left</b>) and mobile devices
+                (<b>right</b>) is shown below: </p>
+            <div class="lighthouse-reports centred">
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Google Lighthouse report for desktops" src="assets/images/testing/lighthouse-desktop.png">
+                    <img alt="Google Lighthouse report for desktops" src="assets/images/testing/lighthouse-desktop.png"
+                         tabindex="-1">
+                </div>
+
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img alt="Google Lighthouse report for mobile devices"
+                         src="assets/images/testing/lighthouse-mobile.png">
+                    <img alt="Google Lighthouse report for mobile devices"
+                         src="assets/images/testing/lighthouse-mobile.png" tabindex="-1">
+                </div>
+            </div>
+            <p>It is important to note that Google Lighthouse is indeed a rough guide to improving websites and should
+                be taken with a grain of salt.</p>
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>User Acceptance Testing</h3>
+            <p>To gain an unbiased overview and find out about potential improvements to the admin web app, we asked
+                four
+                people from various backgrounds to test the web app and recorded their feedbacks as shown below.</p>
+            <h4>Tasks</h4>
+            <ul>
+                <li><h5>Test Case 1</h5><br>
+                    <p>Testers were given a test account with no members added and were asked to add a new member to
+                        their circle.</p></li>
+                <li><h5>Test Case 2</h5><br>
+                    <p>Testers were given a test account with an app user who has previously used the Concierge android
+                        app so their history should be visible in the history view.</p></li>
+                <li><h5>Test Case 3</h5><br>
+                    <p>Testers were given a test account and were asked to go to the service marketplace to find a
+                        service using both the dropdown to sort by category or using the search bar.</p></li>
+                <li><h5>Test Case 4</h5><br>
+                    <p>Testers were given a test account which has a pre-existing member added and were asked to use the
+                        marketplace to add a service to them.</p></li>
+            </ul>
+            <h4>Feedback</h4>
+            <table class="centred">
+                <tbody>
+                <tr class="headers">
+                    <td align="center" width="46">
+                        <p>Case</p>
+                    </td>
+                    <td align="center" width="20">
+                        <p>User</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Feedback</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" rowspan="4" width="46">
+                        <p>1</p>
+                    </td>
+                    <td align="center" width="20">
+                        <p>1</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Adding a new member is simple enough.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>2</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>If I entered details incorrectly, the website gave meaningful messages.</p>
+                        <p>Opening the newly added member also saves me some time.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>3</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>It is quick and easy to add new members.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>4</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Opening the added member&rsquo;s account after creating their account is very useful and
+                            saves a few extra clicks.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" rowspan="4" width="46">
+                        <p>2</p>
+                    </td>
+                    <td align="center" width="20">
+                        <p>1</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Viewing full service usage history is a useful feature.</p>
+                        <p>It was not difficult to navigate to this page.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>2</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Sorting by date is very useful.</p>
+                        <p>The items could be separated by month or week etc.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>3</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>The usage history is arranged well and is not cluttered with information.</p>
+                        <p>Sorting history by date is a nice touch.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>4</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Clicking on a item and then opening the service in the marketplace is a very useful
+                            feature.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" rowspan="4" width="46">
+                        <p>3</p>
+                    </td>
+                    <td align="center" width="20">
+                        <p>1</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>The search functionality was very useful.</p>
+                        <p>Filtering by category also helps me find what I need quicker.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>2</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Searching seemed very familiar.</p>
+                        <p>Filtering by category is a nice feature to have.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>3</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>I can see the filtering options being very useful when more services are added, but for now
+                            it&rsquo;s a nice feature but not a necessity.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>4</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>I like how search results are returned as I type, instead of forcing me to click a
+                            button.</p>
+                        <p>Filtering by category is nice but there were not many different categories.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" rowspan="4" width="46">
+                        <p>4</p>
+                    </td>
+                    <td align="center" width="20">
+                        <p>1</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Adding services was very easy.</p>
+                        <p>Maybe the admin should be taken to view the service in a user&rsquo;s account instead of
+                            returning back to the marketplace</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>2</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Being able to add a service to multiple users at the same time saves a lot of extra
+                            clicks.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>3</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>Adding a new service to multiple members at the same time is a very useful feature.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="20">
+                        <p>4</p>
+                    </td>
+                    <td align="center" width="535">
+                        <p>It was very quick and easy to add new services.</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <section class="">
+        <h2>Android App</h2>
+        <p>Find details of the different types of tests we conducted to evaluate our app below.</p>
+        <h3>Unit & Integration Testing</h3>
+        <p>We wrote over 200 unit and integration tests achieving overall branch coverage of roughly 90%.
+            These tested our app's functionality, from testing if buttons opened the correct
+            activity to testing if we
+            could parse AskBob responses correctly. </p>
+        <p> Overall: </p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img src="assets/images/testing/app-unitTestCoverage-overall.png"/>
+            <img src="assets/images/testing/app-unitTestCoverage-overall.png" tabindex="-1"/>
+        </div>
+        <br>
+        <p> By Package: </p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img src="assets/images/testing/app-unitTestCoverage-byPackage.png"/>
+            <img src="assets/images/testing/app-unitTestCoverage-byPackage.png" tabindex="-1"/>
+        </div>
+        <p>Please note that the only class we didn't test was 'BuildConfig' which is dynamically generated at runtime
+            and doesn't require testing.</p>
+        <p>Unit and integration
+            tests are important as they provide a quick way of locally testing whether our code works or not. It is more
+            reliable than testing the app ourselves
+            as metric such as branch coverage can help show us how much of our code exactly we are testing. It is also
+            not ideal to test the app ourselves every time
+            as it is time consuming and error prone. See screenshots below for overall branch coverage and branch
+            coverage package by package
+            (provided through Android Studio).</p>
+        <p> Unit tests tested individual classes whereas the integration tests tested interactions
+            between multiple classes. The majority
+            of integration tests were limited to the MainController class and AskBobResponseController class since these
+            are the two main classes which interact
+            with other classes.</p>
+        <p> Tests were split into different classes, each one corresponding to
+            the class we were testing.
+            The 'test' folder structure is identical to the structure of the 'main' folder which makes it easy to
+            navigate and quickly find the test
+            class we need. </p>
+        <p> The tests were developed through TDD which helped us ensure the code we wrote was correct and minimal,
+            saving us development time.
+            The tests now act as a regression
+            test suite, where if we add new code, we can run these tests to ensure there is no functionality leakage.
+            This will be very useful for
+            developers in the future who can use this when they add their own features to the app. </p>
+        <p> As the tests utilised
+            Android APIs and real time system
+            features, we had to use a testing framework which would allow us to 'mock' these API and system calls.
+            Therefore, we used Robolectric as our
+            testing framework which provided powerful APIs to test our code. </p>
+        <p> We chose Robolectric because it is robust,
+            well tested, has a developer
+            communnity and provided the APIs we needed to test our code. We did research alternatives such as Mockito
+            and UI Automator but found Robolectric
+            was the easiest to use and provided all the functonality we needed. </p>
+        <p> However, a downside is that to run these tests, the targetSdkVersion
+            must be set to 29 or lower, as Robolectric doesn't currently support Android SDK versions greater than 29.
+            In no way does this hinder the reliability of the tests as all the code written is intended for devices with
+            Android SDK
+            version 16 or higher. However, it did mean that the targetSdkVersion has to be changed every time before
+            running the tests
+            which is inconvenient.</p>
+        <p> Please note, aside from changing the
+            targetSdkVersion, each test class has
+            to be run individually as running all the tests in the 'test' package at once will cause them to fail - this
+            is not because of our tests.
+            It is an Android Studio bug [see Bugs under Evaluation].
+            Also, Robolectric was used even for tests which did not use Android API calls. This is because using
+            Robolectric provided a
+            sandbox environment which could mock a real time Android setup, allowing us to test other features (such as
+            making HTTP requests to our server) which we could not do in standard unit tests.</p>
+        <h3>Instrumented Tests</h3>
+        <p>Instrumented tests are UI tests which run on an emulator/device. We wrote these integration and functional
+            UI tests to automate user interaction, eg testing if the buttons all worked. </p>
+        <p> We used the Espresso framework to write these
+            tests, as recommended by Android.
+            As well as using the standard features and APIs, we also used the 'assertions' feature to assert that key UI
+            components such as the mic
+            icon were present. </p>
+        <p> Instrumented tests are important as they provide us with a way to test if the UI was working correctly which
+            is essential for an app.
+            They also allowed us to quickly test our changes to the UI to ensure we hadn't broken any of the existing
+            UI. For example, if during
+            UI redesign we accidentally deleted a key UI component, then the tests would point this out, quickly and
+            precisely, saving us development
+            time.</p>
+        <p> As well as writing certain tests ourselves, we also used the built in
+            Espress Test Recorder, which allowed us to perform actions on the device (such as clicking a button) and it
+            would automatically convert these interactions into test code. </p>
+        <p> This made writing tests much easier and quicker. It
+            meant we didn't have to spend time
+            writing tests ourselves or getting bogged down with learning how to use the framework from scratch as we
+            could use this tools to automatically
+            produce our tests easily in an intuitive manner. The chances of bugs in tests was also reduced.
+            This is very important as a developer as we have very
+            limited time, so tools which can effectively reduce test writing without affecting the quality of the tests
+            are essential. </p>
+        <p> However, a downside was that the tests produced by Espresso Test
+            Recorded contained some deprecated
+            methods. Therefore, after each test was produced, we manually replaced these deprecated
+            methods ourselves with the proper,
+            appropriate methods as required. Overall, we still saved a lot of time from having to learn the framework
+            and
+            writing the tests from scratch. </p>
+        <p> Please note, that the tests fail if ANDROID_TEST_ORCHESTRATOR is used as executor under testOptions in the
+            gradle file. This is again an
+            Android Studio bug and nothing to do with us [please see Bugs under Evaluation]. The current gradle file
+            already comments out use of
+            ANDROID_TEST_ORCHESTRATOR. However, should a
+            need arise for it in the future,
+            it must be commented out before running the Instrumented tests. </p>
+        <p> The combined use of unit tests and
+            instrumented tests provided a powerful
+            testing suite where unit tests would test the functionality and logic and the instrumentation tests
+            would provide high level UI tests. </p>
+        <h3>Stress Testing</h3>
+        <p>It is an important quality assurance metric to stress test the app to ensure it can handle high pressure and
+            volumes of input from the user. </p>
+        <p> We used the Monkey framework for this. This was a form of automated testing where Monkey would randomly
+            generate a number of events such as button clicks
+            , text input, screen rotations and more and inject these into our app. The
+            number of events to be generated could be specified
+            by us through the terminal. We could also specify which types on inputs we wanted. However we left this to
+            be the default (all types of input), as this
+            would provide a comprehensive view of how much load our app could handle. </p>
+        <p> We started off with 500 events,
+            and doubled this every time (1000, 2000 etc). Our target was 5000 events to make the app crash. We are
+            pleased to say that our app crashed at 16,000 events! Given that our app is to be used
+            by elderly people and the nature of the
+            app does not warrant regular, high volume user input (as a game might), we are highly confident that our app
+            will be able to take the strain of regular
+            user input without crashing. </p>
+        <p> Please note that Monkey tests are not formally written or produced unlike our
+            other tests - we have to run a command in the
+            terminal every time we want to run a test. The command we used was "adb shell monkey -p
+            com.example.fisev2concierge -v [number of events]".
+            Please make sure the device is
+            connected to your computer and that the computer
+            has ABD installed and available.</p>
+        <h3>Resource Usage Testing</h3>
+        <p>Using the built in Android Studio Profiler, we were able to monitor the system resource usage of our app on
+            a tablet (Octa Core, 4GB RAM, 64GB ROM). </p>
+        <p> We performed
+            a range of tasks on the app that we would expect our users to do, from making commands to adding reminders,
+            for example. The average CPU usage during
+            this time was less than 10% and the average RAM used was roughly 80MB. This is very good as it means our app
+            uses minimal amount of system resources. Though we have not tested the app on low powered devices, this
+            suggests
+            that the app could run on such devices without changing the code. The Profiler settings were set to
+            track low level method calls as well to ensure we got an accurate and deep reflection of the apps system
+            resource usage. See screenshots of resource usage from the Profiler below.</p>
+        <p>CPU usage during general usage, including using the voice assistant: </p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img src="assets/images/testing/appCpuUsage.png"/>
+            <img src="assets/images/testing/appCpuUsage.png" tabindex="-1"/>
+        </div>
+        <br>
+        <p>RAM usage during general usage</p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img src="assets/images/testing/appRamUsage.png"/>
+            <img src="assets/images/testing/appRamUsage.png" tabindex="-1"/>
+        </div>
+        <p> Please note that Android only
+            recommend doing formal speed testing specifically
+            for tasks which use high amounts of the CPU. As our app doesn't use much CPU for any of the tasks, we did
+            not conduct formal speed tests, though
+            future developers may decide to do this as they add new functionality to the app. </p>
+        <h3>Compatibility Testing</h3>
+        <p> We want our app to be able to be used on a variety of devices, old and new. It was therefore important to
+            make sure that it is compatible with
+            different Android API levels. </p>
+        <p> We did not conduct formal compatibility testing due to a lack of need. Android Studio itself tells us if we
+            are using a
+            system feature that is above our minSDK. This happened for setting an alarm notification, where Android
+            Studio alerted us that
+            the system call being used was above our minSDK. It then suggested a possible fix which we used. See the
+            screenshot of this below. </p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img src="assets/images/testing/app-compatible-code.png"/>
+            <img src="assets/images/testing/app-compatible-code.png" tabindex="-1"/>
+        </div>
+        <p> Furthermore, all our
+            Android API calls are basic, such as calling and messaging. We also do not interact with low level system
+            features
+            or the Hardware Abstraction Layer (HAL). Where possible, we also tried to use libraries which had been
+            tested for backward compatibility.
+            For instance, Google's Play Services (used to obtain the user's latitude and longitude) have been tested to
+            ensure backward compatibility
+            with Android SDKs up to 4.1 (API Level 16, which is also our minSDK). We therefore felt that formal
+            compatibility testig was not necessary at this stage.
+            It should also be noted that we tested the app on a tablet which ran Android SDK 8 (which is nearly 4 years
+            old) and on a phone running the newer
+            Android SDK and both worked without issue.
+        </p>
+        <h3>Device Testing???</h3>
+        <p></p>
+        <h3>User Acceptance Testing</h3>
+        <p></p>
+    </section>
+
+    <section class="askbob-integration light-page-section">
+        <h2>AskBob Integration</h2>
+        <p>Testing the AskBob API presented certain challenges which limited the depth at
+            which it could be tested. However, we were still able to test the AskBob APIs
+            to a certain extent. </p>
+        <p>To do this we used the Python testing library <a href="https://docs.pytest.org/en/stable/" rel="noopener"
+                                                            target="_blank"><b>PyTest</b></a>.
+            This library allows us to easily create tests written in Python which are easy to
+            read and understand. </p>
+        <div class="image-container" style="max-width: 40%">
+            <img alt="PyTest" src="assets/images/testing/pytest.jpeg">
+        </div>
+
+        <div class="web-app-section centred">
+            <h3>Unit Testing</h3>
+            <p>
+                Due to the nature API, we found that unit testing was not feasible.
+                This is caused by the way the AskBob is written due to the fact it utilises RASA.
+                With RASA it is very difficult to separate the components of a chat bot (or in our
+                case a voice assistant) as the code behind it is very intertwined. For example, in
+                our case we were unable to separate the intent recognition of AskBob from the action’s
+                component. This meant that performing unit tests was not possible. </p>
+
+        </div>
+        <div class="web-app-section centred">
+            <h3>Integration Testing</h3>
+            <p>
+                Due to the nature API, we found that unit testing was not feasible.
+                This is caused by the way the AskBob is written due to the fact it utilises RASA.
+                With RASA it is very difficult to separate the components of a chat bot (or in our
+                case a voice assistant) as the code behind it is very intertwined. For example, in
+                our case we were unable to separate the intent recognition of AskBob from the action’s
+                component. This meant that performing unit tests was not possible. </p>
+            <p>These tests were organised based on which specific plugins they are intended to test.
+                Within these plugins all branches of the actions code that are feasibly accessible by a
+                user are explored. This provides mostly completely branch coverage with a few exceptions
+                where a branch is realistically unreachable as in certain cases the service APIs will
+                provide a default response. Additionally, each service is tested with a variety of phrasings
+                to ensure the robustness of the natural language processing of the AskBob API. </p>
+            <p>One thing to note is that due to the discrepancies that may arise between training sessions
+                of the NLP model behind the AskBob API there exists a change that a minute amount of these
+                tests will fail. These will vary between different instances of the AskBob API. </p>
+        </div>
+        <div class="web-app-section centred">
+            <h3>Performance Testing</h3>
+            <p>Similarly, to the unit tests we found ourselves unable to perform any meaningful performance
+                testing on the AskBob API. This is in large part due to the Concierge Service API that the
+                AskBob API utilises to retrieve the data required for a given request. Since the Concierge
+                Service API is comprised of a collection of APIs it will have varying degrees of performance.
+                This is caused by the locations in which these APIs are hosted as that will cause different
+                amounts of latency. </p>
+        </div>
+    </section>
+
+    <section class="services-api centred">
+        <h2>Services API</h2>
+        <p>Because our API interaction used external APIs with live information, we had no way of accurately testing
+            they were functioning correctly - the information returned by each API is likely to change between test
+            runs.
+            Additionally, some services return random and/or location/time dependent information; this means
+            we cannot write a test suite that is consistent across different time periods and locations.</p>
+        <p>As a result, we assumed these APIs were tested by their respective developers and elected to only test the
+            JSON schema system and the response parsing.</p>
+        <p>The programmer-friendly testing framework for Java and the JVM (JUnit 5, 2021) <a
+                href="https://junit.org/junit5/">JUnit</a>
+            was used to write the integration tests for the API plugin system.</p>
+        <div class="image-container" style="max-height: 50px; max-width: 10%; margin-top: 32px">
+            <img alt="JUnit" src="assets/images/testing/junit.png">
+        </div>
+        <p>We wrote unit tests for different schemas (both valid and malformed) for different APIs as well as testing
+            the response parser with different JSON response objects.</p>
+        <p>All tests pass, providing us with the assurance that we can use our API plugin system to represent any API as
+            a JSON schema and turn the API response into a natural language string.</p>
+        <p>The coverage report is shown below:</p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img alt="Coverage report for the units tests for the service API"
+                 src="assets/images/testing/schema-coverage-report.png">
+            <img alt="Coverage report for the units tests for the service API"
+                 src="assets/images/testing/schema-coverage-report.png" tabindex="-1">
+        </div>
+    </section>
+
+    <section class="ci light-page-section">
+        <h2>Continuous Integration</h2>
+        <p>A continuous integration provides us with some assurance that we are breaking existing code in our system
+            when pushing changes to our repository.</p>
+        <p>Continuous integration also promotes the development of testable code, of a higher quality.</p>
+        <p>We did not feel the need to go for a fully-fledged continuous integration suite like Travis CI as GitHub
+            actions (since our repository is already on GitHub) was sufficient for our use case.</p>
+        <p>GitHub actions run tasks on every push or pull request and we used this to run all of our tests after each
+            repository update.</p>
+        <p>A <code>develop</code>
+            branch was used to introduce new features and manually merged to the <code>main</code>
+            branch if it did not introduce any new issues. </p>
+        <p>If we worked in much larger groups, we would have setup the workflow to automatically merge pull requests -
+            this feature is unnecessary for our group size.</p>
+        <p>Below is the (recent) history of the CI workflow runs</p>
+        <div class="enlargeable">
+            <span>Click to enlarge</span>
+            <img alt="(Recent) History of CI workflow runs" src="assets/images/testing/github-ci.png">
+            <img alt="(Recent) History of CI workflow runs" src="assets/images/testing/github-ci.png" tabindex="-1">
+        </div>
+    </section>
+
+    <section class="testing-references">
+        <h2>References</h2>
+        <p>Junit.org. 2021. JUnit 5. [online] Available at: &lt;https://junit.org/junit5/&gt; [Accessed 26 March
+            2021].</p>
+        <p>Robolectric.org. 2018. Robolectric 4. [online] Available at: &lt;http://robolectric.org/&gt; [Accessed 26
+            March 2021].</p>
+        <p>Espresso. 2021. Espresso 3.4.0-alpha04. [online] Available at: &lt;https://developer.android.com/training/testing/espresso/&gt;
+            [Accessed 26 March 2021].</p>
+        <p>Monkey. 2021. Monkey. [online] Available at: &lt;https://developer.android.com/studio/test/monkey/&gt;
+            [Accessed 26 March 2021].</p>
+    </section>
+
 </div>
 <footer id="footer"></footer>
 </body>

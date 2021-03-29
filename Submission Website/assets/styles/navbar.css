@@ -35,9 +35,9 @@
 
 .nav-item a {
     text-decoration: none;
-    padding: 12px 8px;
+    padding: 10px 8px;
     font-weight: 800;
-    color: #fff;
+    color: #FFF;
     letter-spacing: -.02em;
     font-size: 16px;
     line-height: 60%;
@@ -88,7 +88,7 @@
 }
 
 .progress-wrap:hover .icon {
-    color: #fff;
+    color: #FFF;
 }
 
 .progress-wrap svg path {

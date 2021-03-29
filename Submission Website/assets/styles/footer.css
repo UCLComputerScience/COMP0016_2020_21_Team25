@@ -13,7 +13,7 @@ footer p {
     margin-bottom: 0;
     text-align: center;
     width: 100%;
-    color: #fff;
+    color: #FFF;
     font-size: 18px;
 }
 
@@ -40,7 +40,7 @@ footer p {
 }
 
 .link {
-    color: #fff;
+    color: #FFF;
     border-radius: var(--border-radius);
     padding: 4px;
 }

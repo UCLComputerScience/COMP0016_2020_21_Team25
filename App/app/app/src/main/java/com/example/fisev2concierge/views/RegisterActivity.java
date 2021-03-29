@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                 speechSynthesis.runTts("Successfully connected to admin!");
             } else {
                 Toast.makeText(RegisterActivity.this, "Incorrect validation codes", Toast.LENGTH_SHORT).show();
+                speechSynthesis.runTts("Incorrect validation codes");
             }
         } catch (JSONException e) {
             Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();

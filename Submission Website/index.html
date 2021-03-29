@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Providing a helping hand, through speech.">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="Providing a helping hand, through speech." name="description">
     <title>Team 25 - IBM FISE Concierge</title>
 
-    <link rel="stylesheet" href="assets/styles/main.css">
-    <link rel="stylesheet" href="assets/styles/index.css">
+    <link href="assets/styles/main.css" rel="stylesheet">
+    <link href="assets/styles/index.css" rel="stylesheet">
 
-    <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" type="module"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    <script crossorigin="anonymous"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-            crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script defer>
         $(function () {
             $("#navbar").load("navbar.html");
@@ -29,17 +29,18 @@
         <div class="page-header">
             <h1>IBM FISE<br>Concierge</h1>
             <p>Working as part of the IBM FISE v2 portfolio of projects to help
-                the elderly in times of social isolation through <b style="color: #fff !important;">voice
+                the elderly in times of social isolation through <b style="color: #FFF !important;">voice
                     assistance.</b></p>
 
             <div class="centred">
-                <a href="https://github.com/UCLComputerScience/COMP0016_2020_21_Team25"
-                   class="flat-button" rel="noopener" target="_blank">View on GitHub</a>
+                <a class="flat-button"
+                   href="https://github.com/UCLComputerScience/COMP0016_2020_21_Team25" rel="noopener" target="_blank">View
+                    on GitHub</a>
             </div>
         </div>
 
         <div class="image-container noselect">
-            <img src="assets/images/demo.webp" alt="Screenshot of admin site.">
+            <img alt="Screenshot of admin site." src="assets/images/index/concierge.png">
         </div>
 
         <script>
@@ -50,10 +51,10 @@
                 let width = title.clientWidth.toString() + "px";
                 subtitle.style.maxWidth = width;
                 buttons.style.maxWidth = width;
-            }
+            };
             window.onresize = window.onload = () => {
                 resize(subtitle, buttons);
-            }
+            };
         </script>
     </div>
 
@@ -146,9 +147,13 @@
 
     <section class="demo-video centred">
         <h2>Demo Video</h2>
-        <p class="subtitle">A short video demonstrating the Concierge ecosystem:</p>
+        <p class="subtitle">A short video discussing and demonstrating the Concierge ecosystem:</p>
         <div class="card centred">
-            <div class="image-container noselect"></div>
+            <div class="image-container noselect">
+                <video width="320" height="240" controls>
+                    <source src="assets/images/index/2 minute Project Video.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
     </section>
 
@@ -159,20 +164,25 @@
             <div class="centred" id="calin">
                 <h3>Calin Hadarean</h3>
                 <a href="mailto: calin.hadarean.19@ucl.ac.uk">calin.hadarean.19@ucl.ac.uk</a>
-                <p><b>Roles:&nbsp;</b><i>NLP, development blog, TBC.</i></p>
+                <p><b>Roles:&nbsp;</b><i>NLP developer, Client Liaison, Backend Developer </i></p>
             </div>
             <div class="centred" id="ernest">
                 <h3>Ernest Nkansah-Badu</h3>
                 <a href="mailto: ernest.nkansah-badu.19@ucl.ac.uk">ernest.nkansah-badu.19@ucl.ac.uk</a>
-                <p><b>Roles:&nbsp;</b><i>Service API interaction, submission website, TBC.</i></p>
+                <p><b>Roles:&nbsp;</b><i>Web App Frontend Developer, Client Liaison, Backend Developer </i></p>
             </div>
             <div class="centred" id="ali">
                 <h3>Mohammad Ali Syed</h3>
                 <a href="mailto: mohammad.syed.19@ucl.ac.uk">mohammad.syed.19@ucl.ac.uk</a>
-                <p><b>Roles:&nbsp;</b><i>App interface, TBC.</i></p>
+                <p><b>Roles:&nbsp;</b><i>App Developer, Client Liaison, Backend Developer </i></p>
             </div>
         </div>
+        <h3> Development Gantt Chart </h3>
+        <div class="er-div">
+            <img class="er-img" src="assets/images/index/Gantt Chart.png"/>
+        </div>
     </section>
+
 </div>
 
 <footer id="footer"></footer>

@@ -79,6 +79,8 @@ public class SpeechRecognition{
             @Override
             public synchronized void onResults(Bundle results) {
                 ArrayList<String> matches= results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                //on the tablet, returning 'matches' from here to MainActivity did not work -> it would always cause an Empty Input error
+                //therefore, MainController must be called directly from here
                 if(matches!=null){
                     result[0] = (matches.get(0));
                     mainController.handleUserRequest(result, speechSynthesis, appCompatActivity, context, activity, conciergeStatusText);

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link href="https://use.typekit.net/zti6lix.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/navbar.css">
+    <link href="assets/styles/navbar.css" rel="stylesheet">
 </head>
 <body>
 <div class="navbar" role="navigation">
@@ -38,6 +38,10 @@
         <li class="nav-item">
             <a href="evaluation.html">Evaluation</a>
         </li>
+
+        <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+        </li>
     </ul>
 
     <script>
@@ -47,11 +51,11 @@
             } else {
                 navbar.classList.remove("nav-scrolled");
             }
-        }
+        };
         let navbar = document.querySelector(".navbar");
         window.addEventListener('scroll', () => {
             checkScroll(navbar);
-        })
+        });
         checkScroll(navbar);
 
         let navButtons = navbar.querySelectorAll(".nav-item a");
@@ -87,7 +91,7 @@
                 const scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
                 const drawLength = pathLength * scrollPercentage;
                 progressPath.style.strokeDashoffset = (pathLength - drawLength).toString();
-            }
+            };
 
             const setStyle = function () {
                 let pathLength = progressPath.getTotalLength();
@@ -96,7 +100,7 @@
                 progressPath.style.strokeDashoffset = pathLength;
                 progressPath.getBoundingClientRect();
                 progressPath.style.transition = 'stroke-dashoffset 10ms linear';
-            }
+            };
 
             setStyle();
             updateProgress();
@@ -104,10 +108,10 @@
 
             $('.progress-wrap').on('click', function (event) {
                 event.preventDefault();
-                $('html').animate({scrollTop: 0}, 500);
+                $('html').animate({ scrollTop: 0 }, 500);
                 return false;
-            })
-            
+            });
+
             let enlargeable = $(".enlargeable");
             enlargeable.click(function () {
                 $(this).toggleClass("enlarged");

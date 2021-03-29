@@ -1,6 +1,6 @@
 .subtitle, .feature-item p, .about p {
     font-size: 21px;
-    color: #676b75;
+    color: #676B75;
     font-weight: 200;
     text-align: center;
     margin-top: 32px;
@@ -8,7 +8,6 @@
 }
 
 .about p {
-    width: 50%;
     margin-bottom: 8px;
 }
 
@@ -35,7 +34,7 @@
 }
 
 .feature-item:hover * {
-    color: #fff;
+    color: #FFF;
 }
 
 .features .row .feature-item:not(:last-child) {
@@ -67,8 +66,8 @@
 .demo-video .card {
     background: var(--dark-blue);
     width: 60%;
-    padding-bottom: 33.75%;
     box-shadow: 0 0 16px 1px rgba(0, 0, 0, .33);
+    padding: 0;
 }
 
 .team-members {
