@@ -149,7 +149,24 @@
                 <p>You will need an Android device running an Android API level of at least 16 (<b>Jellybean 4.1.x</b>)
                     and a separate computer or
                     laptop to run the backend to serve the app.</p>
-
+					<p>The device must also have Google's speech recognition software installed, though this is pre-installed for many devices now.
+					If your phone does not have it installed, the following process must be followed. (If it is installed you can skip this section).</p>
+					<ol>
+					<li><p>Download Google's speech recognizer <a href="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox">here</a></p></li>
+					<li><p>Once downloaded, you have to go into the device settings and search for 'Assist & voice input' (exact name may vary on Android versions but searching for 'voice' should bring up the correct setting).</p></li>
+					<li><p>Then click on 'Assist & voice input' and under 'Assist app', select the Google app which you just installed.</p></li>
+					<li><p>Finally, you must go into Settings, Permissions, click on the Google app which you installed and grant all the permissions relating to speech recognition.</p></li>
+					</ol>
+				<p>Now that you have Google's speech recognition software installed, it should automatically allow for offline speech recognition in English. If
+				for some reason this is not the case, follow these instructions. (If it is cofigured to allow offline speech recognition in English, you can skip this section)</p>
+				<ol>
+				<li><p>Open the Google app</p></li>
+				<li><p>Select More</p></li>
+				<li><p>Select Settings</p></li>
+				<li><p>Select Voice</p></li>
+				<li><p>Select Offline speech recognition</p></li>
+				<li><p>Go to ALL and add English (US).</p></li>
+				</ol>
                 <p>The backend, the AskBob (Team 39) NLP server and service API interaction are all containerised
                     meaning the following prerequisites are also required:</p>
                 <ul>

@@ -251,7 +251,7 @@
             (provided through Android Studio).</p>	
 		<p>	Unit tests tested individual classes whereas the integration tests tested interactions
             between multiple classes. The majority
-            of integration tests were limited to the MainContoller class and AskBobResponseController class since these
+            of integration tests were limited to the MainController class and AskBobResponseController class since these
             are the two main classes which interact
             with other classes.</p>
 		<p> Tests were split into different classes, each one corresponding to
@@ -350,13 +350,15 @@
             has ABD installed and available.</p>
         <h3>Resource Usage Testing</h3>
         <p>Using the built in Android Studio Profiler, we were able to monitor the system resource usage of our app on
-            the tablet [mention specs here]. </p>
+            a tablet (Octa Core, 4GB RAM, 64GB ROM). </p>
 		<p> We performed
             a range of tasks on the app that we would expect our users to do, from making commands to adding reminders,
             for example. The average CPU usage during
             this time was less than 10% and the average RAM used was roughly 80MB. This is very good as it means our app
             uses minimal amount of system resources. Though we have not tested the app on low powered devices, this suggests
-			that the app could run on such devices without changing the code. See screenshots of resource usage from the Profiler below.</p>
+			that the app could run on such devices without changing the code. The Profiler settings were set to 
+			track low level method calls as well to ensure we got an accurate and deep reflection of the apps system 
+			resource usage. See screenshots of resource usage from the Profiler below.</p>
 		<p>CPU usage during general usage, including using the voice assistant: </p>
 		<div class="enlargeable">
 			<span>Click to enlarge</span>
@@ -374,19 +376,26 @@
             recommend doing formal speed testing specifically
             for tasks which use high amounts of the CPU. As our app doesn't use much CPU for any of the tasks, we did
             not conduct formal speed tests, though
-            future developers may decide to do this as they add new functionality to the app. [give details of the profiler
-            to show we were testing all method calls]. </p>
+            future developers may decide to do this as they add new functionality to the app. </p>
         <h3>Compatibility Testing</h3>
         <p>	We want our app to be able to be used on a variety of devices, old and new. It was therefore important to
             make sure that it is compatible with
             different Android API levels. </p>
 		<p> We did not conduct formal compatibility testing due to a lack of need. Android Studio itself tells us if we are using a
             system feature that is above our minSDK. This happened for setting an alarm notification, where Android Studio alerted us that
-			the system call being used was above our minSDK. It then suggested a possible fix. See the screenshot of this below. </p>
-		<p> Furthermore, since all our
+			the system call being used was above our minSDK. It then suggested a possible fix which we used. See the screenshot of this below. </p>
+			<div class="enlargeable">
+			<span>Click to enlarge</span>
+			<img src="assets/images/testing/app-compatible-code.png"/>
+			<img src="assets/images/testing/app-compatible-code.png" tabindex="-1"/>
+        </div>
+		<p> Furthermore, all our
             Android API calls are basic, such as calling and messaging. We also do not interact with low level system features 
-			or the Hardware Abstraction Layer (HAL). We therefore felt that formal compatibility testig was not necessary at this stage.
-			It should also be noted that we tested the app on a tablet which ran Android SDK 8 (which is nearly 4 years old) and everything worked as it should.
+			or the Hardware Abstraction Layer (HAL). Where possible, we also tried to use libraries which had been tested for backward compatibility.
+			For instance, Google's Play Services (used to obtain the user's latitude and longitude) have been tested to ensure backward compatibility
+			with Android SDKs up to 4.1 (API Level 16, which is also our minSDK). We therefore felt that formal compatibility testig was not necessary at this stage.
+			It should also be noted that we tested the app on a tablet which ran Android SDK 8 (which is nearly 4 years old) and on a phone running the newer 
+			Android SDK  and both worked without issue.
 			</p>
         <h3>Device Testing???</h3>
         <p></p>
