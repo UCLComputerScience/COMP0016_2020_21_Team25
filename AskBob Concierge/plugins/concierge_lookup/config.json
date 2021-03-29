@@ -1,5 +1,7 @@
 {
     "plugin": "concierge_lookup",
+    "description" : "Concierge Phone plugin to provide users with search services",
+    "author": "Calin Hadarean, Ernest Nkansah-Badu, Mohammad Ali Syed",
     "entities": [
         "shopping_search_term",
         "shop_term",

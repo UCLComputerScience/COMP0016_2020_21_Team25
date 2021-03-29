@@ -1,10 +1,10 @@
 {
     "plugin": "concierge_utility",
+    "description" : "Concierge plugin to provide users with utility services",
+    "author": "Calin Hadarean, Ernest Nkansah-Badu, Mohammad Ali Syed",
     "entities": [
         "GPE",
         "search_word"
-       
-
     ],
     "regexes": [
         {
