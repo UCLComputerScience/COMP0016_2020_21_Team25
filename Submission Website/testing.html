@@ -606,10 +606,888 @@
             old) and on a phone running the newer
             Android SDK and both worked without issue.
         </p>
-        <h3>Device Testing???</h3>
-        <p></p>
         <h3>User Acceptance Testing</h3>
-        <p></p>
+        <p>We asked some elderly people that we know to test our app and provide us with feedback.</p>
+		<p>The app has a lot of features so we split our test cases into different parts. </p>
+		<p>The first part was using the voice assistant along with all the available services (APIs and device services). </p>
+		<p>The second part was getting them to connect to the admin and reuse some of the APIs.</p>
+		<p>The third part was using the other features (Alarms, Reminders and Timers). </p>
+		<p>The fourth part was just navigating to all the different pages and assessing the UI.</p>
+		<p>The idea was to test the design, functionality and ease of use of our app with our test users.</p>
+		<h4>Phase One</h4>
+		<p>Users were given phrases for the different services and asked to use them with our voice assistant. We noted how many successes and failures there were and then asked for feedback at the end.</p>
+		<p>See the table below for the results</p>
+		<table width="770">
+<tbody>
+<tr>
+<td width="193">
+<p><strong>Service</strong></p>
+</td>
+<td width="96">
+<p><strong>User 1 command</strong></p>
+</td>
+<td width="107">
+<p><strong>User 2 command</strong></p>
+</td>
+<td width="107">
+<p><strong>User 3 command</strong></p>
+</td>
+<td width="107">
+<p><strong>User 4 command</strong></p>
+</td>
+<td width="92">
+<p><strong>Successes</strong></p>
+</td>
+<td width="69">
+<p><strong>Failures</strong></p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Weather</p>
+</td>
+<td width="96">
+<p>What is the weather in Leeds</p>
+</td>
+<td width="107">
+<p>Tell me what the weather is like in Bristol</p>
+</td>
+<td width="107">
+<p>Give me the weather in Liverpool</p>
+</td>
+<td width="107">
+<p>How hot is it in New York</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Air Quality</p>
+</td>
+<td width="96">
+<p>Give me the air quality in London</p>
+</td>
+<td width="107">
+<p>What is the air quality in New York</p>
+</td>
+<td width="107">
+<p>Tell me what the air quality is like in Manchester</p>
+</td>
+<td width="107">
+<p>Could you tell me what the air quality is like in Brooklyn</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Dictionary</p>
+</td>
+<td width="96">
+<p>Could you tell me the meaning of the word spring</p>
+</td>
+<td width="107">
+<p>What does the word sunshine mean</p>
+</td>
+<td width="107">
+<p>What is the search definition of the word enhance</p>
+</td>
+<td width="107">
+<p>Tell me the meaning of the word lake</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Thesaurus</p>
+</td>
+<td width="96">
+<p>What are some synonyms of the word colony</p>
+</td>
+<td width="107">
+<p>Give me synonyms of trivial</p>
+</td>
+<td width="107">
+<p>Tell me some synonyms of the word powerful</p>
+</td>
+<td width="107">
+<p>Please give me synonyms of good</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Jokes</p>
+</td>
+<td width="96">
+<p>Tell me a joke</p>
+</td>
+<td width="107">
+<p>Give me a science joke</p>
+</td>
+<td width="107">
+<p>Could you tell me a pun</p>
+</td>
+<td width="107">
+<p>Could you tell me a food pun</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search book</p>
+</td>
+<td width="96">
+<p>Tell me about the story Pride and Prejudice</p>
+</td>
+<td width="107">
+<p>Give me information about the story the Scarlet Letter</p>
+</td>
+<td width="107">
+<p>Could you tell me about the novel Peter Pan</p>
+</td>
+<td width="107">
+<p>Tell me about the novel Alice&rsquo;s Adventure in Wonderland</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search book by category</p>
+</td>
+<td width="96">
+<p>Tell me about a horror story</p>
+</td>
+<td width="107">
+<p>Give me information about a classic book</p>
+</td>
+<td width="107">
+<p>What is a good mystery book</p>
+</td>
+<td width="107">
+<p>Give me a summary about a fantasy book</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Read book</p>
+</td>
+<td width="96">
+<p>Tell me about the story Pride and Prejudice -&gt; please read the book</p>
+</td>
+<td width="107">
+<p>Give me information about the story the Scarlet Letter -&gt; give me that book</p>
+</td>
+<td width="107">
+<p>Could you tell me about the novel Peter Pan -&gt; I want to read the book</p>
+</td>
+<td width="107">
+<p>Tell me about the novel Alice&rsquo;s Adventure in Wonderland -&gt; read the book out</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>News</p>
+</td>
+<td width="96">
+<p>Give me some news about Elon Musk</p>
+</td>
+<td width="107">
+<p>Tell me news about Boris Johnson</p>
+</td>
+<td width="107">
+<p>Could you give me some news about London</p>
+</td>
+<td width="107">
+<p>Please tell me news about pandas</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Find nearest bus stop/train station</p>
+</td>
+<td width="96">
+<p>Tell me where I can find the nearest train station</p>
+</td>
+<td width="107">
+<p>Tell me where the nearest train station is</p>
+</td>
+<td width="107">
+<p>Give me the location of my closest bus station</p>
+</td>
+<td width="107">
+<p>Could you show me where I can get the bus</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search for bus stop/train station</p>
+</td>
+<td width="96">
+<p>I would like the location where I can find the Oxford Street bus</p>
+</td>
+<td width="107">
+<p>Please show me where I can find Kensington bus stop</p>
+</td>
+<td width="107">
+<p>Tell me where I can find Euston train station</p>
+</td>
+<td width="107">
+<p>Give me the location of Canary Wharf</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Stocks</p>
+</td>
+<td width="96">
+<p>What is the stock value for IBM</p>
+</td>
+<td width="107">
+<p>Tell me the current stock value for NKE</p>
+</td>
+<td width="107">
+<p>Give me the current stock value of AMD</p>
+</td>
+<td width="107">
+<p>Could you give me stock value of Tesla</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search charity</p>
+</td>
+<td width="96">
+<p>Give me some information about the charity Oxfam</p>
+</td>
+<td width="107">
+<p>What is the charity WWF</p>
+</td>
+<td width="107">
+<p>Tell me a short summary about the charity British Heart Foundation</p>
+</td>
+<td width="107">
+<p>Give me a summary about the charity Bernardo&rsquo;s</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search charity by location</p>
+</td>
+<td width="96">
+<p>Give me the name of a charity in London</p>
+</td>
+<td width="107">
+<p>Tell me the name of a charity in the city of New York</p>
+</td>
+<td width="107">
+<p>What is the name of a charity which is based in the city Edinburgh</p>
+</td>
+<td width="107">
+<p>Are there any charities in Brooklyn</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search recipe by name</p>
+</td>
+<td width="96">
+<p>Tell me a recipe for Ramen</p>
+</td>
+<td width="107">
+<p>Give me a recipe for Tacos</p>
+</td>
+<td width="107">
+<p>Could you give me a recipe for roast chicken</p>
+</td>
+<td width="107">
+<p>I would like a recipe for cookies</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search recipe by ingredient</p>
+</td>
+<td width="96">
+<p>I would like a recipe using chocolate</p>
+</td>
+<td width="107">
+<p>Tell me a recipe using tomatoes</p>
+</td>
+<td width="107">
+<p>Give me a recipe utilising fish</p>
+</td>
+<td width="107">
+<p>Could you give me a recipe using pasta</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Get random recipe</p>
+</td>
+<td width="96">
+<p>Tell me a recipe</p>
+</td>
+<td width="107">
+<p>Give me a recipe</p>
+</td>
+<td width="107">
+<p>Please tell me a recipe</p>
+</td>
+<td width="107">
+<p>Could you provide me with a recipe</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Read out recipe</p>
+</td>
+<td width="96">
+<p>Tell me a recipe for Ramen. -&gt; Read the recipe</p>
+</td>
+<td width="107">
+<p>Give me a recipe for Tacos -&gt; Could you read the recipe</p>
+</td>
+<td width="107">
+<p>Could you give me a recipe for roast chicken -&gt; please read the instructions to that recipe</p>
+</td>
+<td width="107">
+<p>I would like a recipe for cookies -&gt; read out the instructions</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Call contact</p>
+</td>
+<td width="96">
+<p>Call Bob</p>
+</td>
+<td width="107">
+<p>Can you call Mike</p>
+</td>
+<td width="107">
+<p>Please call Dan Dixon</p>
+</td>
+<td width="107">
+<p>I would like to speak to Bob Rogers</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>SMS contact</p>
+</td>
+<td width="96">
+<p>Can you message Steve</p>
+</td>
+<td width="107">
+<p>Can you send Selena an sms</p>
+</td>
+<td width="107">
+<p>I would like to message Doris</p>
+</td>
+<td width="107">
+<p>Send Emma a message</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Open app on phone</p>
+</td>
+<td width="96">
+<p>Can you open Facebook</p>
+</td>
+<td width="107">
+<p>Open Youtube</p>
+</td>
+<td width="107">
+<p>Please open Messages</p>
+</td>
+<td width="107">
+<p>I would like to open the camera application</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Navigate to page on app</p>
+</td>
+<td width="96">
+<p>Go to the History page</p>
+</td>
+<td width="107">
+<p>Navigate to Instructions</p>
+</td>
+<td width="107">
+<p>I would like to go to Alarms</p>
+</td>
+<td width="107">
+<p>Can you please go to Reminders</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search for item on e-commerce site</p>
+</td>
+<td width="96">
+<p>Can you search Amazon for baked beans</p>
+</td>
+<td width="107">
+<p>Can you open Amazon and search for whiskey</p>
+</td>
+<td width="107">
+<p>Search Google for Jam</p>
+</td>
+<td width="107">
+<p>Please open Amazon and buy trainers</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+<tr>
+<td width="193">
+<p>Search for services on Yell</p>
+</td>
+<td width="96">
+<p>Can you find me a plumber</p>
+</td>
+<td width="107">
+<p>Get me a carpenter from Yell</p>
+</td>
+<td width="107">
+<p>I would like to find a nearby vet</p>
+</td>
+<td width="107">
+<p>Can you please get me a florist from Yell</p>
+</td>
+<td width="92">
+<p>All</p>
+</td>
+<td width="69">
+<p>None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We are pleased to say that all commands worked. See the table below for the extra feedback received.</p>
+<table>
+<tbody>
+<tr>
+<td width="328">
+<p><strong>Feedback</strong></p>
+</td>
+</tr>
+<tr>
+<td width="328">
+<p>+ Wide range of services</p>
+<p>+ Existing services are informative and useful</p>
+<p>+ Phone services are particularly useful</p>
+<p>+ Natural speech input is required</p>
+<p>+ Good that responses are spoken</p>
+<p>-Speech synthesis could be more natural</p>
+<p>-Messages could be better</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>Phase Two</h4>
+<p>We setup an admin and made accounts for all the users and added their favourite service from Phase 1 to their account.
+We then asked the users to use their favourite service and least favourite service (which should be rejected by the VA since it hasn’t been added to their account) and to check their history for the service.
+Feedback was then collected which can be seen below.</p>
+<p>&nbsp;</p>
+<table>
+<tbody>
+<tr>
+<td width="328">
+<p><strong>Feedback</strong></p>
+</td>
+</tr>
+<tr>
+<td width="328">
+<p>+Very easy and simple process</p>
+<p>+Very useful feature (connecting to Admin)</p>
+<p>+Love that the history is then displayed</p>
+<p>+Idea of customisation is very good</p>
+<p>+Removes all the stress, could never do this [Admin tasks] myself</p>
+<p>+Puts me at ease knowing they [Admin] can help</p>
+<p>+Its good you don&rsquo;t have to do this multiple times / no logging out.</p>
+<p>-You should have description on page what to do</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>Phase Three</h4>
+<p>Users were then asked to conduct the following tasks for the other features.</p>
+<table>
+<tbody>
+<tr>
+<td width="301">
+<p><strong>Feature</strong></p>
+</td>
+<td width="301">
+<p><strong>Task Description</strong></p>
+</td>
+</tr>
+<tr>
+<td rowspan="3" width="301">
+<p>&nbsp;</p>
+<p>Alarms</p>
+</td>
+<td width="301">
+<p>Add and view alarm</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Edit the alarm</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Delete the alarm</p>
+</td>
+</tr>
+<tr>
+<td rowspan="3" width="301">
+<p>&nbsp;</p>
+<p>Reminders</p>
+</td>
+<td width="301">
+<p>Add and view reminder</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Edit the reminder</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Delete the reminder</p>
+</td>
+</tr>
+<tr>
+<td rowspan="3" width="301">
+<p>&nbsp;</p>
+<p>Timers</p>
+</td>
+<td width="301">
+<p>Set a timer</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Start the timer</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Pause the timer</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We received the following feedback.</p>
+<table>
+<tbody>
+<tr>
+<td width="316">
+<p><strong>Feature</strong></p>
+</td>
+<td width="285">
+<p><strong>Feedback</strong></p>
+</td>
+</tr>
+<tr>
+<td width="316">
+<p>Alarms</p>
+</td>
+<td width="285">
+<p>+Very useful</p>
+<p>+Easy to use</p>
+<p>+Intuitive</p>
+<p>+Simple</p>
+<p>-When editing an alarm, it would be better if the existing date and time would show up</p>
+</td>
+</tr>
+<tr>
+<td width="316">
+<p>Reminders</p>
+</td>
+<td width="285">
+<p>+Very useful</p>
+<p>+Easy to use</p>
+<p>+Intuitive</p>
+<p>+Simple</p>
+<p>-Actual text for reminder could be bigger</p>
+</td>
+</tr>
+<tr>
+<td width="316">
+<p>Timers</p>
+</td>
+<td width="285">
+<p>+Very useful</p>
+<p>+Easy to use</p>
+<p>+Intuitive</p>
+<p>+Simple</p>
+<p>-Numbers in number picker could be bigger</p>
+</td>
+</tr>
+<tr>
+<td width="316">
+<p>Overall</p>
+</td>
+<td width="285">
+<p>+Good colour scheme</p>
+<p>+Big text</p>
+<p>+Big buttons</p>
+<p>+Easy to read fonts and colours</p>
+<p>+Clear instructions</p>
+<p>+Easy to use and navigate</p>
+<p>+Easy to understand</p>
+<p>-Some text/items could be bigger</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>Phase Four</h4>
+<p>Users had the following feedback on the UI</p>
+<table>
+<tbody>
+<tr>
+<td width="301">
+<p><strong>Page</strong></p>
+</td>
+<td width="301">
+<p><strong>Feedback</strong></p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Home</p>
+</td>
+<td width="301">
+<p>+Nice</p>
+<p>+love green background when holding mic</p>
+<p>+love the clear instructions</p>
+<p>+love the big buttons and text</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Instructions</p>
+</td>
+<td width="301">
+<p>+love the big text</p>
+<p>+very useful</p>
+<p>-so many instructions can be overwhelming</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>History</p>
+</td>
+<td width="301">
+<p>+Simple</p>
+<p>+Minimal</p>
+<p>+Easy to use</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>View Alarms</p>
+</td>
+<td width="301">
+<p>+nice and clean</p>
+<p>-default text if no alarms have been added should be there</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Add, Edit Alarms</p>
+</td>
+<td width="301">
+<p>+love big buttons</p>
+<p>+love big text</p>
+<p>+text for date and time could be bigger</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>View Reminders</p>
+</td>
+<td width="301">
+<p>+nice and clean</p>
+<p>-default text if no reminders have been added should be there</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Add, Edit Reminders</p>
+</td>
+<td width="301">
+<p>+big buttons</p>
+<p>+big text</p>
+<p>+very simple</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Timers</p>
+</td>
+<td width="301">
+<p>+nice and simple</p>
+<p>+big buttons</p>
+<p>+easy to use</p>
+<p>-numbers should be bigger</p>
+</td>
+</tr>
+<tr>
+<td width="301">
+<p>Register</p>
+</td>
+<td width="301">
+<p>+big text</p>
+<p>+big buttons</p>
+<p>-have description of what to do on the page</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Overall, the feedback was very positive and exactly what we hoped the users would feel. </p>
+<p>We will take on board the negative points. 
+All of these are small issues which can easily be resolved in the future. 
+They occurred mainly due to lack of time. For example, if we had more time, 
+we could implement custom number pickers with larger size.</p> <p> As a proof of concept, this is very encouraging. </p>
     </section>
 
     <section class="askbob-integration light-page-section">
