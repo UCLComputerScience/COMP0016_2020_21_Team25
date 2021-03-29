@@ -1,3 +1,10 @@
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    vertical-align: center;
+}
+
 .testing-strategy > div {
     flex-direction: column;
     margin-right: 64px;
