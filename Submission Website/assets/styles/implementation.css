@@ -55,6 +55,11 @@
     margin-bottom: 0;
 }
 
+.ask-bob-integration .enlargeable {
+    height:50%;
+    width:50%
+}
+
 .methods {
     align-items: flex-start;
     max-width: 85%;
