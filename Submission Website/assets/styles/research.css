@@ -103,3 +103,7 @@ section:not(:first-child) > .centred ul:last-child li {
 .research-container ul {
     width: inherit !important;
 }
+
+img {
+    mix-blend-mode: darken;
+}

@@ -97,12 +97,7 @@
                      tabindex="-1">
             </div>
             <p>Several implementation iterations were carried out, testing the appearance on multiple browsers, screen
-                sizes and orientations. Screenshots are shown below:</p>
-            <div class="enlargeable">
-                <span>Click to enlarge</span>
-                <img alt="The Concierge web app on different devices" src="">
-                <img alt="The Concierge web app on different devices" src="" tabindex="-1">
-            </div>
+                sizes and orientations.</p>
         </div>
 
         <div class="web-app-section centred">
@@ -229,7 +224,6 @@
                      src="assets/images/implementation/firebase-snippet.png" tabindex="-1">
             </div>
 
-            <i>See the <a href="appendix.html">appendix</a> for image attributions.</i>
         </div>
 
         <div class="web-app-section centred">
@@ -264,113 +258,131 @@
     <section>
         <h2>Android App</h2>
         <p>See implementation details for the app below.</p>
-            <h3>Main Technologies</h3>
-            <p>The app was programmed in Java using the Android Studio IDE and its built in features such as the
-                Profiler.</p>
-            <h3>Dependencies & Tools</h3>
-            <p>We used several external libraries beyond the standard Java and Android libraries to help us develop and
-                test our app. See the different sections below.</p>
-            <h3>Android APIs</h3>
-            <p>We made extensive use of the built in Android APIs for features such as searching contacts, making calls
-                and providing notifications.</p>
-            <p>This includes using the built-in Android speech recognition (which can be used offline for Android API Level 16 and above) and speech synthesis for our app. We used this as it was the simplest option
-				given our app was native to Android. This provides the added benefit that as
-                the Android speech
-                recognition and speech synthesis improves, our app will automatically benefit, rather than having to maintatin and improve speech recognition 
-				and synthesis ourselves.
-                </p>
-				<p>Generall speaking, using existing Android APIs saved us time from having to implement all the low level code ourselves. It also
-				resulted in better code quality and ensured compatibility with different Android SDKs [see Compatibility Testing
-				for more details]. The Android APIs are also well tested which is an important metric for quality assurance.</p></p>
-            <h4>Built in SQLite 3 DB (For Alarms, Reminders and User Details)</h4>
-            <p>We utilised the built in SQLite database that comes with Android for our Alarms and Reminders. We also
-                used this to store a
-                user's details after they connected to their admin. </p>
-				<p> We utilised the localised storage as it is fast, convenient, reliable and raises no privacy concerns. It can now also act as a
-                framework for developers who may wish to utilise the localised storage for their own features, some of which may be privacy sensitive.</p>
-            <h4>Built in widgets</h4>
-			<p> We utilised several built in widgets such as DatePicker, NumberPicker and more.</p>
-            <p>These were used in some of our features. For example Alarms required widgets for choosing the date and time.
-                and Timers required the NumberPicker widget. Reasons for using the built in widget are the same as for using Android
-                APIs (see above). </p>
-			<p>However, we accept a possible disadvantage of doing this which is that customisation of built in widgets is limited.
-				Though we acknowledge that our app may benefit from custom widgets design wise, we did not have enough time to code and test these 
-				(this may be an idea future teams can pick up on). </p>
-            <h3>Java</h3>
-            <h4>Java 13</h4>
-            <p>We used Java 13 to program our app as it was the most up to date Java version and provided many standard,
-                well tested, well maintained libraries which we could use.</p>
-            <h4>Data Structures</h4>
-            <p>We used many data structures in our app. The most notable one was HashMaps.
-			</p>
-			<p>	This was used to store key
-                value pairs after parsing the JSON response
-                from Ask Bob which would then be used by the AskBobResponseController to decide which method in
-                MainController to call.</p>
-			<p> We used HashMaps for their efficiency,
-                as they provide O(1) time complexity for searching. This would ensure
-                that we could respond to user requests more
-                quickly. They also come with a variety of built in methods that were very useful, such as contains(),
-                which was needed at several points to quickly
-                check what sort of a request the user had made (Service API, Lookup etc). It
-                also prevented the app from crashing
-                due to NullPointerExceptions as we could check if the hashmap contained a particular key or not before
-                asking for it through the get() method. Note that
-                O(1) time complexity came into use here too.</p>
-            <p> Aside from this, we used other data structures such as ArrayLists and Strings to pass data around our
-                app appropriately. These data structures, along with HashMaps,
-                came with a nice interface and Stream API methods which allowed us to easily peform required operations on these
-				data structures without having to implement them ourselves. They were also easier to work with than raw
-                data structures such as arrays due to their interface.</p>
-            <p> We also used booleans, ints and other primitive data types. We used these when there was no need to use
-                more complex data structures which made our
-                app faster and less resource intensive.</p>
-            <h4>Other Java Libraries</h4>
-            <p>We used other standard Java libraries such as HttpUrlConnection (for connecting to the backend and Ask
-                Bob servers) throughout the app. These standard libraries are also what allowed us to connect our app to the backend
-				automatically. </p>
-			<p>	Given that our backend server runs locally rather than on the cloud, the IP address would change for everyone 
-				who ran the server. This created an issue as to how we could program our app to connect to the backend server on any network for everyone
-				as the IP would change every time. We came up with a solution where our backend server broadcasts its IP address and the app picks it up 
-				and stores this IP. This meant our app can dynamically connect to the local backend server on any network for everyone, without any input from the user.</p>
-            <h3>Other Major Libraries</h3>
-            <h4>Espresso</h4>
-            <p>This library was used to write Instrumentation tests. Please refer to the testing section for further
-                details.</p>
-            <h4>Robolectric</h4>
-            <p>This library was used to write unit/integration tests. Please refer to the testing section for further
-                details. </p>
-            <h4>Monkey</h4>
-            <p>This library was used for stress testing. Please refer to the testing section for further details.</p>
-            <h4>AndroidJUnit4Runner</h4>
-            <p>This library was used to run Instrumentation tests. Please refer to the testing section for further
-                details.</p>
-            <h4>org.json</h4>
-            <p>This library was used to parse the JSON response from the Ask Bob Server.</p>
-            <h4>Backend and Ask Bob Servers</h4>
-            <p>The app makes use of the Ask Bob server to send user requests and receive a JSON response which the app
-                can use to decide which action to take.
-                We also make use of our backend server
-                to connect users with their admin and provide
-                them with the functionality this entails such as their history.</p>
-            <h3>Minor Libraries/Technology Used</h3>
-            <h4>api.postcodes.io</h4>
-            <p>This API is used to convert the user's latitude and longitude into a postcode for certain services such as Yell searches.</p>
-            <h4>Play Services Location</h4>
-            <p>This Google library is used as part of getting the user's latitude and longitude. </p>
+        <h3>Main Technologies</h3>
+        <p>The app was programmed in Java using the Android Studio IDE and its built in features such as the
+            Profiler.</p>
+        <h3>Dependencies & Tools</h3>
+        <p>We used several external libraries beyond the standard Java and Android libraries to help us develop and
+            test our app. See the different sections below.</p>
+        <h3>Android APIs</h3>
+        <p>We made extensive use of the built in Android APIs for features such as searching contacts, making calls
+            and providing notifications.</p>
+        <p>This includes using the built-in Android speech recognition (which can be used offline for Android API Level
+            16 and above) and speech synthesis for our app. We used this as it was the simplest option
+            given our app was native to Android. This provides the added benefit that as
+            the Android speech
+            recognition and speech synthesis improves, our app will automatically benefit, rather than having to
+            maintatin and improve speech recognition
+            and synthesis ourselves.
+        </p>
+        <p>Generall speaking, using existing Android APIs saved us time from having to implement all the low level code
+            ourselves. It also
+            resulted in better code quality and ensured compatibility with different Android SDKs [see Compatibility
+            Testing
+            for more details]. The Android APIs are also well tested which is an important metric for quality
+            assurance.</p></p>
+        <h4>Built in SQLite 3 DB (For Alarms, Reminders and User Details)</h4>
+        <p>We utilised the built in SQLite database that comes with Android for our Alarms and Reminders. We also
+            used this to store a
+            user's details after they connected to their admin. </p>
+        <p> We utilised the localised storage as it is fast, convenient, reliable and raises no privacy concerns. It can
+            now also act as a
+            framework for developers who may wish to utilise the localised storage for their own features, some of which
+            may be privacy sensitive.</p>
+        <h4>Built in widgets</h4>
+        <p> We utilised several built in widgets such as DatePicker, NumberPicker and more.</p>
+        <p>These were used in some of our features. For example Alarms required widgets for choosing the date and time.
+            and Timers required the NumberPicker widget. Reasons for using the built in widget are the same as for using
+            Android
+            APIs (see above). </p>
+        <p>However, we accept a possible disadvantage of doing this which is that customisation of built in widgets is
+            limited.
+            Though we acknowledge that our app may benefit from custom widgets design wise, we did not have enough time
+            to code and test these
+            (this may be an idea future teams can pick up on). </p>
+        <h3>Java</h3>
+        <h4>Java 13</h4>
+        <p>We used Java 13 to program our app as it was the most up to date Java version and provided many standard,
+            well tested, well maintained libraries which we could use.</p>
+        <h4>Data Structures</h4>
+        <p>We used many data structures in our app. The most notable one was HashMaps.
+        </p>
+        <p> This was used to store key
+            value pairs after parsing the JSON response
+            from Ask Bob which would then be used by the AskBobResponseController to decide which method in
+            MainController to call.</p>
+        <p> We used HashMaps for their efficiency,
+            as they provide O(1) time complexity for searching. This would ensure
+            that we could respond to user requests more
+            quickly. They also come with a variety of built in methods that were very useful, such as contains(),
+            which was needed at several points to quickly
+            check what sort of a request the user had made (Service API, Lookup etc). It
+            also prevented the app from crashing
+            due to NullPointerExceptions as we could check if the hashmap contained a particular key or not before
+            asking for it through the get() method. Note that
+            O(1) time complexity came into use here too.</p>
+        <p> Aside from this, we used other data structures such as ArrayLists and Strings to pass data around our
+            app appropriately. These data structures, along with HashMaps,
+            came with a nice interface and Stream API methods which allowed us to easily peform required operations on
+            these
+            data structures without having to implement them ourselves. They were also easier to work with than raw
+            data structures such as arrays due to their interface.</p>
+        <p> We also used booleans, ints and other primitive data types. We used these when there was no need to use
+            more complex data structures which made our
+            app faster and less resource intensive.</p>
+        <h4>Other Java Libraries</h4>
+        <p>We used other standard Java libraries such as HttpUrlConnection (for connecting to the backend and Ask
+            Bob servers) throughout the app. These standard libraries are also what allowed us to connect our app to the
+            backend
+            automatically. </p>
+        <p> Given that our backend server runs locally rather than on the cloud, the IP address would change for
+            everyone
+            who ran the server. This created an issue as to how we could program our app to connect to the backend
+            server on any network for everyone
+            as the IP would change every time. We came up with a solution where our backend server broadcasts its IP
+            address and the app picks it up
+            and stores this IP. This meant our app can dynamically connect to the local backend server on any network
+            for everyone, without any input from the user.</p>
+        <h3>Other Major Libraries</h3>
+        <h4>Espresso</h4>
+        <p>This library was used to write Instrumentation tests. Please refer to the testing section for further
+            details.</p>
+        <h4>Robolectric</h4>
+        <p>This library was used to write unit/integration tests. Please refer to the testing section for further
+            details. </p>
+        <h4>Monkey</h4>
+        <p>This library was used for stress testing. Please refer to the testing section for further details.</p>
+        <h4>AndroidJUnit4Runner</h4>
+        <p>This library was used to run Instrumentation tests. Please refer to the testing section for further
+            details.</p>
+        <h4>org.json</h4>
+        <p>This library was used to parse the JSON response from the Ask Bob Server.</p>
+        <h4>Backend and Ask Bob Servers</h4>
+        <p>The app makes use of the Ask Bob server to send user requests and receive a JSON response which the app
+            can use to decide which action to take.
+            We also make use of our backend server
+            to connect users with their admin and provide
+            them with the functionality this entails such as their history.</p>
+        <h3>Minor Libraries/Technology Used</h3>
+        <h4>api.postcodes.io</h4>
+        <p>This API is used to convert the user's latitude and longitude into a postcode for certain services such as
+            Yell searches.</p>
+        <h4>Play Services Location</h4>
+        <p>This Google library is used as part of getting the user's latitude and longitude. </p>
     </section>
 
     <section class="ask-bob-integration">
         <h2>AskBob Integration</h2>
         <p>An integral part of our system is the Concierge Voice Assistant. This voice assistant is powered by the
             AskBob RESTful API which is deployed locally and will allow users to utilise the voice assistant within the
-            app. This AskBob API receives the users command from the Concierge app in plain text. It then employee’s
-            natural language processing to decode the intent behind command and then calls our Service API to retrieve
+            app. This AskBob API receives the user's command from the Concierge app in plain text. It then employee’s
+            natural language processing to decode the intent behind the command and then calls our Service API to
+            retrieve
             the necessary information required to fulfil this request. This data is then returned to the app where the
             appropriate action can be triggered. </p>
         <p>This AskBob API was developed using Team 39’s AskBob NLP framework. This framework is based upon the Python
             library Rasa which is designed for building chatbots. Originally, we had been utilising Spacy to perform our
-            natural language processing. In this case we designed and trained our own NLP Spacy model and were then
+            natural language processing. In this case, we designed and trained our own NLP Spacy model and were then
             running it as an API using the Python Library Flask. However, our clients requested that we integrate some
             of our services with the other 2 IBM groups (Team 39 and Team 38). As part of this integration, we were
             instructed to transition to the AskBob NLP framework for our voice assistant to ensure consistency across
@@ -379,21 +391,21 @@
         <h3>Structure</h3>
         <p>As mentioned above the AskBob API is intended to be deployed on a local network as specified in our MOSCOW
             requirements. The AskBob API is intended to receive a user’s command in plain text from the app which is
-            acquired having the app perform speech recognition on the user’s verbal request. This request is then
+            acquired by having the app perform speech recognition on the user’s verbal request. This request is then
             processed, and the appropriate data required to fulfil the request is retrieved from our service API. For
             the AskBob API to perform this, it is reliant on also having the service API running locally. </p>
         <h3>Adding Plugins</h3>
         <p>Services are added to the AskBob API in the form of plugins. Plugins are collections of services and the
             general Concierge plugin consists of three main files: an __init__.py file, an actions.py file and a
-            config.json file. Within these files all the data required to implement a service is contained. </p>
+            config.json file. Within these files, all the data required to implement a service is contained. </p>
         <h4>The <code>__init__.py</code> File</h4>
         <p>The purpose of the <code>__init__.py</code> file is to mark the plugin folder as a
             Python package. </p>
         <h4>The <code>config.json</code> File</h4>
-        <p>The config file is used to define the skills within a given plugin. Skills refers to the to a specific
-            service within the plugin. At its core a skill is comprised of an intent and an action. The intent can be
-            understood as what the user is attempting to achieve, and the action is the process that is triggered by a
-            specific intent. When defining an intent multiple sample commands must be provided as this is what the NLP
+        <p>The config file is used to define the skills within a given plugin. Skills refer to a specific
+            service within the plugin. At its core, a skill is comprised of intent and action. The intent can be
+            understood as what the user is attempting to achieve, and the action is the process that is triggered by
+            specific intent. When defining intent multiple sample commands must be provided as this is what the NLP
             model will train from. Actions on the other hand will be defined within the <code>actions.py</code>
             file. </p>
         <p>Additionally, certain skills may require data to be extracted from the user’s command. This data is referred
@@ -417,6 +429,7 @@
             <img alt="An example JSON response" src="assets/images/implementation/AskBob response sample picture.png">
             <img alt="An example JSON response" src="assets/images/implementation/AskBob response sample picture.png" tabindex="-1">
         </div>
+
         <p>Below is an action class for the weather service that is defined by the config class. </p>
         <div class="enlargeable" >
             <span>Click to enlarge</span>
@@ -490,14 +503,20 @@
             &lt;https:
             //next.vuex.vuejs.org&gt; [Accessed 26 March 2021].
         </p>
-		<p>Robolectric.org. 2018. Robolectric 4. [online] Available at: &lt;http://robolectric.org/&gt; [Accessed 26 March 2021].</p>
-		<p>Espresso. 2021. Espresso 3.4.0-alpha04. [online] Available at: &lt;https://developer.android.com/training/testing/espresso/&gt; [Accessed 26 March 2021].</p>
-		<p>Monkey. 2021. Monkey. [online] Available at: &lt;https://developer.android.com/studio/test/monkey/&gt; [Accessed 26 March 2021].</p>
-		<p>Postcodes.io. 2021. Postcodes.io. [online] Available at: &lt;https://api.postcodes.io/&gt; [Accessed 26 March 2021].</p>
-		<p>Play Services. 2021. Play Services. [online] Available at: &lt;https://developers.google.com/android/guides/overview/&gt; [Accessed 26 March 2021].</p>
-		<p>JSON.org 2021. JSON.org. [online] Available at: &lt;https://github.com/stleary/JSON-java/&gt; [Accessed 26 March 2021].</p>
-		
-		<
+        <p>Robolectric.org. 2018. Robolectric 4. [online] Available at: &lt;http://robolectric.org/&gt; [Accessed 26
+            March 2021].</p>
+        <p>Espresso. 2021. Espresso 3.4.0-alpha04. [online] Available at: &lt;https://developer.android.com/training/testing/espresso/&gt;
+            [Accessed 26 March 2021].</p>
+        <p>Monkey. 2021. Monkey. [online] Available at: &lt;https://developer.android.com/studio/test/monkey/&gt;
+            [Accessed 26 March 2021].</p>
+        <p>Postcodes.io. 2021. Postcodes.io. [online] Available at: &lt;https://api.postcodes.io/&gt; [Accessed 26 March
+            2021].</p>
+        <p>Play Services. 2021. Play Services. [online] Available at: &lt;https://developers.google.com/android/guides/overview/&gt;
+            [Accessed 26 March 2021].</p>
+        <p>JSON.org 2021. JSON.org. [online] Available at: &lt;https://github.com/stleary/JSON-java/&gt; [Accessed 26
+            March 2021].</p>
+
+        <
     </section>
 
 </div>
