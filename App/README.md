@@ -20,6 +20,7 @@ Instrumented tests - these tests were written using the Espresso framework and p
 Unit tests - these tests were written using the Robolectric framework and test the actual logic and code of the app. There are two important points to note here. 
 1. To run these tests, the targetSdkVersion under defaultConfig under android must be set to 29 or lower as Robolectric framework doesn't currently support any Android sdk versions greater than 29. In no way does this hinder the reliability of the tests as all the code written is intended for devices with Android sdk version 16 or higher as mentioned in the Deployment section.
 2. All the tests cannot be run in one go (ie you cannot right click on the test package and select 'Run Tests in 'fisev2concierge') as for some reason this causes the tests to fail. Again, this has nothing to do with our tests, rather it is an Android Studio issue. Instead, you must run each test class individually.  
+Please also ensure you have both the backend and Ask Bob servers running if you run the tests under the 'askBobConnectivity' and 'backendConnectivity' packages within the 'test' folder.
 
 ## Developer Guide
 The app was designed to be developer friendly, allowing developers to add their own code and features to the app. This section outlines the design of the code and sections of code itself which will helper developers.
