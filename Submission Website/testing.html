@@ -481,7 +481,7 @@
             sandbox environment which could mock a real time Android setup, allowing us to test other features (such as
             making HTTP requests to our server) which we could not do in standard unit tests.</p>
         <h3>Instrumented Tests</h3>
-        <p>Instrumented tests are UI tests which run on an emulator/device. We wrote these integration and functional
+        <p>Instrumented tests are UI tests which run on an emulator/device with AndroidJUnit4Runner. We wrote these integration and functional
             UI tests to automate user interaction, eg testing if the buttons all worked. </p>
         <p> We used the Espresso framework to write these
             tests, as recommended by Android.
