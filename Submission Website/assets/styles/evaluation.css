@@ -1,0 +1,47 @@
+.bug-grid {
+    flex-direction: column;
+    width: 66.7%;
+}
+
+
+.work-grid {
+    flex-direction: column;
+    width: 66.7%;
+}
+
+.work-row {
+    flex: 1;
+}
+
+.work-row:not(:last-child) {
+    margin-bottom: 32px;
+}
+
+.work-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.work-item:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.work-item ion-icon {
+    color: var(--blue);
+    margin-left: 24px;
+    margin-right: 24px;
+    display: none;
+}
+
+.work-requirements h3 {
+    margin: 0;
+}
+
+.work-requirements h4 {
+    margin-bottom: 0;
+}
+
+.work-content h5 {
+    margin-top: 0;
+    margin-bottom: 6px;
+}
