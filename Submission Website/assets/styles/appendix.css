@@ -28,3 +28,8 @@ h4, h3 {
     margin-top: 64px;
     margin-bottom: 64px;
 }
+
+#micIcon{
+	height: 10%;
+	width: 10%;
+}
