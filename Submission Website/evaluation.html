@@ -45,7 +45,8 @@
     <section>
         <h2>Bug List</h2>
         <p>Given the size of our project, we could not rely on peer review to uncover issues with another group member's
-            code - we had too much to do on our own. Instead, we aimed to only push code to the repository once it was heavily manually and automatically
+            code - we had too much to do on our own. Instead, we aimed to only push code to the repository once it was
+            heavily manually and automatically
             tested.</p>
         <p>When we began to integrate our project, we used the GitHub issue tracker to keep track of bugs and fixing
             progress.</p>
@@ -80,30 +81,32 @@
                 </li>
                 <li>
                     <p>
-                    When doing a gradle build and installing it on a device from Android Studio, it
-                    sometimes displayed error messages, again for no reason.
-                    Building the app and installing it again often solved the issue, however sometimes the entire cache had
-                    to be cleared by going under File
-                    and clicking Invalidate Caches/Restart. In some cases the errors would not stop the build/installation
-                    and in some cases it did. It should be made clear
-                    that there was no issue with our code (purely an Android Studio bug) as proven by the fact that simply
-                    building the project/clearing cache solved the issue.</p>
+                        When doing a gradle build and installing it on a device from Android Studio, it
+                        sometimes displayed error messages, again for no reason.
+                        Building the app and installing it again often solved the issue, however sometimes the entire
+                        cache had
+                        to be cleared by going under File
+                        and clicking Invalidate Caches/Restart. In some cases the errors would not stop the
+                        build/installation
+                        and in some cases it did. It should be made clear
+                        that there was no issue with our code (purely an Android Studio bug) as proven by the fact that
+                        simply
+                        building the project/clearing cache solved the issue.</p>
                 </li>
             </ul>
         </div>
         <h4>2. Fetching user's location (latitude and longitude) using Google's PlayServicesLocation</h4>
         <p>For some reason, this only seems to work if location data for the user already exists (if they have used
             Google maps already then it would exist).
-            Manually requesting the user's location from Android also did not seem to work. It is not possible for
-            us to ascertain the user's location ourselves
-            as this in itself would be its own project (a dedicated program would be needed).</p>
+            Manually requesting the user's location from Android also did not seem to work. We can't ascertain the
+            user's location ourselves
+            like this in itself would be its own project (a dedicated program would be needed).</p>
         <h4>3. Alarm Timings</h4>
-        <p>Depending on the Android API Level, if a user sets an alarm, it may not go off on the exact time they
-            set. Again, as we are using built in Android
-            APIs to set notifications, if the alarm does not go off on the exact time there is little we can do
-            about it as we are limited to the capabilities
-            of the user's Android SDK version. If the API level is above 19, the alarm should go off on the exact
-            time.</p>
+        <p>Depending on the Android API Level, if a user sets an alarm, it may not go off at the exact time they set it.
+            Again, as we are using built-in Android
+            APIs to set notifications, if the alarm does not go off at the exact time there is little we can do about it
+            as we are limited to the capabilities of the user's Android SDK version. If the API level is above 19, the
+            alarm should go off at the exact time.</p>
     </section>
 
     <section class="light-page-section centred">
@@ -120,65 +123,66 @@
 
         <h3>Individual Contributions</h3>
         <div class="Individual Contributions">
-            <img class="Individual Contributions -img" src="assets/images/evaluation/Individual Contributions Table.png"/>
+            <img class="Individual Contributions -img"
+                 src="assets/images/evaluation/Individual Contributions Table.png"/>
         </div>
     </section>
 
     <section>
         <h2>Critical Evaluation</h2>
         <p>As part of our evaluation we considered and investigated different aspects of
-             the system and reviewed them individually.</p>
+            the system and reviewed them individually.</p>
         <h3>User Interface and Experience</h3>
         <p>Throughout development our UI and User Experience was an integral part of our
-             system. As such we went through multiple iterations of designs. With each 
-             iteration we received feedback from our clients and users to further refine our design. 
-             Additionally, we strove to make our UI's intuitive and as easy to use as possible.
-              In the case of any uncertainty (e.g what voice commands are available to use 
-              for the voice assistant) we provided instructions to help users.</p>
+            system. As such we went through multiple iterations of designs. With each
+            iteration we received feedback from our clients and users to further refine our design.
+            Additionally, we strove to make our UI's intuitive and as easy to use as possible.
+            In the case of any uncertainty (e.g what voice commands are available to use
+            for the voice assistant) we provided instructions to help users.</p>
         <p>In total, we would give ourselves Good for our UI and User Experience.</p>
         <h3>Functionality</h3>
-        <p>The system we produced achieved 100% of both our functional and non 
-            functional MoSCoW requirements.  All of these requirements were also 
-            tested to ensure their functionality. Additionally, our clients were 
+        <p>The system we produced achieved 100% of both our functional and non
+            functional MoSCoW requirements. All of these requirements were also
+            tested to ensure their functionality. Additionally, our clients were
             very pleased with the quality and expansiveness of our system.</p>
         <p>Overall, we were very satisfied with our functionality and would rate it as Excellent</p>
         <h3>Stability</h3>
-        <p>Our team performed extensive testing on both our application and our web app. 
-            For both of these we achieved a high percentage of code coverage. 
-            Additionally, we also tested our subsystems, in particular the AskBob Concierge API
-             and were able to extensively test it despite the challenges that presented themselves 
-             when doing so.</p>
+        <p>Our team performed extensive testing on both our application and our web app.
+            For both of these, we achieved a high percentage of code coverage.
+            Additionally, we also tested our subsystems, in particular, the AskBob Concierge API
+            and were able to extensively test it despite the challenges that presented themselves
+            when doing so.</p>
         <p>As such, in terms of stability we would rate our system as Excellent.</p>
         <h3>Efficiency</h3>
-        <p>For both the web app and the app we performed performance testing. In terms of our 
-            application our app used minimal computational resources with it rarely exceeding 
-            a RAM usage of over 128mb. This was very important to both us and our clients as 
+        <p>For both the web app and the app we performed performance testing. In terms of our
+            application, our app used minimal computational resources with it rarely exceeding
+            a RAM usage of over 128MB. This was very important to both us and our clients as
             it would mean that older or less powerful machines would still be able to run the app.</p>
-        <p>In terms of our web app we received scores of 91 and 69 on Google Lighthouse for desktops 
-            and mobile devices respectively. This showed that our web app was able to function well 
+        <p>In terms of our web app we received scores of 91 and 69 on Google Lighthouse for desktops
+            and mobile devices respectively. This showed that our web app was able to function well
             on both types of devices.</p>
         <p>Therefore, in terms of efficiency we would rate our system as Good.</p>
         <h3>Compatibility</h3>
-        <p>One of our goals throughout development was to make our system accessible 
-            on as many devices as possible. As we developed for Android Version 16 our 
-            app is compatible with a 98% of all Android devices. Additionally, we also 
+        <p>One of our goals throughout development was to make our system accessible
+            on as many devices as possible. As we developed for Android Version 16 our
+            app is compatible with 98% of all Android devices. Additionally, we also
             tested our application on both mobile phones and tablets.</p>
-        <p>Our Admin website works on most modern browsers with the only exception being 
-            Safari as that would require us to acquire a digital certificate for our web application. </p>
+        <p>Our Admin website works on most modern browsers with the only exception being
+            Safari would require us to acquire a digital certificate for our web application. </p>
         <p>In summary, we would rate our compatibility as Good.</p>
         <h3>Maintainability</h3>
-        <p>Our system has been explicitly designed to be extendable. Therefore when it comes to future 
-            developers building upon our existing system they will be able to achieve this with 
-            relative ease as long as they utilise our interface. On top of this our code base is well 
-            documented with each key sub system being extensively documented so that developers can 
+        <p>Our system has been explicitly designed to be extendable. Therefore when it comes to future
+            developers building upon our existing system they will be able to achieve this with
+            relative ease as long as they utilise our interface. On top of this, our codebase is well
+            documented with each key subsystem being extensively documented so that developers can
             easily understand how it works.
         </p>
         <p>Therefore, in terms of maintainability we would rate our work as Good.</p>
         <h3>Project Management</h3>
         <p>As a team of 3 we worked very fluidly. We utilised Microsoft Teams and Whatsapp as our main methods
-             of communication and file transfer. Additionally, we utilised Trello and Github Issues where 
-             applicable to plan out our next steps throughout development. Every team member attended all 
-             client and team meetings and made their fair share of contributions to the project as a whole.</p>
+            of communication and file transfer. Additionally, we utilised Trello and Github Issues where
+            applicable to plan out our next steps throughout development. Every team member attended all
+            client and team meetings and made their fair share of contributions to the project as a whole.</p>
         <p>Overall, we would rate our project management as Excellent.</p>
     </section>
 
@@ -190,9 +194,9 @@
                 <li class="work-item">
                     <div class="work-content">
                         <h5>Extend NLP training data</h5>
-                        <p>	If we were to extend the training set for our plugins we would be able to 
-                            achieve a higher degree of accuracy when it comes to recognising a users 
-                            intent and extracting the relevant information. This could potentially further 
+                        <p> If we were to extend the training set for our plugins we would be able to
+                            achieve a higher degree of accuracy when it comes to recognising a users
+                            intent and extracting the relevant information. This could potentially further
                             increase user satisfaction.
                         </p>
                     </div>
@@ -200,17 +204,17 @@
                 <li class="work-item">
                     <div class="work-content">
                         <h5>Adding new Services </h5>
-                        <p>	This would be a natural expansion point for our system as adding additional
-                            services would give users more ways in which to interact with the system. 
+                        <p> This would be a natural expansion point for our system as adding additional
+                            services would give users more ways in which to interact with the system.
                         </p>
                     </div>
                 </li>
                 <li class="work-item">
                     <div class="work-content">
                         <h5>Extend App Pages</h5>
-                        <p>	Alongside our voice assistant our app contains a variety of pages, some of 
-                            which provide different utility features such as timer or alarms. Our app 
-                            supports the ability for future developers to add further utility pages 
+                        <p> Alongside our voice assistant our app contains a variety of pages, some of
+                            which provide different utility features such as timer or alarms. Our app
+                            supports the ability for future developers to add further utility pages
                             if they choose to do so.
                         </p>
                     </div>
@@ -218,9 +222,9 @@
                 <li class="work-item">
                     <div class="work-content">
                         <h5>Further integration with FISE ecosystem</h5>
-                        <p>	At the moment our system is partially integrated into the FISE ecosystem via 
-                            our use of the AskBob NLP framework. However, in the future our app could be 
-                            integrated more fully into our ecosystem. For example, the Concierge app could 
+                        <p> At the moment our system is partially integrated into the FISE ecosystem via
+                            our use of the AskBob NLP framework. However, in the future our app could be
+                            integrated more fully into our ecosystem. For example, the Concierge app could
                             be fully implemented into Team 38's Video Conferencing Web App.
                         </p>
                     </div>
@@ -228,8 +232,8 @@
                 <li class="work-item">
                     <div class="work-content">
                         <h5>More natural speech synthesis</h5>
-                        <p>	Currently our speech synthesis can sometimes be challenging to understand. 
-                            This is due to its robotic sounding nature. As such, one area for potential 
+                        <p> Currently our speech synthesis can sometimes be challenging to understand.
+                            This is due to its robotic sounding nature. As such, one area for potential
                             improvement could be to implement a more advanced speech synthesiser that
                             would sound more natural.
                         </p>
@@ -237,9 +241,10 @@
                 </li>
             </ul>
         </div>
+
     </section>
 
-    
+
 </div>
 <footer id="footer"></footer>
 </body>

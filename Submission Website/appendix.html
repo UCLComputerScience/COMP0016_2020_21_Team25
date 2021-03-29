@@ -44,8 +44,8 @@
 
     <section class="deployment-manual">
         <h2>Deployment Manual</h2>
-        <p><b>The software is an early proof of concept for development purposes and should not be used as-is in a 
-            live environment without further redevelopment and/or testing. No warranty is given and no real data 
+        <p><b>The software is an early proof of concept for development purposes and should not be used as-is in a
+            live environment without further redevelopment and/or testing. No warranty is given and no real data
             or personally identifiable data should be stored. Usage and its liabilities are your own.</b></p>
         <p>See the following guides for deploying the admin web app and the Android app. Both have been containerised to
             greatly simplify the build process and provide platform independency where possible. </p>
@@ -152,24 +152,34 @@
                 <p>You will need an Android device running an Android API level of at least 16 (<b>Jellybean 4.1.x</b>)
                     and a separate computer or
                     laptop to run the backend to serve the app.</p>
-					<p>The device must also have Google's speech recognition software installed, though this is pre-installed for many devices now.
-					If your phone does not have it installed, the following process must be followed. (If it is installed you can skip this section).</p>
-					<ol>
-					<li><p>Download Google's speech recognizer <a href="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox">here</a></p></li>
-					<li><p>Once downloaded, you have to go into the device settings and search for 'Assist & voice input' (exact name may vary on Android versions but searching for 'voice' should bring up the correct setting).</p></li>
-					<li><p>Then click on 'Assist & voice input' and under 'Assist app', select the Google app which you just installed.</p></li>
-					<li><p>Finally, you must go into Settings, Permissions, click on the Google app which you installed and grant all the permissions relating to speech recognition.</p></li>
-					</ol>
-				<p>Now that you have Google's speech recognition software installed, it should automatically allow for offline speech recognition in English. If
-				for some reason this is not the case, follow these instructions. (If it is cofigured to allow offline speech recognition in English, you can skip this section)</p>
-				<ol>
-				<li><p>Open the Google app</p></li>
-				<li><p>Select More</p></li>
-				<li><p>Select Settings</p></li>
-				<li><p>Select Voice</p></li>
-				<li><p>Select Offline speech recognition</p></li>
-				<li><p>Go to ALL and add English (US).</p></li>
-				</ol>
+                <p>The device must also have Google's speech recognition software installed, though this is
+                    pre-installed for many devices now.
+                    If your phone does not have it installed, the following process must be followed. (If it is
+                    installed you can skip this section).</p>
+                <ol>
+                    <li><p>Download Google's speech recognizer <a
+                            href="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox">here</a>
+                    </p></li>
+                    <li><p>Once downloaded, you have to go into the device settings and search for 'Assist & voice
+                        input' (exact name may vary on Android versions but searching for 'voice' should bring up the
+                        correct setting).</p></li>
+                    <li><p>Then click on 'Assist & voice input' and under 'Assist app', select the Google app which you
+                        just installed.</p></li>
+                    <li><p>Finally, you must go into Settings, Permissions, click on the Google app which you installed
+                        and grant all the permissions relating to speech recognition.</p></li>
+                </ol>
+                <p>Now that you have Google's speech recognition software installed, it should automatically allow for
+                    offline speech recognition in English. If
+                    for some reason this is not the case, follow these instructions. (If it is cofigured to allow
+                    offline speech recognition in English, you can skip this section)</p>
+                <ol>
+                    <li><p>Open the Google app</p></li>
+                    <li><p>Select More</p></li>
+                    <li><p>Select Settings</p></li>
+                    <li><p>Select Voice</p></li>
+                    <li><p>Select Offline speech recognition</p></li>
+                    <li><p>Go to ALL and add English (US).</p></li>
+                </ol>
                 <p>The backend, the AskBob (Team 39) NLP server and service API interaction are all containerised
                     meaning the following prerequisites are also required:</p>
                 <ul>
@@ -211,8 +221,8 @@
                     installed.</p>
                 <p>The repository contains a regression test suite developed through TDD which you can use to ensure
                     there is no functionality leakage and to which you can add your own tests for your code. The tests
-                    under androidTest package are instrumented tests which run on a device/emulator. The tests under
-                    test package are unit tests which run on the JVM. See important notes for both below.
+                    under the androidTest package are instrumented tests that run on a device/emulator. The tests under
+                    the test package are unit tests that run on the JVM. See important notes for both below.
                 </p>
                 <p>Instrumented tests - these tests were written using the Espresso framework and provide UI tests hence
                     only contain tests for classes corresponding to an activity. Please note, for these tests to run,
@@ -229,16 +239,17 @@
                         29. In no way does this hinder the reliability of the tests as all the code written is intended
                         for devices with Android SDK version 16 or higher as mentioned above.
                     </li>
-                    <li>All the tests cannot be run in one go (i.e., you cannot right click on the test package and
+                    <li>All the tests cannot be run in one go (i.e., you cannot right-click on the test package and
                         select
-                        <code>'Run Tests in 'fisev2concierge''</code>) as for some reason this causes the tests to fail.
+                        <code>'Run Tests in 'fisev2concierge''</code>) for some reason this causes the tests to fail.
                         Again, this
                         has nothing to do with our tests, rather it is an Android Studio issue. Instead, you must run
                         each test class individually.
                     </li>
-					<li>
-					<p>Please also ensure you have both the backend and Ask Bob servers running if you run the tests under 
-				the 'askBobConnectivity' and 'backendConnectivity' packages.</p></li>
+                    <li>
+                        <p>Please also ensure you have both the backend and Ask Bob servers running if you run the tests
+                            under
+                            the 'askBobConnectivity' and 'backendConnectivity' packages.</p></li>
                 </ul>
 
             </div>
@@ -307,7 +318,8 @@
                 <div class="enlargeable">
                     <span>Click to enlarge</span>
                     <img alt="Admin without members" src="assets/images/appendix/admin-with-no-members.png">
-                    <img alt="Admin without members" src="assets/images/appendix/admin-with-no-members.png" tabindex="-1">
+                    <img alt="Admin without members" src="assets/images/appendix/admin-with-no-members.png"
+                         tabindex="-1">
                 </div>
 
                 <h5>Adding Members</h5>
@@ -343,7 +355,8 @@
                 <div class="enlargeable">
                     <span>Click to enlarge</span>
                     <img alt="User no services view" src="assets/images/appendix/user-with-no-services.png">
-                    <img alt="User no services view" src="assets/images/appendix/user-with-no-services.png" tabindex="-1">
+                    <img alt="User no services view" src="assets/images/appendix/user-with-no-services.png"
+                         tabindex="-1">
                 </div>
 
                 <p>This shows you all services added to a member's account.</p>
@@ -353,7 +366,8 @@
                 <div class="enlargeable">
                     <span>Click to enlarge</span>
                     <img alt="User with services view" src="assets/images/appendix/user-with-services.png">
-                    <img alt="User with services view" src="assets/images/appendix/user-with-services.png" tabindex="-1">
+                    <img alt="User with services view" src="assets/images/appendix/user-with-services.png"
+                         tabindex="-1">
                 </div>
 
                 <p>Clicking the down arrow on a service brings up options for that service:</p>
@@ -370,7 +384,8 @@
                 <div class="enlargeable">
                     <span>Click to enlarge</span>
                     <img alt="Service usage no history" src="assets/images/appendix/user-with-no-history.png">
-                    <img alt="Service usage no history" src="assets/images/appendix/user-with-no-history.png" tabindex="-1">
+                    <img alt="Service usage no history" src="assets/images/appendix/user-with-no-history.png"
+                         tabindex="-1">
                 </div>
 
                 <p>If you just created the member, or have not added any services, or the member has not yet used any
@@ -436,173 +451,193 @@
             <div class="android-app-manual">
                 <h3>Android App</h3>
                 <p>See the user manual for the app below.</p>
-				<h4>Home</h4>
+                <h4>Home</h4>
                 <p>The home page is where you can use the voice assistant and access the other pages.</p>
-				<p>To use the voice assistant, hold down the mic icon and say your command. The mic icon's background will turn green when you hold it - 
-				Concierge is only listening when you do this. </p>
-				<div class="enlargeable">
+                <p>To use the voice assistant, hold down the mic icon and say your command. The mic icon's background
+                    will turn green when you hold it -
+                    Concierge is only listening when you do this. </p>
+                <div class="enlargeable">
                     <span>Click to enlarge</span>
                     <img src="assets/images/appendix/conciergeListening.png">
                     <img src="assets/images/appendix/conciergeListening.png" tabindex="-1">
                 </div>
-				<p>A full list of available commands (along with examples of what to say) are given on the Instructions
-				page. </p>
-				<p>To access the other pages, scroll through the menu and simply press the button corresponding to the page you wish to go to.</p>
-				<h4>Connect to your admin</h4>
-				<p>To connect to your admin, go to the 'Register' page. This is where you can enter your three registration codes to connect to your admin.</p>
-				<p>Simply enter your codes (in the correct order) and press Submit. A message should appear saying whether you have successfully connected or not.</p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/register.png">
-						<img src="assets/images/appendix/register.png" tabindex="-1">
-					</div>
-				<h4>View your alarms</h4>
-				<p>To view your alarms, go to the 'Alarms' page. Here, all your alarms will come up. If you have lots of alarms, you will be able to scroll
-				through them, just as you can scroll through the buttons on the Home page.</p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/viewAlarms.png">
-						<img src="assets/images/appendix/viewAlarms.png" tabindex="-1">
-					</div>
-				<h4>Add an alarm</h4>
-				<p>To add an alarm, go to the 'Alarms' activity.</p>
-				<p>Once you are here, do the following steps.</p>
-				<ol>
-					<li><p>At the top, there should be a button saying 'Add New Alarm'. Click on this and you should be taken
-							to the Add Alarm activity.</p></li>
-					<li><p>Add your message at the top in the text box.</p>
-					</li>
-					<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/addAlarm.png">
-						<img src="assets/images/appendix/addAlarm.png" tabindex="-1">
-					</div>
-					<li><p>Press the 'Select Date' button and choose the day you want your alarm to go off.</p> 
-					<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/datepickerfragment.png">
-						<img src="assets/images/appendix/datepickerfragment.png" tabindex="-1">
-					</div>
-					</li>
-					<li><p>Press the 'Select Time' button and choose the time you want your alarm to go off.</p>
-						<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/timepickerfragment.png">
-						<img src="assets/images/appendix/timepickerfragment.png" tabindex="-1">
-					</div>
-					</li>
-					<li><p>Finally, press 'Add Alarm'. You should automatically be taken back to the Alarms page where your alarm should now show up.</p>
-						<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/viewAlarmsWithAlarm.png">
-						<img src="assets/images/appendix/viewAlarmsWithAlarm.png" tabindex="-1">
-					</div>
-					</li>
-				</ol>
-				<h4>Edit an alarm</h4>
-				<p>To edit an alarm: </p>
-				<ol>
-					<li><p>Go to the 'Alarms' page</p></li>
-					<li><p>Press on the alarm you wish to edit.</p></li>
-					<li><p>You should be taken to the 'Edit Alarm' page. Change the necessary details and click 'Save'. Note: you must select a date and time again, even if you do not want to change them.</p></li>
-					<li><p>You can also delete the alarm if you wish by pressing the 'Delete' button.</p></li>
-					<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/editAlarm.png">
-						<img src="assets/images/appendix/editAlarm.png" tabindex="-1">
-					</div>
-				</ol>
-				<h4>View Your Reminders</h4>
-				<p>To view your reminders, go to the 'Reminders' page. Here, all your reminders will come up. If you have lots of reminders, you will be able to 
-				scroll through them.</p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/viewReminder.png">
-						<img src="assets/images/appendix/viewReminder.png" tabindex="-1">
-					</div>
-				<h4>Add a Reminder</h4>
-				<p>To add a reminder:</p>
-				<ol>
-					<li><p>go to the 'Reminders' activity.</p></li>
-					<li><p>At the top, there should be a button saying 'Add New Reminder'. Click on this and you should
-				be taken to the 'Add Reminder' page. </p></li>
-					<li><p>Once there, you can add a message in the text box and press 'Add Reminder'.</p>
-					<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/addReminder.png">
-						<img src="assets/images/appendix/addReminder.png" tabindex="-1">
-					</div>
-					</li> 
-					<li><p>You should automatically be 
-				taken back to the 'Reminders' page where your reminder should now appear.</p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/viewRemindersWithReminder.png">
-						<img src="assets/images/appendix/viewRemindersWithReminder.png" tabindex="-1">
-					</div></li>
-				</ol>
-				<h4>Edit a Reminder</h4>
-				<p>To edit a reminder:</p>
-				<ol>
-					<li><p>go to the 'Reminders' page.</p></li> 
-					<li><p>Then, press on the reminder you wish to edit. You should be taken to the 'Edit Reminder' page</p></li>
-					<li><p>you can now change your message and press 'Save' to save the changes. Alternatively, you can press 'Delete' to delete it completely.</p></li>
-					<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/editReminder.png">
-						<img src="assets/images/appendix/editReminder.png" tabindex="-1">
-					</div>
-				</ol>
-				<h4>Set, Start and Pause a Timer</h4>
-				<p>To set a timer:</p>
-				<ol>
-					<li><p>go to the 'Timers' page</p></li> 
-					<li><p>Set the time you wish by scrolling up on the number pickers to increase the value or scrolling down to 
-				decrease the value. All the number pickers are labelled to make it clear which one is for the hour, minutes and seconds.</p>
-					<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/timers.png">
-						<img src="assets/images/appendix/timers.png" tabindex="-1">
-					</div>
-				</li> 
-				<li><p>Once the time has been
-				set, press 'Start' to start your timer. Once you do this, a 'Pause' button should appear. </p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/timersRunning.png">
-						<img src="assets/images/appendix/timersRunning.png" tabindex="-1">
-					</div>
-				</li>
-				<li><p>If you press 'Pause', the timer will pause and the 'Start' button 
-				should appear again. If you press 'Start' now, the timer will resume from where you paused it.</p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/timersPaused.png">
-						<img src="assets/images/appendix/timersPaused.png" tabindex="-1">
-					</div>
-				</li>
-				</ol>
-				<h4>View Your History</h4>
-				<p>To view your history, go to the 'History' page. All your histroy for the past seven days should appear here if you are connected to your admin. You
-				can also scroll through your history if its very long. If you are not connected to your admin, no history will appear as shown below.</p>
-				<div class="enlargeable">
-						<span>Click to enlarge</span>
-						<img src="assets/images/appendix/history.png">
-						<img src="assets/images/appendix/history.png" tabindex="-1">
-					</div>
-			</div>
+                <p>A full list of available commands (along with examples of what to say) are given on the Instructions
+                    page. </p>
+                <p>To access the other pages, scroll through the menu and simply press the button corresponding to the
+                    page you wish to go to.</p>
+                <h4>Connect to your admin</h4>
+                <p>To connect to your admin, go to the 'Register' page. This is where you can enter your three
+                    registration codes to connect to your admin.</p>
+                <p>Simply enter your codes (in the correct order) and press Submit. A message should appear saying
+                    whether you have successfully connected or not.</p>
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img src="assets/images/appendix/register.png">
+                    <img src="assets/images/appendix/register.png" tabindex="-1">
+                </div>
+                <h4>View your alarms</h4>
+                <p>To view your alarms, go to the 'Alarms' page. Here, all your alarms will come up. If you have lots of
+                    alarms, you will be able to scroll
+                    through them, just as you can scroll through the buttons on the Home page.</p>
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img src="assets/images/appendix/viewAlarms.png">
+                    <img src="assets/images/appendix/viewAlarms.png" tabindex="-1">
+                </div>
+                <h4>Add an alarm</h4>
+                <p>To add an alarm, go to the 'Alarms' activity.</p>
+                <p>Once you are here, do the following steps.</p>
+                <ol>
+                    <li><p>At the top, there should be a button saying 'Add New Alarm'. Click on this and you should be
+                        taken
+                        to the Add Alarm activity.</p></li>
+                    <li><p>Add your message at the top in the text box.</p>
+                    </li>
+                    <div class="enlargeable">
+                        <span>Click to enlarge</span>
+                        <img src="assets/images/appendix/addAlarm.png">
+                        <img src="assets/images/appendix/addAlarm.png" tabindex="-1">
+                    </div>
+                    <li><p>Press the 'Select Date' button and choose the day you want your alarm to go off.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/datepickerfragment.png">
+                            <img src="assets/images/appendix/datepickerfragment.png" tabindex="-1">
+                        </div>
+                    </li>
+                    <li><p>Press the 'Select Time' button and choose the time you want your alarm to go off.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/timepickerfragment.png">
+                            <img src="assets/images/appendix/timepickerfragment.png" tabindex="-1">
+                        </div>
+                    </li>
+                    <li><p>Finally, press 'Add Alarm'. You should automatically be taken back to the Alarms page where
+                        your alarm should now show up.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/viewAlarmsWithAlarm.png">
+                            <img src="assets/images/appendix/viewAlarmsWithAlarm.png" tabindex="-1">
+                        </div>
+                    </li>
+                </ol>
+                <h4>Edit an alarm</h4>
+                <p>To edit an alarm: </p>
+                <ol>
+                    <li><p>Go to the 'Alarms' page</p></li>
+                    <li><p>Press on the alarm you wish to edit.</p></li>
+                    <li><p>You should be taken to the 'Edit Alarm' page. Change the necessary details and click 'Save'.
+                        Note: you must select a date and time again, even if you do not want to change them.</p></li>
+                    <li><p>You can also delete the alarm if you wish by pressing the 'Delete' button.</p></li>
+                    <div class="enlargeable">
+                        <span>Click to enlarge</span>
+                        <img src="assets/images/appendix/editAlarm.png">
+                        <img src="assets/images/appendix/editAlarm.png" tabindex="-1">
+                    </div>
+                </ol>
+                <h4>View Your Reminders</h4>
+                <p>To view your reminders, go to the 'Reminders' page. Here, all your reminders will come up. If you
+                    have lots of reminders, you will be able to
+                    scroll through them.</p>
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img src="assets/images/appendix/viewReminder.png">
+                    <img src="assets/images/appendix/viewReminder.png" tabindex="-1">
+                </div>
+                <h4>Add a Reminder</h4>
+                <p>To add a reminder:</p>
+                <ol>
+                    <li><p>go to the 'Reminders' activity.</p></li>
+                    <li><p>At the top, there should be a button saying 'Add New Reminder'. Click on this and you should
+                        be taken to the 'Add Reminder' page. </p></li>
+                    <li><p>Once there, you can add a message in the text box and press 'Add Reminder'.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/addReminder.png">
+                            <img src="assets/images/appendix/addReminder.png" tabindex="-1">
+                        </div>
+                    </li>
+                    <li><p>You should automatically be
+                        taken back to the 'Reminders' page where your reminder should now appear.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/viewRemindersWithReminder.png">
+                            <img src="assets/images/appendix/viewRemindersWithReminder.png" tabindex="-1">
+                        </div>
+                    </li>
+                </ol>
+                <h4>Edit a Reminder</h4>
+                <p>To edit a reminder:</p>
+                <ol>
+                    <li><p>go to the 'Reminders' page.</p></li>
+                    <li><p>Then, press on the reminder you wish to edit. You should be taken to the 'Edit Reminder'
+                        page</p></li>
+                    <li><p>you can now change your message and press 'Save' to save the changes. Alternatively, you can
+                        press 'Delete' to delete it completely.</p></li>
+                    <div class="enlargeable">
+                        <span>Click to enlarge</span>
+                        <img src="assets/images/appendix/editReminder.png">
+                        <img src="assets/images/appendix/editReminder.png" tabindex="-1">
+                    </div>
+                </ol>
+                <h4>Set, Start and Pause a Timer</h4>
+                <p>To set a timer:</p>
+                <ol>
+                    <li><p>go to the 'Timers' page</p></li>
+                    <li><p>Set the time you wish by scrolling up on the number pickers to increase the value or
+                        scrolling down to
+                        decrease the value. All the number pickers are labelled to make it clear which one is for the
+                        hour, minutes and seconds.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/timers.png">
+                            <img src="assets/images/appendix/timers.png" tabindex="-1">
+                        </div>
+                    </li>
+                    <li><p>Once the time has been
+                        set, press 'Start' to start your timer. Once you do this, a 'Pause' button should appear. </p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/timersRunning.png">
+                            <img src="assets/images/appendix/timersRunning.png" tabindex="-1">
+                        </div>
+                    </li>
+                    <li><p>If you press 'Pause', the timer will pause and the 'Start' button
+                        should appear again. If you press 'Start' now, the timer will resume from where you paused
+                        it.</p>
+                        <div class="enlargeable">
+                            <span>Click to enlarge</span>
+                            <img src="assets/images/appendix/timersPaused.png">
+                            <img src="assets/images/appendix/timersPaused.png" tabindex="-1">
+                        </div>
+                    </li>
+                </ol>
+                <h4>View Your History</h4>
+                <p>To view your history, go to the 'History' page. All your histroy for the past seven days should
+                    appear here if you are connected to your admin. You
+                    can also scroll through your history if its very long. If you are not connected to your admin, no
+                    history will appear as shown below.</p>
+                <div class="enlargeable">
+                    <span>Click to enlarge</span>
+                    <img src="assets/images/appendix/history.png">
+                    <img src="assets/images/appendix/history.png" tabindex="-1">
+                </div>
+            </div>
         </div>
     </section>
-	
-	<section>
-		<h2>External Work Used</h2>
-		<h3>Images</h3>
-		<p>Our mic icon on Main Activity (Home page) was taken from Pixabay. The image is free to use, even commercially. </p>
-		<p>A link to the image is <a href="https://pixabay.com/illustrations/icon-microphone-voice-message-1968243/">here</a></p>
-		<p>The image has also been added below for clarity. Please note that the icon used for when Concierge is listening (the same icon as above but 
-		with a green background) was obtained by editing the above referenced image ourselves.</p>
-		<img id="micIcon" src="assets/images/appendix/micIcon.png">
-	</section>
+
+    <section>
+        <h2>External Work Used</h2>
+        <h3>Images</h3>
+        <p>Our mic icon on Main Activity (Home page) was taken from Pixabay. The image is free to use, even
+            commercially. </p>
+        <p>A link to the image is <a href="https://pixabay.com/illustrations/icon-microphone-voice-message-1968243/">here</a>
+        </p>
+        <p>The image has also been added below for clarity. Please note that the icon used for when Concierge is
+            listening (the same icon as above but
+            with a green background) was obtained by editing the above referenced image ourselves.</p>
+        <img id="micIcon" src="assets/images/appendix/micIcon.png">
+    </section>
 
 </div>
 <footer id="footer"></footer>
