@@ -36,6 +36,12 @@ Concierge is designed with the end user always in mind.
 - **Infinitely Extensible** - _Have a service? New services can be added to the system in no time. Concierge's API
   interaction is extremely scalable._
 
+## Deployment
+
+There are several components to Concierge overall. These are the app, the admin site, the backend server, the Service API server and our Ask Bob plugins. Each one has its own deployment guide which can be found in their respective folders. 
+
+Please note, to access the guide to run the Service API server, you will have to navigate to services\src\main\java\services\application where the deployment guide is given.
+
 ## Main Technologies
 
 Concierge, powered by:
